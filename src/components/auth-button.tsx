@@ -52,7 +52,7 @@ export function AuthButton() {
 
   if (!user) {
     return (
-      <Link href="/login" className="rounded-md border border-slate-400 px-3 py-1 text-sm hover:bg-slate-100">
+      <Link href="/login" className="btn-ghost rounded-full px-4 py-1 text-sm">
         로그인
       </Link>
     );
@@ -60,13 +60,13 @@ export function AuthButton() {
 
   return (
     <div className="flex items-center gap-2">
-      <span className="inline-flex items-center gap-1 rounded-full bg-indigo-50 px-2 py-1 text-xs text-indigo-700">
+      <span className="chip inline-flex items-center gap-1 rounded-full px-2 py-1 text-xs">
         <DiscordIcon />
         {user.name ?? "로그인됨"}
       </span>
       <button
         type="button"
-        className="rounded-md border border-slate-400 px-3 py-1 text-sm hover:bg-slate-100"
+        className="btn-ghost rounded-full px-4 py-1 text-sm"
         onClick={async () => {
           const supabase = getSupabaseBrowserClient();
           await supabase.auth.signOut();

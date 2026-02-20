@@ -81,34 +81,34 @@ export default function NewPartyPage() {
   };
 
   if (loading) {
-    return <p className="text-sm text-slate-700">로그인 확인 중...</p>;
+    return <p className="text-sm text-slate-200/90">로그인 확인 중...</p>;
   }
 
   return (
-    <section className="mx-auto max-w-xl space-y-4 rounded-xl border border-slate-200 bg-white p-5">
+    <section className="glass-panel mx-auto max-w-xl space-y-4 rounded-2xl p-6">
       <h1 className="text-2xl font-bold">파티 글 작성</h1>
 
       <div className="grid gap-3">
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           placeholder="서버"
           value={form.server}
           onChange={(e) => setForm((prev) => ({ ...prev, server: e.target.value }))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           placeholder="목적 (예: 사냥/보스/퀘스트)"
           value={form.purpose}
           onChange={(e) => setForm((prev) => ({ ...prev, purpose: e.target.value }))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           placeholder="사냥터"
           value={form.hunt_area}
           onChange={(e) => setForm((prev) => ({ ...prev, hunt_area: e.target.value }))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           type="number"
           min={1}
           placeholder="최소 레벨"
@@ -116,7 +116,7 @@ export default function NewPartyPage() {
           onChange={(e) => setForm((prev) => ({ ...prev, level_min: Number(e.target.value) }))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           type="number"
           min={1}
           placeholder="최대 레벨"
@@ -124,7 +124,7 @@ export default function NewPartyPage() {
           onChange={(e) => setForm((prev) => ({ ...prev, level_max: Number(e.target.value) }))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
           type="number"
           min={2}
           max={6}
@@ -134,9 +134,9 @@ export default function NewPartyPage() {
         />
       </div>
 
-      {errorText && <p className="text-sm text-red-600">작성 실패: {errorText}</p>}
+      {errorText && <p className="text-sm text-rose-300">작성 실패: {errorText}</p>}
 
-      <button type="button" className="w-full rounded-md bg-slate-900 px-4 py-2 text-white hover:bg-slate-700" onClick={submit}>
+      <button type="button" className="btn-primary w-full rounded-md px-4 py-2 text-sm font-semibold" onClick={submit}>
         등록
       </button>
     </section>

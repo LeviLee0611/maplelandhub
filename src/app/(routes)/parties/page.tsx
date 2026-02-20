@@ -49,33 +49,33 @@ export default function PartiesPage() {
     <section className="space-y-4">
       <div className="flex items-center justify-between gap-3">
         <h1 className="text-2xl font-bold">파티 매칭</h1>
-        <Link href="/parties/new" className="rounded-md bg-slate-900 px-3 py-2 text-sm text-white hover:bg-slate-700">
+        <Link href="/parties/new" className="btn-primary rounded-full px-4 py-2 text-sm font-semibold">
           파티 글 작성
         </Link>
       </div>
 
-      <div className="grid gap-3 rounded-xl border border-slate-200 bg-white p-4 md:grid-cols-4">
+      <div className="glass-panel grid gap-3 rounded-2xl p-4 md:grid-cols-4">
         <input
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-slate-100 focus:border-sky-300 focus:outline-none"
           placeholder="서버"
           value={server}
           onChange={(e) => setServer(e.target.value)}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-slate-100 focus:border-sky-300 focus:outline-none"
           placeholder="목적"
           value={purpose}
           onChange={(e) => setPurpose(e.target.value)}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-slate-100 focus:border-sky-300 focus:outline-none"
           type="number"
           placeholder="최소 레벨"
           value={minLevel}
           onChange={(e) => setMinLevel(Number(e.target.value))}
         />
         <input
-          className="rounded-md border border-slate-300 px-3 py-2 text-sm"
+          className="rounded-md border border-white/15 bg-white/5 px-3 py-2 text-sm text-slate-100 focus:border-sky-300 focus:outline-none"
           type="number"
           placeholder="최대 레벨"
           value={maxLevel}
@@ -83,11 +83,11 @@ export default function PartiesPage() {
         />
       </div>
 
-      {errorText && <p className="text-sm text-red-600">목록 로딩 실패: {errorText}</p>}
+      {errorText && <p className="text-sm text-rose-300">목록 로딩 실패: {errorText}</p>}
 
       <div className="grid gap-3">
         {filteredPosts.length === 0 ? (
-          <p className="rounded-lg border border-slate-200 bg-white p-4 text-sm text-slate-700">조건에 맞는 모집글이 없습니다.</p>
+          <p className="glass-panel rounded-2xl p-4 text-sm text-slate-200/90">조건에 맞는 모집글이 없습니다.</p>
         ) : (
           filteredPosts.map((post) => <PartyCard key={post.id} post={post} />)
         )}
