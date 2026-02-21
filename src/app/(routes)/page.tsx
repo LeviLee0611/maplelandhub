@@ -1,10 +1,16 @@
+import type { Metadata } from "next";
 import Link from "next/link";
+
+export const metadata: Metadata = {
+  title: "메이플랜드허브 - 계산기와 파티 매칭",
+  description: "한방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
+};
 
 const features = [
   {
-    title: "원샷 계산기",
-    description: "몬스터를 몇 타에 잡는지 계산합니다",
-    href: "/calculator/oneshot",
+    title: "한방컷 계산기",
+    description: "몬스터를 몇 방에 잡는지 빠르게 계산합니다",
+    href: "/calculators/onehit",
     button: "계산기 열기",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-sky-300">
@@ -49,7 +55,11 @@ export default function HomePage() {
   return (
     <section className="flex min-h-[70vh] flex-col items-center justify-center gap-10 text-center">
       <div className="glass-panel w-full max-w-3xl rounded-3xl px-6 py-10 md:px-12">
-        <h1 className="display text-4xl font-semibold md:text-5xl">메이플랜드허브</h1>
+        <h1 className="display text-4xl font-semibold leading-tight md:text-5xl">
+          메랜
+          <br />
+          Hub
+        </h1>
         <p className="mt-3 text-sm text-slate-200/90 md:text-base">메이플랜드 유틸리티 & 파티 매칭 플랫폼</p>
       </div>
 
@@ -66,6 +76,20 @@ export default function HomePage() {
             </Link>
           </div>
         ))}
+      </div>
+
+      <div className="glass-panel w-full max-w-4xl rounded-2xl px-6 py-5 text-sm text-slate-200/90">
+        <p>
+          핵심 유틸리티:
+          <Link href="/calculators/onehit" className="ml-2 font-semibold text-sky-200 hover:text-white">
+            한방컷 계산기
+          </Link>
+          ,
+          <Link href="/party" className="ml-2 font-semibold text-emerald-200 hover:text-white">
+            파티 매칭
+          </Link>
+          을 바로 이용할 수 있습니다.
+        </p>
       </div>
     </section>
   );

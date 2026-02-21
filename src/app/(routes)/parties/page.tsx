@@ -48,7 +48,10 @@ export default function PartiesPage() {
   return (
     <section className="space-y-4">
       <div className="flex items-center justify-between gap-3">
-        <h1 className="text-2xl font-bold">파티 매칭</h1>
+        <div>
+          <h1 className="text-2xl font-bold">파티 매칭</h1>
+          <p className="mt-1 text-sm text-slate-200/90">메이플랜드 파티 모집 글을 한 곳에서 빠르게 찾아보세요.</p>
+        </div>
         <Link href="/parties/new" className="btn-primary rounded-full px-4 py-2 text-sm font-semibold">
           파티 글 작성
         </Link>

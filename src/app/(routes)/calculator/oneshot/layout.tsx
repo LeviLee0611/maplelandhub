@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "메이플랜드 원샷 데미지 계산기",
-  description: "메이플랜드 원샷 데미지를 계산합니다",
+  title: "메이플랜드 한방컷 계산기",
+  description: "한방컷 계산기로 이동합니다",
 };
 
 export default function OneShotLayout({ children }: { children: React.ReactNode }) {

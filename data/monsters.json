@@ -1,0 +1,8707 @@
+[
+  {
+    "name": "달팽이",
+    "level": 1,
+    "hp": 8,
+    "exp": 3,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100100,
+    "region": "빅토리아 아일랜드",
+    "watk": 12,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파란 달팽이",
+    "level": 2,
+    "hp": 15,
+    "exp": 4,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100101,
+    "region": "빅토리아 아일랜드",
+    "watk": 17,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스포아",
+    "level": 2,
+    "hp": 20,
+    "exp": 5,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 120100,
+    "region": "빅토리아 아일랜드",
+    "watk": 17,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스텀프",
+    "level": 4,
+    "hp": 45,
+    "exp": 8,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 40,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "슬라임",
+    "level": 6,
+    "hp": 50,
+    "exp": 10,
+    "acc": 4,
+    "eva": 1,
+    "needAcc": 0.133,
+    "def": 5,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 210100,
+    "region": "빅토리아 아일랜드",
+    "watk": 42,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "돼지",
+    "level": 7,
+    "hp": 75,
+    "exp": 15,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 5,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1210100,
+    "region": "빅토리아 아일랜드",
+    "watk": 37,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "빨간 달팽이",
+    "level": 8,
+    "hp": 40,
+    "exp": 4,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 3,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 130101,
+    "region": "빅토리아 아일랜드",
+    "watk": 35,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주황버섯",
+    "level": 8,
+    "hp": 80,
+    "exp": 15,
+    "acc": 4,
+    "eva": 1,
+    "needAcc": 0.13,
+    "def": 10,
+    "mDef": 4,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1210102,
+    "region": "빅토리아 아일랜드",
+    "watk": 42,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "다크 스텀프",
+    "level": 10,
+    "hp": 250,
+    "exp": 18,
+    "acc": 1,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 20,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1110101,
+    "region": "빅토리아 아일랜드",
+    "watk": 65,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "리본 돼지",
+    "level": 10,
+    "hp": 120,
+    "exp": 20,
+    "acc": 8,
+    "eva": 2,
+    "needAcc": 0.27,
+    "def": 10,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1210101,
+    "region": "빅토리아 아일랜드",
+    "watk": 70,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "옥토퍼스",
+    "level": 12,
+    "hp": 200,
+    "exp": 24,
+    "acc": 15,
+    "eva": 4,
+    "needAcc": 0.53,
+    "def": 10,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1120100,
+    "region": "빅토리아 아일랜드",
+    "watk": 82,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "초록버섯",
+    "level": 15,
+    "hp": 250,
+    "exp": 26,
+    "acc": 19,
+    "eva": 5,
+    "needAcc": 0.67,
+    "def": 12,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1110100,
+    "region": "빅토리아 아일랜드",
+    "watk": 82,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "버블링",
+    "level": 15,
+    "hp": 240,
+    "exp": 26,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 40,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1210103,
+    "region": "빅토리아 아일랜드",
+    "watk": 80,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "엑스텀프",
+    "level": 17,
+    "hp": 300,
+    "exp": 30,
+    "acc": 19,
+    "eva": 5,
+    "needAcc": 0.67,
+    "def": 30,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "고스텀프",
+    "level": 19,
+    "hp": 330,
+    "exp": 33,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 40,
+    "mDef": 15,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1140100,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마노",
+    "level": 20,
+    "hp": 2000,
+    "exp": 120,
+    "acc": 60,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2220000,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파란버섯",
+    "level": 20,
+    "hp": 350,
+    "exp": 32,
+    "acc": 26,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 10,
+    "mDef": 60,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2220100,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스티지",
+    "level": 20,
+    "hp": 300,
+    "exp": 33,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 20,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2300100,
+    "region": "빅토리아 아일랜드",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 네키",
+    "level": 21,
+    "hp": 285,
+    "exp": 38,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 30,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2130103,
+    "region": "빅토리아 아일랜드",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "뿔버섯",
+    "level": 22,
+    "hp": 300,
+    "exp": 35,
+    "acc": 26,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 30,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2110200,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "다크 엑스텀프",
+    "level": 22,
+    "hp": 550,
+    "exp": 38,
+    "acc": 26,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 50,
+    "mDef": 20,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 2130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "우드 마스크",
+    "level": 23,
+    "hp": 500,
+    "exp": 42,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 30,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2230110,
+    "region": "빅토리아 아일랜드",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "킹슬라임",
+    "level": 23,
+    "hp": 5000,
+    "exp": 210,
+    "acc": 55,
+    "eva": 10,
+    "needAcc": 1.2,
+    "def": 35,
+    "mDef": 45,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300003,
+    "region": "빅토리아 아일랜드",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "좀비버섯",
+    "level": 24,
+    "hp": 500,
+    "exp": 42,
+    "acc": 30,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 2230101,
+    "region": "빅토리아 아일랜드",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스톤 마스크",
+    "level": 24,
+    "hp": 600,
+    "exp": 45,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2230111,
+    "region": "빅토리아 아일랜드",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "와일드보어",
+    "level": 25,
+    "hp": 550,
+    "exp": 42,
+    "acc": 30,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2230102,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "이블아이",
+    "level": 27,
+    "hp": 720,
+    "exp": 50,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 35,
+    "mDef": 70,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2230100,
+    "region": "빅토리아 아일랜드",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "페어리",
+    "level": 30,
+    "hp": 800,
+    "exp": 120,
+    "acc": 145,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 85,
+    "mDef": 105,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3000001,
+    "region": "빅토리아 아일랜드",
+    "watk": 80,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "리게이터",
+    "level": 32,
+    "hp": 1200,
+    "exp": 60,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 45,
+    "mDef": 40,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 3110100,
+    "region": "빅토리아 아일랜드",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파이어보어",
+    "level": 32,
+    "hp": 1000,
+    "exp": 60,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 3210100,
+    "region": "빅토리아 아일랜드",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스텀피",
+    "level": 35,
+    "hp": 7000,
+    "exp": 405,
+    "acc": 80,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 50,
+    "mDef": 70,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3220000,
+    "region": "빅토리아 아일랜드",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "커즈아이",
+    "level": 35,
+    "hp": 1250,
+    "exp": 70,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 45,
+    "mDef": 70,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 3230100,
+    "region": "빅토리아 아일랜드",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 레이스",
+    "level": 35,
+    "hp": 1200,
+    "exp": 70,
+    "acc": 63,
+    "eva": 17,
+    "needAcc": 2.27,
+    "def": 90,
+    "mDef": 90,
+    "ele": [
+      "성 약점",
+      "불 약점"
+    ],
+    "mobCode": 3230101,
+    "region": "빅토리아 아일랜드",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 부기",
+    "level": 35,
+    "hp": 1700,
+    "exp": 150,
+    "acc": 150,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 120,
+    "mDef": 155,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230300,
+    "region": "빅토리아 아일랜드",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "루팡",
+    "level": 37,
+    "hp": 1500,
+    "exp": 77,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210800,
+    "region": "빅토리아 아일랜드",
+    "watk": 110,
+    "matk": 125,
+    "exist": true
+  },
+  {
+    "name": "로랑",
+    "level": 37,
+    "hp": 1950,
+    "exp": 80,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 100,
+    "mDef": 200,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 3230102,
+    "region": "빅토리아 아일랜드",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "데우",
+    "level": 38,
+    "hp": 7700,
+    "exp": 445,
+    "acc": 130,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 100,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3220001,
+    "region": "빅토리아 아일랜드",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "콜드아이",
+    "level": 40,
+    "hp": 2000,
+    "exp": 85,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 80,
+    "mDef": 80,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 4230100,
+    "region": "빅토리아 아일랜드",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "좀비루팡",
+    "level": 40,
+    "hp": 1800,
+    "exp": 90,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 70,
+    "mDef": 70,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 4230101,
+    "region": "빅토리아 아일랜드",
+    "watk": 120,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "아이언 호그",
+    "level": 42,
+    "hp": 2200,
+    "exp": 99,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 400,
+    "mDef": 400,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4090000,
+    "region": "빅토리아 아일랜드",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스켈독",
+    "level": 44,
+    "hp": 2450,
+    "exp": 107,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 170,
+    "mDef": 190,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 4230125,
+    "region": "빅토리아 아일랜드",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "카파 드레이크",
+    "level": 45,
+    "hp": 2700,
+    "exp": 105,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 100,
+    "mDef": 100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "아이언보어",
+    "level": 45,
+    "hp": 2650,
+    "exp": 115,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 350,
+    "mDef": 350,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230400,
+    "region": "빅토리아 아일랜드",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "엄티",
+    "level": 46,
+    "hp": 2550,
+    "exp": 110,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 300,
+    "mDef": 300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4130101,
+    "region": "빅토리아 아일랜드",
+    "watk": 125,
+    "matk": 160,
+    "exist": true
+  },
+  {
+    "name": "머미독",
+    "level": 47,
+    "hp": 2750,
+    "exp": 117,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 175,
+    "mDef": 195,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 4230126,
+    "region": "빅토리아 아일랜드",
+    "watk": 145,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "레이스",
+    "level": 48,
+    "hp": 2800,
+    "exp": 120,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 180,
+    "mDef": 180,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 4230102,
+    "region": "빅토리아 아일랜드",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "클랑",
+    "level": 48,
+    "hp": 3000,
+    "exp": 128,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 120,
+    "mDef": 150,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 4230104,
+    "region": "빅토리아 아일랜드",
+    "watk": 160,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "드레이크",
+    "level": 50,
+    "hp": 3200,
+    "exp": 135,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 110,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 165,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파우스트",
+    "level": 50,
+    "hp": 9800,
+    "exp": 410,
+    "acc": 100,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 110,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5220002,
+    "region": "빅토리아 아일랜드",
+    "watk": 165,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크로코",
+    "level": 52,
+    "hp": 3800,
+    "exp": 170,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 120,
+    "mDef": 80,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5130103,
+    "region": "빅토리아 아일랜드",
+    "watk": 172,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스톤골렘",
+    "level": 55,
+    "hp": 4000,
+    "exp": 170,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 130,
+    "mDef": 100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5130101,
+    "region": "빅토리아 아일랜드",
+    "watk": 180,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "킹크랑",
+    "level": 55,
+    "hp": 25000,
+    "exp": 1210,
+    "acc": 100,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 120,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5220000,
+    "region": "빅토리아 아일랜드",
+    "watk": 165,
+    "matk": 175,
+    "exist": true
+  },
+  {
+    "name": "멜러디",
+    "level": 55,
+    "hp": 4000,
+    "exp": 175,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 100,
+    "mDef": 200,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 5300100,
+    "region": "빅토리아 아일랜드",
+    "watk": 170,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "셰이드",
+    "level": 56,
+    "hp": 4800,
+    "exp": 180,
+    "acc": 130,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 150,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5090000,
+    "region": "빅토리아 아일랜드",
+    "watk": 165,
+    "matk": 180,
+    "exist": true
+  },
+  {
+    "name": "스켈레톤 사병",
+    "level": 57,
+    "hp": 4600,
+    "exp": 190,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 160,
+    "mDef": 160,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 5150001,
+    "region": "빅토리아 아일랜드",
+    "watk": 165,
+    "matk": 165,
+    "exist": true
+  },
+  {
+    "name": "다크 스톤골렘",
+    "level": 58,
+    "hp": 4800,
+    "exp": 200,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 5130102,
+    "region": "빅토리아 아일랜드",
+    "watk": 195,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "믹스골렘",
+    "level": 59,
+    "hp": 6000,
+    "exp": 210,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 160,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5150000,
+    "region": "빅토리아 아일랜드",
+    "watk": 200,
+    "matk": 190,
+    "exist": true
+  },
+  {
+    "name": "레드 드레이크",
+    "level": 60,
+    "hp": 6000,
+    "exp": 220,
+    "acc": 81,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 190,
+    "mDef": 220,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 6130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 200,
+    "matk": 220,
+    "exist": true
+  },
+  {
+    "name": "머쉬맘",
+    "level": 60,
+    "hp": 20000,
+    "exp": 1200,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 320,
+    "mDef": 320,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130101,
+    "region": "빅토리아 아일랜드",
+    "watk": 200,
+    "matk": 300,
+    "exist": true
+  },
+  {
+    "name": "와일드카고",
+    "level": 62,
+    "hp": 5500,
+    "exp": 240,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 180,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6230100,
+    "region": "빅토리아 아일랜드",
+    "watk": 210,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스켈레톤 장교",
+    "level": 63,
+    "hp": 7500,
+    "exp": 240,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 190,
+    "mDef": 230,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 6230602,
+    "region": "빅토리아 아일랜드",
+    "watk": 170,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "아이스 드레이크",
+    "level": 64,
+    "hp": 7700,
+    "exp": 250,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 200,
+    "mDef": 230,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 6230600,
+    "region": "빅토리아 아일랜드",
+    "watk": 210,
+    "matk": 230,
+    "exist": true
+  },
+  {
+    "name": "다일",
+    "level": 65,
+    "hp": 31000,
+    "exp": 810,
+    "acc": 150,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 190,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6220000,
+    "region": "빅토리아 아일랜드",
+    "watk": 190,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "좀비 머쉬맘",
+    "level": 65,
+    "hp": 35000,
+    "exp": 1500,
+    "acc": 111,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 350,
+    "mDef": 400,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6300005,
+    "region": "빅토리아 아일랜드",
+    "watk": 250,
+    "matk": 380,
+    "exist": true
+  },
+  {
+    "name": "다크 드레이크",
+    "level": 68,
+    "hp": 13000,
+    "exp": 409,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 205,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6230601,
+    "region": "빅토리아 아일랜드",
+    "watk": 220,
+    "matk": 250,
+    "exist": true
+  },
+  {
+    "name": "타우로마시스",
+    "level": 70,
+    "hp": 15000,
+    "exp": 472,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "독 면역"
+    ],
+    "mobCode": 7130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 270,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "스켈레톤 지휘관",
+    "level": 73,
+    "hp": 15300,
+    "exp": 481,
+    "acc": 118,
+    "eva": 32,
+    "needAcc": 4.27,
+    "def": 330,
+    "mDef": 300,
+    "ele": [
+      "성 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 7130103,
+    "region": "빅토리아 아일랜드",
+    "watk": 275,
+    "matk": 300,
+    "exist": true
+  },
+  {
+    "name": "타우로스피어",
+    "level": 75,
+    "hp": 18000,
+    "exp": 567,
+    "acc": 111,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 550,
+    "mDef": 400,
+    "ele": [
+      "독 면역",
+      "불 반감"
+    ],
+    "mobCode": 7130101,
+    "region": "빅토리아 아일랜드",
+    "watk": 300,
+    "matk": 390,
+    "exist": true
+  },
+  {
+    "name": "주니어 발록",
+    "level": 80,
+    "hp": 50000,
+    "exp": 2000,
+    "acc": 111,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 420,
+    "mDef": 450,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 8130100,
+    "region": "빅토리아 아일랜드",
+    "watk": 450,
+    "matk": 605,
+    "exist": true
+  },
+  {
+    "name": "주먹펴고 일어서의 분신",
+    "level": 80,
+    "hp": 150000,
+    "exp": 2400,
+    "acc": 150,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 530,
+    "mDef": 115,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9001000,
+    "region": "빅토리아 아일랜드",
+    "watk": 330,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "하인즈의 분신",
+    "level": 80,
+    "hp": 90000,
+    "exp": 2400,
+    "acc": 100,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 120,
+    "mDef": 350,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9001001,
+    "region": "빅토리아 아일랜드",
+    "watk": 170,
+    "matk": 335,
+    "exist": true
+  },
+  {
+    "name": "헬레나의 분신",
+    "level": 80,
+    "hp": 120000,
+    "exp": 2400,
+    "acc": 210,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 260,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9001002,
+    "region": "빅토리아 아일랜드",
+    "watk": 260,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "다크로드의 분신",
+    "level": 80,
+    "hp": 120000,
+    "exp": 2400,
+    "acc": 180,
+    "eva": 32,
+    "needAcc": 4.27,
+    "def": 260,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9001003,
+    "region": "빅토리아 아일랜드",
+    "watk": 260,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "카이린의 분신",
+    "level": 80,
+    "hp": 130000,
+    "exp": 2400,
+    "acc": 180,
+    "eva": 15,
+    "needAcc": 2.4,
+    "def": 260,
+    "mDef": 115,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9001008,
+    "region": "빅토리아 아일랜드",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크림슨 발록",
+    "level": 100,
+    "hp": 100000,
+    "exp": 3500,
+    "acc": 148,
+    "eva": 40,
+    "needAcc": 5.33,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 8150000,
+    "region": "빅토리아 아일랜드",
+    "watk": 500,
+    "matk": 720,
+    "exist": true
+  },
+  {
+    "name": "주니어 스톤볼",
+    "level": 23,
+    "hp": 600,
+    "exp": 40,
+    "acc": 30,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 30,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5200000,
+    "region": "오르비스",
+    "watk": 70,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스톤볼",
+    "level": 30,
+    "hp": 900,
+    "exp": 55,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 275,
+    "mDef": 85,
+    "ele": [
+      "성 반감",
+      "전기 반감"
+    ],
+    "mobCode": 3000000,
+    "region": "오르비스",
+    "watk": 120,
+    "matk": 118,
+    "exist": true
+  },
+  {
+    "name": "아이스 스톤볼",
+    "level": 30,
+    "hp": 900,
+    "exp": 55,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 275,
+    "mDef": 85,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5200001,
+    "region": "오르비스",
+    "watk": 105,
+    "matk": 118,
+    "exist": true
+  },
+  {
+    "name": "파이어 스톤볼",
+    "level": 30,
+    "hp": 900,
+    "exp": 55,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 275,
+    "mDef": 85,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 5200002,
+    "region": "오르비스",
+    "watk": 105,
+    "matk": 118,
+    "exist": true
+  },
+  {
+    "name": "주니어 샐리온",
+    "level": 33,
+    "hp": 1100,
+    "exp": 65,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 60,
+    "mDef": 80,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 3210200,
+    "region": "오르비스",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 라이오너",
+    "level": 33,
+    "hp": 1100,
+    "exp": 65,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 60,
+    "mDef": 80,
+    "ele": [
+      "전기 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 3210201,
+    "region": "오르비스",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 그류핀",
+    "level": 33,
+    "hp": 1100,
+    "exp": 65,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 60,
+    "mDef": 80,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 3210202,
+    "region": "오르비스",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스타픽시",
+    "level": 35,
+    "hp": 1300,
+    "exp": 72,
+    "acc": 78,
+    "eva": 21,
+    "needAcc": 2.8,
+    "def": 100,
+    "mDef": 100,
+    "ele": [
+      "성 반감"
+    ],
+    "mobCode": 3230200,
+    "region": "오르비스",
+    "watk": 120,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "네펜데스",
+    "level": 42,
+    "hp": 2100,
+    "exp": 99,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 120,
+    "mDef": 120,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 4230105,
+    "region": "오르비스",
+    "watk": 135,
+    "matk": 145,
+    "exist": true
+  },
+  {
+    "name": "루나픽시",
+    "level": 45,
+    "hp": 2500,
+    "exp": 105,
+    "acc": 89,
+    "eva": 24,
+    "needAcc": 3.2,
+    "def": 145,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230106,
+    "region": "오르비스",
+    "watk": 140,
+    "matk": 155,
+    "exist": true
+  },
+  {
+    "name": "다크 네펜데스",
+    "level": 47,
+    "hp": 2700,
+    "exp": 115,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 170,
+    "mDef": 220,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 4130102,
+    "region": "오르비스",
+    "watk": 145,
+    "matk": 165,
+    "exist": true
+  },
+  {
+    "name": "러스터픽시",
+    "level": 52,
+    "hp": 4000,
+    "exp": 155,
+    "acc": 81,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 125,
+    "mDef": 265,
+    "ele": [
+      "얼음 반감",
+      "불 반감"
+    ],
+    "mobCode": 5120000,
+    "region": "오르비스",
+    "watk": 160,
+    "matk": 170,
+    "exist": true
+  },
+  {
+    "name": "샐리온",
+    "level": 53,
+    "hp": 4200,
+    "exp": 160,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 5120001,
+    "region": "오르비스",
+    "watk": 150,
+    "matk": 175,
+    "exist": true
+  },
+  {
+    "name": "라이오너",
+    "level": 53,
+    "hp": 4200,
+    "exp": 160,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "전기 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 5120002,
+    "region": "오르비스",
+    "watk": 150,
+    "matk": 175,
+    "exist": true
+  },
+  {
+    "name": "그류핀",
+    "level": 53,
+    "hp": 4200,
+    "exp": 160,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5120003,
+    "region": "오르비스",
+    "watk": 150,
+    "matk": 175,
+    "exist": true
+  },
+  {
+    "name": "주니어 루이넬",
+    "level": 63,
+    "hp": 7600,
+    "exp": 245,
+    "acc": 170,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 190,
+    "mDef": 220,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 6230401,
+    "region": "오르비스",
+    "watk": 190,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "루이넬",
+    "level": 73,
+    "hp": 15500,
+    "exp": 488,
+    "acc": 104,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 300,
+    "mDef": 320,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 7130000,
+    "region": "오르비스",
+    "watk": 280,
+    "matk": 315,
+    "exist": true
+  },
+  {
+    "name": "엘리쟈",
+    "level": 83,
+    "hp": 87000,
+    "exp": 2800,
+    "acc": 150,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 600,
+    "mDef": 450,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8220000,
+    "region": "오르비스",
+    "watk": 420,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "리티",
+    "level": 32,
+    "hp": 1000,
+    "exp": 60,
+    "acc": 48,
+    "eva": 13,
+    "needAcc": 1.73,
+    "def": 45,
+    "mDef": 70,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5300000,
+    "region": "엘나스",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "다크 리티",
+    "level": 33,
+    "hp": 1100,
+    "exp": 65,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 60,
+    "mDef": 80,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 5300001,
+    "region": "엘나스",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 페페",
+    "level": 35,
+    "hp": 1400,
+    "exp": 75,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 110,
+    "mDef": 100,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5400000,
+    "region": "엘나스",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "플라이아이",
+    "level": 41,
+    "hp": 1600,
+    "exp": 95,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 90,
+    "mDef": 110,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230107,
+    "region": "엘나스",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 불독",
+    "level": 43,
+    "hp": 2300,
+    "exp": 102,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 290,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230108,
+    "region": "엘나스",
+    "watk": 132,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 예티",
+    "level": 50,
+    "hp": 3700,
+    "exp": 135,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 170,
+    "mDef": 180,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5100000,
+    "region": "엘나스",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파이어봄",
+    "level": 51,
+    "hp": 3600,
+    "exp": 142,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 255,
+    "mDef": 205,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 5100002,
+    "region": "엘나스",
+    "watk": 145,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "헥터",
+    "level": 55,
+    "hp": 4600,
+    "exp": 170,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 120,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5130104,
+    "region": "엘나스",
+    "watk": 165,
+    "matk": 175,
+    "exist": true
+  },
+  {
+    "name": "다크 주니어 예티",
+    "level": 56,
+    "hp": 4400,
+    "exp": 180,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 180,
+    "mDef": 190,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 5130105,
+    "region": "엘나스",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "화이트팽",
+    "level": 58,
+    "hp": 5800,
+    "exp": 220,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 200,
+    "mDef": 220,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 5140000,
+    "region": "엘나스",
+    "watk": 170,
+    "matk": 205,
+    "exist": true
+  },
+  {
+    "name": "페페",
+    "level": 60,
+    "hp": 7200,
+    "exp": 220,
+    "acc": 111,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 210,
+    "mDef": 225,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 6130102,
+    "region": "엘나스",
+    "watk": 167,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "설산의 마녀",
+    "level": 64,
+    "hp": 7700,
+    "exp": 250,
+    "acc": 140,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 190,
+    "mDef": 230,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6090001,
+    "region": "엘나스",
+    "watk": 177,
+    "matk": 230,
+    "exist": true
+  },
+  {
+    "name": "다크 페페",
+    "level": 64,
+    "hp": 7800,
+    "exp": 250,
+    "acc": 114,
+    "eva": 31,
+    "needAcc": 4.13,
+    "def": 220,
+    "mDef": 240,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 6230200,
+    "region": "엘나스",
+    "watk": 177,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "리치",
+    "level": 65,
+    "hp": 11000,
+    "exp": 255,
+    "acc": 150,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 200,
+    "mDef": 400,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6090000,
+    "region": "엘나스",
+    "watk": 180,
+    "matk": 270,
+    "exist": true
+  },
+  {
+    "name": "예티",
+    "level": 65,
+    "hp": 11000,
+    "exp": 346,
+    "acc": 89,
+    "eva": 24,
+    "needAcc": 3.2,
+    "def": 170,
+    "mDef": 245,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 6300000,
+    "region": "엘나스",
+    "watk": 182,
+    "matk": 270,
+    "exist": true
+  },
+  {
+    "name": "다크 예티",
+    "level": 68,
+    "hp": 13000,
+    "exp": 409,
+    "acc": 96,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 190,
+    "mDef": 270,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 6400000,
+    "region": "엘나스",
+    "watk": 210,
+    "matk": 290,
+    "exist": true
+  },
+  {
+    "name": "웨어울프",
+    "level": 75,
+    "hp": 16000,
+    "exp": 504,
+    "acc": 93,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 800,
+    "mDef": 290,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7130200,
+    "region": "엘나스",
+    "watk": 330,
+    "matk": 380,
+    "exist": true
+  },
+  {
+    "name": "예티와 페페",
+    "level": 78,
+    "hp": 20000,
+    "exp": 0,
+    "acc": 145,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 600,
+    "mDef": 450,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 7130102,
+    "region": "엘나스",
+    "watk": 330,
+    "matk": 365,
+    "exist": true
+  },
+  {
+    "name": "라이칸스로프",
+    "level": 80,
+    "hp": 27000,
+    "exp": 850,
+    "acc": 104,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 650,
+    "mDef": 520,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8140000,
+    "region": "엘나스",
+    "watk": 350,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "다크 예티와 페페",
+    "level": 82,
+    "hp": 29000,
+    "exp": 0,
+    "acc": 160,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 700,
+    "mDef": 500,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 8140100,
+    "region": "엘나스",
+    "watk": 360,
+    "matk": 390,
+    "exist": true
+  },
+  {
+    "name": "스노우맨",
+    "level": 90,
+    "hp": 120000,
+    "exp": 5200,
+    "acc": 195,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 800,
+    "mDef": 500,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8220001,
+    "region": "엘나스",
+    "watk": 450,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "부기",
+    "level": 35,
+    "hp": 14800,
+    "exp": 400,
+    "acc": 250,
+    "eva": 35,
+    "needAcc": 4.67,
+    "def": 250,
+    "mDef": 300,
+    "ele": [
+      "성 반감"
+    ],
+    "mobCode": 6130104,
+    "region": "폐광",
+    "watk": 180,
+    "matk": 300,
+    "exist": true
+  },
+  {
+    "name": "미믹",
+    "level": 54,
+    "hp": 4100,
+    "exp": 165,
+    "acc": 175,
+    "eva": 0,
+    "needAcc": 3.33,
+    "def": 275,
+    "mDef": 215,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8220036,
+    "region": "폐광",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "쿨리 좀비",
+    "level": 57,
+    "hp": 4500,
+    "exp": 190,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 165,
+    "mDef": 180,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 5130107,
+    "region": "폐광",
+    "watk": 165,
+    "matk": 185,
+    "exist": true
+  },
+  {
+    "name": "마이너 좀비",
+    "level": 57,
+    "hp": 4500,
+    "exp": 190,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 165,
+    "mDef": 180,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 5130108,
+    "region": "폐광",
+    "watk": 155,
+    "matk": 185,
+    "exist": true
+  },
+  {
+    "name": "푸코",
+    "level": 63,
+    "hp": 20000,
+    "exp": 190,
+    "acc": 145,
+    "eva": 36,
+    "needAcc": 4.8,
+    "def": 200,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6230101,
+    "region": "폐광",
+    "watk": 257,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "파츠",
+    "level": 66,
+    "hp": 38000,
+    "exp": 200,
+    "acc": 150,
+    "eva": 35,
+    "needAcc": 4.67,
+    "def": 250,
+    "mDef": 400,
+    "ele": [
+      "불 면역",
+      "전기 반감"
+    ],
+    "mobCode": 6300004,
+    "region": "폐광",
+    "watk": 300,
+    "matk": 420,
+    "exist": true
+  },
+  {
+    "name": "푼코",
+    "level": 67,
+    "hp": 40000,
+    "exp": 210,
+    "acc": 165,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 270,
+    "mDef": 410,
+    "ele": [
+      "성 반감"
+    ],
+    "mobCode": 6300003,
+    "region": "폐광",
+    "watk": 310,
+    "matk": 435,
+    "exist": true
+  },
+  {
+    "name": "쿠스코",
+    "level": 69,
+    "hp": 60000,
+    "exp": 240,
+    "acc": 170,
+    "eva": 40,
+    "needAcc": 5.33,
+    "def": 320,
+    "mDef": 530,
+    "ele": [
+      "성 반감"
+    ],
+    "mobCode": 6400003,
+    "region": "폐광",
+    "watk": 372,
+    "matk": 565,
+    "exist": true
+  },
+  {
+    "name": "오파츠",
+    "level": 70,
+    "hp": 80000,
+    "exp": 250,
+    "acc": 180,
+    "eva": 50,
+    "needAcc": 6.67,
+    "def": 350,
+    "mDef": 550,
+    "ele": [
+      "불 약점",
+      "전기 반감"
+    ],
+    "mobCode": 6400004,
+    "region": "폐광",
+    "watk": 400,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "불독",
+    "level": 72,
+    "hp": 15200,
+    "exp": 478,
+    "acc": 111,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 320,
+    "mDef": 265,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7130001,
+    "region": "폐광",
+    "watk": 272,
+    "matk": 315,
+    "exist": true
+  },
+  {
+    "name": "파이어독",
+    "level": 90,
+    "hp": 45000,
+    "exp": 1800,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 835,
+    "mDef": 505,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140500,
+    "region": "폐광",
+    "watk": 425,
+    "matk": 465,
+    "exist": true
+  },
+  {
+    "name": "자쿰(1페이즈)",
+    "level": 140,
+    "hp": 66000000,
+    "exp": 0,
+    "acc": 250,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 1000,
+    "mDef": 1100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800000,
+    "region": "폐광",
+    "watk": 980,
+    "matk": 530,
+    "exist": true
+  },
+  {
+    "name": "자쿰(2페이즈)",
+    "level": 140,
+    "hp": 88000000,
+    "exp": 0,
+    "acc": 250,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1100,
+    "mDef": 1300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800001,
+    "region": "폐광",
+    "watk": 1040,
+    "matk": 550,
+    "exist": true
+  },
+  {
+    "name": "자쿰(3페이즈)",
+    "level": 140,
+    "hp": 110000000,
+    "exp": 7000000,
+    "acc": 250,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 1200,
+    "mDef": 1500,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800002,
+    "region": "폐광",
+    "watk": 1080,
+    "matk": 570,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔1",
+    "level": 140,
+    "hp": 33000000,
+    "exp": 1344000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800003,
+    "region": "폐광",
+    "watk": 505,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔2",
+    "level": 140,
+    "hp": 33000000,
+    "exp": 1344000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800004,
+    "region": "폐광",
+    "watk": 505,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔3",
+    "level": 140,
+    "hp": 22000000,
+    "exp": 896000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 800,
+    "mDef": 950,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8800005,
+    "region": "폐광",
+    "watk": 530,
+    "matk": 485,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔4",
+    "level": 140,
+    "hp": 22000000,
+    "exp": 896000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 800,
+    "mDef": 950,
+    "ele": [
+      "불 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8800006,
+    "region": "폐광",
+    "watk": 530,
+    "matk": 485,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔5",
+    "level": 140,
+    "hp": 27500000,
+    "exp": 1120000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1050,
+    "mDef": 1050,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800007,
+    "region": "폐광",
+    "watk": 550,
+    "matk": 515,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔6",
+    "level": 140,
+    "hp": 30000000,
+    "exp": 1120000,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1050,
+    "mDef": 1050,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800008,
+    "region": "폐광",
+    "watk": 550,
+    "matk": 515,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔7",
+    "level": 140,
+    "hp": 25300000,
+    "exp": 1030400,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1050,
+    "mDef": 750,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800009,
+    "region": "폐광",
+    "watk": 510,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "자쿰팔8",
+    "level": 140,
+    "hp": 25300000,
+    "exp": 1030400,
+    "acc": 200,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1050,
+    "mDef": 750,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800010,
+    "region": "폐광",
+    "watk": 510,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "핀붐",
+    "level": 22,
+    "hp": 400,
+    "exp": 36,
+    "acc": 26,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 30,
+    "mDef": 30,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 2230108,
+    "region": "아쿠아리움",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "씨클",
+    "level": 23,
+    "hp": 500,
+    "exp": 42,
+    "acc": 34,
+    "eva": 9,
+    "needAcc": 1.2,
+    "def": 35,
+    "mDef": 45,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 2230105,
+    "region": "아쿠아리움",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크라피",
+    "level": 24,
+    "hp": 500,
+    "exp": 45,
+    "acc": 30,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 2230107,
+    "region": "아쿠아리움",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "씨코",
+    "level": 25,
+    "hp": 550,
+    "exp": 42,
+    "acc": 30,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 30,
+    "mDef": 40,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 2230106,
+    "region": "아쿠아리움",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "버블피쉬",
+    "level": 28,
+    "hp": 740,
+    "exp": 52,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 2230109,
+    "region": "아쿠아리움",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "플라워 피쉬",
+    "level": 29,
+    "hp": 790,
+    "exp": 58,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 80,
+    "mDef": 85,
+    "ele": [
+      "얼음 약점",
+      "불 반감"
+    ],
+    "mobCode": 2230200,
+    "region": "아쿠아리움",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크립",
+    "level": 30,
+    "hp": 900,
+    "exp": 55,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 3000006,
+    "region": "아쿠아리움",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마스크피쉬",
+    "level": 32,
+    "hp": 1000,
+    "exp": 65,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 70,
+    "mDef": 80,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 3230104,
+    "region": "아쿠아리움",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스쿠버 페페",
+    "level": 36,
+    "hp": 1430,
+    "exp": 80,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 90,
+    "mDef": 155,
+    "ele": [
+      "얼음 반감",
+      "불 반감"
+    ],
+    "mobCode": 3210450,
+    "region": "아쿠아리움",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 씰",
+    "level": 38,
+    "hp": 1850,
+    "exp": 85,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 90,
+    "mDef": 125,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 3230405,
+    "region": "아쿠아리움",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "푸퍼",
+    "level": 40,
+    "hp": 1900,
+    "exp": 95,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 130,
+    "mDef": 160,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 4230200,
+    "region": "아쿠아리움",
+    "watk": 100,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "포이즌 푸퍼",
+    "level": 40,
+    "hp": 1910,
+    "exp": 97,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 140,
+    "mDef": 100,
+    "ele": [
+      "독 반감",
+      "불 반감"
+    ],
+    "mobCode": 4230201,
+    "region": "아쿠아리움",
+    "watk": 120,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "프리져",
+    "level": 42,
+    "hp": 2300,
+    "exp": 102,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 120,
+    "mDef": 160,
+    "ele": [
+      "얼음 반감",
+      "불 반감"
+    ],
+    "mobCode": 4230124,
+    "region": "아쿠아리움",
+    "watk": 130,
+    "matk": 150,
+    "exist": true
+  },
+  {
+    "name": "스파커",
+    "level": 43,
+    "hp": 2400,
+    "exp": 103,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 140,
+    "mDef": 172,
+    "ele": [
+      "전기 반감",
+      "불 반감"
+    ],
+    "mobCode": 4230123,
+    "region": "아쿠아리움",
+    "watk": 130,
+    "matk": 155,
+    "exist": true
+  },
+  {
+    "name": "세르프",
+    "level": 45,
+    "hp": 7800,
+    "exp": 330,
+    "acc": 200,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4220000,
+    "region": "아쿠아리움",
+    "watk": 0,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "망둥이",
+    "level": 85,
+    "hp": 17000,
+    "exp": 1400,
+    "acc": 107,
+    "eva": 29,
+    "needAcc": 3.87,
+    "def": 645,
+    "mDef": 430,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 7130020,
+    "region": "아쿠아리움",
+    "watk": 370,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "폭렬 망둥이집",
+    "level": 90,
+    "hp": 40500,
+    "exp": 0,
+    "acc": 127,
+    "eva": 35,
+    "needAcc": 4.69,
+    "def": 840,
+    "mDef": 530,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 8140555,
+    "region": "아쿠아리움",
+    "watk": 410,
+    "matk": 450,
+    "exist": true
+  },
+  {
+    "name": "본피쉬",
+    "level": 92,
+    "hp": 42500,
+    "exp": 2000,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 840,
+    "mDef": 540,
+    "ele": [
+      "불 반감",
+      "성 약점"
+    ],
+    "mobCode": 8140600,
+    "region": "아쿠아리움",
+    "watk": 420,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "스퀴드",
+    "level": 94,
+    "hp": 46000,
+    "exp": 2200,
+    "acc": 137,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 525,
+    "ele": [
+      "불 반감",
+      "독 반감"
+    ],
+    "mobCode": 8141300,
+    "region": "아쿠아리움",
+    "watk": 430,
+    "matk": 485,
+    "exist": true
+  },
+  {
+    "name": "리셀스퀴드",
+    "level": 97,
+    "hp": 49000,
+    "exp": 2500,
+    "acc": 137,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 550,
+    "ele": [
+      "불 반감",
+      "전기 반감"
+    ],
+    "mobCode": 8142100,
+    "region": "아쿠아리움",
+    "watk": 445,
+    "matk": 300,
+    "exist": true
+  },
+  {
+    "name": "샤크",
+    "level": 100,
+    "hp": 56000,
+    "exp": 3000,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 850,
+    "mDef": 570,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 8150100,
+    "region": "아쿠아리움",
+    "watk": 490,
+    "matk": 530,
+    "exist": true
+  },
+  {
+    "name": "콜드샤크",
+    "level": 102,
+    "hp": 58500,
+    "exp": 3100,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 855,
+    "mDef": 575,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 8150101,
+    "region": "아쿠아리움",
+    "watk": 500,
+    "matk": 535,
+    "exist": true
+  },
+  {
+    "name": "블러드붐",
+    "level": 75,
+    "hp": 10000,
+    "exp": 0,
+    "acc": 52,
+    "eva": 20,
+    "needAcc": 1.87,
+    "def": 300,
+    "mDef": 400,
+    "ele": [
+      "불 면역",
+      "전기 면역"
+    ],
+    "mobCode": 8510100,
+    "region": "아쿠아리움",
+    "watk": 500,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "피아누스(우)",
+    "level": 110,
+    "hp": 30000000,
+    "exp": 1300000,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1150,
+    "mDef": 1270,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 8510000,
+    "region": "아쿠아리움",
+    "watk": 790,
+    "matk": 780,
+    "exist": true
+  },
+  {
+    "name": "피아누스(좌)",
+    "level": 110,
+    "hp": 24000000,
+    "exp": 900000,
+    "acc": 245,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 1000,
+    "mDef": 1100,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 8520000,
+    "region": "아쿠아리움",
+    "watk": 670,
+    "matk": 670,
+    "exist": true
+  },
+  {
+    "name": "트릭스터",
+    "level": 23,
+    "hp": 450,
+    "exp": 42,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 52,
+    "mDef": 65,
+    "ele": [
+      "성 반감",
+      "불 약점"
+    ],
+    "mobCode": 2230103,
+    "region": "루디브리엄",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "그린 트릭스터",
+    "level": 28,
+    "hp": 780,
+    "exp": 55,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 75,
+    "mDef": 75,
+    "ele": [
+      "독 면역"
+    ],
+    "mobCode": 2230104,
+    "region": "루디브리엄",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "브라운테니",
+    "level": 30,
+    "hp": 950,
+    "exp": 60,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 38,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3000005,
+    "region": "루디브리엄",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "북치는 토끼",
+    "level": 30,
+    "hp": 950,
+    "exp": 60,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 38,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230400,
+    "region": "루디브리엄",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "처프",
+    "level": 31,
+    "hp": 800,
+    "exp": 62,
+    "acc": 37,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 60,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230307,
+    "region": "루디브리엄",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "핑크테니",
+    "level": 32,
+    "hp": 1050,
+    "exp": 65,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 50,
+    "mDef": 70,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3110101,
+    "region": "루디브리엄",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "라츠",
+    "level": 32,
+    "hp": 1000,
+    "exp": 65,
+    "acc": 48,
+    "eva": 13,
+    "needAcc": 1.73,
+    "def": 65,
+    "mDef": 75,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3110102,
+    "region": "루디브리엄",
+    "watk": 102,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "더키 패밀리",
+    "level": 34,
+    "hp": 1200,
+    "exp": 70,
+    "acc": 59,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 70,
+    "mDef": 85,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210204,
+    "region": "루디브리엄",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "블랙 라츠",
+    "level": 34,
+    "hp": 1150,
+    "exp": 70,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 75,
+    "mDef": 75,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210205,
+    "region": "루디브리엄",
+    "watk": 115,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "티키",
+    "level": 34,
+    "hp": 1100,
+    "exp": 70,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 95,
+    "mDef": 90,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210207,
+    "region": "루디브리엄",
+    "watk": 115,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "블록퍼스",
+    "level": 35,
+    "hp": 1300,
+    "exp": 72,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 100,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230302,
+    "region": "루디브리엄",
+    "watk": 105,
+    "matk": 115,
+    "exist": true
+  },
+  {
+    "name": "팬더테니",
+    "level": 36,
+    "hp": 1400,
+    "exp": 77,
+    "acc": 59,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 95,
+    "mDef": 95,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210203,
+    "region": "루디브리엄",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "치크세이버",
+    "level": 36,
+    "hp": 1350,
+    "exp": 77,
+    "acc": 63,
+    "eva": 17,
+    "needAcc": 2.27,
+    "def": 85,
+    "mDef": 105,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210206,
+    "region": "루디브리엄",
+    "watk": 115,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "레츠",
+    "level": 36,
+    "hp": 1400,
+    "exp": 78,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 90,
+    "mDef": 85,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210208,
+    "region": "루디브리엄",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "핑크세이버",
+    "level": 37,
+    "hp": 1700,
+    "exp": 85,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 95,
+    "mDef": 115,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230303,
+    "region": "루디브리엄",
+    "watk": 118,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크로노스",
+    "level": 37,
+    "hp": 1750,
+    "exp": 85,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 90,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230306,
+    "region": "루디브리엄",
+    "watk": 117,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "킹 블록퍼스",
+    "level": 38,
+    "hp": 1850,
+    "exp": 85,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 120,
+    "mDef": 140,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230103,
+    "region": "루디브리엄",
+    "watk": 120,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "스카이세이버",
+    "level": 38,
+    "hp": 1830,
+    "exp": 85,
+    "acc": 70,
+    "eva": 19,
+    "needAcc": 2.53,
+    "def": 105,
+    "mDef": 125,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230304,
+    "region": "루디브리엄",
+    "watk": 122,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "장난감 목마",
+    "level": 39,
+    "hp": 1920,
+    "exp": 92,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 110,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230305,
+    "region": "루디브리엄",
+    "watk": 124,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "트위터",
+    "level": 39,
+    "hp": 1900,
+    "exp": 85,
+    "acc": 63,
+    "eva": 17,
+    "needAcc": 2.27,
+    "def": 120,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230308,
+    "region": "루디브리엄",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "틱톡",
+    "level": 40,
+    "hp": 1900,
+    "exp": 95,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 160,
+    "mDef": 170,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230113,
+    "region": "루디브리엄",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "로보토이",
+    "level": 41,
+    "hp": 2000,
+    "exp": 99,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 190,
+    "mDef": 175,
+    "ele": [
+      "얼음 반감",
+      "불 반감"
+    ],
+    "mobCode": 4230111,
+    "region": "루디브리엄",
+    "watk": 133,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "플래툰 크로노스",
+    "level": 41,
+    "hp": 2050,
+    "exp": 99,
+    "acc": 81,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 130,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230114,
+    "region": "루디브리엄",
+    "watk": 125,
+    "matk": 142,
+    "exist": true
+  },
+  {
+    "name": "블록골렘",
+    "level": 42,
+    "hp": 2400,
+    "exp": 102,
+    "acc": 45,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 110,
+    "mDef": 90,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 4230109,
+    "region": "루디브리엄",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마스터 로보",
+    "level": 44,
+    "hp": 2450,
+    "exp": 105,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 210,
+    "mDef": 195,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230112,
+    "region": "루디브리엄",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "킹 블록골렘",
+    "level": 45,
+    "hp": 2600,
+    "exp": 110,
+    "acc": 52,
+    "eva": 14,
+    "needAcc": 1.87,
+    "def": 130,
+    "mDef": 110,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230110,
+    "region": "루디브리엄",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마스터 크로노스",
+    "level": 46,
+    "hp": 2600,
+    "exp": 115,
+    "acc": 89,
+    "eva": 24,
+    "needAcc": 3.2,
+    "def": 170,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230115,
+    "region": "루디브리엄",
+    "watk": 130,
+    "matk": 160,
+    "exist": true
+  },
+  {
+    "name": "롬바드",
+    "level": 47,
+    "hp": 11000,
+    "exp": 720,
+    "acc": 59,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 165,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4130103,
+    "region": "루디브리엄",
+    "watk": 165,
+    "matk": 185,
+    "exist": true
+  },
+  {
+    "name": "타이머",
+    "level": 59,
+    "hp": 21000,
+    "exp": 650,
+    "acc": 150,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 180,
+    "mDef": 230,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5220003,
+    "region": "루디브리엄",
+    "watk": 200,
+    "matk": 205,
+    "exist": true
+  },
+  {
+    "name": "소울테니",
+    "level": 63,
+    "hp": 7600,
+    "exp": 245,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 190,
+    "mDef": 215,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 6230400,
+    "region": "시계탑 최하층",
+    "watk": 190,
+    "matk": 220,
+    "exist": true
+  },
+  {
+    "name": "버피",
+    "level": 61,
+    "hp": 7400,
+    "exp": 230,
+    "acc": 85,
+    "eva": 23,
+    "needAcc": 3.07,
+    "def": 213,
+    "mDef": 229,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130200,
+    "region": "시계탑 최하층",
+    "watk": 170,
+    "matk": 210,
+    "exist": true
+  },
+  {
+    "name": "레이지 버피",
+    "level": 66,
+    "hp": 9400,
+    "exp": 296,
+    "acc": 96,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 180,
+    "mDef": 254,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6230300,
+    "region": "시계탑 최하층",
+    "watk": 190,
+    "matk": 210,
+    "exist": true
+  },
+  {
+    "name": "마스터 소울테니",
+    "level": 67,
+    "hp": 11000,
+    "exp": 346,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 210,
+    "mDef": 250,
+    "ele": [
+      "전기 반감",
+      "얼음 면역"
+    ],
+    "mobCode": 6230500,
+    "region": "시계탑 최하층",
+    "watk": 210,
+    "matk": 220,
+    "exist": true
+  },
+  {
+    "name": "클라크",
+    "level": 70,
+    "hp": 15000,
+    "exp": 472,
+    "acc": 96,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "성 약점",
+      "불 약점"
+    ],
+    "mobCode": 8140200,
+    "region": "시계탑 최하층",
+    "watk": 250,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "하이 다크스타",
+    "level": 71,
+    "hp": 10000,
+    "exp": 0,
+    "acc": 148,
+    "eva": 15,
+    "needAcc": 5.33,
+    "def": 300,
+    "mDef": 300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8500004,
+    "region": "시계탑 최하층",
+    "watk": 775,
+    "matk": 694,
+    "exist": true
+  },
+  {
+    "name": "버푼",
+    "level": 74,
+    "hp": 16000,
+    "exp": 504,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 340,
+    "mDef": 330,
+    "ele": [
+      "얼음 약점",
+      "불 반감"
+    ],
+    "mobCode": 6300100,
+    "region": "시계탑 최하층",
+    "watk": 290,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "다크 클라크",
+    "level": 76,
+    "hp": 18000,
+    "exp": 567,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 380,
+    "mDef": 400,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 8140300,
+    "region": "시계탑 최하층",
+    "watk": 300,
+    "matk": 350,
+    "exist": true
+  },
+  {
+    "name": "딥 버푼",
+    "level": 77,
+    "hp": 19000,
+    "exp": 598,
+    "acc": 104,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 400,
+    "mDef": 410,
+    "ele": [
+      "얼음 약점",
+      "불 반감"
+    ],
+    "mobCode": 6400100,
+    "region": "시계탑 최하층",
+    "watk": 310,
+    "matk": 340,
+    "exist": true
+  },
+  {
+    "name": "로우 다크스타",
+    "level": 80,
+    "hp": 10000,
+    "exp": 0,
+    "acc": 148,
+    "eva": 23,
+    "needAcc": 5.33,
+    "def": 300,
+    "mDef": 300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8500003,
+    "region": "시계탑 최하층",
+    "watk": 607,
+    "matk": 585,
+    "exist": true
+  },
+  {
+    "name": "파이렛",
+    "level": 83,
+    "hp": 30000,
+    "exp": 1100,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 710,
+    "mDef": 460,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 7140000,
+    "region": "시계탑 최하층",
+    "watk": 365,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "데스테니",
+    "level": 85,
+    "hp": 32000,
+    "exp": 1300,
+    "acc": 100,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 700,
+    "mDef": 465,
+    "ele": [
+      "성 약점",
+      "불 약점"
+    ],
+    "mobCode": 7130010,
+    "region": "시계탑 최하층",
+    "watk": 375,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "듀얼 파이렛",
+    "level": 87,
+    "hp": 35000,
+    "exp": 1500,
+    "acc": 104,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 775,
+    "mDef": 470,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 7160000,
+    "region": "시계탑 최하층",
+    "watk": 385,
+    "matk": 425,
+    "exist": true
+  },
+  {
+    "name": "마스터 데스테니",
+    "level": 89,
+    "hp": 40000,
+    "exp": 1720,
+    "acc": 104,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 750,
+    "mDef": 480,
+    "ele": [
+      "성 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 7130300,
+    "region": "시계탑 최하층",
+    "watk": 400,
+    "matk": 450,
+    "exist": true
+  },
+  {
+    "name": "바이킹",
+    "level": 93,
+    "hp": 50000,
+    "exp": 2100,
+    "acc": 137,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 530,
+    "ele": [
+      "불 반감",
+      "전기 약점"
+    ],
+    "mobCode": 8141000,
+    "region": "시계탑 최하층",
+    "watk": 430,
+    "matk": 480,
+    "exist": true
+  },
+  {
+    "name": "팬텀워치",
+    "level": 95,
+    "hp": 53000,
+    "exp": 2300,
+    "acc": 137,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 835,
+    "mDef": 530,
+    "ele": [
+      "성 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8142000,
+    "region": "시계탑 최하층",
+    "watk": 450,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "기간틱 바이킹",
+    "level": 98,
+    "hp": 58000,
+    "exp": 2600,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 845,
+    "mDef": 580,
+    "ele": [
+      "불 반감",
+      "전기 약점"
+    ],
+    "mobCode": 8141100,
+    "region": "시계탑 최하층",
+    "watk": 460,
+    "matk": 520,
+    "exist": true
+  },
+  {
+    "name": "G.팬텀워치",
+    "level": 99,
+    "hp": 60000,
+    "exp": 2800,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 850,
+    "mDef": 570,
+    "ele": [
+      "성 약점",
+      "얼음 면역"
+    ],
+    "mobCode": 8143000,
+    "region": "시계탑 최하층",
+    "watk": 465,
+    "matk": 530,
+    "exist": true
+  },
+  {
+    "name": "게이트키퍼",
+    "level": 108,
+    "hp": 78000,
+    "exp": 4300,
+    "acc": 137,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 900,
+    "mDef": 650,
+    "ele": [
+      "전기 반감"
+    ],
+    "mobCode": 8160000,
+    "region": "시계탑 최하층",
+    "watk": 550,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "타나토스",
+    "level": 108,
+    "hp": 70000,
+    "exp": 4100,
+    "acc": 140,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 850,
+    "mDef": 680,
+    "ele": [
+      "성 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8170000,
+    "region": "시계탑 최하층",
+    "watk": 510,
+    "matk": 620,
+    "exist": true
+  },
+  {
+    "name": "파풀라투스의 시계",
+    "level": 125,
+    "hp": 23000000,
+    "exp": 596000,
+    "acc": 250,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 1000,
+    "mDef": 1100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8500001,
+    "region": "시계탑 최하층",
+    "watk": 630,
+    "matk": 480,
+    "exist": true
+  },
+  {
+    "name": "파풀라투스",
+    "level": 125,
+    "hp": 1590000,
+    "exp": 970000,
+    "acc": 148,
+    "eva": 40,
+    "needAcc": 5.33,
+    "def": 800,
+    "mDef": 1200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8500002,
+    "region": "시계탑 최하층",
+    "watk": 800,
+    "matk": 1000,
+    "exist": true
+  },
+  {
+    "name": "차원의 라츠",
+    "level": 32,
+    "hp": 3700,
+    "exp": 260,
+    "acc": 80,
+    "eva": 13,
+    "needAcc": 1.73,
+    "def": 85,
+    "mDef": 95,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300005,
+    "region": "루디브리엄 파퀘",
+    "watk": 112,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "차원의 블랙 라츠",
+    "level": 34,
+    "hp": 4300,
+    "exp": 280,
+    "acc": 90,
+    "eva": 0,
+    "needAcc": 1.87,
+    "def": 95,
+    "mDef": 95,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3210205,
+    "region": "루디브리엄 파퀘",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "차원의 블록퍼스",
+    "level": 35,
+    "hp": 4900,
+    "exp": 288,
+    "acc": 100,
+    "eva": 0,
+    "needAcc": 2,
+    "def": 120,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3230302,
+    "region": "루디브리엄 파퀘",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "차원의 블록골렘",
+    "level": 40,
+    "hp": 6500,
+    "exp": 408,
+    "acc": 150,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 130,
+    "mDef": 110,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 4230109,
+    "region": "루디브리엄 파퀘",
+    "watk": 145,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "차원의 쉐도우아이",
+    "level": 43,
+    "hp": 7100,
+    "exp": 340,
+    "acc": 120,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 470,
+    "mDef": 70,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300008,
+    "region": "루디브리엄 파퀘",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "차원의 다크아이",
+    "level": 43,
+    "hp": 6500,
+    "exp": 340,
+    "acc": 120,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 70,
+    "mDef": 470,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300014,
+    "region": "루디브리엄 파퀘",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "차원의 롬바드",
+    "level": 47,
+    "hp": 33000,
+    "exp": 850,
+    "acc": 150,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 185,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4130103,
+    "region": "루디브리엄 파퀘",
+    "watk": 175,
+    "matk": 195,
+    "exist": true
+  },
+  {
+    "name": "알리샤르",
+    "level": 56,
+    "hp": 125000,
+    "exp": 4800,
+    "acc": 160,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 210,
+    "mDef": 240,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 2600622,
+    "region": "루디브리엄 파퀘",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "바나드 그레이",
+    "level": 40,
+    "hp": 1930,
+    "exp": 95,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 140,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230116,
+    "region": "지구방위본부",
+    "watk": 120,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "마티안",
+    "level": 41,
+    "hp": 2080,
+    "exp": 99,
+    "acc": 59,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 120,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230119,
+    "region": "지구방위본부",
+    "watk": 130,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "제타 그레이",
+    "level": 42,
+    "hp": 2300,
+    "exp": 102,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 160,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230117,
+    "region": "지구방위본부",
+    "watk": 130,
+    "matk": 150,
+    "exist": true
+  },
+  {
+    "name": "플라티안",
+    "level": 44,
+    "hp": 2480,
+    "exp": 105,
+    "acc": 67,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 140,
+    "mDef": 190,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230120,
+    "region": "지구방위본부",
+    "watk": 140,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "울트라 그레이",
+    "level": 45,
+    "hp": 2550,
+    "exp": 110,
+    "acc": 78,
+    "eva": 21,
+    "needAcc": 2.8,
+    "def": 180,
+    "mDef": 200,
+    "ele": [
+      "전기 반감"
+    ],
+    "mobCode": 4230118,
+    "region": "지구방위본부",
+    "watk": 140,
+    "matk": 155,
+    "exist": true
+  },
+  {
+    "name": "메카티안",
+    "level": 46,
+    "hp": 2600,
+    "exp": 110,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 160,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230121,
+    "region": "지구방위본부",
+    "watk": 135,
+    "matk": 158,
+    "exist": true
+  },
+  {
+    "name": "원로 그레이",
+    "level": 49,
+    "hp": 9000,
+    "exp": 580,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 140,
+    "mDef": 250,
+    "ele": [
+      "얼음 반감",
+      "전기 반감"
+    ],
+    "mobCode": 4240000,
+    "region": "지구방위본부",
+    "watk": 140,
+    "matk": 180,
+    "exist": true
+  },
+  {
+    "name": "머신 MT-09",
+    "level": 54,
+    "hp": 13500,
+    "exp": 980,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 280,
+    "mDef": 280,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120100,
+    "region": "지구방위본부",
+    "watk": 170,
+    "matk": 180,
+    "exist": true
+  },
+  {
+    "name": "제노",
+    "level": 65,
+    "hp": 36000,
+    "exp": 940,
+    "acc": 150,
+    "eva": 29,
+    "needAcc": 3.87,
+    "def": 210,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6220001,
+    "region": "지구방위본부",
+    "watk": 205,
+    "matk": 205,
+    "exist": true
+  },
+  {
+    "name": "월묘",
+    "level": 45,
+    "hp": 2600,
+    "exp": 110,
+    "acc": 74,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 100,
+    "mDef": 180,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 4230300,
+    "region": "아랫마을",
+    "watk": 150,
+    "matk": 155,
+    "exist": true
+  },
+  {
+    "name": "호돌이",
+    "level": 50,
+    "hp": 3800,
+    "exp": 140,
+    "acc": 147,
+    "eva": 28,
+    "needAcc": 5.33,
+    "def": 150,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5100003,
+    "region": "아랫마을",
+    "watk": 170,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "호걸",
+    "level": 53,
+    "hp": 4500,
+    "exp": 165,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 185,
+    "mDef": 215,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 5100005,
+    "region": "아랫마을",
+    "watk": 185,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "삼미호",
+    "level": 56,
+    "hp": 4500,
+    "exp": 185,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 1.73,
+    "def": 150,
+    "mDef": 190,
+    "ele": [
+      "불 약점",
+      "성 약점"
+    ],
+    "mobCode": 5100004,
+    "region": "아랫마을",
+    "watk": 165,
+    "matk": 180,
+    "exist": true
+  },
+  {
+    "name": "깨비(변신 전)",
+    "level": 60,
+    "hp": 3500,
+    "exp": 0,
+    "acc": 150,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 170,
+    "mDef": 180,
+    "ele": [
+      "성 약점",
+      "얼음 약점"
+    ],
+    "mobCode": 6130201,
+    "region": "아랫마을",
+    "watk": 165,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "깨비(변신 후)",
+    "level": 60,
+    "hp": 7000,
+    "exp": 330,
+    "acc": 92,
+    "eva": 28,
+    "needAcc": 3.33,
+    "def": 220,
+    "mDef": 230,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 6130202,
+    "region": "아랫마을",
+    "watk": 195,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "선비귀신",
+    "level": 62,
+    "hp": 6000,
+    "exp": 240,
+    "acc": 80,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 170,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6090003,
+    "region": "아랫마을",
+    "watk": 185,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "노란 왕도깨비",
+    "level": 70,
+    "hp": 25000,
+    "exp": 400,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 280,
+    "mDef": 280,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 7130400,
+    "region": "아랫마을",
+    "watk": 285,
+    "matk": 335,
+    "exist": true
+  },
+  {
+    "name": "파란 왕도깨비",
+    "level": 70,
+    "hp": 25000,
+    "exp": 400,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 280,
+    "mDef": 280,
+    "ele": [
+      "불 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 7130401,
+    "region": "아랫마을",
+    "watk": 285,
+    "matk": 335,
+    "exist": true
+  },
+  {
+    "name": "초록 왕도깨비",
+    "level": 70,
+    "hp": 25000,
+    "exp": 400,
+    "acc": 56,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 280,
+    "mDef": 280,
+    "ele": [
+      "독 면역"
+    ],
+    "mobCode": 7130402,
+    "region": "아랫마을",
+    "watk": 285,
+    "matk": 335,
+    "exist": true
+  },
+  {
+    "name": "구미호",
+    "level": 70,
+    "hp": 89000,
+    "exp": 1300,
+    "acc": 130,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 280,
+    "mDef": 265,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7220001,
+    "region": "아랫마을",
+    "watk": 260,
+    "matk": 310,
+    "exist": true
+  },
+  {
+    "name": "이끼 달팽이",
+    "level": 42,
+    "hp": 2400,
+    "exp": 102,
+    "acc": 120,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 110,
+    "mDef": 100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4250000,
+    "region": "엘린숲",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "트리로드",
+    "level": 46,
+    "hp": 2600,
+    "exp": 112,
+    "acc": 130,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 300,
+    "mDef": 300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4250001,
+    "region": "엘린숲",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스톤버그",
+    "level": 51,
+    "hp": 3600,
+    "exp": 142,
+    "acc": 800,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 255,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5250001,
+    "region": "엘린숲",
+    "watk": 170,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "이끼버섯",
+    "level": 55,
+    "hp": 4400,
+    "exp": 175,
+    "acc": 120,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 100,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5250000,
+    "region": "엘린숲",
+    "watk": 160,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "원시멧돼지",
+    "level": 57,
+    "hp": 4500,
+    "exp": 200,
+    "acc": 130,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 170,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5250002,
+    "region": "엘린숲",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "레쉬",
+    "level": 70,
+    "hp": 14500,
+    "exp": 456,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 235,
+    "mDef": 245,
+    "ele": [
+      "독 약점"
+    ],
+    "mobCode": 7130500,
+    "region": "리프레",
+    "watk": 245,
+    "matk": 245,
+    "exist": true
+  },
+  {
+    "name": "비틀",
+    "level": 72,
+    "hp": 15200,
+    "exp": 478,
+    "acc": 110,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 335,
+    "mDef": 265,
+    "ele": [
+      "전기 반감"
+    ],
+    "mobCode": 7130002,
+    "region": "리프레",
+    "watk": 272,
+    "matk": 310,
+    "exist": true
+  },
+  {
+    "name": "호브",
+    "level": 72,
+    "hp": 15000,
+    "exp": 472,
+    "acc": 92,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 330,
+    "mDef": 260,
+    "ele": [
+      "독 약점"
+    ],
+    "mobCode": 7130600,
+    "region": "리프레",
+    "watk": 270,
+    "matk": 310,
+    "exist": true
+  },
+  {
+    "name": "다크 레쉬",
+    "level": 74,
+    "hp": 15500,
+    "exp": 488,
+    "acc": 99,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 285,
+    "mDef": 295,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 7130501,
+    "region": "리프레",
+    "watk": 295,
+    "matk": 295,
+    "exist": true
+  },
+  {
+    "name": "듀얼 비틀",
+    "level": 76,
+    "hp": 18000,
+    "exp": 567,
+    "acc": 99,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 400,
+    "mDef": 400,
+    "ele": [
+      "전기 반감"
+    ],
+    "mobCode": 7130003,
+    "region": "리프레",
+    "watk": 300,
+    "matk": 350,
+    "exist": true
+  },
+  {
+    "name": "핀호브",
+    "level": 76,
+    "hp": 18000,
+    "exp": 567,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 400,
+    "mDef": 350,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 7130601,
+    "region": "리프레",
+    "watk": 300,
+    "matk": 350,
+    "exist": true
+  },
+  {
+    "name": "헹키",
+    "level": 78,
+    "hp": 20000,
+    "exp": 630,
+    "acc": 110,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 600,
+    "mDef": 450,
+    "ele": [
+      "불 약점",
+      "독 약점"
+    ],
+    "mobCode": 7130004,
+    "region": "리프레",
+    "watk": 330,
+    "matk": 365,
+    "exist": true
+  },
+  {
+    "name": "하프",
+    "level": 80,
+    "hp": 27000,
+    "exp": 850,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 650,
+    "mDef": 450,
+    "ele": [
+      "독 약점"
+    ],
+    "mobCode": 8140001,
+    "region": "리프레",
+    "watk": 350,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "블러드 하프",
+    "level": 83,
+    "hp": 30000,
+    "exp": 1100,
+    "acc": 99,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 700,
+    "mDef": 465,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140002,
+    "region": "리프레",
+    "watk": 365,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "버크",
+    "level": 85,
+    "hp": 32000,
+    "exp": 1420,
+    "acc": 99,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 760,
+    "mDef": 465,
+    "ele": [
+      "성 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140110,
+    "region": "리프레",
+    "watk": 380,
+    "matk": 380,
+    "exist": true
+  },
+  {
+    "name": "검은 켄타우로스",
+    "level": 88,
+    "hp": 37000,
+    "exp": 1600,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 800,
+    "mDef": 495,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 8140101,
+    "region": "리프레",
+    "watk": 390,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "붉은 켄타우로스",
+    "level": 88,
+    "hp": 37000,
+    "exp": 1600,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 800,
+    "mDef": 495,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140102,
+    "region": "리프레",
+    "watk": 390,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "푸른 켄타우로스",
+    "level": 88,
+    "hp": 37000,
+    "exp": 1600,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 800,
+    "mDef": 495,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8140103,
+    "region": "리프레",
+    "watk": 390,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "듀얼 버크",
+    "level": 88,
+    "hp": 37000,
+    "exp": 1620,
+    "acc": 103,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 850,
+    "mDef": 480,
+    "ele": [
+      "성 반감",
+      "독 반감"
+    ],
+    "mobCode": 8140111,
+    "region": "리프레",
+    "watk": 395,
+    "matk": 395,
+    "exist": true
+  },
+  {
+    "name": "블루 드래곤터틀",
+    "level": 90,
+    "hp": 40000,
+    "exp": 1780,
+    "acc": 135,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 820,
+    "mDef": 480,
+    "ele": [
+      "불 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8140700,
+    "region": "리프레",
+    "watk": 410,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "레드 드래곤터틀",
+    "level": 93,
+    "hp": 49000,
+    "exp": 2100,
+    "acc": 135,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 500,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140701,
+    "region": "리프레",
+    "watk": 420,
+    "matk": 420,
+    "exist": true
+  },
+  {
+    "name": "리스튼",
+    "level": 95,
+    "hp": 50000,
+    "exp": 2280,
+    "acc": 135,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 840,
+    "mDef": 550,
+    "ele": [
+      "전기 약점",
+      "독 약점"
+    ],
+    "mobCode": 8140702,
+    "region": "리프레",
+    "watk": 460,
+    "matk": 510,
+    "exist": true
+  },
+  {
+    "name": "브레스튼",
+    "level": 97,
+    "hp": 55000,
+    "exp": 2500,
+    "acc": 135,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 850,
+    "mDef": 570,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8140703,
+    "region": "리프레",
+    "watk": 470,
+    "matk": 520,
+    "exist": true
+  },
+  {
+    "name": "레드 와이번",
+    "level": 97,
+    "hp": 53000,
+    "exp": 2500,
+    "acc": 135,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 550,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8150300,
+    "region": "리프레",
+    "watk": 450,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "레드 와이번(소환몹)",
+    "level": 97,
+    "hp": 53000,
+    "exp": 800,
+    "acc": 139,
+    "eva": 37,
+    "needAcc": 4.93,
+    "def": 830,
+    "mDef": 550,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8150300,
+    "region": "리프레",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "그린코니언",
+    "level": 100,
+    "hp": 56000,
+    "exp": 3000,
+    "acc": 164,
+    "eva": 45,
+    "needAcc": 6,
+    "def": 800,
+    "mDef": 500,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 8150200,
+    "region": "리프레",
+    "watk": 480,
+    "matk": 480,
+    "exist": true
+  },
+  {
+    "name": "블루 와이번",
+    "level": 101,
+    "hp": 57000,
+    "exp": 3050,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 850,
+    "mDef": 570,
+    "ele": [
+      "불 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8150301,
+    "region": "리프레",
+    "watk": 495,
+    "matk": 535,
+    "exist": true
+  },
+  {
+    "name": "블루 와이번(소환몹)",
+    "level": 101,
+    "hp": 57000,
+    "exp": 1000,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 850,
+    "mDef": 570,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8150301,
+    "region": "리프레",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "다크 와이번",
+    "level": 103,
+    "hp": 60000,
+    "exp": 3150,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 900,
+    "mDef": 580,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8150302,
+    "region": "리프레",
+    "watk": 505,
+    "matk": 540,
+    "exist": true
+  },
+  {
+    "name": "다크 와이번(소환몹)",
+    "level": 103,
+    "hp": 80000,
+    "exp": 1050,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 900,
+    "mDef": 580,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8150302,
+    "region": "리프레",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "다크코니언",
+    "level": 105,
+    "hp": 67000,
+    "exp": 3700,
+    "acc": 164,
+    "eva": 45,
+    "needAcc": 6,
+    "def": 800,
+    "mDef": 500,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 8150201,
+    "region": "리프레",
+    "watk": 495,
+    "matk": 495,
+    "exist": true
+  },
+  {
+    "name": "마뇽",
+    "level": 105,
+    "hp": 3700000,
+    "exp": 13500,
+    "acc": 143,
+    "eva": 39,
+    "needAcc": 5.2,
+    "def": 900,
+    "mDef": 850,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8180000,
+    "region": "리프레",
+    "watk": 550,
+    "matk": 680,
+    "exist": true
+  },
+  {
+    "name": "그리프",
+    "level": 105,
+    "hp": 3700000,
+    "exp": 13500,
+    "acc": 143,
+    "eva": 39,
+    "needAcc": 5.2,
+    "def": 900,
+    "mDef": 850,
+    "ele": [
+      "전기 반감",
+      "독 약점"
+    ],
+    "mobCode": 8180001,
+    "region": "리프레",
+    "watk": 550,
+    "matk": 680,
+    "exist": true
+  },
+  {
+    "name": "뉴트주니어",
+    "level": 105,
+    "hp": 68000,
+    "exp": 3800,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 750,
+    "mDef": 680,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8190000,
+    "region": "리프레",
+    "watk": 500,
+    "matk": 550,
+    "exist": true
+  },
+  {
+    "name": "네스트골렘",
+    "level": 110,
+    "hp": 80000,
+    "exp": 4450,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 900,
+    "mDef": 600,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8190002,
+    "region": "리프레",
+    "watk": 580,
+    "matk": 650,
+    "exist": true
+  },
+  {
+    "name": "네스트골렘(자라남)",
+    "level": 110,
+    "hp": 80000,
+    "exp": 8050,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 900,
+    "mDef": 600,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8190002,
+    "region": "리프레",
+    "watk": 580,
+    "matk": 650,
+    "exist": true
+  },
+  {
+    "name": "스켈레곤",
+    "level": 110,
+    "hp": 80000,
+    "exp": 4500,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 800,
+    "mDef": 700,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 8190003,
+    "region": "리프레",
+    "watk": 520,
+    "matk": 660,
+    "exist": true
+  },
+  {
+    "name": "스켈로스",
+    "level": 113,
+    "hp": 85000,
+    "exp": 4750,
+    "acc": 139,
+    "eva": 38,
+    "needAcc": 5.07,
+    "def": 810,
+    "mDef": 710,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 8190004,
+    "region": "리프레",
+    "watk": 530,
+    "matk": 670,
+    "exist": true
+  },
+  {
+    "name": "레비아탄",
+    "level": 120,
+    "hp": 13400000,
+    "exp": 47355,
+    "acc": 139,
+    "eva": 41,
+    "needAcc": 5.47,
+    "def": 950,
+    "mDef": 1050,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 8220003,
+    "region": "리프레",
+    "watk": 620,
+    "matk": 710,
+    "exist": true
+  },
+  {
+    "name": "별다람쥐",
+    "level": 40,
+    "hp": 1900,
+    "exp": 95,
+    "acc": 150,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 135,
+    "mDef": 100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230500,
+    "region": "무릉도원",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "호저",
+    "level": 41,
+    "hp": 2000,
+    "exp": 99,
+    "acc": 150,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 120,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230501,
+    "region": "무릉도원",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "흑저",
+    "level": 43,
+    "hp": 2400,
+    "exp": 103,
+    "acc": 150,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 130,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230502,
+    "region": "무릉도원",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "청화사",
+    "level": 45,
+    "hp": 2550,
+    "exp": 110,
+    "acc": 200,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 170,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230503,
+    "region": "무릉도원",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "홍화사",
+    "level": 45,
+    "hp": 2550,
+    "exp": 110,
+    "acc": 200,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 150,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230504,
+    "region": "무릉도원",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "훈련용 짚인형",
+    "level": 50,
+    "hp": 3000,
+    "exp": 135,
+    "acc": 80,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 170,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120503,
+    "region": "무릉도원",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "훈련용 나무인형",
+    "level": 51,
+    "hp": 3200,
+    "exp": 142,
+    "acc": 85,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 200,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120504,
+    "region": "무릉도원",
+    "watk": 170,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "비급",
+    "level": 55,
+    "hp": 4500,
+    "exp": 175,
+    "acc": 150,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 150,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120506,
+    "region": "무릉도원",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "달곰",
+    "level": 56,
+    "hp": 4800,
+    "exp": 185,
+    "acc": 135,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 180,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120500,
+    "region": "무릉도원",
+    "watk": 165,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "천록",
+    "level": 58,
+    "hp": 5600,
+    "exp": 205,
+    "acc": 155,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 180,
+    "mDef": 210,
+    "ele": [
+      "독 약점"
+    ],
+    "mobCode": 5120505,
+    "region": "무릉도원",
+    "watk": 170,
+    "matk": 205,
+    "exist": true
+  },
+  {
+    "name": "선인인형",
+    "level": 59,
+    "hp": 5600,
+    "exp": 220,
+    "acc": 100,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 180,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5090001,
+    "region": "무릉도원",
+    "watk": 170,
+    "matk": 190,
+    "exist": true
+  },
+  {
+    "name": "판다곰",
+    "level": 60,
+    "hp": 6500,
+    "exp": 225,
+    "acc": 150,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 200,
+    "mDef": 230,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130203,
+    "region": "무릉도원",
+    "watk": 180,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "원공",
+    "level": 62,
+    "hp": 7500,
+    "exp": 240,
+    "acc": 200,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 170,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130207,
+    "region": "무릉도원",
+    "watk": 185,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "묘선",
+    "level": 66,
+    "hp": 9000,
+    "exp": 283,
+    "acc": 120,
+    "eva": 24,
+    "needAcc": 3.2,
+    "def": 160,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130209,
+    "region": "무릉도원",
+    "watk": 220,
+    "matk": 270,
+    "exist": true
+  },
+  {
+    "name": "태륜",
+    "level": 71,
+    "hp": 93000,
+    "exp": 1580,
+    "acc": 175,
+    "eva": 30,
+    "needAcc": 4,
+    "def": 335,
+    "mDef": 265,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7220000,
+    "region": "무릉도원",
+    "watk": 285,
+    "matk": 310,
+    "exist": true
+  },
+  {
+    "name": "요괴선사",
+    "level": 77,
+    "hp": 108000,
+    "exp": 2280,
+    "acc": 160,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 520,
+    "mDef": 410,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7220002,
+    "region": "무릉도원",
+    "watk": 320,
+    "matk": 350,
+    "exist": true
+  },
+  {
+    "name": "단지",
+    "level": 47,
+    "hp": 2700,
+    "exp": 117,
+    "acc": 130,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 155,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230505,
+    "region": "백초마을",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "삼단지",
+    "level": 48,
+    "hp": 2800,
+    "exp": 123,
+    "acc": 140,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 165,
+    "mDef": 170,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4230506,
+    "region": "백초마을",
+    "watk": 145,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "도라지",
+    "level": 53,
+    "hp": 4200,
+    "exp": 160,
+    "acc": 150,
+    "eva": 16,
+    "needAcc": 2.13,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120501,
+    "region": "백초마을",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "늙은 도라지",
+    "level": 54,
+    "hp": 4400,
+    "exp": 168,
+    "acc": 150,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 180,
+    "mDef": 215,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5120502,
+    "region": "백초마을",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "게비알",
+    "level": 64,
+    "hp": 7800,
+    "exp": 250,
+    "acc": 140,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 190,
+    "mDef": 230,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130204,
+    "region": "백초마을",
+    "watk": 180,
+    "matk": 230,
+    "exist": true
+  },
+  {
+    "name": "크루",
+    "level": 68,
+    "hp": 12500,
+    "exp": 393,
+    "acc": 130,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 190,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6130208,
+    "region": "백초마을",
+    "watk": 200,
+    "matk": 290,
+    "exist": true
+  },
+  {
+    "name": "캡틴",
+    "level": 70,
+    "hp": 15000,
+    "exp": 472,
+    "acc": 165,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 250,
+    "mDef": 260,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7130104,
+    "region": "백초마을",
+    "watk": 210,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "흰 모래토끼",
+    "level": 20,
+    "hp": 350,
+    "exp": 32,
+    "acc": 55,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2100100,
+    "region": "아리안트",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "갈색 모래토끼",
+    "level": 21,
+    "hp": 400,
+    "exp": 34,
+    "acc": 70,
+    "eva": 9,
+    "needAcc": 1.2,
+    "def": 25,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2100101,
+    "region": "아리안트",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 카투스",
+    "level": 22,
+    "hp": 450,
+    "exp": 37,
+    "acc": 55,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 30,
+    "mDef": 30,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 2100102,
+    "region": "아리안트",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "벨라모아",
+    "level": 23,
+    "hp": 500,
+    "exp": 42,
+    "acc": 55,
+    "eva": 9,
+    "needAcc": 1.2,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 2100105,
+    "region": "아리안트",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "귀마개 프릴드",
+    "level": 24,
+    "hp": 550,
+    "exp": 45,
+    "acc": 50,
+    "eva": 9,
+    "needAcc": 1.2,
+    "def": 35,
+    "mDef": 35,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 2100106,
+    "region": "아리안트",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "모래 두더지",
+    "level": 24,
+    "hp": 600,
+    "exp": 55,
+    "acc": 55,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2110300,
+    "region": "아리안트",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "카투스",
+    "level": 25,
+    "hp": 550,
+    "exp": 47,
+    "acc": 55,
+    "eva": 9,
+    "needAcc": 1.2,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 2100103,
+    "region": "아리안트",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "목도리 프릴드",
+    "level": 27,
+    "hp": 700,
+    "exp": 50,
+    "acc": 55,
+    "eva": 10,
+    "needAcc": 1.3,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 2100107,
+    "region": "아리안트",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "로얄 카투스",
+    "level": 28,
+    "hp": 750,
+    "exp": 55,
+    "acc": 60,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 2100104,
+    "region": "아리안트",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "미요캐츠",
+    "level": 29,
+    "hp": 780,
+    "exp": 58,
+    "acc": 60,
+    "eva": 10,
+    "needAcc": 1.3,
+    "def": 40,
+    "mDef": 45,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2100108,
+    "region": "아리안트",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스콜피언",
+    "level": 29,
+    "hp": 780,
+    "exp": 58,
+    "acc": 60,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 40,
+    "mDef": 45,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 2110301,
+    "region": "아리안트",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "키요",
+    "level": 30,
+    "hp": 870,
+    "exp": 60,
+    "acc": 70,
+    "eva": 13,
+    "needAcc": 1.73,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3100102,
+    "region": "아리안트",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "모래난쟁이",
+    "level": 32,
+    "hp": 1000,
+    "exp": 60,
+    "acc": 60,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 45,
+    "mDef": 40,
+    "ele": [
+      "불 약점",
+      "얼음 약점"
+    ],
+    "mobCode": 3100101,
+    "region": "아리안트",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "붉은 모래난쟁이",
+    "level": 32,
+    "hp": 1000,
+    "exp": 62,
+    "acc": 70,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 3110301,
+    "region": "아리안트",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "모래거인",
+    "level": 40,
+    "hp": 1800,
+    "exp": 95,
+    "acc": 150,
+    "eva": 17,
+    "needAcc": 2.27,
+    "def": 160,
+    "mDef": 160,
+    "ele": [
+      "불 약점",
+      "얼음 약점"
+    ],
+    "mobCode": 4230600,
+    "region": "아리안트",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "큐브슬라임",
+    "level": 32,
+    "hp": 1000,
+    "exp": 62,
+    "acc": 70,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3110300,
+    "region": "마가티아",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "루모",
+    "level": 35,
+    "hp": 1400,
+    "exp": 75,
+    "acc": 105,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 110,
+    "mDef": 100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3110302,
+    "region": "마가티아",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "트리플 루모",
+    "level": 38,
+    "hp": 1850,
+    "exp": 85,
+    "acc": 130,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 105,
+    "mDef": 125,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3110303,
+    "region": "마가티아",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "아이언 뮤테",
+    "level": 42,
+    "hp": 2400,
+    "exp": 102,
+    "acc": 95,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 110,
+    "mDef": 90,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4110300,
+    "region": "마가티아",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "강화된 아이언 뮤테",
+    "level": 45,
+    "hp": 2550,
+    "exp": 110,
+    "acc": 200,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 150,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4110301,
+    "region": "마가티아",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "미스릴 뮤테",
+    "level": 47,
+    "hp": 2750,
+    "exp": 117,
+    "acc": 130,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 155,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 4110302,
+    "region": "마가티아",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "강화된 미스릴 뮤테",
+    "level": 50,
+    "hp": 3000,
+    "exp": 135,
+    "acc": 80,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 170,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5110300,
+    "region": "마가티아",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "로이드",
+    "level": 54,
+    "hp": 4400,
+    "exp": 168,
+    "acc": 150,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 180,
+    "mDef": 215,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5110301,
+    "region": "마가티아",
+    "watk": 155,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "네오 휴로이드",
+    "level": 58,
+    "hp": 5600,
+    "exp": 205,
+    "acc": 155,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 180,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 5110302,
+    "region": "마가티아",
+    "watk": 170,
+    "matk": 205,
+    "exist": true
+  },
+  {
+    "name": "루루모",
+    "level": 63,
+    "hp": 7600,
+    "exp": 245,
+    "acc": 150,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 190,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6090004,
+    "region": "마가티아",
+    "watk": 190,
+    "matk": 220,
+    "exist": true
+  },
+  {
+    "name": "호문",
+    "level": 65,
+    "hp": 11000,
+    "exp": 346,
+    "acc": 110,
+    "eva": 24,
+    "needAcc": 3.2,
+    "def": 170,
+    "mDef": 245,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6110300,
+    "region": "마가티아",
+    "watk": 182,
+    "matk": 270,
+    "exist": true
+  },
+  {
+    "name": "사이티",
+    "level": 68,
+    "hp": 13000,
+    "exp": 409,
+    "acc": 130,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 190,
+    "mDef": 270,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6110301,
+    "region": "마가티아",
+    "watk": 210,
+    "matk": 290,
+    "exist": true
+  },
+  {
+    "name": "호문쿨루",
+    "level": 73,
+    "hp": 15500,
+    "exp": 488,
+    "acc": 160,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 300,
+    "mDef": 320,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7110301,
+    "region": "마가티아",
+    "watk": 280,
+    "matk": 315,
+    "exist": true
+  },
+  {
+    "name": "자동경비시스템",
+    "level": 75,
+    "hp": 16000,
+    "exp": 350,
+    "acc": 130,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 550,
+    "mDef": 290,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7090000,
+    "region": "마가티아",
+    "watk": 300,
+    "matk": 380,
+    "exist": true
+  },
+  {
+    "name": "D.로이",
+    "level": 75,
+    "hp": 16000,
+    "exp": 350,
+    "acc": 160,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 800,
+    "mDef": 290,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7110300,
+    "region": "마가티아",
+    "watk": 330,
+    "matk": 380,
+    "exist": true
+  },
+  {
+    "name": "디트와 로이",
+    "level": 80,
+    "hp": 27000,
+    "exp": 850,
+    "acc": 140,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 650,
+    "mDef": 450,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8090000,
+    "region": "마가티아",
+    "watk": 350,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "호문스큘러",
+    "level": 80,
+    "hp": 27000,
+    "exp": 850,
+    "acc": 140,
+    "eva": 28,
+    "needAcc": 3.73,
+    "def": 650,
+    "mDef": 450,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8110300,
+    "region": "마가티아",
+    "watk": 350,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "키메라",
+    "level": 85,
+    "hp": 96000,
+    "exp": 3000,
+    "acc": 160,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 700,
+    "mDef": 465,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8220002,
+    "region": "마가티아",
+    "watk": 430,
+    "matk": 430,
+    "exist": true
+  },
+  {
+    "name": "프랑켄 로이드",
+    "level": 81,
+    "hp": 660000,
+    "exp": 12000,
+    "acc": 170,
+    "eva": 28,
+    "needAcc": 3.6,
+    "def": 700,
+    "mDef": 990,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300139,
+    "region": "마가티아",
+    "watk": 400,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "화난 프랑켄 로이드",
+    "level": 84,
+    "hp": 850000,
+    "exp": 25000,
+    "acc": 190,
+    "eva": 33,
+    "needAcc": 3.6,
+    "def": 800,
+    "mDef": 990,
+    "ele": [
+      "독 반감",
+      "전기 반감"
+    ],
+    "mobCode": 9300140,
+    "region": "마가티아",
+    "watk": 440,
+    "matk": 440,
+    "exist": true
+  },
+  {
+    "name": "까마귀",
+    "level": 25,
+    "hp": 550,
+    "exp": 42,
+    "acc": 50,
+    "eva": 10,
+    "needAcc": 2,
+    "def": 30,
+    "mDef": 30,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 9400000,
+    "region": "해외여행: 일본",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "불너구리",
+    "level": 30,
+    "hp": 900,
+    "exp": 55,
+    "acc": 60,
+    "eva": 12,
+    "needAcc": 0.67,
+    "def": 85,
+    "mDef": 65,
+    "ele": [
+      "얼음 약점"
+    ],
+    "mobCode": 9400001,
+    "region": "해외여행: 일본",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "구름여우",
+    "level": 30,
+    "hp": 920,
+    "exp": 55,
+    "acc": 60,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 80,
+    "mDef": 70,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400002,
+    "region": "해외여행: 일본",
+    "watk": 98,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "제등귀신",
+    "level": 40,
+    "hp": 1920,
+    "exp": 93,
+    "acc": 150,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 140,
+    "mDef": 160,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 9400011,
+    "region": "해외여행: 일본",
+    "watk": 120,
+    "matk": 145,
+    "exist": true
+  },
+  {
+    "name": "큰 구름여우",
+    "level": 45,
+    "hp": 2600,
+    "exp": 110,
+    "acc": 180,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 125,
+    "mDef": 175,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 9400004,
+    "region": "해외여행: 일본",
+    "watk": 145,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "망령",
+    "level": 60,
+    "hp": 7100,
+    "exp": 220,
+    "acc": 160,
+    "eva": 25,
+    "needAcc": 3.3,
+    "def": 200,
+    "mDef": 220,
+    "ele": [
+      "성 약점",
+      "얼음 약점"
+    ],
+    "mobCode": 9400003,
+    "region": "해외여행: 일본",
+    "watk": 165,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "물도깨비",
+    "level": 60,
+    "hp": 7100,
+    "exp": 220,
+    "acc": 190,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 200,
+    "mDef": 230,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 9400012,
+    "region": "해외여행: 일본",
+    "watk": 190,
+    "matk": 250,
+    "exist": true
+  },
+  {
+    "name": "대나무 무사",
+    "level": 68,
+    "hp": 12500,
+    "exp": 265,
+    "acc": 130,
+    "eva": 999,
+    "needAcc": 133.2,
+    "def": 190,
+    "mDef": 270,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6090002,
+    "region": "해외여행: 일본",
+    "watk": 200,
+    "matk": 290,
+    "exist": true
+  },
+  {
+    "name": "블루머쉬맘",
+    "level": 90,
+    "hp": 200000,
+    "exp": 10000,
+    "acc": 165,
+    "eva": 45,
+    "needAcc": 6,
+    "def": 810,
+    "mDef": 520,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400205,
+    "region": "해외여행: 일본",
+    "watk": 450,
+    "matk": 540,
+    "exist": true
+  },
+  {
+    "name": "몽롱귀신",
+    "level": 100,
+    "hp": 68000,
+    "exp": 3200,
+    "acc": 210,
+    "eva": 34,
+    "needAcc": 4.53,
+    "def": 810,
+    "mDef": 580,
+    "ele": [
+      "독 면역",
+      "성 약점"
+    ],
+    "mobCode": 9400013,
+    "region": "해외여행: 일본",
+    "watk": 480,
+    "matk": 540,
+    "exist": true
+  },
+  {
+    "name": "천구",
+    "level": 115,
+    "hp": 35000000,
+    "exp": 1780000,
+    "acc": 250,
+    "eva": 39,
+    "needAcc": 5.2,
+    "def": 1400,
+    "mDef": 1300,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 9400014,
+    "region": "해외여행: 일본",
+    "watk": 1000,
+    "matk": 800,
+    "exist": true
+  },
+  {
+    "name": "하급 닌자",
+    "level": 25,
+    "hp": 600,
+    "exp": 75,
+    "acc": 90,
+    "eva": 14,
+    "needAcc": 5.2,
+    "def": 20,
+    "mDef": 35,
+    "ele": [
+      "독 약점",
+      "불 약점"
+    ],
+    "mobCode": 9400400,
+    "region": "해외여행: 일본",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "아시가루",
+    "level": 30,
+    "hp": 950,
+    "exp": 100,
+    "acc": 55,
+    "eva": 8,
+    "needAcc": 5.2,
+    "def": 60,
+    "mDef": 50,
+    "ele": [
+      "독 약점",
+      "얼음 약점"
+    ],
+    "mobCode": 9400404,
+    "region": "해외여행: 일본",
+    "watk": 125,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "중급 닌자",
+    "level": 50,
+    "hp": 4200,
+    "exp": 190,
+    "acc": 162,
+    "eva": 40,
+    "needAcc": 5.2,
+    "def": 115,
+    "mDef": 180,
+    "ele": [
+      "전기 약점",
+      "불 약점"
+    ],
+    "mobCode": 9400401,
+    "region": "해외여행: 일본",
+    "watk": 162,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "쿠노이치",
+    "level": 60,
+    "hp": 6500,
+    "exp": 290,
+    "acc": 210,
+    "eva": 22,
+    "needAcc": 5.2,
+    "def": 165,
+    "mDef": 210,
+    "ele": [
+      "성 약점",
+      "불 약점"
+    ],
+    "mobCode": 9400406,
+    "region": "해외여행: 일본",
+    "watk": 200,
+    "matk": 280,
+    "exist": true
+  },
+  {
+    "name": "상급 닌자",
+    "level": 80,
+    "hp": 25000,
+    "exp": 1150,
+    "acc": 155,
+    "eva": 30,
+    "needAcc": 5.2,
+    "def": 610,
+    "mDef": 470,
+    "ele": [
+      "성 약점",
+      "독 면역"
+    ],
+    "mobCode": 9400402,
+    "region": "해외여행: 일본",
+    "watk": 370,
+    "matk": 405,
+    "exist": true
+  },
+  {
+    "name": "닌자 두목",
+    "level": 100,
+    "hp": 71000,
+    "exp": 4050,
+    "acc": 215,
+    "eva": 35,
+    "needAcc": 5.2,
+    "def": 1020,
+    "mDef": 610,
+    "ele": [
+      "성 약점",
+      "독 면역"
+    ],
+    "mobCode": 9400403,
+    "region": "해외여행: 일본",
+    "watk": 580,
+    "matk": 620,
+    "exist": true
+  },
+  {
+    "name": "갑주무사",
+    "level": 120,
+    "hp": 78000000,
+    "exp": 3680000,
+    "acc": 270,
+    "eva": 42,
+    "needAcc": 5.2,
+    "def": 3200,
+    "mDef": 1200,
+    "ele": [
+      "전기 약점",
+      "성 약점"
+    ],
+    "mobCode": 9400405,
+    "region": "해외여행: 일본",
+    "watk": 1150,
+    "matk": 1080,
+    "exist": true
+  },
+  {
+    "name": "들개",
+    "level": 23,
+    "hp": 500,
+    "exp": 40,
+    "acc": 60,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 28,
+    "mDef": 45,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410000,
+    "region": "해외여행: 대만",
+    "watk": 80,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "멋쟁이 들개",
+    "level": 25,
+    "hp": 550,
+    "exp": 43,
+    "acc": 60,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 30,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410001,
+    "region": "해외여행: 대만",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "예티 인형",
+    "level": 36,
+    "hp": 1550,
+    "exp": 81,
+    "acc": 120,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 90,
+    "mDef": 90,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410009,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어페페 인형",
+    "level": 36,
+    "hp": 1400,
+    "exp": 81,
+    "acc": 120,
+    "eva": 10,
+    "needAcc": 1.33,
+    "def": 80,
+    "mDef": 85,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410011,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "레드 버블티",
+    "level": 38,
+    "hp": 1900,
+    "exp": 90,
+    "acc": 140,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 105,
+    "mDef": 120,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 9410005,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "옐로우 버블티",
+    "level": 38,
+    "hp": 1900,
+    "exp": 90,
+    "acc": 140,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 105,
+    "mDef": 120,
+    "ele": [
+      "전기 반감",
+      "독 약점"
+    ],
+    "mobCode": 9410006,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "그린 버블티",
+    "level": 38,
+    "hp": 1900,
+    "exp": 90,
+    "acc": 140,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 105,
+    "mDef": 120,
+    "ele": [
+      "독 반감",
+      "전기 약점"
+    ],
+    "mobCode": 9410007,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 135,
+    "exist": true
+  },
+  {
+    "name": "광대 원숭이",
+    "level": 40,
+    "hp": 1850,
+    "exp": 95,
+    "acc": 110,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 140,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410003,
+    "region": "해외여행: 대만",
+    "watk": 120,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "험악한 들개",
+    "level": 42,
+    "hp": 2300,
+    "exp": 102,
+    "acc": 160,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 160,
+    "mDef": 110,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410002,
+    "region": "해외여행: 대만",
+    "watk": 140,
+    "matk": 150,
+    "exist": true
+  },
+  {
+    "name": "폭주족 원숭이",
+    "level": 47,
+    "hp": 2800,
+    "exp": 117,
+    "acc": 130,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 180,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410004,
+    "region": "해외여행: 대만",
+    "watk": 150,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "예티 인형자판기",
+    "level": 50,
+    "hp": 3800,
+    "exp": 150,
+    "acc": 59,
+    "eva": 20,
+    "needAcc": 2.13,
+    "def": 160,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410008,
+    "region": "해외여행: 대만",
+    "watk": 175,
+    "matk": 160,
+    "exist": true
+  },
+  {
+    "name": "주니어페페 인형자판기",
+    "level": 50,
+    "hp": 3800,
+    "exp": 152,
+    "acc": 59,
+    "eva": 20,
+    "needAcc": 2.13,
+    "def": 160,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410010,
+    "region": "해외여행: 대만",
+    "watk": 175,
+    "matk": 160,
+    "exist": true
+  },
+  {
+    "name": "인형자판기",
+    "level": 60,
+    "hp": 1500,
+    "exp": 10,
+    "acc": 92,
+    "eva": 10,
+    "needAcc": 3.33,
+    "def": 160,
+    "mDef": 160,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410012,
+    "region": "해외여행: 대만",
+    "watk": 160,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "인형뽑기 기계",
+    "level": 60,
+    "hp": 6000,
+    "exp": 440,
+    "acc": 92,
+    "eva": 20,
+    "needAcc": 3.33,
+    "def": 180,
+    "mDef": 190,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410013,
+    "region": "해외여행: 대만",
+    "watk": 210,
+    "matk": 225,
+    "exist": true
+  },
+  {
+    "name": "포장마차(변신 전)",
+    "level": 85,
+    "hp": 5000,
+    "exp": 0,
+    "acc": 180,
+    "eva": 40,
+    "needAcc": 1.33,
+    "def": 340,
+    "mDef": 350,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410015,
+    "region": "해외여행: 대만",
+    "watk": 0,
+    "matk": 0,
+    "exist": false
+  },
+  {
+    "name": "포장마차(변신 후)",
+    "level": 85,
+    "hp": 230000,
+    "exp": 4230,
+    "acc": 200,
+    "eva": 40,
+    "needAcc": 5.33,
+    "def": 520,
+    "mDef": 720,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9410015,
+    "region": "해외여행: 대만",
+    "watk": 480,
+    "matk": 520,
+    "exist": true
+  },
+  {
+    "name": "개구리",
+    "level": 8,
+    "hp": 75,
+    "exp": 17,
+    "acc": 42,
+    "eva": 1,
+    "needAcc": 0.13,
+    "def": 5,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420001,
+    "region": "해외여행: 태국",
+    "watk": 52,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "흰 닭",
+    "level": 15,
+    "hp": 230,
+    "exp": 28,
+    "acc": 45,
+    "eva": 5,
+    "needAcc": 0.67,
+    "def": 11,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420005,
+    "region": "해외여행: 태국",
+    "watk": 82,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "노란 도마뱀",
+    "level": 25,
+    "hp": 500,
+    "exp": 46,
+    "acc": 50,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420004,
+    "region": "해외여행: 태국",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "두꺼비",
+    "level": 28,
+    "hp": 720,
+    "exp": 58,
+    "acc": 115,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 60,
+    "mDef": 73,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420000,
+    "region": "해외여행: 태국",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "빨간 도마뱀",
+    "level": 40,
+    "hp": 1920,
+    "exp": 95,
+    "acc": 65,
+    "eva": 15,
+    "needAcc": 2,
+    "def": 110,
+    "mDef": 130,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420003,
+    "region": "해외여행: 태국",
+    "watk": 124,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "구렁이",
+    "level": 60,
+    "hp": 6000,
+    "exp": 230,
+    "acc": 150,
+    "eva": 22,
+    "needAcc": 2.93,
+    "def": 160,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420002,
+    "region": "해외여행: 태국",
+    "watk": 200,
+    "matk": 190,
+    "exist": true
+  },
+  {
+    "name": "닭",
+    "level": 20,
+    "hp": 340,
+    "exp": 33,
+    "acc": 55,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 10,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600001,
+    "region": "해외여행: 중국",
+    "watk": 85,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "오리",
+    "level": 22,
+    "hp": 380,
+    "exp": 37,
+    "acc": 90,
+    "eva": 7,
+    "needAcc": 0.93,
+    "def": 20,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600002,
+    "region": "해외여행: 중국",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "양",
+    "level": 25,
+    "hp": 550,
+    "exp": 42,
+    "acc": 50,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600003,
+    "region": "해외여행: 중국",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "염소",
+    "level": 30,
+    "hp": 900,
+    "exp": 58,
+    "acc": 65,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 40,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600004,
+    "region": "해외여행: 중국",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "소",
+    "level": 33,
+    "hp": 1200,
+    "exp": 66,
+    "acc": 60,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 50,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600006,
+    "region": "해외여행: 중국",
+    "watk": 110,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "흑염소",
+    "level": 35,
+    "hp": 1250,
+    "exp": 71,
+    "acc": 65,
+    "eva": 12,
+    "needAcc": 1.6,
+    "def": 60,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600005,
+    "region": "해외여행: 중국",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "검은 양",
+    "level": 37,
+    "hp": 1500,
+    "exp": 79,
+    "acc": 90,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 100,
+    "mDef": 115,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600008,
+    "region": "해외여행: 중국",
+    "watk": 115,
+    "matk": 125,
+    "exist": true
+  },
+  {
+    "name": "쟁기소",
+    "level": 38,
+    "hp": 1800,
+    "exp": 86,
+    "acc": 100,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 105,
+    "mDef": 120,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600007,
+    "region": "해외여행: 중국",
+    "watk": 120,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "대왕지네",
+    "level": 50,
+    "hp": 18000,
+    "exp": 108,
+    "acc": 150,
+    "eva": 27,
+    "needAcc": 3.6,
+    "def": 300,
+    "mDef": 150,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9600009,
+    "region": "해외여행: 중국",
+    "watk": 320,
+    "matk": 340,
+    "exist": true
+  },
+  {
+    "name": "악마 슬라임",
+    "level": 23,
+    "hp": 1000,
+    "exp": 170,
+    "acc": 55,
+    "eva": 8,
+    "needAcc": 1.07,
+    "def": 30,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300027,
+    "region": "샤레니안",
+    "watk": 95,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "주니어 가고일",
+    "level": 62,
+    "hp": 15000,
+    "exp": 430,
+    "acc": 130,
+    "eva": 26,
+    "needAcc": 3.47,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300026,
+    "region": "샤레니안",
+    "watk": 220,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "머슬스톤",
+    "level": 63,
+    "hp": 16000,
+    "exp": 520,
+    "acc": 140,
+    "eva": 23,
+    "needAcc": 3.07,
+    "def": 350,
+    "mDef": 560,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300020,
+    "region": "샤레니안",
+    "watk": 285,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마스터 머슬스톤",
+    "level": 65,
+    "hp": 40000,
+    "exp": 1120,
+    "acc": 145,
+    "eva": 23,
+    "needAcc": 3.07,
+    "def": 380,
+    "mDef": 560,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300019,
+    "region": "샤레니안",
+    "watk": 285,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "블랙 나이트",
+    "level": 66,
+    "hp": 40000,
+    "exp": 1060,
+    "acc": 145,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 550,
+    "mDef": 320,
+    "ele": [
+      "성 약점",
+      "독 반감"
+    ],
+    "mobCode": 9300022,
+    "region": "샤레니안",
+    "watk": 250,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "미스트 나이트",
+    "level": 66,
+    "hp": 40000,
+    "exp": 1060,
+    "acc": 145,
+    "eva": 25,
+    "needAcc": 3.33,
+    "def": 550,
+    "mDef": 320,
+    "ele": [
+      "성 약점",
+      "독 반감"
+    ],
+    "mobCode": 9300023,
+    "region": "샤레니안",
+    "watk": 250,
+    "matk": 320,
+    "exist": true
+  },
+  {
+    "name": "퍼펫골렘",
+    "level": 67,
+    "hp": 35000,
+    "exp": 1100,
+    "acc": 145,
+    "eva": 21,
+    "needAcc": 2.8,
+    "def": 370,
+    "mDef": 800,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300024,
+    "region": "샤레니안",
+    "watk": 310,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "가고일",
+    "level": 68,
+    "hp": 35000,
+    "exp": 1150,
+    "acc": 140,
+    "eva": 20,
+    "needAcc": 2.67,
+    "def": 340,
+    "mDef": 570,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300025,
+    "region": "샤레니안",
+    "watk": 260,
+    "matk": 360,
+    "exist": true
+  },
+  {
+    "name": "에레고스",
+    "level": 115,
+    "hp": 1700000,
+    "exp": 150000,
+    "acc": 230,
+    "eva": 18,
+    "needAcc": 2.4,
+    "def": 1100,
+    "mDef": 1200,
+    "ele": [
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9300028,
+    "region": "샤레니안",
+    "watk": 700,
+    "matk": 700,
+    "exist": true
+  },
+  {
+    "name": "길거리 슬라임",
+    "level": 19,
+    "hp": 320,
+    "exp": 35,
+    "acc": 0,
+    "eva": 15,
+    "needAcc": 0,
+    "def": 40,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400538,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 100,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "대식가 구울",
+    "level": 21,
+    "hp": 300,
+    "exp": 37,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 20,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400556,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 90,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "도심가 버섯",
+    "level": 21,
+    "hp": 350,
+    "exp": 37,
+    "acc": 0,
+    "eva": 7,
+    "needAcc": 0,
+    "def": 10,
+    "mDef": 60,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400539,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 90,
+    "matk": 10,
+    "exist": true
+  },
+  {
+    "name": "킬라 비",
+    "level": 25,
+    "hp": 730,
+    "exp": 60,
+    "acc": 0,
+    "eva": 5,
+    "needAcc": 0,
+    "def": 40,
+    "mDef": 75,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400540,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "부머",
+    "level": 27,
+    "hp": 700,
+    "exp": 55,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 45,
+    "mDef": 75,
+    "ele": [
+      "얼음 약점",
+      "불 반감"
+    ],
+    "mobCode": 9400547,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 105,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "마이티 메이플 이터",
+    "level": 30,
+    "hp": 950,
+    "exp": 65,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 70,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 9400548,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 110,
+    "matk": 110,
+    "exist": true
+  },
+  {
+    "name": "싸이코 잭",
+    "level": 30,
+    "hp": 850,
+    "exp": 73,
+    "acc": 0,
+    "eva": 12,
+    "needAcc": 0,
+    "def": 60,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400558,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 95,
+    "matk": 100,
+    "exist": true
+  },
+  {
+    "name": "파이어 터스크",
+    "level": 36,
+    "hp": 1450,
+    "exp": 85,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 70,
+    "mDef": 70,
+    "ele": [
+      "얼음 약점",
+      "독 반감"
+    ],
+    "mobCode": 9400542,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 110,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "아기 티폰",
+    "level": 10,
+    "hp": 100,
+    "exp": 10,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400573,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 0,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "나이트메어",
+    "level": 40,
+    "hp": 1930,
+    "exp": 120,
+    "acc": 0,
+    "eva": 18,
+    "needAcc": 0,
+    "def": 130,
+    "mDef": 140,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400563,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 125,
+    "matk": 120,
+    "exist": true
+  },
+  {
+    "name": "일렉트로펀트",
+    "level": 41,
+    "hp": 1600,
+    "exp": 95,
+    "acc": 0,
+    "eva": 28,
+    "needAcc": 0,
+    "def": 90,
+    "mDef": 110,
+    "ele": [
+      "불 약점",
+      "전기 반감"
+    ],
+    "mobCode": 9400543,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 130,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "I.AM.ROBOT",
+    "level": 44,
+    "hp": 2490,
+    "exp": 120,
+    "acc": 0,
+    "eva": 30,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 195,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400546,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 130,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "레프러콘",
+    "level": 45,
+    "hp": 2800,
+    "exp": 135,
+    "acc": 0,
+    "eva": 20,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 160,
+    "ele": [
+      "성 약점",
+      "얼음 면역"
+    ],
+    "mobCode": 9400583,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 135,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "그리폰",
+    "level": 50,
+    "hp": 3300,
+    "exp": 220,
+    "acc": 0,
+    "eva": 23,
+    "needAcc": 0,
+    "def": 155,
+    "mDef": 170,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400544,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 190,
+    "matk": 140,
+    "exist": true
+  },
+  {
+    "name": "팬텀 트리",
+    "level": 50,
+    "hp": 3500,
+    "exp": 122,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400588,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "팬텀 트리 2",
+    "level": 50,
+    "hp": 3500,
+    "exp": 122,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400587,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "소필라 인형",
+    "level": 50,
+    "hp": 1800,
+    "exp": 115,
+    "acc": 0,
+    "eva": 19,
+    "needAcc": 0,
+    "def": 170,
+    "mDef": 170,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400560,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "걸어다니는 소필라 인형",
+    "level": 50,
+    "hp": 2000,
+    "exp": 55,
+    "acc": 0,
+    "eva": 18,
+    "needAcc": 0,
+    "def": 170,
+    "mDef": 170,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400559,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "후두",
+    "level": 60,
+    "hp": 6800,
+    "exp": 335,
+    "acc": 0,
+    "eva": 22,
+    "needAcc": 0,
+    "def": 240,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400562,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 190,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "부두",
+    "level": 60,
+    "hp": 6800,
+    "exp": 335,
+    "acc": 0,
+    "eva": 22,
+    "needAcc": 0,
+    "def": 240,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400561,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 190,
+    "matk": 200,
+    "exist": true
+  },
+  {
+    "name": "윈드레이더",
+    "level": 70,
+    "hp": 16000,
+    "exp": 650,
+    "acc": 0,
+    "eva": 30,
+    "needAcc": 0,
+    "def": 265,
+    "mDef": 365,
+    "ele": [
+      "독 면역"
+    ],
+    "mobCode": 9400576,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 300,
+    "matk": 415,
+    "exist": true
+  },
+  {
+    "name": "크림슨 트리",
+    "level": 50,
+    "hp": 3500,
+    "exp": 122,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400586,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "크림슨 트리 2",
+    "level": 50,
+    "hp": 3500,
+    "exp": 122,
+    "acc": 0,
+    "eva": 10,
+    "needAcc": 0,
+    "def": 150,
+    "mDef": 200,
+    "ele": [
+      "불 약점"
+    ],
+    "mobCode": 9400585,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 140,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "스톰브레이커",
+    "level": 80,
+    "hp": 38000,
+    "exp": 1650,
+    "acc": 0,
+    "eva": 30,
+    "needAcc": 0,
+    "def": 700,
+    "mDef": 480,
+    "ele": [
+      "전기 면역"
+    ],
+    "mobCode": 9400581,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 410,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "울프 스파이더",
+    "level": 80,
+    "hp": 28000,
+    "exp": 1200,
+    "acc": 0,
+    "eva": 30,
+    "needAcc": 0,
+    "def": 700,
+    "mDef": 650,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400545,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 450,
+    "matk": 490,
+    "exist": true
+  },
+  {
+    "name": "파이어브랜드",
+    "level": 90,
+    "hp": 21000,
+    "exp": 910,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 820,
+    "mDef": 600,
+    "ele": [
+      "불 반감"
+    ],
+    "mobCode": 9400577,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 420,
+    "matk": 490,
+    "exist": true
+  },
+  {
+    "name": "파이어브랜드 (변신)",
+    "level": 90,
+    "hp": 45000,
+    "exp": 2350,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 920,
+    "mDef": 700,
+    "ele": [
+      "얼음 약점",
+      "불 면역"
+    ],
+    "mobCode": 9400578,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 470,
+    "matk": 560,
+    "exist": true
+  },
+  {
+    "name": "엘더레이스",
+    "level": 95,
+    "hp": 51000,
+    "exp": 2480,
+    "acc": 0,
+    "eva": 38,
+    "needAcc": 0,
+    "def": 940,
+    "mDef": 550,
+    "ele": [
+      "성 약점",
+      "얼음 면역"
+    ],
+    "mobCode": 9400580,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 560,
+    "matk": 610,
+    "exist": true
+  },
+  {
+    "name": "마스터 가디언",
+    "level": 100,
+    "hp": 7000000,
+    "exp": 10000,
+    "acc": 0,
+    "eva": 40,
+    "needAcc": 0,
+    "def": 1000,
+    "mDef": 800,
+    "ele": [
+      "얼음 면역",
+      "불 면역"
+    ],
+    "mobCode": 9400594,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 450,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "나이트섀도우",
+    "level": 100,
+    "hp": 70000,
+    "exp": 3600,
+    "acc": 0,
+    "eva": 45,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 560,
+    "ele": [
+      "얼음 면역",
+      "독 면역"
+    ],
+    "mobCode": 9400579,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 480,
+    "matk": 610,
+    "exist": true
+  },
+  {
+    "name": "티폰",
+    "level": 100,
+    "hp": 56000,
+    "exp": 1600,
+    "acc": 0,
+    "eva": 40,
+    "needAcc": 0,
+    "def": 500,
+    "mDef": 450,
+    "ele": [
+      "얼음 면역",
+      "독 면역"
+    ],
+    "mobCode": 9400574,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 270,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "머리없는 기수",
+    "level": 101,
+    "hp": 3500000,
+    "exp": 300000,
+    "acc": 0,
+    "eva": 42,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "전기 약점"
+    ],
+    "mobCode": 9400549,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 600,
+    "matk": 650,
+    "exist": true
+  },
+  {
+    "name": "빅풋",
+    "level": 110,
+    "hp": 32000000,
+    "exp": 2660000,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 1400,
+    "mDef": 1400,
+    "ele": [
+      "불 약점",
+      "얼음 면역"
+    ],
+    "mobCode": 9400575,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 1200,
+    "matk": 700,
+    "exist": true
+  },
+  {
+    "name": "크림슨 가디언",
+    "level": 120,
+    "hp": 120000,
+    "exp": 6100,
+    "acc": 0,
+    "eva": 40,
+    "needAcc": 0,
+    "def": 1000,
+    "mDef": 800,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9400582,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 650,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "히어론",
+    "level": 130,
+    "hp": 240000000,
+    "exp": 6300000,
+    "acc": 0,
+    "eva": 54,
+    "needAcc": 0,
+    "def": 950,
+    "mDef": 900,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400589,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 610,
+    "matk": 500,
+    "exist": true
+  },
+  {
+    "name": "흐살프",
+    "level": 130,
+    "hp": 233000000,
+    "exp": 4510000,
+    "acc": 0,
+    "eva": 55,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 900,
+    "ele": [
+      "얼음 약점",
+      "성 면역"
+    ],
+    "mobCode": 9400593,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 610,
+    "matk": 490,
+    "exist": true
+  },
+  {
+    "name": "마르가나",
+    "level": 130,
+    "hp": 200000000,
+    "exp": 4300000,
+    "acc": 0,
+    "eva": 42,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 1000,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 9400590,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 620,
+    "matk": 400,
+    "exist": true
+  },
+  {
+    "name": "붉은 너그",
+    "level": 130,
+    "hp": 255000000,
+    "exp": 4550000,
+    "acc": 0,
+    "eva": 39,
+    "needAcc": 0,
+    "def": 1000,
+    "mDef": 850,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9400591,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 630,
+    "matk": 480,
+    "exist": true
+  },
+  {
+    "name": "렐리크",
+    "level": 130,
+    "hp": 231000000,
+    "exp": 4550000,
+    "acc": 0,
+    "eva": 45,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 900,
+    "ele": [
+      "불 약점",
+      "성 면역"
+    ],
+    "mobCode": 9400592,
+    "region": "마스테리아(뉴리프시티)",
+    "watk": 600,
+    "matk": 490,
+    "exist": true
+  },
+  {
+    "name": "시간의 눈",
+    "level": 80,
+    "hp": 24000,
+    "exp": 850,
+    "acc": 0,
+    "eva": 30,
+    "needAcc": 0,
+    "def": 650,
+    "mDef": 450,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8200000,
+    "region": "시간의 신전",
+    "watk": 350,
+    "matk": 410,
+    "exist": true
+  },
+  {
+    "name": "추억의 사제",
+    "level": 91,
+    "hp": 41000,
+    "exp": 1900,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 650,
+    "mDef": 670,
+    "ele": [
+      "독 반감",
+      "전기 반감"
+    ],
+    "mobCode": 8200001,
+    "region": "시간의 신전",
+    "watk": 400,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "추억의 신관",
+    "level": 94,
+    "hp": 41000,
+    "exp": 2200,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 660,
+    "mDef": 720,
+    "ele": [
+      "독 반감",
+      "전기 반감"
+    ],
+    "mobCode": 8200002,
+    "region": "시간의 신전",
+    "watk": 420,
+    "matk": 510,
+    "exist": true
+  },
+  {
+    "name": "추억의 수호병",
+    "level": 98,
+    "hp": 53000,
+    "exp": 2600,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 870,
+    "mDef": 530,
+    "ele": [
+      "독 반감",
+      "전기 반감"
+    ],
+    "mobCode": 8200003,
+    "region": "시간의 신전",
+    "watk": 460,
+    "matk": 525,
+    "exist": true
+  },
+  {
+    "name": "추억의 수호대장",
+    "level": 101,
+    "hp": 59000,
+    "exp": 3100,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 910,
+    "mDef": 540,
+    "ele": [
+      "독 반감",
+      "전기 반감"
+    ],
+    "mobCode": 8200003,
+    "region": "시간의 신전",
+    "watk": 500,
+    "matk": 545,
+    "exist": true
+  },
+  {
+    "name": "후회의 사제",
+    "level": 106,
+    "hp": 71000,
+    "exp": 3350,
+    "acc": 0,
+    "eva": 37,
+    "needAcc": 0,
+    "def": 690,
+    "mDef": 750,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8200005,
+    "region": "시간의 신전",
+    "watk": 520,
+    "matk": 560,
+    "exist": true
+  },
+  {
+    "name": "후회의 신관",
+    "level": 109,
+    "hp": 79000,
+    "exp": 3600,
+    "acc": 0,
+    "eva": 38,
+    "needAcc": 0,
+    "def": 700,
+    "mDef": 800,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8200006,
+    "region": "시간의 신전",
+    "watk": 530,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "후회의 수호병",
+    "level": 113,
+    "hp": 90000,
+    "exp": 4500,
+    "acc": 0,
+    "eva": 39,
+    "needAcc": 0,
+    "def": 940,
+    "mDef": 570,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8200007,
+    "region": "시간의 신전",
+    "watk": 560,
+    "matk": 638,
+    "exist": true
+  },
+  {
+    "name": "후회의 수호대장",
+    "level": 116,
+    "hp": 99000,
+    "exp": 4960,
+    "acc": 0,
+    "eva": 40,
+    "needAcc": 0,
+    "def": 990,
+    "mDef": 590,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8200008,
+    "region": "시간의 신전",
+    "watk": 575,
+    "matk": 655,
+    "exist": true
+  },
+  {
+    "name": "망각의 사제",
+    "level": 121,
+    "hp": 115000,
+    "exp": 5750,
+    "acc": 0,
+    "eva": 41,
+    "needAcc": 0,
+    "def": 740,
+    "mDef": 870,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 8200009,
+    "region": "시간의 신전",
+    "watk": 605,
+    "matk": 685,
+    "exist": true
+  },
+  {
+    "name": "망각의 신관",
+    "level": 124,
+    "hp": 123000,
+    "exp": 6150,
+    "acc": 0,
+    "eva": 43,
+    "needAcc": 0,
+    "def": 760,
+    "mDef": 910,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 8200010,
+    "region": "시간의 신전",
+    "watk": 620,
+    "matk": 700,
+    "exist": true
+  },
+  {
+    "name": "망각의 수호병",
+    "level": 128,
+    "hp": 133000,
+    "exp": 6670,
+    "acc": 0,
+    "eva": 45,
+    "needAcc": 0,
+    "def": 1030,
+    "mDef": 630,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 8200011,
+    "region": "시간의 신전",
+    "watk": 635,
+    "matk": 715,
+    "exist": true
+  },
+  {
+    "name": "망각의 수호대장",
+    "level": 131,
+    "hp": 141000,
+    "exp": 7060,
+    "acc": 0,
+    "eva": 47,
+    "needAcc": 0,
+    "def": 1060,
+    "mDef": 680,
+    "ele": [
+      "독 약점",
+      "불 반감"
+    ],
+    "mobCode": 8200012,
+    "region": "시간의 신전",
+    "watk": 645,
+    "matk": 725,
+    "exist": true
+  },
+  {
+    "name": "도도",
+    "level": 121,
+    "hp": 5900000,
+    "exp": 20850,
+    "acc": 0,
+    "eva": 42,
+    "needAcc": 0,
+    "def": 950,
+    "mDef": 1050,
+    "ele": [
+      "불 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 8220004,
+    "region": "시간의 신전",
+    "watk": 630,
+    "matk": 715,
+    "exist": true
+  },
+  {
+    "name": "릴리노흐",
+    "level": 131,
+    "hp": 7600000,
+    "exp": 26850,
+    "acc": 0,
+    "eva": 47,
+    "needAcc": 0,
+    "def": 1020,
+    "mDef": 1110,
+    "ele": [
+      "전기 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8220005,
+    "region": "시간의 신전",
+    "watk": 665,
+    "matk": 735,
+    "exist": true
+  },
+  {
+    "name": "라이카",
+    "level": 141,
+    "hp": 9300000,
+    "exp": 32865,
+    "acc": 0,
+    "eva": 49,
+    "needAcc": 0,
+    "def": 1100,
+    "mDef": 1170,
+    "ele": [
+      "불 반감",
+      "독 약점"
+    ],
+    "mobCode": 8220006,
+    "region": "시간의 신전",
+    "watk": 675,
+    "matk": 755,
+    "exist": true
+  }
+]

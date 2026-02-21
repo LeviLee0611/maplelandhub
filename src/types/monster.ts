@@ -8,7 +8,11 @@ export type Monster = {
   needAcc: number;
   def: number;
   mDef: number;
-  ele: string;
+  ele: string[];
   mobCode: number;
-  region: string;
+  region?: string;
+  map?: string;
+  watk?: number;
+  matk?: number;
+  exist?: boolean;
 };

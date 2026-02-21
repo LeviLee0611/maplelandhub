@@ -9,7 +9,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/calculator/oneshot`,
+      url: `${baseUrl}/calculators/onehit`,
       lastModified: new Date(),
     },
     {
