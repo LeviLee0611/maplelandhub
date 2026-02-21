@@ -16,8 +16,8 @@ const body = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "매랜Hub",
-  description: "메이플랜드 유저를 위한 계산기와 파티 매칭.",
+  title: "메이플랜드허브 - 도구와 파티 매칭",
+  description: "메이플랜드 유저를 위한 올인원 유틸리티 허브",
 };
 
 export default function RootLayout({

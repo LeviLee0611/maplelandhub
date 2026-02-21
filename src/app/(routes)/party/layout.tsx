@@ -5,6 +5,6 @@ export const metadata: Metadata = {
   description: "메이플랜드 파티원을 쉽게 찾고 모집하세요",
 };
 
-export default function PartiesLayout({ children }: { children: React.ReactNode }) {
+export default function PartyLayout({ children }: { children: React.ReactNode }) {
   return children;
 }

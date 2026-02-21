@@ -1,67 +1,71 @@
 import Link from "next/link";
 
+const features = [
+  {
+    title: "원샷 계산기",
+    description: "몬스터를 몇 타에 잡는지 계산합니다",
+    href: "/calculator/oneshot",
+    button: "계산기 열기",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-sky-300">
+        <path
+          fill="currentColor"
+          d="M4 5h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7l-3 3V6a1 1 0 0 1 1-1Zm3 4h10v2H7V9Zm0 4h6v2H7v-2Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "피격 데미지 계산기",
+    description: "몬스터 피격 데미지를 추정합니다",
+    href: "/calculator/damage",
+    button: "계산기 열기",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-emerald-300">
+        <path
+          fill="currentColor"
+          d="M12 2 4.5 5v6c0 5.25 3.75 9.75 7.5 11 3.75-1.25 7.5-5.75 7.5-11V5L12 2Zm0 6a3 3 0 1 1 0 6 3 3 0 0 1 0-6Z"
+        />
+      </svg>
+    ),
+  },
+  {
+    title: "파티 매칭",
+    description: "파티원을 쉽게 모집/탐색하세요",
+    href: "/party",
+    button: "매칭 보기",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-amber-300">
+        <path
+          fill="currentColor"
+          d="M7 11a3 3 0 1 1 3-3 3 3 0 0 1-3 3Zm10 0a3 3 0 1 1 3-3 3 3 0 0 1-3 3ZM4 20v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H4Zm10 0v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10Z"
+        />
+      </svg>
+    ),
+  },
+];
+
 export default function HomePage() {
   return (
-    <section className="space-y-10">
-      <div className="glass-panel rounded-3xl px-6 py-10 md:px-10">
-        <div className="fade-up grid gap-8 md:grid-cols-[1.2fr_0.8fr]">
-          <div>
-            <span className="chip inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs">
-              계산기 · 파티 매칭 · 몬스터 정보
-            </span>
-            <h1 className="display mt-4 text-3xl font-semibold leading-tight md:text-4xl">
-              매랜Hub, 메이플랜드 유저를 위한
-              <br />
-              계산과 파티의 기준점.
-            </h1>
-            <p className="mt-4 text-sm text-slate-200/90 md:text-base">
-              계산기는 로그인 없이 바로 사용하고, 파티 글 작성/신청/수락/거절 같은 행동부터 로그인으로 보호합니다.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link href="/calculators/onehit" className="btn-primary rounded-full px-5 py-2 text-sm font-semibold">
-                n방컷 계산기 열기
-              </Link>
-              <Link href="/parties" className="btn-ghost rounded-full px-5 py-2 text-sm font-semibold">
-                파티 매칭 보기
-              </Link>
-            </div>
-          </div>
-          <div className="glass-panel-strong rounded-2xl p-5">
-            <p className="text-xs uppercase tracking-[0.2em] text-slate-300">Today&apos;s Focus</p>
-            <div className="mt-4 space-y-3 text-sm">
-              <div className="flex items-center justify-between">
-                <span className="text-slate-200">SEO 유입 계산기</span>
-                <span className="text-emerald-300">활성</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-slate-200">파티 모집글</span>
-                <span className="text-sky-300">열림</span>
-              </div>
-              <div className="flex items-center justify-between">
-                <span className="text-slate-200">로그인 보호</span>
-                <span className="text-amber-300">행동만</span>
-              </div>
-            </div>
-            <div className="mt-6 rounded-xl border border-white/10 bg-white/5 p-4 text-xs text-slate-200">
-              추천 플로우: 계산기 사용 → 파티 모집글 확인 → 로그인 후 참여.
-            </div>
-          </div>
-        </div>
+    <section className="flex min-h-[70vh] flex-col items-center justify-center gap-10 text-center">
+      <div className="glass-panel w-full max-w-3xl rounded-3xl px-6 py-10 md:px-12">
+        <h1 className="display text-4xl font-semibold md:text-5xl">메이플랜드허브</h1>
+        <p className="mt-3 text-sm text-slate-200/90 md:text-base">메이플랜드 유틸리티 & 파티 매칭 플랫폼</p>
       </div>
 
-      <div className="grid gap-4 md:grid-cols-3">
-        <Link href="/calculators/onehit" className="glass-panel fade-up rounded-2xl p-5 hover:border-white/30">
-          <h2 className="text-lg font-semibold">n방컷 계산기</h2>
-          <p className="mt-2 text-sm text-slate-200/90">몬스터 HP/방어력을 기반으로 예상 타수를 계산합니다.</p>
-        </Link>
-        <Link href="/calculators/taken-damage" className="glass-panel fade-up-delay rounded-2xl p-5 hover:border-white/30">
-          <h2 className="text-lg font-semibold">피격 데미지 계산기</h2>
-          <p className="mt-2 text-sm text-slate-200/90">방어력과 감소율을 고려한 피해를 추정합니다.</p>
-        </Link>
-        <Link href="/parties" className="glass-panel fade-up rounded-2xl p-5 hover:border-white/30">
-          <h2 className="text-lg font-semibold">파티 매칭</h2>
-          <p className="mt-2 text-sm text-slate-200/90">모집글 검색/보기는 비로그인, 행동은 로그인 후 가능합니다.</p>
-        </Link>
+      <div className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
+        {features.map((feature) => (
+          <div key={feature.title} className="glass-panel flex h-full flex-col gap-4 rounded-2xl p-6 text-left transition duration-300 hover:scale-[1.02]">
+            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">{feature.icon}</div>
+            <div>
+              <h2 className="text-lg font-semibold">{feature.title}</h2>
+              <p className="mt-2 text-sm text-slate-200/90">{feature.description}</p>
+            </div>
+            <Link href={feature.href} className="btn-ghost mt-auto inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold">
+              {feature.button}
+            </Link>
+          </div>
+        ))}
       </div>
     </section>
   );
