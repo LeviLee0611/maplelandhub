@@ -52,7 +52,7 @@ export function AuthButton() {
 
   if (!user) {
     return (
-      <Link href="/login" className="btn-ghost rounded-full px-4 py-1 text-sm">
+      <Link href="/login" className="btn-login rounded-full px-4 py-1 text-sm">
         로그인
       </Link>
     );

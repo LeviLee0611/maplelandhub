@@ -7,6 +7,7 @@ import { MonsterPanel } from "@/components/MonsterPanel";
 import { ResultPanel } from "@/components/ResultPanel";
 import { NumberField } from "@/components/NumberField";
 import { SpinnerInput } from "@/components/SpinnerInput";
+import { QuickSlots } from "@/components/quick-slots";
 import { getMonsters } from "@/lib/data/monsters";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Monster } from "@/types/monster";
@@ -172,6 +173,120 @@ export default function OneHitCalculatorPage() {
     stats,
     monsterName,
   ]);
+
+  const quickSnapshot = useMemo(
+    () => ({
+      nickname,
+      jobGroup,
+      job,
+      level,
+      characterAccuracy,
+      totalAttackInput,
+      totalMagicInput,
+      stats,
+      skillName,
+      skillLevel,
+      mastery,
+      sharpEyesLevel,
+      criticalThrowLevel,
+      criticalShotLevel,
+      shadowPartnerLevel,
+      passiveMasteryBonus,
+      pageChargeSkill,
+      pageChargeLevel,
+      berserkLevel,
+      beholderBerserkBonus,
+      beholderBuffBonus,
+      rushBonus,
+      rageBonus,
+      comboAttackLevel,
+      amplificationLevel,
+      ifritBonus,
+      bahamutBonus,
+      focusBonus,
+      silverHawkBonus,
+      goldenEagleBonus,
+      mapleHeroLevel,
+      meditationLevel,
+      monsterName,
+    }),
+    [
+      nickname,
+      jobGroup,
+      job,
+      level,
+      characterAccuracy,
+      totalAttackInput,
+      totalMagicInput,
+      stats,
+      skillName,
+      skillLevel,
+      mastery,
+      sharpEyesLevel,
+      criticalThrowLevel,
+      criticalShotLevel,
+      shadowPartnerLevel,
+      passiveMasteryBonus,
+      pageChargeSkill,
+      pageChargeLevel,
+      berserkLevel,
+      beholderBerserkBonus,
+      beholderBuffBonus,
+      rushBonus,
+      rageBonus,
+      comboAttackLevel,
+      amplificationLevel,
+      ifritBonus,
+      bahamutBonus,
+      focusBonus,
+      silverHawkBonus,
+      goldenEagleBonus,
+      mapleHeroLevel,
+      meditationLevel,
+      monsterName,
+    ],
+  );
+
+  function applyQuickSnapshot(snapshot: typeof quickSnapshot) {
+    if (!snapshot) return;
+    if (typeof snapshot.nickname === "string") setNickname(snapshot.nickname);
+    if (snapshot.jobGroup && jobGroups.includes(snapshot.jobGroup)) {
+      setJobGroup(snapshot.jobGroup);
+      setTimeout(() => {
+        if (typeof snapshot.job === "string") setJob(snapshot.job);
+      }, 0);
+    }
+    if (typeof snapshot.level === "number") setLevel(snapshot.level);
+    if (typeof snapshot.characterAccuracy === "number") setCharacterAccuracy(snapshot.characterAccuracy);
+    if (typeof snapshot.totalAttackInput === "number") setTotalAttackInput(snapshot.totalAttackInput);
+    if (typeof snapshot.totalMagicInput === "number") setTotalMagicInput(snapshot.totalMagicInput);
+    if (snapshot.stats) setStats(snapshot.stats);
+    if (typeof snapshot.skillName === "string") setSkillName(snapshot.skillName);
+    if (typeof snapshot.skillLevel === "number") setSkillLevel(snapshot.skillLevel);
+    if (typeof snapshot.mastery === "number") setMastery(snapshot.mastery);
+    if (typeof snapshot.sharpEyesLevel === "number") setSharpEyesLevel(snapshot.sharpEyesLevel);
+    if (typeof snapshot.criticalThrowLevel === "number") setCriticalThrowLevel(snapshot.criticalThrowLevel);
+    if (typeof snapshot.criticalShotLevel === "number") setCriticalShotLevel(snapshot.criticalShotLevel);
+    if (typeof snapshot.shadowPartnerLevel === "number") setShadowPartnerLevel(snapshot.shadowPartnerLevel);
+    if (typeof snapshot.passiveMasteryBonus === "number") setPassiveMasteryBonus(snapshot.passiveMasteryBonus);
+    if (typeof snapshot.pageChargeSkill === "string") setPageChargeSkill(snapshot.pageChargeSkill as (typeof PAGE_CHARGE_SKILLS)[number]);
+    if (typeof snapshot.pageChargeLevel === "number") setPageChargeLevel(snapshot.pageChargeLevel);
+    if (typeof snapshot.berserkLevel === "number") setBerserkLevel(snapshot.berserkLevel);
+    if (typeof snapshot.beholderBerserkBonus === "number") setBeholderBerserkBonus(snapshot.beholderBerserkBonus);
+    if (typeof snapshot.beholderBuffBonus === "number") setBeholderBuffBonus(snapshot.beholderBuffBonus);
+    if (typeof snapshot.rushBonus === "number") setRushBonus(snapshot.rushBonus);
+    if (typeof snapshot.rageBonus === "number") setRageBonus(snapshot.rageBonus);
+    if (typeof snapshot.comboAttackLevel === "number") setComboAttackLevel(snapshot.comboAttackLevel);
+    if (typeof snapshot.amplificationLevel === "number") setAmplificationLevel(snapshot.amplificationLevel);
+    if (typeof snapshot.ifritBonus === "number") setIfritBonus(snapshot.ifritBonus);
+    if (typeof snapshot.bahamutBonus === "number") setBahamutBonus(snapshot.bahamutBonus);
+    if (typeof snapshot.focusBonus === "number") setFocusBonus(snapshot.focusBonus);
+    if (typeof snapshot.silverHawkBonus === "number") setSilverHawkBonus(snapshot.silverHawkBonus);
+    if (typeof snapshot.goldenEagleBonus === "number") setGoldenEagleBonus(snapshot.goldenEagleBonus);
+    if (typeof snapshot.mapleHeroLevel === "number") setMapleHeroLevel(snapshot.mapleHeroLevel);
+    if (typeof snapshot.meditationLevel === "number") setMeditationLevel(snapshot.meditationLevel);
+    if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
+  }
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -639,6 +754,16 @@ export default function OneHitCalculatorPage() {
             메이플랜드 캐릭터 스탯 창 느낌으로 입력하고, 몬스터 N방컷을 계산합니다.
           </p>
         </header>
+
+        <div className="mt-4">
+          <QuickSlots
+            storageKey="mlh-quickslots-onehit-v1"
+            getSnapshot={() => quickSnapshot}
+            applySnapshot={applyQuickSnapshot}
+            title="빠른 저장 (N방컷)"
+            preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName}`}
+          />
+        </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="space-y-6">

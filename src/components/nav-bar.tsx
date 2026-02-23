@@ -1,23 +1,28 @@
 import Link from "next/link";
 import { AuthButton } from "@/components/auth-button";
+import { ThemeToggle } from "@/components/theme-toggle";
 
 export function NavBar() {
   return (
-    <header className="border-b border-white/10 bg-[rgba(17,23,38,0.6)] backdrop-blur-xl">
+    <header className="border-b backdrop-blur-xl" style={{ borderColor: "var(--nav-border)", background: "var(--nav-bg)" }}>
       <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4">
         <Link href="/" className="flex items-center">
           <img src="/favicon.ico" alt="메랜 Hub" className="h-[96px] w-[96px] rounded" />
         </Link>
-        <nav className="flex items-center gap-3 text-sm text-slate-200">
-          <Link href="/calculators/onehit" className="hover:text-white">
+        <nav className="flex items-center gap-3 text-sm" style={{ color: "var(--nav-text)" }}>
+          <Link href="/calculators/onehit" className="hover:opacity-80">
             N방컷 계산기
           </Link>
-          <Link href="/calculator/damage" className="hover:text-white">
+          <Link href="/calculator/damage" className="hover:opacity-80">
             피격 데미지
           </Link>
-          <Link href="/party" className="hover:text-white">
+          <Link href="/party" className="hover:opacity-80">
             파티 매칭
           </Link>
+          <Link href="/feedback" className="hover:opacity-80">
+            문의/요청
+          </Link>
+          <ThemeToggle />
           <AuthButton />
         </nav>
       </div>

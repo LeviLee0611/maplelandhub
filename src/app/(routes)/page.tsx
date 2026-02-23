@@ -16,7 +16,7 @@ const features = [
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-sky-300">
         <path
           fill="currentColor"
-          d="M4 5h16a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H7l-3 3V6a1 1 0 0 1 1-1Zm3 4h10v2H7V9Zm0 4h6v2H7v-2Z"
+          d="M6 2h12a2 2 0 0 1 2 2v16a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2Zm2 3v3h8V5H8Zm0 5v2h2v-2H8Zm0 4v2h2v-2H8Zm4-4v2h2v-2h-2Zm0 4v2h2v-2h-2Zm4-4v6h2v-6h-2Z"
         />
       </svg>
     ),
@@ -89,6 +89,13 @@ export default function HomePage() {
             파티 매칭
           </Link>
           을 바로 이용할 수 있습니다.
+        </p>
+        <p className="mt-2">
+          문의/추가 요청은
+          <Link href="/feedback" className="ml-2 font-semibold text-amber-200 hover:text-white">
+            문의/요청
+          </Link>
+          에서 남겨주세요. 작성 내용은 운영자만 확인합니다.
         </p>
       </div>
     </section>
