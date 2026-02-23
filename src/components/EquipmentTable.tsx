@@ -11,6 +11,8 @@ export type EquipmentSlot = {
   acc: number;
 };
 
+type NumericEquipmentField = Exclude<keyof EquipmentSlot, "id" | "name">;
+
 type EquipmentTableProps = {
   slots: EquipmentSlot[];
   onChange: (next: EquipmentSlot[]) => void;
@@ -20,7 +22,7 @@ const inputClass =
   "retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-1 py-1 text-center text-[11px] text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none";
 
 export function EquipmentTable({ slots, onChange }: EquipmentTableProps) {
-  const handleChange = (index: number, field: keyof EquipmentSlot, value: number) => {
+  const handleChange = (index: number, field: NumericEquipmentField, value: number) => {
     const next = slots.map((slot, slotIndex) =>
       slotIndex === index ? { ...slot, [field]: value } : slot,
     );
@@ -61,7 +63,7 @@ export function EquipmentTable({ slots, onChange }: EquipmentTableProps) {
               <td className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-2 text-left">
                 {slot.name}
               </td>
-              {(["str", "dex", "int", "luk", "atk", "acc"] as Array<keyof EquipmentSlot>).map((field) => (
+              {(["str", "dex", "int", "luk", "atk", "acc"] as NumericEquipmentField[]).map((field) => (
                 <td key={field} className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1 text-center">
                   <SpinnerInput
                     value={slot[field]}
