@@ -59,7 +59,7 @@ const equipmentTemplate: EquipmentSlot[] = [
 export default function OneHitCalculatorPage() {
   const [nickname, setNickname] = useState("");
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>(jobGroups[0]);
-  const [job, setJob] = useState(jobOptionsByGroup[jobGroup][0]);
+  const [job, setJob] = useState<string>(jobOptionsByGroup[jobGroup][0]);
   const [level, setLevel] = useState(70);
   const [stats, setStats] = useState({ str: 200, dex: 80, int: 4, luk: 30 });
   const [equipment, setEquipment] = useState<EquipmentSlot[]>(equipmentTemplate);
@@ -265,8 +265,7 @@ export default function OneHitCalculatorPage() {
     const magic = Math.floor(intel * 2 + luk * 0.5 + equipmentTotals.atk);
     const acc = Math.floor(dex * 0.8 + level * 0.5 + equipmentTotals.acc);
     const primaryBase = jobProfile.primary === "str" ? main : jobProfile.primary === "dex" ? dex : jobProfile.primary === "int" ? intel : luk;
-    const secondaryBase =
-      jobProfile.secondary === "str" ? main : jobProfile.secondary === "dex" ? dex : jobProfile.secondary === "int" ? intel : luk;
+    const secondaryBase = jobProfile.secondary === "str" ? main : jobProfile.secondary === "dex" ? dex : luk;
     const primaryStat = primaryBase * heroValue;
     const secondaryStat = secondaryBase * heroValue;
     return { attack, magic, acc, primaryStat, secondaryStat };
