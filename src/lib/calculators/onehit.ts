@@ -24,11 +24,13 @@ export type OneHitResult = {
     avg: number;
     max: number;
   };
+  oneShotAttack: number;
   hitsToKill: {
     min: number;
     avg: number;
     max: number;
   };
+  oneShotChance: number; // 0-100
 };
 
 function ensurePositive(value: number, fallback = 1) {
@@ -74,6 +76,11 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
   const minPerSkill = calcDamagePerSkill(minDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
   const avgPerSkill = calcDamagePerSkill(avgDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
   const maxPerSkill = calcDamagePerSkill(maxDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
+  const hp = ensurePositive(input.monsterHp, 1);
+
+  // Legacy NC behavior is closer to a binary "one-shot possible" check
+  // using the upper bound attack value shown as #oneShot.
+  const oneShotChance = hp <= maxPerSkill ? 100 : 0;
 
   return {
     damagePerSkill: {
@@ -81,10 +88,12 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
       avg: avgPerSkill,
       max: maxPerSkill,
     },
+    oneShotAttack: Math.floor(maxPerSkill),
     hitsToKill: {
       min: calcHitsToKill(input.monsterHp, maxPerSkill),
       avg: calcHitsToKill(input.monsterHp, avgPerSkill),
       max: calcHitsToKill(input.monsterHp, minPerSkill),
     },
+    oneShotChance,
   };
 }

@@ -67,7 +67,7 @@ export function SelectField({
       {label ? (
         <label
           htmlFor={id}
-          className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white"
+          className="retro-chip"
         >
           {label}
         </label>
@@ -77,19 +77,29 @@ export function SelectField({
           id={id}
           type="button"
           ref={buttonRef}
-          className="flex w-full items-center justify-between rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-left text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+          className={`flex w-full items-center justify-between rounded-[6px] border px-2 py-1.5 text-left text-xs transition duration-150 focus:outline-none ${
+            open
+              ? "border-cyan-300/60 bg-cyan-400/10 text-cyan-50 shadow-[0_0_0_1px_rgba(103,232,249,0.25)]"
+              : "border-[var(--retro-border)] bg-[var(--retro-cell)] text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)]"
+          }`}
           onClick={toggleOpen}
           disabled={disabled}
         >
           <span className={selectedLabel ? "" : "text-[color:var(--retro-text-muted)]"}>
             {selectedLabel || placeholder || "선택"}
           </span>
-          <span className="text-[10px] text-[color:var(--retro-text-muted)]">▾</span>
+          <span
+            className={`text-[10px] transition duration-150 ${
+              open ? "rotate-180 text-cyan-100" : "text-[color:var(--retro-text-muted)]"
+            }`}
+          >
+            ▾
+          </span>
         </button>
 
         {open ? (
           <div
-            className={`select-dropdown absolute z-20 w-full max-h-[60vh] overflow-y-auto overscroll-contain rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] shadow-[0_8px_16px_rgba(15,23,42,0.08)] ${
+            className={`select-dropdown absolute z-20 w-full max-h-[60vh] overflow-y-auto overscroll-contain rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] shadow-[0_12px_22px_rgba(2,6,23,0.45)] ${
               openUp ? "bottom-full mb-2" : "top-full mt-2"
             }`}
             style={{ WebkitOverflowScrolling: "touch" }}
@@ -103,8 +113,8 @@ export function SelectField({
                       type="button"
                       className={`flex w-full items-center justify-between px-3 py-2 text-left ${
                         active
-                          ? "bg-[var(--retro-cell-strong)] text-[color:var(--retro-text)]"
-                          : "text-[color:var(--retro-text)] hover:bg-[var(--retro-cell)]"
+                          ? "bg-cyan-400/20 text-cyan-50"
+                          : "text-[color:var(--retro-text)] hover:bg-white/5"
                       }`}
                       onClick={() => {
                         onChange(option.value);
@@ -113,7 +123,7 @@ export function SelectField({
                     >
                       <span>{option.label}</span>
                       {active ? (
-                        <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-1.5 py-0.5 text-[9px] text-[color:var(--retro-text-muted)]">
+                        <span className="rounded-[4px] border border-cyan-300/40 bg-cyan-300/15 px-1.5 py-0.5 text-[9px] text-cyan-100">
                           선택됨
                         </span>
                       ) : null}

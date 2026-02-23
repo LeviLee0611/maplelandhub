@@ -2,21 +2,16 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
-import { StatTable } from "@/components/StatTable";
-import { EquipmentTable, type EquipmentSlot } from "@/components/EquipmentTable";
 import { SkillPanel } from "@/components/SkillPanel";
 import { MonsterPanel } from "@/components/MonsterPanel";
 import { ResultPanel } from "@/components/ResultPanel";
 import { NumberField } from "@/components/NumberField";
-import { SelectField } from "@/components/SelectField";
 import { SpinnerInput } from "@/components/SpinnerInput";
 import { getMonsters } from "@/lib/data/monsters";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Monster } from "@/types/monster";
 import { calcBaseDamageFromStats, calcOneHit } from "@/lib/calculators/onehit";
-import { clampNumber } from "@/lib/utils";
 import mainSkillMapping from "@data/skills/mainSkillMapping.json";
-import weaponMapping from "@data/skills/weaponMapping.json";
 import range20 from "@data/skills/range20.json";
 import range30 from "@data/skills/range30.json";
 import damageMapping from "@data/skills/damageMapping.json";
@@ -43,6 +38,58 @@ const SPEARMAN_SKILLS = [
 const PAGE_CHARGE_SKILLS = ["플레임 차지", "블리자드 차지", "썬더 차지", "홀리 차지"] as const;
 const levelToMultiplier = (level: number) => 1 + Math.max(0, level) / 100;
 const PROFILE_STORAGE_KEY = "onehit-calculator-profile-v1";
+type AttackElement = "무" | "불" | "얼음" | "전기" | "독" | "성";
+
+function inferAttackElement(skillName: string): AttackElement {
+  const normalized = String(skillName ?? "").trim();
+  if (/(힐|홀리|샤이닝|엔젤|헤븐|제네시스)/.test(normalized)) return "성";
+  if (/(포이즌|독)/.test(normalized)) return "독";
+  if (/(썬더|라이트닝|전기)/.test(normalized)) return "전기";
+  if (/(아이스|콜드|블리자드|얼음)/.test(normalized)) return "얼음";
+  if (/(파이어|플레임|불|화염|메테오)/.test(normalized)) return "불";
+  return "무";
+}
+
+function normalizeMonsterElements(monster: Monster | undefined) {
+  return (monster?.ele ?? []).map((item) =>
+    String(item).replace(/<[^>]*>/g, "").replace(/\s+/g, " ").trim(),
+  );
+}
+
+function getElementMultiplier(
+  element: AttackElement,
+  monster: Monster | undefined,
+  opts?: { isPageCharge: boolean; pageChargeSkill: string; pageChargeLevel: number },
+) {
+  if (!monster || element === "무") return 1;
+
+  const props = normalizeMonsterElements(monster);
+  const isImmune = props.includes(`${element} 면역`);
+  if (isImmune) return 0;
+
+  let weakMultiplier = 1.5;
+  let resistMultiplier = 0.5;
+
+  if (opts?.isPageCharge && opts.pageChargeLevel > 0) {
+    const isHolyCharge = opts.pageChargeSkill === "홀리 차지";
+    const level = opts.pageChargeLevel;
+    weakMultiplier = (isHolyCharge ? 120 + level * 1.5 : 105 + level * 1.5) / 100;
+    resistMultiplier = Math.max(0, (isHolyCharge ? 80 - level * 1.5 : 95 - level * 1.5) / 100);
+  }
+
+  if (props.includes(`${element} 반감`)) return resistMultiplier;
+  if (props.includes(`${element} 약점`)) return weakMultiplier;
+  return 1;
+}
+
+function getBishopHealBonus(skillName: string, isClericJob: boolean, monster: Monster | undefined) {
+  if (!isClericJob) return 1;
+  const normalizedSkill = String(skillName ?? "").trim();
+  if (normalizedSkill !== "힐") return 1;
+  const props = normalizeMonsterElements(monster);
+  // Legacy expectation: Heal against holy-weak monsters gets +150% damage.
+  return props.includes("성 약점") ? 2.5 : 1;
+}
 
 const jobOptionsByGroup = {
   전사: [
@@ -60,17 +107,6 @@ const jobOptionsByGroup = {
   해적: ["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"],
 } as const;
 
-const equipmentTemplate: EquipmentSlot[] = [
-  { id: "hat", name: "모자", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "top", name: "상의", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "bottom", name: "하의", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "glove", name: "장갑", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "shoe", name: "신발", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "cape", name: "망토", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "weapon", name: "무기", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-  { id: "shield", name: "방패", str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-];
-
 export default function OneHitCalculatorPage() {
   const [nickname, setNickname] = useState("");
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>(jobGroups[0]);
@@ -81,14 +117,10 @@ export default function OneHitCalculatorPage() {
   const [totalMagicInput, setTotalMagicInput] = useState(0);
   const [profileMessage, setProfileMessage] = useState("");
   const [stats, setStats] = useState({ str: 200, dex: 80, int: 4, luk: 30 });
-  const [equipment, setEquipment] = useState<EquipmentSlot[]>(equipmentTemplate);
 
   const [skillName, setSkillName] = useState("기본 공격");
   const [skillLevel, setSkillLevel] = useState(1);
   const [mastery, setMastery] = useState(0.6);
-  const [finalDamageMultiplier, setFinalDamageMultiplier] = useState(1.0);
-  const [useManualDamage, setUseManualDamage] = useState(false);
-  const [weaponType, setWeaponType] = useState("");
   const [sharpEyesLevel, setSharpEyesLevel] = useState(0);
   const [criticalThrowLevel, setCriticalThrowLevel] = useState(0);
   const [criticalShotLevel, setCriticalShotLevel] = useState(0);
@@ -112,11 +144,6 @@ export default function OneHitCalculatorPage() {
   const [meditationLevel, setMeditationLevel] = useState(0);
 
   const [monsterName, setMonsterName] = useState(typedMonsters[0]?.name ?? "");
-  const [avgDamage, setAvgDamage] = useState(800);
-  const [minDamage, setMinDamage] = useState(650);
-  const [maxDamage, setMaxDamage] = useState(1100);
-  const [applyAccuracy, setApplyAccuracy] = useState(false);
-  const [accuracyPercent, setAccuracyPercent] = useState(100);
   const [showFormula, setShowFormula] = useState(false);
 
   const selectedMonster = useMemo(
@@ -133,8 +160,6 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
-    equipment,
-    weaponType,
     monsterName,
   }), [
     nickname,
@@ -145,8 +170,6 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
-    equipment,
-    weaponType,
     monsterName,
   ]);
 
@@ -165,8 +188,6 @@ export default function OneHitCalculatorPage() {
       if (typeof saved.totalAttackInput === "number") setTotalAttackInput(saved.totalAttackInput);
       if (typeof saved.totalMagicInput === "number") setTotalMagicInput(saved.totalMagicInput);
       if (saved.stats) setStats(saved.stats);
-      if (Array.isArray(saved.equipment)) setEquipment(saved.equipment);
-      if (typeof saved.weaponType === "string") setWeaponType(saved.weaponType);
       if (typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
     } catch {
       // Ignore invalid local profile data
@@ -211,20 +232,6 @@ export default function OneHitCalculatorPage() {
     }
   }
 
-  const equipmentTotals = useMemo(() => {
-    return equipment.reduce(
-      (acc, slot) => ({
-        str: acc.str + slot.str,
-        dex: acc.dex + slot.dex,
-        int: acc.int + slot.int,
-        luk: acc.luk + slot.luk,
-        atk: acc.atk + slot.atk,
-        acc: acc.acc + slot.acc,
-      }),
-      { str: 0, dex: 0, int: 0, luk: 0, atk: 0, acc: 0 },
-    );
-  }, [equipment]);
-
   const jobProfile = useMemo(() => {
     const profiles = {
       "파이터/크루세이더/히어로": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
@@ -250,6 +257,12 @@ export default function OneHitCalculatorPage() {
     const nextJob = jobOptionsByGroup[jobGroup][0];
     setJob(nextJob);
   }, [jobGroup]);
+
+  useEffect(() => {
+    if (jobGroup === "마법사" && passiveMasteryBonus !== 0) {
+      setPassiveMasteryBonus(0);
+    }
+  }, [jobGroup, passiveMasteryBonus]);
 
   const skillKey = useMemo(() => {
     if (
@@ -317,15 +330,6 @@ export default function OneHitCalculatorPage() {
       skillOptions.join(", "),
     );
   }, [job, skillKey, skillOptions]);
-
-  const weaponOptions = useMemo(() => {
-    const mapping = weaponMapping as Record<string, string[]>;
-    return mapping[skillKey] ?? [];
-  }, [skillKey]);
-
-  useEffect(() => {
-    setWeaponType(weaponOptions[0] ?? "");
-  }, [weaponOptions]);
 
   const skillLevelMax = useMemo(() => {
     const set20 = new Set(range20 as string[]);
@@ -476,30 +480,28 @@ export default function OneHitCalculatorPage() {
   }, [jobProfile]);
 
   const derived = useMemo(() => {
-    const main = stats.str + equipmentTotals.str;
-    const dex = stats.dex + equipmentTotals.dex;
-    const intel = stats.int + equipmentTotals.int;
-    const luk = stats.luk + equipmentTotals.luk;
+    const main = stats.str;
+    const dex = stats.dex;
+    const intel = stats.int;
+    const luk = stats.luk;
     const heroLevels = mapleHero.levels as Array<{ level: number; value: number }>;
     const heroValue = heroLevels.find((item) => item.level === mapleHeroLevel)?.value ?? 1;
-    const attack = Math.floor(main * 2 + dex * 0.5 + equipmentTotals.atk);
-    const magic = Math.floor(intel * 2 + luk * 0.5 + equipmentTotals.atk);
-    const acc = Math.floor(dex * 0.8 + level * 0.5 + equipmentTotals.acc);
+    const attack = Math.floor(main * 2 + dex * 0.5);
+    const magic = Math.floor(intel * 2 + luk * 0.5);
+    const acc = Math.floor(dex * 0.8 + level * 0.5);
     const primaryBase = jobProfile.primary === "str" ? main : jobProfile.primary === "dex" ? dex : jobProfile.primary === "int" ? intel : luk;
     const secondaryBase = jobProfile.secondary === "str" ? main : jobProfile.secondary === "dex" ? dex : luk;
     const thiefExtraSecondary = isNightLordJob || isShadowerJob ? main : 0;
     const primaryStat = primaryBase * heroValue;
     const secondaryStat = (secondaryBase + thiefExtraSecondary) * heroValue;
     return { attack, magic, acc, primaryStat, secondaryStat };
-  }, [stats, equipmentTotals, level, jobProfile, mapleHeroLevel, isNightLordJob, isShadowerJob]);
+  }, [stats, level, jobProfile, mapleHeroLevel, isNightLordJob, isShadowerJob]);
 
   const visibleStatFields = useMemo(() => {
     const primary = jobProfile.primary;
     const secondary = jobProfile.secondary;
     return [primary, secondary] as Array<"str" | "dex" | "int" | "luk">;
   }, [jobProfile]);
-
-  const effectiveCharacterAccuracy = characterAccuracy > 0 ? characterAccuracy : derived.acc;
 
   const powerScale = useMemo(() => {
     if (jobProfile.primary === "int") {
@@ -515,45 +517,55 @@ export default function OneHitCalculatorPage() {
     return levels.find((item) => item.level === meditationLevel)?.value ?? 0;
   }, [meditationLevel]);
 
+  const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
+
   const baseDamage = useMemo(() => {
     return calcBaseDamageFromStats({
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
-      weaponAttack: equipmentTotals.atk + (jobProfile.primary === "int" ? meditationBonus : 0),
+      weaponAttack: (jobProfile.primary === "int" ? derived.magic + meditationBonus : derived.attack),
       statMultiplier: jobProfile.multiplier,
       skillMultiplier: damageMultiplier,
-      mastery: Math.min(1, mastery + passiveMasteryBonus / 100),
+      mastery: Math.min(1, mastery + passiveMasteryRate),
     });
   }, [
     derived.primaryStat,
     derived.secondaryStat,
-    equipmentTotals.atk,
+    derived.attack,
+    derived.magic,
     jobProfile.primary,
     meditationBonus,
     jobProfile.multiplier,
     damageMultiplier,
     mastery,
-    passiveMasteryBonus,
+    passiveMasteryRate,
   ]);
 
-  const effectiveAccuracy = applyAccuracy ? clampNumber(accuracyPercent, 0, 100) / 100 : 1;
-  const result = calcOneHit({
-    monsterHp: selectedMonster?.hp ?? 1,
-    avgDamage: useManualDamage ? avgDamage : undefined,
-    minDamage: useManualDamage ? minDamage : undefined,
-    maxDamage: useManualDamage ? maxDamage : undefined,
-    statDamage: useManualDamage
-      ? undefined
-      : {
-          primaryStat: derived.primaryStat,
-          secondaryStat: derived.secondaryStat,
-          weaponAttack: equipmentTotals.atk + (jobProfile.primary === "int" ? meditationBonus : 0),
-          statMultiplier: jobProfile.multiplier,
-          skillMultiplier: damageMultiplier,
-          mastery: Math.min(1, mastery + passiveMasteryBonus / 100),
-        },
-    finalDamageMultiplier:
-      finalDamageMultiplier *
+  const attackElement = useMemo<AttackElement>(() => {
+    if (isPagePaladinJob && pageChargeLevel > 0) {
+      if (pageChargeSkill === "플레임 차지") return "불";
+      if (pageChargeSkill === "블리자드 차지") return "얼음";
+      if (pageChargeSkill === "썬더 차지") return "전기";
+      if (pageChargeSkill === "홀리 차지") return "성";
+    }
+    return inferAttackElement(skillName);
+  }, [isPagePaladinJob, pageChargeLevel, pageChargeSkill, skillName]);
+
+  const elementMultiplier = useMemo(() => {
+    return getElementMultiplier(attackElement, selectedMonster, {
+      isPageCharge: isPagePaladinJob,
+      pageChargeSkill,
+      pageChargeLevel,
+    });
+  }, [attackElement, selectedMonster, isPagePaladinJob, pageChargeSkill, pageChargeLevel]);
+
+  const bishopHealBonus = useMemo(
+    () => getBishopHealBonus(skillName, isClericJob, selectedMonster),
+    [skillName, isClericJob, selectedMonster],
+  );
+
+  const finalDamageMultiplier = useMemo(
+    () =>
       powerScale *
       skillEffects.buffMultiplier *
       sharpEyesEffect.multiplier *
@@ -571,9 +583,51 @@ export default function OneHitCalculatorPage() {
       (isClericJob ? levelToMultiplier(bahamutBonus) : 1) *
       (isBowmasterJob ? levelToMultiplier(focusBonus) : 1) *
       (isBowmasterJob ? levelToMultiplier(silverHawkBonus) : 1) *
-      (isMarksmanJob ? levelToMultiplier(goldenEagleBonus) : 1),
+      (isMarksmanJob ? levelToMultiplier(goldenEagleBonus) : 1) *
+      elementMultiplier *
+      bishopHealBonus,
+    [
+      powerScale,
+      skillEffects.buffMultiplier,
+      sharpEyesEffect.multiplier,
+      criticalPassiveEffect.multiplier,
+      shadowPartnerEffect.multiplier,
+      pageChargeEffect.multiplier,
+      berserkEffect.multiplier,
+      beholderBerserkBonus,
+      beholderBuffBonus,
+      isHeroJob,
+      rushBonus,
+      rageBonus,
+      heroComboEffect.multiplier,
+      amplificationEffect.multiplier,
+      isArchMageJob,
+      ifritBonus,
+      isClericJob,
+      bahamutBonus,
+      isBowmasterJob,
+      focusBonus,
+      silverHawkBonus,
+      isMarksmanJob,
+      goldenEagleBonus,
+      elementMultiplier,
+      bishopHealBonus,
+    ],
+  );
+
+  const result = calcOneHit({
+    monsterHp: selectedMonster?.hp ?? 1,
+    statDamage: {
+      primaryStat: derived.primaryStat,
+      secondaryStat: derived.secondaryStat,
+      weaponAttack: (jobProfile.primary === "int" ? derived.magic + meditationBonus : derived.attack),
+      statMultiplier: jobProfile.multiplier,
+      skillMultiplier: damageMultiplier,
+      mastery: Math.min(1, mastery + passiveMasteryRate),
+    },
+    finalDamageMultiplier,
     hitsPerSkill: Math.max(1, hitsPerAttack),
-    accuracyRate: effectiveAccuracy,
+    accuracyRate: 1,
   });
 
   return (
@@ -586,109 +640,127 @@ export default function OneHitCalculatorPage() {
           </p>
         </header>
 
-        <div className="mt-6 grid gap-6 md:grid-cols-2">
+        <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="space-y-6">
             <Panel title="캐릭터 정보" tone="blue">
               <div className="space-y-3 text-xs">
-              <div className="grid gap-3 md:grid-cols-2">
-                <label className="space-y-1">
-                  <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
-                    닉네임
-                  </span>
-                  <input
-                    className="w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-                    value={nickname}
-                    onChange={(event) => setNickname(event.target.value)}
-                    placeholder="선택"
-                  />
-                </label>
-                <SelectField
-                  id="job-group"
-                  label="직업군"
-                  value={jobGroup}
-                  onChange={(value) => setJobGroup(value as (typeof jobGroups)[number])}
-                  options={jobGroups.map((item) => ({ label: item, value: item }))}
-                />
-                <SelectField
-                  id="job"
-                  label="직업"
-                  value={job}
-                  onChange={setJob}
-                  options={jobOptionsByGroup[jobGroup].map((item) => ({ label: item, value: item }))}
-                />
-                <SelectField
-                  id="weapon-type"
-                  label="무기"
-                  value={weaponType}
-                  onChange={setWeaponType}
-                  options={weaponOptions.map((item) => ({ label: item, value: item }))}
-                />
-                <NumberField id="char-level" label="레벨" value={level} min={1} onChange={setLevel} />
-                <NumberField
-                  id="char-acc"
-                  label="명중치"
-                  value={characterAccuracy}
-                  min={0}
-                  onChange={setCharacterAccuracy}
-                  helper="0이면 자동 계산값 사용"
-                />
-              </div>
+                <div className="space-y-1">
+                  <div className="flex items-center justify-between">
+                    <div className="retro-section-title">기본 설정</div>
+                    <div className="retro-section-hint">핵심 입력</div>
+                  </div>
+                  <div className="grid gap-2">
+                    <label className="space-y-1">
+                      <span className="retro-chip">
+                        닉네임
+                      </span>
+                      <input
+                        className="h-[30px] w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 text-xs text-[color:var(--retro-text)] transition duration-150 placeholder:text-slate-400/70 focus:border-cyan-300/60 focus:outline-none focus:ring-1 focus:ring-cyan-300/30"
+                        value={nickname}
+                        onChange={(event) => setNickname(event.target.value)}
+                        placeholder="선택"
+                      />
+                    </label>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      <label className="space-y-1">
+                        <span className="retro-chip">직업군</span>
+                        <select
+                          id="job-group"
+                          className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                          value={jobGroup}
+                          onChange={(event) => setJobGroup(event.target.value as (typeof jobGroups)[number])}
+                        >
+                          {jobGroups.map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                      <label className="space-y-1">
+                        <span className="retro-chip">직업</span>
+                        <select
+                          id="job"
+                          className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                          value={job}
+                          onChange={(event) => setJob(event.target.value)}
+                        >
+                          {jobOptionsByGroup[jobGroup].map((item) => (
+                            <option key={item} value={item}>
+                              {item}
+                            </option>
+                          ))}
+                        </select>
+                      </label>
+                    </div>
+                    <div className="grid gap-2 md:grid-cols-2">
+                      <div>
+                        <NumberField
+                          id="char-level"
+                          label="레벨"
+                          value={level}
+                          min={1}
+                          onChange={setLevel}
+                        />
+                      </div>
+                      <div>
+                        <NumberField
+                          id="char-acc"
+                          label="명중치"
+                          value={characterAccuracy}
+                          min={0}
+                          onChange={setCharacterAccuracy}
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
 
-              <div className="grid grid-cols-2 gap-3">
-                {visibleStatFields.map((field, index) => (
-                  <NumberField
-                    key={field}
-                    id={field}
-                    label={`${index === 0 ? "주스탯" : "부스탯"} (${statLabelMap[field]})`}
-                    value={stats[field]}
-                    min={0}
-                    onChange={(value) => setStats({ ...stats, [field]: value })}
-                  />
-                ))}
-              </div>
+                <div className="retro-subsection space-y-2">
+                  <div className="retro-section-title">스탯 입력</div>
+                  <div className="grid grid-cols-2 gap-2">
+                    {visibleStatFields.map((field, index) => (
+                      <NumberField
+                        key={field}
+                        id={field}
+                        label={`${index === 0 ? "주스탯" : "부스탯"} (${statLabelMap[field]})`}
+                        value={stats[field]}
+                        min={0}
+                        onChange={(value) => setStats({ ...stats, [field]: value })}
+                      />
+                    ))}
+                    {jobProfile.primary === "int" ? (
+                      <NumberField
+                        id="total-magic"
+                        label="마력"
+                        value={totalMagicInput}
+                        min={0}
+                        onChange={setTotalMagicInput}
+                        helper="입력 시 계산에 반영"
+                      />
+                    ) : (
+                      <NumberField
+                        id="total-attack"
+                        label="공격력"
+                        value={totalAttackInput}
+                        min={0}
+                        onChange={setTotalAttackInput}
+                        helper="입력 시 계산에 반영"
+                      />
+                    )}
+                    {isNightLordJob || isShadowerJob ? (
+                      <NumberField
+                        id="thief-str"
+                        label="보조 부스탯 (STR)"
+                        value={stats.str}
+                        min={0}
+                        onChange={(value) => setStats({ ...stats, str: value })}
+                        helper="도적 계산에서 DEX와 함께 부스탯에 합산"
+                      />
+                    ) : null}
+                  </div>
+                </div>
 
-              <div className={`grid gap-3 ${isNightLordJob || isShadowerJob ? "grid-cols-2" : "grid-cols-1"}`}>
-                {jobProfile.primary === "int" ? (
-                  <NumberField
-                    id="total-magic"
-                    label="총 마력"
-                    value={totalMagicInput}
-                    min={0}
-                    onChange={setTotalMagicInput}
-                    helper="입력 시 계산에 반영"
-                  />
-                ) : (
-                  <NumberField
-                    id="total-attack"
-                    label="총 공격력"
-                    value={totalAttackInput}
-                    min={0}
-                    onChange={setTotalAttackInput}
-                    helper="입력 시 계산에 반영"
-                  />
-                )}
-                {isNightLordJob || isShadowerJob ? (
-                  <NumberField
-                    id="thief-str"
-                    label="보조 부스탯 (STR)"
-                    value={stats.str}
-                    min={0}
-                    onChange={(value) => setStats({ ...stats, str: value })}
-                    helper="도적 계산에서 DEX와 함께 부스탯에 합산"
-                  />
-                ) : null}
-              </div>
-
-              <StatTable
-                rows={[
-                  jobProfile.primary === "int"
-                    ? { label: "마력(임시)", value: totalMagicInput > 0 ? totalMagicInput : derived.magic, highlight: true }
-                    : { label: "공격력(임시)", value: totalAttackInput > 0 ? totalAttackInput : derived.attack, highlight: true },
-                  { label: "명중치", value: effectiveCharacterAccuracy },
-                  { label: "주스탯", value: derived.primaryStat },
-                  { label: "부스탯", value: derived.secondaryStat },
-                ]}
-              />
               <div className="rounded-[8px] border border-[var(--retro-border)] bg-[linear-gradient(180deg,rgba(56,189,248,0.12),rgba(56,189,248,0.03))] p-2">
                 <div className="flex flex-wrap items-center gap-2">
                   <button
@@ -714,13 +786,9 @@ export default function OneHitCalculatorPage() {
               </div>
             </div>
           </Panel>
+          </div>
 
-          <Panel title="장비 정보" tone="yellow">
-            <EquipmentTable slots={equipment} onChange={setEquipment} />
-          </Panel>
-        </div>
-
-        <div className="space-y-6">
+          <div className="space-y-6">
           <SkillPanel
             skillName={skillName}
             onSkillChange={setSkillName}
@@ -736,14 +804,14 @@ export default function OneHitCalculatorPage() {
               <p className="text-[10px] text-[color:var(--retro-text-muted)]">
                 패시브 스킬은 레벨을 입력하면 자동으로 퍼센트 효과로 환산됩니다.
               </p>
-              <div className="space-y-2">
-                <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
-                  직업 패시브
-                </span>
+              <div className="retro-subsection space-y-2">
+                <div className="flex justify-end">
+                  <span className="retro-section-hint">레벨 입력 기반 자동 환산</span>
+                </div>
                 <div className="grid grid-cols-2 gap-3">
                   {isNightLordJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         크리티컬 스로우
                       </span>
                       <div className="flex items-center gap-2">
@@ -771,7 +839,7 @@ export default function OneHitCalculatorPage() {
 
                   {isArcherJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         크리티컬 샷
                       </span>
                       <div className="flex items-center gap-2">
@@ -800,7 +868,7 @@ export default function OneHitCalculatorPage() {
                   {isBowmasterJob ? (
                     <>
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           집중 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -826,7 +894,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           실버호크 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -855,7 +923,7 @@ export default function OneHitCalculatorPage() {
 
                   {isMarksmanJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         골든이글 레벨
                       </span>
                       <div className="flex items-center gap-2">
@@ -883,7 +951,7 @@ export default function OneHitCalculatorPage() {
 
                   {isNightLordJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         쉐도우 파트너
                       </span>
                       <div className="flex items-center gap-2">
@@ -911,7 +979,7 @@ export default function OneHitCalculatorPage() {
 
                   {isPagePaladinJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         차지 스킬
                       </span>
                       <div className="space-y-2">
@@ -954,7 +1022,7 @@ export default function OneHitCalculatorPage() {
                   {isSpearmanJob ? (
                     <>
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           버서크
                         </span>
                         <div className="flex items-center gap-2">
@@ -980,7 +1048,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           비홀더 버서커 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -1006,7 +1074,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           비홀더스 버프 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -1036,7 +1104,7 @@ export default function OneHitCalculatorPage() {
                   {isHeroJob ? (
                     <>
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           분노 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -1062,7 +1130,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           콤보 어택
                         </span>
                         <div className="flex items-center gap-2">
@@ -1088,7 +1156,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           돌진 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -1118,7 +1186,7 @@ export default function OneHitCalculatorPage() {
                   {isArchMageJob ? (
                     <>
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           엠플리피케이션
                         </span>
                         <div className="flex items-center gap-2">
@@ -1144,7 +1212,7 @@ export default function OneHitCalculatorPage() {
                       </div>
 
                       <div className="space-y-1">
-                        <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                        <span className="retro-chip">
                           엘퀴네스 레벨
                         </span>
                         <div className="flex items-center gap-2">
@@ -1173,7 +1241,7 @@ export default function OneHitCalculatorPage() {
 
                   {isClericJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         바하뮤트 레벨
                       </span>
                       <div className="flex items-center gap-2">
@@ -1199,44 +1267,43 @@ export default function OneHitCalculatorPage() {
                     </div>
                   ) : null}
 
-                  <div className="space-y-1">
-                    <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
-                      {isPagePaladinJob || isSpearmanJob || isBowmasterJob || isMarksmanJob || isHeroJob
-                        || isNightLordJob || isShadowerJob
-                        ? "무기 마스터리 레벨"
-                        : "숙련도 보정 레벨"}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <SpinnerInput
-                        id="passive-mastery"
-                        value={passiveMasteryBonus}
-                        onChange={setPassiveMasteryBonus}
-                        min={0}
-                        max={30}
-                        step={1}
-                        className="w-24"
-                        inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-                      />
-                      <button
-                        type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setPassiveMasteryBonus(30)}
-                      >
-                        M
-                      </button>
-                      <span className="text-[10px] text-[color:var(--retro-text-muted)]">레벨=퍼센트</span>
+                  {jobGroup !== "마법사" ? (
+                    <div className="space-y-1">
+                      <span className="retro-chip">
+                        {isPagePaladinJob || isSpearmanJob || isBowmasterJob || isMarksmanJob || isHeroJob
+                          || isNightLordJob || isShadowerJob
+                          ? "무기 마스터리 레벨"
+                          : "숙련도 보정 레벨"}
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <SpinnerInput
+                          id="passive-mastery"
+                          value={passiveMasteryBonus}
+                          onChange={setPassiveMasteryBonus}
+                          min={0}
+                          max={30}
+                          step={1}
+                          className="w-24"
+                          inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                          onClick={() => setPassiveMasteryBonus(30)}
+                        >
+                          M
+                        </button>
+                        <span className="text-[10px] text-[color:var(--retro-text-muted)]">레벨=퍼센트</span>
+                      </div>
                     </div>
-                  </div>
+                  ) : null}
                 </div>
               </div>
 
               <div className="space-y-2">
-                <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
-                  버프 스킬
-                </span>
                 <div className="grid grid-cols-2 gap-3">
                   <div className="space-y-1">
-                    <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                    <span className="retro-chip">
                       샤프 아이즈
                     </span>
                     <div className="flex items-center gap-2">
@@ -1261,7 +1328,7 @@ export default function OneHitCalculatorPage() {
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                    <span className="retro-chip">
                       메이플 용사
                     </span>
                     <div className="flex items-center gap-2">
@@ -1287,7 +1354,7 @@ export default function OneHitCalculatorPage() {
                   </div>
                   {isArchMageJob ? (
                     <div className="space-y-1">
-                      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+                      <span className="retro-chip">
                         메디테이션
                       </span>
                       <div className="flex items-center gap-2">
@@ -1316,7 +1383,9 @@ export default function OneHitCalculatorPage() {
               </div>
             </div>
           </Panel>
+          </div>
 
+          <div className="space-y-6">
           <MonsterPanel
             monsters={typedMonsters}
             value={monsterName}
@@ -1324,32 +1393,22 @@ export default function OneHitCalculatorPage() {
             selected={selectedMonster}
             characterLevel={level}
           />
+          </div>
 
-            <ResultPanel
-              avgDamage={avgDamage}
-              minDamage={minDamage}
-              maxDamage={maxDamage}
-              onAvgDamageChange={setAvgDamage}
-            onMinDamageChange={setMinDamage}
-            onMaxDamageChange={setMaxDamage}
-            accuracyPercent={accuracyPercent}
-            onAccuracyChange={setAccuracyPercent}
-            applyAccuracy={applyAccuracy}
-            onApplyAccuracyChange={setApplyAccuracy}
-            useManualDamage={useManualDamage}
-            onToggleManualDamage={() => setUseManualDamage((prev) => !prev)}
+          <div className="space-y-6">
+          <ResultPanel
             baseDamage={{
-              min: baseDamage.minDamage * powerScale,
-              avg: baseDamage.avgDamage * powerScale,
-              max: baseDamage.maxDamage * powerScale,
+              min: baseDamage.minDamage * finalDamageMultiplier,
+              avg: baseDamage.avgDamage * finalDamageMultiplier,
+              max: baseDamage.maxDamage * finalDamageMultiplier,
             }}
-            finalDamageMultiplier={finalDamageMultiplier}
-            onFinalDamageMultiplierChange={setFinalDamageMultiplier}
             result={result}
+            elementMultiplier={elementMultiplier}
+            bishopHealBonus={bishopHealBonus}
             showFormula={showFormula}
             onToggleFormula={() => setShowFormula((prev) => !prev)}
           />
-        </div>
+          </div>
         </div>
       </div>
     </section>

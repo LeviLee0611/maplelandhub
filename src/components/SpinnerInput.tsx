@@ -10,6 +10,7 @@ type SpinnerInputProps = {
   className?: string;
   inputClassName?: string;
   disabled?: boolean;
+  compact?: boolean;
 };
 
 const clampValue = (value: number, min?: number, max?: number) => {
@@ -29,6 +30,7 @@ export function SpinnerInput({
   className,
   inputClassName,
   disabled,
+  compact = false,
 }: SpinnerInputProps) {
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const nextValue = Number(event.target.value);
@@ -59,10 +61,10 @@ export function SpinnerInput({
         onFocus={handleFocus}
         disabled={disabled}
       />
-      <div className="spinner-controls">
+      <div className={compact ? "flex items-stretch gap-1" : "spinner-controls"}>
         <button
           type="button"
-          className="spinner-btn"
+          className={compact ? "h-[30px] w-6 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[11px] text-[color:var(--retro-text)]" : "spinner-btn"}
           onClick={() => handleStep(step)}
           disabled={disabled}
           aria-label="Increase value"
@@ -71,7 +73,7 @@ export function SpinnerInput({
         </button>
         <button
           type="button"
-          className="spinner-btn"
+          className={compact ? "h-[30px] w-6 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[11px] text-[color:var(--retro-text)]" : "spinner-btn"}
           onClick={() => handleStep(-step)}
           disabled={disabled}
           aria-label="Decrease value"

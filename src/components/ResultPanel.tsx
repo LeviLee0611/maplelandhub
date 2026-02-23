@@ -1,51 +1,25 @@
 import { Panel } from "@/components/Panel";
-import { NumberField } from "@/components/NumberField";
-import { ResultCard } from "@/components/ResultCard";
 import { formatNumber } from "@/lib/utils";
 import type { OneHitResult } from "@/lib/calculators/onehit";
 
 type ResultPanelProps = {
-  avgDamage: number;
-  minDamage: number;
-  maxDamage: number;
-  onAvgDamageChange: (value: number) => void;
-  onMinDamageChange: (value: number) => void;
-  onMaxDamageChange: (value: number) => void;
-  accuracyPercent: number;
-  onAccuracyChange: (value: number) => void;
-  applyAccuracy: boolean;
-  onApplyAccuracyChange: (value: boolean) => void;
-  useManualDamage: boolean;
-  onToggleManualDamage: () => void;
   baseDamage?: {
     min: number;
     avg: number;
     max: number;
   };
-  finalDamageMultiplier: number;
-  onFinalDamageMultiplierChange: (value: number) => void;
   result: OneHitResult;
+  elementMultiplier?: number;
+  bishopHealBonus?: number;
   showFormula: boolean;
   onToggleFormula: () => void;
 };
 
 export function ResultPanel({
-  avgDamage,
-  minDamage,
-  maxDamage,
-  onAvgDamageChange,
-  onMinDamageChange,
-  onMaxDamageChange,
-  accuracyPercent,
-  onAccuracyChange,
-  applyAccuracy,
-  onApplyAccuracyChange,
-  useManualDamage,
-  onToggleManualDamage,
   baseDamage,
-  finalDamageMultiplier,
-  onFinalDamageMultiplierChange,
   result,
+  elementMultiplier = 1,
+  bishopHealBonus = 1,
   showFormula,
   onToggleFormula,
 }: ResultPanelProps) {
@@ -64,85 +38,55 @@ export function ResultPanel({
       }
     >
       <div className="space-y-4">
-        <div className="grid gap-3 md:grid-cols-3">
-          <ResultCard title="최소" value={`${result.hitsToKill.min}방`} helper="최대 데미지 기준" />
-          <ResultCard title="평균" value={`${result.hitsToKill.avg}방`} helper="평균 데미지 기준" highlight />
-          <ResultCard title="최대" value={`${result.hitsToKill.max}방`} helper="최소 데미지 기준" />
-        </div>
-
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="flex items-center gap-2 text-xs text-[color:var(--retro-text)]">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[color:var(--retro-text)]"
-              checked={useManualDamage}
-              onChange={() => onToggleManualDamage()}
-            />
-            데미지 직접 입력
-          </label>
-          <div className="w-32">
-            <NumberField
-              id="final-multiplier"
-              label="최종 배율"
-              value={finalDamageMultiplier}
-              min={0.1}
-              step={0.05}
-              onChange={onFinalDamageMultiplierChange}
-              helper="방어/속성/버프"
-            />
+        <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+          <div className="text-[10px] text-[color:var(--retro-text-muted)]">한방컷 확률</div>
+          <div className="text-lg font-semibold text-[color:var(--retro-text)]">
+            {result.oneShotChance.toFixed(2)}%
+          </div>
+          <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+            {result.oneShotChance >= 100 ? "현재 설정으로 한방컷 가능" : "현재 설정으로 한방컷 불가"}
+          </div>
+          <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+            한방컷 공격력: {formatNumber(result.oneShotAttack)}
           </div>
         </div>
 
-        {useManualDamage ? (
-          <div className="grid gap-3 md:grid-cols-3">
-            <NumberField id="avgDamage" label="평균 데미지" value={avgDamage} min={1} onChange={onAvgDamageChange} />
-            <NumberField id="minDamage" label="최소 데미지" value={minDamage} min={1} onChange={onMinDamageChange} />
-            <NumberField id="maxDamage" label="최대 데미지" value={maxDamage} min={1} onChange={onMaxDamageChange} />
-          </div>
-        ) : (
-          <div className="grid gap-3 md:grid-cols-3">
-            <div className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2 text-xs">
+        <details className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+          <summary className="cursor-pointer text-[11px] font-semibold text-[color:var(--retro-text)]">
+            상세 데미지 보기
+          </summary>
+          <div className="mt-2 grid gap-3 md:grid-cols-3">
+            <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 최소</div>
               <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.min ?? 0)}</div>
             </div>
-            <div className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2 text-xs">
+            <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 평균</div>
               <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.avg ?? 0)}</div>
             </div>
-            <div className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2 text-xs">
+            <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 최대</div>
               <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.max ?? 0)}</div>
             </div>
           </div>
-        )}
-
-        <div className="flex flex-wrap items-center gap-3">
-          <label className="flex items-center gap-2 text-xs text-[color:var(--retro-text)]">
-            <input
-              type="checkbox"
-              className="h-4 w-4 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[color:var(--retro-text)]"
-              checked={applyAccuracy}
-              onChange={(event) => onApplyAccuracyChange(event.target.checked)}
-            />
-            명중 보정 적용
-          </label>
-          <div className="w-32">
-            <NumberField
-              id="accuracyPercent"
-              label="명중률(%)"
-              value={accuracyPercent}
-              min={0}
-              max={100}
-              step={1}
-              onChange={onAccuracyChange}
-            />
+          <div className="mt-2 grid gap-3 md:grid-cols-2">
+            <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">속성 배율</div>
+              <div className="text-sm font-semibold text-[color:var(--retro-text)]">{elementMultiplier.toFixed(2)}x</div>
+            </div>
+            <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">비숍 힐 추가 배율</div>
+              <div className="text-sm font-semibold text-[color:var(--retro-text)]">{bishopHealBonus.toFixed(2)}x</div>
+            </div>
           </div>
-        </div>
+        </details>
 
         {showFormula ? (
           <div className="border border-[var(--retro-border)] bg-[var(--retro-cell)] p-3 text-[11px] text-[color:var(--retro-text-muted)]">
-            <p>N방컷 = ceil(HP / (평균 데미지 × 타수 × 명중률))</p>
+            <p>N방컷 = ceil(HP / (평균 데미지 × 타수))</p>
             <p className="mt-1">스킬 1회 평균 데미지: {formatNumber(result.damagePerSkill.avg)}</p>
+            <p className="mt-1">한방컷 판정: 최대 데미지 × 타수 ≥ 몬스터 HP</p>
+            <p className="mt-1">최종 속성 계수: {elementMultiplier.toFixed(2)} × {bishopHealBonus.toFixed(2)}</p>
           </div>
         ) : null}
       </div>

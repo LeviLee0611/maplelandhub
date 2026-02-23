@@ -27,7 +27,7 @@ export function NumberField({
 }: NumberFieldProps) {
   return (
     <label htmlFor={id} className="space-y-1 text-xs">
-      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+      <span className="retro-chip">
         {label}
       </span>
       <div className="relative">

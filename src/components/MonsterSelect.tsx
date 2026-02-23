@@ -13,6 +13,22 @@ function normalizeMonsterQuery(text: string) {
   return text.replace(/\s+/g, "").toLowerCase();
 }
 
+function getMonsterSearchKeys(name: string) {
+  const raw = String(name ?? "").trim();
+  if (!raw) return [];
+
+  const normalizedName = normalizeMonsterQuery(raw);
+  const tokens = raw.split(/\s+/).filter(Boolean);
+  const initials = tokens.map((token) => token[0]).join("");
+  const firstTwoChars = tokens.map((token) => token.slice(0, 2)).join("");
+
+  return Array.from(new Set([
+    normalizedName,
+    normalizeMonsterQuery(initials),
+    normalizeMonsterQuery(firstTwoChars),
+  ]));
+}
+
 export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -22,7 +38,10 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
   const filtered = useMemo(() => {
     const keyword = normalizeMonsterQuery(value);
     const list = keyword
-      ? monsters.filter((monster) => normalizeMonsterQuery(monster.name).includes(keyword))
+      ? monsters.filter((monster) => {
+          const keys = getMonsterSearchKeys(monster.name);
+          return keys.some((key) => key.includes(keyword));
+        })
       : monsters;
     return list.slice(0, 60);
   }, [monsters, value]);
