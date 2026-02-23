@@ -1,4 +1,4 @@
-import type { ChangeEvent } from "react";
+import { SpinnerInput } from "@/components/SpinnerInput";
 
 export type EquipmentSlot = {
   id: string;
@@ -17,7 +17,7 @@ type EquipmentTableProps = {
 };
 
 const inputClass =
-  "w-12 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-1 py-1 text-center text-[11px] text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none";
+  "retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-1 py-1 text-center text-[11px] text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none";
 
 export function EquipmentTable({ slots, onChange }: EquipmentTableProps) {
   const handleChange = (index: number, field: keyof EquipmentSlot, value: number) => {
@@ -63,14 +63,13 @@ export function EquipmentTable({ slots, onChange }: EquipmentTableProps) {
               </td>
               {(["str", "dex", "int", "luk", "atk", "acc"] as Array<keyof EquipmentSlot>).map((field) => (
                 <td key={field} className="border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1 text-center">
-                  <input
-                    className={inputClass}
-                    type="number"
-                    min={0}
+                  <SpinnerInput
                     value={slot[field]}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) =>
-                      handleChange(index, field, Number(event.target.value) || 0)
-                    }
+                    onChange={(value) => handleChange(index, field, value)}
+                    min={0}
+                    step={1}
+                    className="w-16"
+                    inputClassName={inputClass}
                   />
                 </td>
               ))}

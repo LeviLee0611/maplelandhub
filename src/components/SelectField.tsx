@@ -25,7 +25,9 @@ export function SelectField({
   disabled,
 }: SelectFieldProps) {
   const [open, setOpen] = useState(false);
+  const [openUp, setOpenUp] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
+  const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   const selectedLabel = useMemo(() => {
     const found = options.find((opt) => opt.value === value);
@@ -43,6 +45,23 @@ export function SelectField({
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
+  const toggleOpen = () => {
+    if (disabled) return;
+    setOpen((prev) => {
+      const next = !prev;
+      if (next) {
+        const rect = buttonRef.current?.getBoundingClientRect();
+        if (rect) {
+          const spaceBelow = window.innerHeight - rect.bottom;
+          const spaceAbove = rect.top;
+          const threshold = 260;
+          setOpenUp(spaceBelow < threshold && spaceAbove > spaceBelow);
+        }
+      }
+      return next;
+    });
+  };
+
   return (
     <div ref={rootRef} className="space-y-1 text-xs">
       {label ? (
@@ -57,8 +76,9 @@ export function SelectField({
         <button
           id={id}
           type="button"
+          ref={buttonRef}
           className="flex w-full items-center justify-between rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-left text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-          onClick={() => setOpen((prev) => !prev)}
+          onClick={toggleOpen}
           disabled={disabled}
         >
           <span className={selectedLabel ? "" : "text-[color:var(--retro-text-muted)]"}>
@@ -68,8 +88,13 @@ export function SelectField({
         </button>
 
         {open ? (
-          <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] shadow-[0_8px_16px_rgba(15,23,42,0.08)]">
-            <ul role="listbox" className="max-h-52 overflow-auto py-1 text-xs">
+          <div
+            className={`select-dropdown absolute z-20 w-full max-h-[60vh] overflow-y-auto overscroll-contain rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] shadow-[0_8px_16px_rgba(15,23,42,0.08)] ${
+              openUp ? "bottom-full mb-2" : "top-full mt-2"
+            }`}
+            style={{ WebkitOverflowScrolling: "touch" }}
+          >
+            <ul role="listbox" className="select-options py-1 text-xs">
               {options.map((option) => {
                 const active = option.value === value;
                 return (

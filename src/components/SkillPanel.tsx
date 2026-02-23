@@ -1,6 +1,5 @@
 import { Panel } from "@/components/Panel";
-import { NumberField } from "@/components/NumberField";
-import { SelectField } from "@/components/SelectField";
+import { SpinnerInput } from "@/components/SpinnerInput";
 
 type SkillPanelProps = {
   skillName: string;
@@ -9,10 +8,6 @@ type SkillPanelProps = {
   onSkillLevelChange: (value: number) => void;
   skillLevelMax: number;
   onSkillLevelMax: () => void;
-  hitsPerAttack: number;
-  onHitsChange: (value: number) => void;
-  damageMultiplier: number;
-  onMultiplierChange: (value: number) => void;
   skillOptions: string[];
 };
 
@@ -23,39 +18,27 @@ export function SkillPanel({
   onSkillLevelChange,
   skillLevelMax,
   onSkillLevelMax,
-  hitsPerAttack,
-  onHitsChange,
-  damageMultiplier,
-  onMultiplierChange,
   skillOptions,
 }: SkillPanelProps) {
   return (
-    <Panel
-      title="스킬 정보"
-      tone="yellow"
-      actions={
-        <div className="flex items-center gap-2">
-          <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-2 py-0.5 text-[10px] text-[color:var(--retro-text-muted)]">
-            타수 {hitsPerAttack}
-          </span>
-          <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-2 py-0.5 text-[10px] text-[color:var(--retro-text-muted)]">
-            계수 {damageMultiplier.toFixed(2)}
-          </span>
-        </div>
-      }
-    >
+    <Panel title="액티브 스킬" tone="yellow">
       <div className="space-y-3">
         <div className="space-y-1">
           <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
-            스킬 선택
+            공격 스킬 선택 ({skillOptions.length})
           </span>
-          <SelectField
+          <select
             id="skill-select"
-            label=""
+            className="w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
             value={skillName}
-            onChange={onSkillChange}
-            options={skillOptions.map((option) => ({ label: option, value: option }))}
-          />
+            onChange={(event) => onSkillChange(event.target.value)}
+          >
+            {skillOptions.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -64,15 +47,15 @@ export function SkillPanel({
               스킬 레벨
             </span>
             <div className="flex items-center gap-2">
-              <input
+              <SpinnerInput
                 id="skill-level"
-                className="w-14 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-                type="number"
+                value={skillLevel}
+                onChange={onSkillLevelChange}
                 min={0}
                 max={skillLevelMax}
                 step={1}
-                value={Number.isFinite(skillLevel) ? skillLevel : 0}
-                onChange={(event) => onSkillLevelChange(Number(event.target.value) || 0)}
+                className="w-24"
+                inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
               />
               <button
                 type="button"
@@ -84,25 +67,7 @@ export function SkillPanel({
               <span className="text-[10px] text-[color:var(--retro-text-muted)]">최대 {skillLevelMax}</span>
             </div>
           </div>
-          <NumberField
-            id="hits-per-attack"
-            label="타수"
-            value={hitsPerAttack}
-            min={1}
-            step={1}
-            onChange={onHitsChange}
-          />
         </div>
-
-        <NumberField
-          id="damage-multiplier"
-          label="데미지 계수(배율)"
-          value={damageMultiplier}
-          min={0.1}
-          step={0.05}
-          onChange={onMultiplierChange}
-          helper="예: 1.2 = 120%"
-        />
       </div>
     </Panel>
   );

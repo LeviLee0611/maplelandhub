@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 type PanelTone = "green" | "yellow" | "blue";
 
 const basePanelClass =
-  "border border-[var(--retro-border-strong)] bg-[var(--retro-bg)] shadow-[0_1px_0_rgba(15,23,42,0.04)]";
+  "retro-panel border border-[var(--retro-border-strong)] bg-[var(--retro-bg)] shadow-[0_1px_0_rgba(15,23,42,0.04)]";
 
 const toneClasses: Record<PanelTone, string> = {
   green: "bg-[var(--retro-header-green)]",
@@ -23,7 +23,7 @@ export function Panel({ title, children, className, actions, tone = "blue" }: Pa
   return (
     <section className={`${basePanelClass} ${className ?? ""}`}>
       <div
-        className={`flex items-center justify-between border-b border-[var(--retro-border)] px-3 py-1.5 text-[11px] font-medium tracking-[0.08em] text-[color:var(--retro-text)] ${toneClasses[tone]}`}
+        className={`retro-panel-header flex items-center justify-between border-b border-[var(--retro-border)] px-3 py-1.5 text-[11px] font-medium tracking-[0.08em] text-[color:var(--retro-text)] ${toneClasses[tone]}`}
       >
         <h2>{title}</h2>
         {actions ? <div className="text-[11px] text-[color:var(--retro-text-muted)]">{actions}</div> : null}
