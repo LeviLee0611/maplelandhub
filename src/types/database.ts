@@ -120,6 +120,7 @@ export type Database = {
           message: string;
           contact: string | null;
           is_public: boolean;
+          status: "new" | "in_progress" | "done";
           created_at: string;
           updated_at: string;
         };
@@ -131,6 +132,7 @@ export type Database = {
           message: string;
           contact?: string | null;
           is_public?: boolean;
+          status?: "new" | "in_progress" | "done";
           created_at?: string;
           updated_at?: string;
         };
@@ -142,6 +144,52 @@ export type Database = {
           message?: string;
           contact?: string | null;
           is_public?: boolean;
+          status?: "new" | "in_progress" | "done";
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
+      admin_users: {
+        Row: {
+          user_id: string;
+          created_at: string;
+        };
+        Insert: {
+          user_id: string;
+          created_at?: string;
+        };
+        Update: {
+          user_id?: string;
+          created_at?: string;
+        };
+        Relationships: [];
+      };
+      character_presets: {
+        Row: {
+          id: string;
+          user_id: string;
+          calculator: "onehit" | "taken-damage";
+          name: string;
+          data: Json;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          user_id: string;
+          calculator: "onehit" | "taken-damage";
+          name: string;
+          data: Json;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          user_id?: string;
+          calculator?: "onehit" | "taken-damage";
+          name?: string;
+          data?: Json;
           created_at?: string;
           updated_at?: string;
         };

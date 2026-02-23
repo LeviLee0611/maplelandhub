@@ -38,6 +38,23 @@ export default function FeedbackPage() {
       const { error } = await supabase.from("feedback_requests").insert(payload);
       if (error) throw error;
 
+      // Discord 알림은 부가 기능이므로 실패해도 접수 자체는 성공 처리
+      try {
+        await fetch("/api/feedback/notify", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            type: payload.type,
+            title: payload.title,
+            message: payload.message,
+            contact: payload.contact,
+            userId: payload.user_id,
+          }),
+        });
+      } catch {
+        // no-op
+      }
+
       setStatus("문의가 접수되었습니다. 운영자만 확인 가능합니다.");
       setTitle("");
       setMessage("");
