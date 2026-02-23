@@ -9,22 +9,22 @@
   --accent-1: #38bdf8;
   --accent-2: #22c55e;
   --accent-3: #f59e0b;
-  --surface: rgba(255, 255, 255, 0.92);
-  --surface-strong: rgba(248, 250, 252, 0.97);
-  --retro-bg: #ffffff;
-  --retro-border: #cfd6de;
-  --retro-border-strong: #b9c3cd;
-  --retro-text: #0f172a;
-  --retro-text-muted: #475569;
+  --surface: rgba(17, 23, 38, 0.82);
+  --surface-strong: rgba(26, 34, 52, 0.92);
+  --retro-bg: rgba(15, 23, 42, 0.8);
+  --retro-border: rgba(148, 163, 184, 0.22);
+  --retro-border-strong: rgba(148, 163, 184, 0.35);
+  --retro-text: #e2e8f0;
+  --retro-text-muted: #94a3b8;
   --retro-label: #c04b6b;
   --retro-header-green: #b7d957;
   --retro-header-yellow: #f2e18a;
   --retro-header-blue: #a9c7e8;
-  --retro-cell: #f3f6f9;
-  --retro-cell-strong: #e9eff5;
-  --nav-bg: rgba(255, 255, 255, 0.82);
-  --nav-border: rgba(148, 163, 184, 0.35);
-  --nav-text: #0f172a;
+  --retro-cell: rgba(15, 23, 42, 0.55);
+  --retro-cell-strong: rgba(15, 23, 42, 0.7);
+  --nav-bg: rgba(17, 23, 38, 0.6);
+  --nav-border: rgba(255, 255, 255, 0.1);
+  --nav-text: #e2e8f0;
 }
 
 html[data-theme="dark"] {
@@ -62,7 +62,7 @@ html[data-theme="light"] {
 html,
 body {
   min-height: 100%;
-  background-color: #e2e8f0;
+  background-color: #060915;
 }
 
 html[data-theme="light"] body {
@@ -74,7 +74,7 @@ html[data-theme="light"] body {
 body {
   font-family: var(--font-body), "Noto Sans KR", system-ui, sans-serif;
   background:
-    linear-gradient(180deg, rgba(241, 245, 249, 0.2), rgba(241, 245, 249, 0.32)),
+    linear-gradient(180deg, rgba(6, 9, 21, 0.75), rgba(6, 9, 21, 0.85)),
     url("/images/bg-game.png.png") center top / cover no-repeat fixed;
   color: var(--retro-text);
 }
@@ -87,13 +87,13 @@ html[data-theme="dark"] body {
 }
 
 select {
-  color-scheme: light;
+  color-scheme: dark;
 }
 
 select option,
 select optgroup {
-  background-color: #ffffff;
-  color: #0f172a;
+  background-color: #0f1522;
+  color: #e2e8f0;
 }
 
 html[data-theme="dark"] select {

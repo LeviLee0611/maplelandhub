@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { AuthButton } from "@/components/auth-button";
-import { ThemeToggle } from "@/components/theme-toggle";
 
 export function NavBar() {
   return (
@@ -22,7 +21,6 @@ export function NavBar() {
           <Link href="/feedback" className="hover:opacity-80">
             문의/요청
           </Link>
-          <ThemeToggle />
           <AuthButton />
         </nav>
       </div>

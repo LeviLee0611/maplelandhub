@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type QuickSlotRecord<T> = {
   data: T;
@@ -23,6 +23,7 @@ export function QuickSlots<T>({
   slotCount = 6,
   preview,
 }: QuickSlotsProps<T>) {
+  const detailsRef = useRef<HTMLDetailsElement | null>(null);
   const [slots, setSlots] = useState<Array<QuickSlotRecord<T>>>(() => {
     if (typeof window === "undefined") return Array.from({ length: slotCount }, () => null);
     const raw = window.localStorage.getItem(storageKey);
@@ -39,6 +40,22 @@ export function QuickSlots<T>({
   useEffect(() => {
     window.localStorage.setItem(storageKey, JSON.stringify(slots));
   }, [storageKey, slots]);
+
+  useEffect(() => {
+    const onPointerDown = (event: PointerEvent) => {
+      const details = detailsRef.current;
+      if (!details || !details.open) return;
+      const target = event.target;
+      if (target instanceof Node && !details.contains(target)) {
+        details.removeAttribute("open");
+      }
+    };
+
+    document.addEventListener("pointerdown", onPointerDown);
+    return () => {
+      document.removeEventListener("pointerdown", onPointerDown);
+    };
+  }, []);
 
   const slotLabels = useMemo(
     () =>
@@ -69,7 +86,7 @@ export function QuickSlots<T>({
   };
 
   return (
-    <details className="relative inline-block">
+    <details ref={detailsRef} className="relative inline-block">
       <summary className="inline-flex cursor-pointer list-none items-center rounded border border-[var(--retro-border)] bg-[var(--retro-cell-strong)] px-2 py-1 text-[11px] font-semibold text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)]">
         {title}
       </summary>
