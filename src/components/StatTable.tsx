@@ -6,9 +6,15 @@ type StatRowProps = {
 
 export function StatRow({ label, value, highlight }: StatRowProps) {
   return (
-    <div className="flex items-center justify-between border-b border-white/5 py-1 text-xs">
-      <span className="text-slate-300">{label}</span>
-      <span className={`font-semibold ${highlight ? "text-emerald-200" : "text-slate-100"}`}>{value}</span>
+    <div className="flex items-center justify-between border-b border-[var(--retro-border)] py-1.5 text-xs">
+      <span className="text-[color:var(--retro-text-muted)]">{label}</span>
+      <span
+        className={`font-medium ${
+          highlight ? "text-[color:var(--retro-text)]" : "text-[color:var(--retro-text)]"
+        }`}
+      >
+        {value}
+      </span>
     </div>
   );
 }

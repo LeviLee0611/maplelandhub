@@ -10,7 +10,7 @@ export function NavBar() {
         </Link>
         <nav className="flex items-center gap-3 text-sm text-slate-200">
           <Link href="/calculators/onehit" className="hover:text-white">
-            한방컷 계산기
+            N방컷 계산기
           </Link>
           <Link href="/calculator/damage" className="hover:text-white">
             피격 데미지

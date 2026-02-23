@@ -7,56 +7,83 @@ type SkillPanelProps = {
   onSkillChange: (value: string) => void;
   skillLevel: number;
   onSkillLevelChange: (value: number) => void;
+  skillLevelMax: number;
+  onSkillLevelMax: () => void;
   hitsPerAttack: number;
   onHitsChange: (value: number) => void;
   damageMultiplier: number;
   onMultiplierChange: (value: number) => void;
+  skillOptions: string[];
 };
-
-const skillOptions = ["기본 공격", "주력 스킬", "보조 스킬"];
 
 export function SkillPanel({
   skillName,
   onSkillChange,
   skillLevel,
   onSkillLevelChange,
+  skillLevelMax,
+  onSkillLevelMax,
   hitsPerAttack,
   onHitsChange,
   damageMultiplier,
   onMultiplierChange,
+  skillOptions,
 }: SkillPanelProps) {
   return (
     <Panel
-      title="Skills"
+      title="스킬 정보"
+      tone="yellow"
       actions={
         <div className="flex items-center gap-2">
-          <span className="rounded-full bg-emerald-400/15 px-2 py-1 text-[10px] text-emerald-200">
+          <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-2 py-0.5 text-[10px] text-[color:var(--retro-text-muted)]">
             타수 {hitsPerAttack}
           </span>
-          <span className="rounded-full bg-sky-400/15 px-2 py-1 text-[10px] text-sky-200">
+          <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-2 py-0.5 text-[10px] text-[color:var(--retro-text-muted)]">
             계수 {damageMultiplier.toFixed(2)}
           </span>
         </div>
       }
     >
       <div className="space-y-3">
-        <SelectField
-          id="skill-select"
-          label="스킬 선택"
-          value={skillName}
-          onChange={onSkillChange}
-          options={skillOptions.map((option) => ({ label: option, value: option }))}
-        />
+        <div className="space-y-1">
+          <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+            스킬 선택
+          </span>
+          <SelectField
+            id="skill-select"
+            label=""
+            value={skillName}
+            onChange={onSkillChange}
+            options={skillOptions.map((option) => ({ label: option, value: option }))}
+          />
+        </div>
 
         <div className="grid grid-cols-2 gap-3">
-          <NumberField
-            id="skill-level"
-            label="스킬 레벨"
-            value={skillLevel}
-            min={0}
-            step={1}
-            onChange={onSkillLevelChange}
-          />
+          <div className="space-y-1 text-xs">
+            <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+              스킬 레벨
+            </span>
+            <div className="flex items-center gap-2">
+              <input
+                id="skill-level"
+                className="w-14 rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                type="number"
+                min={0}
+                max={skillLevelMax}
+                step={1}
+                value={Number.isFinite(skillLevel) ? skillLevel : 0}
+                onChange={(event) => onSkillLevelChange(Number(event.target.value) || 0)}
+              />
+              <button
+                type="button"
+                className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                onClick={onSkillLevelMax}
+              >
+                M
+              </button>
+              <span className="text-[10px] text-[color:var(--retro-text-muted)]">최대 {skillLevelMax}</span>
+            </div>
+          </div>
           <NumberField
             id="hits-per-attack"
             label="타수"

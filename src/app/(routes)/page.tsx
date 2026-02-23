@@ -3,12 +3,12 @@ import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "메이플랜드허브 - 계산기와 파티 매칭",
-  description: "한방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
+  description: "N방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
 };
 
 const features = [
   {
-    title: "한방컷 계산기",
+    title: "N방컷 계산기",
     description: "몬스터를 몇 방에 잡는지 빠르게 계산합니다",
     href: "/calculators/onehit",
     button: "계산기 열기",
@@ -82,7 +82,7 @@ export default function HomePage() {
         <p>
           핵심 유틸리티:
           <Link href="/calculators/onehit" className="ml-2 font-semibold text-sky-200 hover:text-white">
-            한방컷 계산기
+            N방컷 계산기
           </Link>
           ,
           <Link href="/party" className="ml-2 font-semibold text-emerald-200 hover:text-white">

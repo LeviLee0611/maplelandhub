@@ -1,3 +1,5 @@
+import { useEffect, useMemo, useRef, useState } from "react";
+
 type SelectFieldOption = {
   label: string;
   value: string;
@@ -22,30 +24,82 @@ export function SelectField({
   placeholder,
   disabled,
 }: SelectFieldProps) {
+  const [open, setOpen] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  const selectedLabel = useMemo(() => {
+    const found = options.find((opt) => opt.value === value);
+    return found?.label ?? "";
+  }, [options, value]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (!rootRef.current) return;
+      if (!rootRef.current.contains(event.target as Node)) {
+        setOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, []);
+
   return (
-    <label htmlFor={id} className="space-y-1 text-xs">
-      <span className="text-slate-300">{label}</span>
+    <div ref={rootRef} className="space-y-1 text-xs">
+      {label ? (
+        <label
+          htmlFor={id}
+          className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white"
+        >
+          {label}
+        </label>
+      ) : null}
       <div className="relative">
-        <select
+        <button
           id={id}
-          className="w-full appearance-none rounded-md border border-white/10 bg-white/5 px-2 py-2 pr-7 text-xs text-slate-100 focus:border-emerald-300 focus:outline-none"
-          value={value}
-          onChange={(event) => onChange(event.target.value)}
+          type="button"
+          className="flex w-full items-center justify-between rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-left text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+          onClick={() => setOpen((prev) => !prev)}
           disabled={disabled}
         >
-          {placeholder ? (
-            <option value="" disabled>
-              {placeholder}
-            </option>
-          ) : null}
-          {options.map((option) => (
-            <option key={option.value} value={option.value}>
-              {option.label}
-            </option>
-          ))}
-        </select>
-        <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-slate-400">▾</span>
+          <span className={selectedLabel ? "" : "text-[color:var(--retro-text-muted)]"}>
+            {selectedLabel || placeholder || "선택"}
+          </span>
+          <span className="text-[10px] text-[color:var(--retro-text-muted)]">▾</span>
+        </button>
+
+        {open ? (
+          <div className="absolute z-20 mt-2 w-full overflow-hidden rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-bg)] shadow-[0_8px_16px_rgba(15,23,42,0.08)]">
+            <ul role="listbox" className="max-h-52 overflow-auto py-1 text-xs">
+              {options.map((option) => {
+                const active = option.value === value;
+                return (
+                  <li key={option.value} role="option" aria-selected={active}>
+                    <button
+                      type="button"
+                      className={`flex w-full items-center justify-between px-3 py-2 text-left ${
+                        active
+                          ? "bg-[var(--retro-cell-strong)] text-[color:var(--retro-text)]"
+                          : "text-[color:var(--retro-text)] hover:bg-[var(--retro-cell)]"
+                      }`}
+                      onClick={() => {
+                        onChange(option.value);
+                        setOpen(false);
+                      }}
+                    >
+                      <span>{option.label}</span>
+                      {active ? (
+                        <span className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-1.5 py-0.5 text-[9px] text-[color:var(--retro-text-muted)]">
+                          선택됨
+                        </span>
+                      ) : null}
+                    </button>
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
+        ) : null}
       </div>
-    </label>
+    </div>
   );
 }

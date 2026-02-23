@@ -7,10 +7,14 @@ type ResultCardProps = {
 
 export function ResultCard({ title, value, helper, highlight }: ResultCardProps) {
   return (
-    <div className={`glass-panel flex flex-col gap-2 rounded-2xl p-4 ${highlight ? "border border-sky-400/40" : ""}`}>
-      <p className="text-xs uppercase tracking-[0.2em] text-slate-300">{title}</p>
-      <p className="text-3xl font-semibold text-white">{value}</p>
-      {helper ? <p className="text-xs text-slate-300">{helper}</p> : null}
+    <div
+      className={`flex flex-col gap-1 border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2 ${
+        highlight ? "border-[var(--retro-border-strong)]" : ""
+      }`}
+    >
+      <p className="text-[10px] tracking-[0.2em] text-[color:var(--retro-text-muted)]">{title}</p>
+      <p className="text-xl font-semibold text-[color:var(--retro-text)]">{value}</p>
+      {helper ? <p className="text-[10px] text-[color:var(--retro-text-muted)]">{helper}</p> : null}
     </div>
   );
 }

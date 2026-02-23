@@ -15,10 +15,12 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
   };
 
   return (
-    <label className="space-y-1 text-sm">
-      <span className="font-medium text-slate-100">몬스터</span>
+    <label className="space-y-1 text-xs">
+      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+        몬스터
+      </span>
       <input
-        className="w-full rounded-md border border-white/10 bg-white/5 px-2 py-2 text-xs text-slate-100 focus:border-emerald-300 focus:outline-none"
+        className="w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
         list={listId}
         value={value}
         onChange={handleChange}
@@ -31,7 +33,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
           </option>
         ))}
       </datalist>
-      <p className="text-[10px] text-slate-400">이름을 입력하면 자동 완성됩니다.</p>
+      <p className="text-[10px] text-[color:var(--retro-text-muted)]">이름을 입력하면 자동 완성됩니다.</p>
     </label>
   );
 }

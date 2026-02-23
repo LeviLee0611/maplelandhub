@@ -1,10 +1,21 @@
 export type OneHitInput = {
   monsterHp: number;
-  avgDamage: number;
+  avgDamage?: number;
   minDamage?: number;
   maxDamage?: number;
+  statDamage?: StatDamageInput;
+  finalDamageMultiplier?: number;
   hitsPerSkill: number;
   accuracyRate: number; // 0-1
+};
+
+export type StatDamageInput = {
+  primaryStat: number;
+  secondaryStat: number;
+  weaponAttack: number;
+  statMultiplier: number;
+  skillMultiplier?: number;
+  mastery?: number; // 0-1
 };
 
 export type OneHitResult = {
@@ -24,6 +35,21 @@ function ensurePositive(value: number, fallback = 1) {
   return Number.isFinite(value) && value > 0 ? value : fallback;
 }
 
+export function calcBaseDamageFromStats(input: StatDamageInput) {
+  const primary = ensurePositive(input.primaryStat, 1);
+  const secondary = ensurePositive(input.secondaryStat, 0);
+  const weaponAttack = ensurePositive(input.weaponAttack, 1);
+  const statMultiplier = ensurePositive(input.statMultiplier, 1);
+  const skillMultiplier = ensurePositive(input.skillMultiplier ?? 1, 1);
+  const mastery = Math.min(1, Math.max(0, input.mastery ?? 1));
+
+  const maxDamage = ((primary * statMultiplier + secondary) * weaponAttack * skillMultiplier) / 100;
+  const minDamage = maxDamage * mastery;
+  const avgDamage = (minDamage + maxDamage) / 2;
+
+  return { minDamage, avgDamage, maxDamage };
+}
+
 export function calcDamagePerSkill(rawDamage: number, hitsPerSkill: number, accuracyRate: number) {
   const damage = ensurePositive(rawDamage, 1);
   const hits = ensurePositive(hitsPerSkill, 1);
@@ -38,13 +64,16 @@ export function calcHitsToKill(monsterHp: number, damagePerSkill: number) {
 }
 
 export function calcOneHit(input: OneHitInput): OneHitResult {
-  const minDamage = input.minDamage ?? input.avgDamage;
-  const maxDamage = input.maxDamage ?? input.avgDamage;
+  const statsDamage = input.statDamage ? calcBaseDamageFromStats(input.statDamage) : null;
+  const fallbackAvg = input.avgDamage ?? statsDamage?.avgDamage ?? 1;
+  const minDamage = input.minDamage ?? statsDamage?.minDamage ?? fallbackAvg;
+  const maxDamage = input.maxDamage ?? statsDamage?.maxDamage ?? fallbackAvg;
   const avgDamage = input.avgDamage ?? (minDamage + maxDamage) / 2;
+  const finalMultiplier = ensurePositive(input.finalDamageMultiplier ?? 1, 1);
 
-  const minPerSkill = calcDamagePerSkill(minDamage, input.hitsPerSkill, input.accuracyRate);
-  const avgPerSkill = calcDamagePerSkill(avgDamage, input.hitsPerSkill, input.accuracyRate);
-  const maxPerSkill = calcDamagePerSkill(maxDamage, input.hitsPerSkill, input.accuracyRate);
+  const minPerSkill = calcDamagePerSkill(minDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
+  const avgPerSkill = calcDamagePerSkill(avgDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
+  const maxPerSkill = calcDamagePerSkill(maxDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
 
   return {
     damagePerSkill: {

@@ -12,12 +12,12 @@ type MonsterPanelProps = {
 
 export function MonsterPanel({ monsters, value, onChange, selected }: MonsterPanelProps) {
   return (
-    <Panel title="Monster">
+    <Panel title="몬스터 정보" tone="blue">
       <div className="space-y-3">
         <MonsterSelect monsters={monsters} value={value} onChange={onChange} />
 
-        <div className="grid gap-3 rounded-lg border border-white/10 bg-white/5 p-3 text-xs text-slate-100 md:grid-cols-[72px_1fr]">
-          <div className="flex h-[72px] w-[72px] items-center justify-center rounded-md border border-white/10 bg-black/30 text-[10px] text-slate-400">
+        <div className="grid gap-3 border border-[var(--retro-border)] bg-[var(--retro-cell)] p-3 text-xs text-[color:var(--retro-text)] md:grid-cols-[72px_1fr]">
+          <div className="flex h-[72px] w-[72px] items-center justify-center border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)]">
             {selected?.mobCode ? (
               <span>mob {selected.mobCode}</span>
             ) : (
@@ -27,7 +27,7 @@ export function MonsterPanel({ monsters, value, onChange, selected }: MonsterPan
           <div className="space-y-1">
             <div className="flex items-center justify-between">
               <span className="text-sm font-semibold">{selected?.name ?? "-"}</span>
-              <span className="text-[11px] text-emerald-200">Lv. {selected?.level ?? 0}</span>
+              <span className="text-[11px] text-[color:var(--retro-text-muted)]">Lv. {selected?.level ?? 0}</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>HP {formatNumber(selected?.hp ?? 0)}</div>

@@ -31,12 +31,14 @@ export function NumberField({
   };
 
   return (
-    <label htmlFor={id} className="space-y-1 text-sm">
-      <span className="font-medium text-slate-100">{label}</span>
+    <label htmlFor={id} className="space-y-1 text-xs">
+      <span className="inline-flex items-center bg-[var(--retro-label)] px-2 py-0.5 text-[11px] font-medium text-white">
+        {label}
+      </span>
       <div className="relative">
         <input
           id={id}
-          className="w-full rounded-md border border-white/15 bg-white/5 px-3 py-2 text-slate-100 focus:border-sky-300 focus:outline-none"
+          className="w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
           type="number"
           min={min}
           max={max}
@@ -45,9 +47,13 @@ export function NumberField({
           placeholder={placeholder}
           onChange={handleChange}
         />
-        {suffix ? <span className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-xs text-slate-300">{suffix}</span> : null}
+        {suffix ? (
+          <span className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-[10px] text-[color:var(--retro-text-muted)]">
+            {suffix}
+          </span>
+        ) : null}
       </div>
-      {helper ? <p className="text-xs text-slate-300">{helper}</p> : null}
+      {helper ? <p className="text-[10px] text-[color:var(--retro-text-muted)]">{helper}</p> : null}
     </label>
   );
 }

@@ -1,23 +1,34 @@
 import type { ReactNode } from "react";
 
+type PanelTone = "green" | "yellow" | "blue";
+
 const basePanelClass =
-  "rounded-xl border border-white/10 bg-[rgba(18,24,36,0.92)] shadow-[0_10px_30px_rgba(3,7,18,0.45)]";
+  "border border-[var(--retro-border-strong)] bg-[var(--retro-bg)] shadow-[0_1px_0_rgba(15,23,42,0.04)]";
+
+const toneClasses: Record<PanelTone, string> = {
+  green: "bg-[var(--retro-header-green)]",
+  yellow: "bg-[var(--retro-header-yellow)]",
+  blue: "bg-[var(--retro-header-blue)]",
+};
 
 type PanelProps = {
   title: string;
   children: ReactNode;
   className?: string;
   actions?: ReactNode;
+  tone?: PanelTone;
 };
 
-export function Panel({ title, children, className, actions }: PanelProps) {
+export function Panel({ title, children, className, actions, tone = "blue" }: PanelProps) {
   return (
     <section className={`${basePanelClass} ${className ?? ""}`}>
-      <div className="flex items-center justify-between border-b border-white/10 px-4 py-2">
-        <h2 className="text-xs font-semibold uppercase tracking-[0.25em] text-slate-200">{title}</h2>
-        {actions ? <div className="text-xs text-slate-300">{actions}</div> : null}
+      <div
+        className={`flex items-center justify-between border-b border-[var(--retro-border)] px-3 py-1.5 text-[11px] font-medium tracking-[0.08em] text-[color:var(--retro-text)] ${toneClasses[tone]}`}
+      >
+        <h2>{title}</h2>
+        {actions ? <div className="text-[11px] text-[color:var(--retro-text-muted)]">{actions}</div> : null}
       </div>
-      <div className="px-4 py-3">{children}</div>
+      <div className="px-3 py-3">{children}</div>
     </section>
   );
 }

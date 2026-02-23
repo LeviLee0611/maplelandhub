@@ -1,0 +1,28 @@
+{
+  "id": "meditation",
+  "name": "메디테이션",
+  "type": "flat_magic_attack",
+  "levels": [
+    { "level": 0, "value": 0, "description": "미적용" },
+    { "level": 1, "value": 1, "description": "1레벨: 마력+1" },
+    { "level": 2, "value": 2, "description": "2레벨: 마력+2" },
+    { "level": 3, "value": 3, "description": "3레벨: 마력+3" },
+    { "level": 4, "value": 4, "description": "4레벨: 마력+4" },
+    { "level": 5, "value": 5, "description": "5레벨: 마력+5" },
+    { "level": 6, "value": 6, "description": "6레벨: 마력+6" },
+    { "level": 7, "value": 7, "description": "7레벨: 마력+7" },
+    { "level": 8, "value": 8, "description": "8레벨: 마력+8" },
+    { "level": 9, "value": 9, "description": "9레벨: 마력+9" },
+    { "level": 10, "value": 10, "description": "10레벨: 마력+10" },
+    { "level": 11, "value": 11, "description": "11레벨: 마력+11" },
+    { "level": 12, "value": 12, "description": "12레벨: 마력+12" },
+    { "level": 13, "value": 13, "description": "13레벨: 마력+13" },
+    { "level": 14, "value": 14, "description": "14레벨: 마력+14" },
+    { "level": 15, "value": 15, "description": "15레벨: 마력+15" },
+    { "level": 16, "value": 16, "description": "16레벨: 마력+16" },
+    { "level": 17, "value": 17, "description": "17레벨: 마력+17" },
+    { "level": 18, "value": 18, "description": "18레벨: 마력+18" },
+    { "level": 19, "value": 19, "description": "19레벨: 마력+19" },
+    { "level": 20, "value": 20, "description": "20레벨: 마력+20" }
+  ]
+}
