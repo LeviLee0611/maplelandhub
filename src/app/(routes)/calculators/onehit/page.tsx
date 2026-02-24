@@ -41,6 +41,18 @@ const levelToMultiplier = (level: number) => 1 + Math.max(0, level) / 100;
 const PROFILE_STORAGE_KEY = "onehit-calculator-profile-v1";
 type AttackElement = "무" | "불" | "얼음" | "전기" | "독" | "성";
 
+function readLegacyNumber(snapshot: Record<string, unknown>, keys: string[]) {
+  for (const key of keys) {
+    const value = snapshot[key];
+    if (typeof value === "number" && Number.isFinite(value)) return value;
+    if (typeof value === "string" && value.trim() !== "") {
+      const parsed = Number(value);
+      if (Number.isFinite(parsed)) return parsed;
+    }
+  }
+  return null;
+}
+
 function inferAttackElement(skillName: string): AttackElement {
   const normalized = String(skillName ?? "").trim();
   if (/(힐|홀리|샤이닝|엔젤|헤븐|제네시스)/.test(normalized)) return "성";
@@ -114,6 +126,7 @@ export default function OneHitCalculatorPage() {
   const [job, setJob] = useState<string>(jobOptionsByGroup[jobGroup][0]);
   const [level, setLevel] = useState(70);
   const [characterAccuracy, setCharacterAccuracy] = useState(0);
+  const [weaponAttackInput, setWeaponAttackInput] = useState(0);
   const [totalAttackInput, setTotalAttackInput] = useState(0);
   const [totalMagicInput, setTotalMagicInput] = useState(0);
   const [profileMessage, setProfileMessage] = useState("");
@@ -158,6 +171,7 @@ export default function OneHitCalculatorPage() {
     job,
     level,
     characterAccuracy,
+    weaponAttackInput,
     totalAttackInput,
     totalMagicInput,
     stats,
@@ -168,6 +182,7 @@ export default function OneHitCalculatorPage() {
     job,
     level,
     characterAccuracy,
+    weaponAttackInput,
     totalAttackInput,
     totalMagicInput,
     stats,
@@ -181,6 +196,7 @@ export default function OneHitCalculatorPage() {
       job,
       level,
       characterAccuracy,
+      weaponAttackInput,
       totalAttackInput,
       totalMagicInput,
       stats,
@@ -216,6 +232,7 @@ export default function OneHitCalculatorPage() {
       job,
       level,
       characterAccuracy,
+      weaponAttackInput,
       totalAttackInput,
       totalMagicInput,
       stats,
@@ -258,8 +275,26 @@ export default function OneHitCalculatorPage() {
     }
     if (typeof snapshot.level === "number") setLevel(snapshot.level);
     if (typeof snapshot.characterAccuracy === "number") setCharacterAccuracy(snapshot.characterAccuracy);
-    if (typeof snapshot.totalAttackInput === "number") setTotalAttackInput(snapshot.totalAttackInput);
-    if (typeof snapshot.totalMagicInput === "number") setTotalMagicInput(snapshot.totalMagicInput);
+    const legacyWeaponAttack = readLegacyNumber(snapshot as Record<string, unknown>, [
+      "weaponAttackInput",
+      "attackOptionTotal",
+      "weaponAttack",
+    ]);
+    if (legacyWeaponAttack !== null) setWeaponAttackInput(legacyWeaponAttack);
+    const legacyAttack = readLegacyNumber(snapshot as Record<string, unknown>, [
+      "totalAttackInput",
+      "totalAttack",
+      "attack",
+    ]);
+    if (legacyAttack !== null) setTotalAttackInput(legacyAttack);
+    const legacyMagic = readLegacyNumber(snapshot as Record<string, unknown>, [
+      "totalMagicInput",
+      "MattackOptionTotal",
+      "totalMagic",
+      "mattack",
+      "magic",
+    ]);
+    if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
     if (snapshot.stats) setStats(snapshot.stats);
     if (typeof snapshot.skillName === "string") setSkillName(snapshot.skillName);
     if (typeof snapshot.skillLevel === "number") setSkillLevel(snapshot.skillLevel);
@@ -300,8 +335,26 @@ export default function OneHitCalculatorPage() {
       if (saved.job) setJob(saved.job);
       if (typeof saved.level === "number") setLevel(saved.level);
       if (typeof saved.characterAccuracy === "number") setCharacterAccuracy(saved.characterAccuracy);
-      if (typeof saved.totalAttackInput === "number") setTotalAttackInput(saved.totalAttackInput);
-      if (typeof saved.totalMagicInput === "number") setTotalMagicInput(saved.totalMagicInput);
+      const legacyWeaponAttack = readLegacyNumber(saved as Record<string, unknown>, [
+        "weaponAttackInput",
+        "attackOptionTotal",
+        "weaponAttack",
+      ]);
+      if (legacyWeaponAttack !== null) setWeaponAttackInput(legacyWeaponAttack);
+      const legacyAttack = readLegacyNumber(saved as Record<string, unknown>, [
+        "totalAttackInput",
+        "totalAttack",
+        "attack",
+      ]);
+      if (legacyAttack !== null) setTotalAttackInput(legacyAttack);
+      const legacyMagic = readLegacyNumber(saved as Record<string, unknown>, [
+        "totalMagicInput",
+        "MattackOptionTotal",
+        "totalMagic",
+        "mattack",
+        "magic",
+      ]);
+      if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
       if (saved.stats) setStats(saved.stats);
       if (typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
     } catch {
@@ -618,14 +671,23 @@ export default function OneHitCalculatorPage() {
     return [primary, secondary] as Array<"str" | "dex" | "int" | "luk">;
   }, [jobProfile]);
 
-  const powerScale = useMemo(() => {
+  const weaponAttack = useMemo(() => {
     if (jobProfile.primary === "int") {
-      if (totalMagicInput > 0 && derived.magic > 0) return totalMagicInput / derived.magic;
-      return 1;
+      if (totalMagicInput > 0) return totalMagicInput;
+      return derived.magic + meditationBonus;
     }
-    if (totalAttackInput > 0 && derived.attack > 0) return totalAttackInput / derived.attack;
-    return 1;
-  }, [jobProfile.primary, totalAttackInput, totalMagicInput, derived.attack, derived.magic]);
+    if (weaponAttackInput > 0) return weaponAttackInput;
+    if (totalAttackInput > 0) return totalAttackInput;
+    return derived.attack;
+  }, [
+    jobProfile.primary,
+    totalMagicInput,
+    weaponAttackInput,
+    totalAttackInput,
+    derived.attack,
+    derived.magic,
+    meditationBonus,
+  ]);
 
   const meditationBonus = useMemo(() => {
     const levels = meditation.levels as Array<{ level: number; value: number }>;
@@ -638,7 +700,7 @@ export default function OneHitCalculatorPage() {
     return calcBaseDamageFromStats({
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
-      weaponAttack: (jobProfile.primary === "int" ? derived.magic + meditationBonus : derived.attack),
+      weaponAttack,
       statMultiplier: jobProfile.multiplier,
       skillMultiplier: damageMultiplier,
       mastery: Math.min(1, mastery + passiveMasteryRate),
@@ -646,10 +708,7 @@ export default function OneHitCalculatorPage() {
   }, [
     derived.primaryStat,
     derived.secondaryStat,
-    derived.attack,
-    derived.magic,
-    jobProfile.primary,
-    meditationBonus,
+    weaponAttack,
     jobProfile.multiplier,
     damageMultiplier,
     mastery,
@@ -681,7 +740,6 @@ export default function OneHitCalculatorPage() {
 
   const finalDamageMultiplier = useMemo(
     () =>
-      powerScale *
       skillEffects.buffMultiplier *
       sharpEyesEffect.multiplier *
       criticalPassiveEffect.multiplier *
@@ -702,7 +760,6 @@ export default function OneHitCalculatorPage() {
       elementMultiplier *
       bishopHealBonus,
     [
-      powerScale,
       skillEffects.buffMultiplier,
       sharpEyesEffect.multiplier,
       criticalPassiveEffect.multiplier,
@@ -735,7 +792,7 @@ export default function OneHitCalculatorPage() {
     statDamage: {
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
-      weaponAttack: (jobProfile.primary === "int" ? derived.magic + meditationBonus : derived.attack),
+      weaponAttack,
       statMultiplier: jobProfile.multiplier,
       skillMultiplier: damageMultiplier,
       mastery: Math.min(1, mastery + passiveMasteryRate),
@@ -861,17 +918,27 @@ export default function OneHitCalculatorPage() {
                         value={totalMagicInput}
                         min={0}
                         onChange={setTotalMagicInput}
-                        helper="입력 시 계산에 반영"
+                        helper="총 마력 입력 시 계산에 반영"
                       />
                     ) : (
-                      <NumberField
-                        id="total-attack"
-                        label="공격력"
-                        value={totalAttackInput}
-                        min={0}
-                        onChange={setTotalAttackInput}
-                        helper="입력 시 계산에 반영"
-                      />
+                      <>
+                        <NumberField
+                          id="weapon-attack"
+                          label="무기 공격력"
+                          value={weaponAttackInput}
+                          min={0}
+                          onChange={setWeaponAttackInput}
+                          helper="무기 공격력 입력 시 우선 적용"
+                        />
+                        <NumberField
+                          id="total-attack"
+                          label="총 공격력(선택)"
+                          value={totalAttackInput}
+                          min={0}
+                          onChange={setTotalAttackInput}
+                          helper="무기 공격력 미입력 시 사용"
+                        />
+                      </>
                     )}
                     {isNightLordJob || isShadowerJob ? (
                       <NumberField
