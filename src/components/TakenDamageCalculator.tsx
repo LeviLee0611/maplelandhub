@@ -17,9 +17,10 @@ const jobOptionsByGroup = {
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
 } as const;
 
-const PHYSICAL_BASE_MULTIPLIER = 1.36;
-const MAGICAL_BASE_MULTIPLIER = 3.12;
-const DAMAGE_VARIANCE = 0.037;
+const PHYSICAL_BASE_MULTIPLIER = 1.358;
+const MAGICAL_BASE_MULTIPLIER = 3.115;
+const PHYSICAL_VARIANCE = 0.0368;
+const MAGICAL_VARIANCE = 0.0347;
 
 const MAGIC_GUARD_TABLE = [0, 11, 14, 17, 20, 23, 30, 33, 36, 39, 42, 49, 52, 55, 58, 61, 68, 71, 74, 77, 80];
 const INVINCIBLE_TABLE = [0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
@@ -47,10 +48,10 @@ function calcFinalDamage(baseDamage: number, reductionPercent: number) {
   return Math.max(1, Math.floor(baseDamage * (1 - clamp(reductionPercent, 0, 95) / 100)));
 }
 
-function calcDamageRange(baseDamage: number, reductionPercent: number) {
+function calcDamageRange(baseDamage: number, reductionPercent: number, variance: number) {
   if (baseDamage <= 0) return { min: 0, max: 0, avg: 0 };
-  const minBase = Math.max(1, Math.floor(baseDamage * (1 - DAMAGE_VARIANCE)));
-  const maxBase = Math.max(1, Math.floor(baseDamage * (1 + DAMAGE_VARIANCE)));
+  const minBase = Math.max(1, Math.floor(baseDamage * (1 - variance)));
+  const maxBase = Math.max(1, Math.floor(baseDamage * (1 + variance)));
   const min = calcFinalDamage(minBase, reductionPercent);
   const max = calcFinalDamage(maxBase, reductionPercent);
   const avg = calcFinalDamage(Math.floor(baseDamage), reductionPercent);
@@ -182,8 +183,8 @@ export function TakenDamageCalculator() {
     return { physical: 0, magical: 0 };
   }, [jobGroup, warriorReductions, mageReductions, thiefMesoGuard]);
 
-  const physicalRange = calcDamageRange(basePhysical, reductionSummary.physical);
-  const magicalRange = calcDamageRange(baseMagical, reductionSummary.magical);
+  const physicalRange = calcDamageRange(basePhysical, reductionSummary.physical, PHYSICAL_VARIANCE);
+  const magicalRange = calcDamageRange(baseMagical, reductionSummary.magical, MAGICAL_VARIANCE);
 
   const magePhysicalHp = useMemo(() => {
     if (jobGroup !== "마법사") return { min: physicalRange.min, max: physicalRange.max };
@@ -309,16 +310,61 @@ export function TakenDamageCalculator() {
               <div className="space-y-2 text-xs">
                 {jobGroup === "전사" ? (
                   <div className="grid grid-cols-2 gap-2">
-                    <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={setAchillesLevel} />
-                    <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={setPowerGuardLevel} />
+                    <div className="flex items-end gap-2">
+                      <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={setAchillesLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setAchillesLevel(30)}
+                      >
+                        M
+                      </button>
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={setPowerGuardLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setPowerGuardLevel(30)}
+                      >
+                        M
+                      </button>
+                    </div>
                   </div>
                 ) : null}
 
                 {jobGroup === "마법사" ? (
                   <div className="grid grid-cols-2 gap-2">
-                    <NumberField id="magic-guard" label="매직 가드 Lv" value={magicGuardLevel} min={0} max={20} onChange={setMagicGuardLevel} />
-                    <NumberField id="invincible" label="인빈서블 Lv" value={invincibleLevel} min={0} max={20} onChange={setInvincibleLevel} />
-                    <NumberField id="resistance" label="엘리멘트 레지스턴스 Lv" value={resistanceLevel} min={0} max={20} onChange={setResistanceLevel} />
+                    <div className="flex items-end gap-2">
+                      <NumberField id="magic-guard" label="매직 가드 Lv" value={magicGuardLevel} min={0} max={20} onChange={setMagicGuardLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setMagicGuardLevel(20)}
+                      >
+                        M
+                      </button>
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <NumberField id="invincible" label="인빈서블 Lv" value={invincibleLevel} min={0} max={20} onChange={setInvincibleLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setInvincibleLevel(20)}
+                      >
+                        M
+                      </button>
+                    </div>
+                    <div className="flex items-end gap-2">
+                      <NumberField id="resistance" label="엘리멘트 레지스턴스 Lv" value={resistanceLevel} min={0} max={20} onChange={setResistanceLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setResistanceLevel(20)}
+                      >
+                        M
+                      </button>
+                    </div>
                   </div>
                 ) : null}
 
@@ -326,7 +372,16 @@ export function TakenDamageCalculator() {
 
                 {jobGroup === "도적" ? (
                   <div className="grid grid-cols-2 gap-2">
-                    <NumberField id="meso-guard" label="메소 가드 Lv" value={mesoGuardLevel} min={0} max={20} onChange={setMesoGuardLevel} />
+                    <div className="flex items-end gap-2">
+                      <NumberField id="meso-guard" label="메소 가드 Lv" value={mesoGuardLevel} min={0} max={20} onChange={setMesoGuardLevel} />
+                      <button
+                        type="button"
+                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
+                        onClick={() => setMesoGuardLevel(20)}
+                      >
+                        M
+                      </button>
+                    </div>
                   </div>
                 ) : null}
               </div>
@@ -363,10 +418,10 @@ export function TakenDamageCalculator() {
                       ? (jobGroup === "마법사"
                         ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP), ${formatRange(mageMagicalMp.min, mageMagicalMp.max)} (MP)`
                         : formatRange(magicalRange.min, magicalRange.max))
-                      : "마법 공격 없음"}
+                      : "마법공격 안함"}
                   </div>
                   <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
-                    한 방 사망 확률: {magicalOneShotChance === null ? "마법 공격 없음" : magicalOneShotChance}
+                    한 방 사망 확률: {magicalOneShotChance === null ? "마법공격 안함" : magicalOneShotChance}
                   </div>
                 </div>
 
@@ -384,7 +439,7 @@ export function TakenDamageCalculator() {
                         {Math.floor(baseMagical)}
                       </p>
                     ) : null}
-                    <p>랜덤 범위: ±{(DAMAGE_VARIANCE * 100).toFixed(1)}%</p>
+                    <p>랜덤 범위: 물리 ±{(PHYSICAL_VARIANCE * 100).toFixed(1)}% / 마법 ±{(MAGICAL_VARIANCE * 100).toFixed(1)}%</p>
                     <p>물리 감소율: {reductionSummary.physical.toFixed(1)}%</p>
                     {monsterMatk > 0 ? <p>마법 감소율: {reductionSummary.magical.toFixed(1)}%</p> : null}
                     {jobGroup === "마법사" && mageReductions.magicGuard > 0 ? (
