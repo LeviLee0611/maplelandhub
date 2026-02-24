@@ -23,6 +23,7 @@ export default function AdminFeedbackPage() {
   const [authorized, setAuthorized] = useState<boolean | null>(null);
   const [rows, setRows] = useState<FeedbackRow[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [deletingId, setDeletingId] = useState<string | null>(null);
 
   const statusSummary = useMemo(() => {
     const counts: Record<FeedbackRow["status"], number> = {
@@ -93,6 +94,24 @@ export default function AdminFeedbackPage() {
     };
   }, []);
 
+  async function deleteRow(rowId: string) {
+    if (deletingId) return;
+    const confirmed = window.confirm("정말 삭제하시겠습니까? 삭제 후 복구할 수 없습니다.");
+    if (!confirmed) return;
+
+    setDeletingId(rowId);
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: deleteError } = await supabase.from("feedback_requests").delete().eq("id", rowId);
+      if (deleteError) throw deleteError;
+      setRows((prev) => prev.filter((row) => row.id !== rowId));
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "삭제에 실패했습니다.");
+    } finally {
+      setDeletingId(null);
+    }
+  }
+
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
@@ -133,6 +152,14 @@ export default function AdminFeedbackPage() {
                     <span className="retro-chip">{TYPE_LABEL[row.type]}</span>
                     <span className="retro-chip">{STATUS_LABEL[row.status]}</span>
                     <span>작성일 {new Date(row.created_at).toLocaleString("ko-KR")}</span>
+                    <button
+                      type="button"
+                      onClick={() => deleteRow(row.id)}
+                      disabled={deletingId === row.id}
+                      className="ml-auto rounded border border-rose-400/70 px-2 py-1 text-[11px] font-semibold text-rose-200 hover:border-rose-300 disabled:opacity-50"
+                    >
+                      {deletingId === row.id ? "삭제 중..." : "삭제"}
+                    </button>
                   </div>
                   <h2 className="mt-3 text-base font-semibold text-slate-100">{row.title}</h2>
                   <p className="mt-2 whitespace-pre-wrap text-sm text-slate-200">{row.message}</p>
