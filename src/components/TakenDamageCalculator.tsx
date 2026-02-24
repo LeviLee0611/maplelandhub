@@ -151,11 +151,13 @@ export function TakenDamageCalculator() {
   const warriorReductions = useMemo(() => {
     const achilles = pickTableValue(ACHILLES_TABLE, achillesLevel) / 10;
     const powerGuard = pickTableValue(POWER_GUARD_TABLE, powerGuardLevel);
+    const physicalMultiplier = (1 - achilles / 100) * (1 - powerGuard / 100);
     return {
       physical: achilles + powerGuard,
-      magical: achilles,
+      magical: 0,
       achilles,
       powerGuard,
+      physicalMultiplier,
     };
   }, [achillesLevel, powerGuardLevel]);
 
@@ -183,7 +185,19 @@ export function TakenDamageCalculator() {
     return { physical: 0, magical: 0 };
   }, [jobGroup, warriorReductions, mageReductions, thiefMesoGuard]);
 
-  const physicalRange = calcDamageRange(basePhysical, reductionSummary.physical, PHYSICAL_VARIANCE);
+  const physicalRange = useMemo(() => {
+    const baseRange = calcDamageRange(basePhysical, 0, PHYSICAL_VARIANCE);
+    if (jobGroup === "전사") {
+      const mult = warriorReductions.physicalMultiplier;
+      return {
+        min: Math.max(1, Math.floor(baseRange.min * mult)),
+        max: Math.max(1, Math.floor(baseRange.max * mult)),
+        avg: Math.max(1, Math.floor(baseRange.avg * mult)),
+      };
+    }
+    return calcDamageRange(basePhysical, reductionSummary.physical, PHYSICAL_VARIANCE);
+  }, [basePhysical, jobGroup, reductionSummary.physical, warriorReductions.physicalMultiplier]);
+
   const magicalRange = calcDamageRange(baseMagical, reductionSummary.magical, MAGICAL_VARIANCE);
 
   const magePhysicalHp = useMemo(() => {
