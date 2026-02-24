@@ -671,6 +671,11 @@ export default function OneHitCalculatorPage() {
     return [primary, secondary] as Array<"str" | "dex" | "int" | "luk">;
   }, [jobProfile]);
 
+  const meditationBonus = useMemo(() => {
+    const levels = meditation.levels as Array<{ level: number; value: number }>;
+    return levels.find((item) => item.level === meditationLevel)?.value ?? 0;
+  }, [meditationLevel]);
+
   const weaponAttack = useMemo(() => {
     if (jobProfile.primary === "int") {
       if (totalMagicInput > 0) return totalMagicInput;
@@ -688,11 +693,6 @@ export default function OneHitCalculatorPage() {
     derived.magic,
     meditationBonus,
   ]);
-
-  const meditationBonus = useMemo(() => {
-    const levels = meditation.levels as Array<{ level: number; value: number }>;
-    return levels.find((item) => item.level === meditationLevel)?.value ?? 0;
-  }, [meditationLevel]);
 
   const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
 
