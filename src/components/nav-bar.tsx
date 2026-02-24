@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { AuthButton } from "@/components/auth-button";
+import { AdminLink } from "@/components/admin-link";
 
 export function NavBar() {
   return (
@@ -21,6 +22,7 @@ export function NavBar() {
           <Link href="/feedback" className="hover:opacity-80">
             문의/요청
           </Link>
+          <AdminLink />
           <AuthButton />
         </nav>
       </div>
