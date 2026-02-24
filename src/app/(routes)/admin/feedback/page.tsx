@@ -77,7 +77,7 @@ export default function AdminFeedbackPage() {
 
         if (!active) return;
         setAuthorized(true);
-        setRows(data ?? []);
+        setRows((data ?? []) as FeedbackRow[]);
       } catch (err) {
         if (!active) return;
         setError(err instanceof Error ? err.message : "데이터를 불러오지 못했습니다.");
