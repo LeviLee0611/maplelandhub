@@ -7,6 +7,8 @@ import { MonsterPanel } from "@/components/MonsterPanel";
 import { QuickSlots } from "@/components/quick-slots";
 import { getMonsters } from "@/lib/data/monsters";
 import type { Monster } from "@/types/monster";
+import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from "@/lib/calculators/takenDamage";
+import type { JobClass } from "@/types/takenDamage";
 
 const typedMonsters = (getMonsters() as Monster[]).filter((monster) => monster.exist !== false);
 const jobGroups = ["전사", "마법사", "궁수", "도적"] as const;
@@ -16,11 +18,6 @@ const jobOptionsByGroup = {
   궁수: ["헌터/레인저/보우마스터", "사수/저격수/신궁"],
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
 } as const;
-
-const PHYSICAL_BASE_MULTIPLIER = 1.358;
-const MAGICAL_BASE_MULTIPLIER = 3.115;
-const PHYSICAL_VARIANCE = 0.0368;
-const MAGICAL_VARIANCE = 0.0347;
 
 const MAGIC_GUARD_TABLE = [0, 11, 14, 17, 20, 23, 30, 33, 36, 39, 42, 49, 52, 55, 58, 61, 68, 71, 74, 77, 80];
 const INVINCIBLE_TABLE = [0, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30];
@@ -35,27 +32,9 @@ const ACHILLES_TABLE = [
   0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
 ];
 
-function clamp(value: number, min: number, max: number) {
-  return Math.min(max, Math.max(min, value));
-}
-
 function pickTableValue(table: number[], level: number) {
-  const idx = clamp(Math.round(level), 0, table.length - 1);
+  const idx = Math.min(table.length - 1, Math.max(0, Math.round(level)));
   return table[idx] ?? 0;
-}
-
-function calcFinalDamage(baseDamage: number, reductionPercent: number) {
-  return Math.max(1, Math.floor(baseDamage * (1 - clamp(reductionPercent, 0, 95) / 100)));
-}
-
-function calcDamageRange(baseDamage: number, reductionPercent: number, variance: number) {
-  if (baseDamage <= 0) return { min: 0, max: 0, avg: 0 };
-  const minBase = Math.max(1, Math.floor(baseDamage * (1 - variance)));
-  const maxBase = Math.max(1, Math.floor(baseDamage * (1 + variance)));
-  const min = calcFinalDamage(minBase, reductionPercent);
-  const max = calcFinalDamage(maxBase, reductionPercent);
-  const avg = calcFinalDamage(Math.floor(baseDamage), reductionPercent);
-  return { min, max, avg };
 }
 
 function oneShotLabel(min: number, max: number, maxHp: number) {
@@ -145,89 +124,123 @@ export function TakenDamageCalculator() {
   const monsterWatk = Math.max(0, selectedMonster?.watk ?? 0);
   const monsterMatk = Math.max(0, selectedMonster?.matk ?? 0);
 
-  const basePhysical = Math.max(1, monsterWatk * PHYSICAL_BASE_MULTIPLIER - stats.wdef * 0.45);
-  const baseMagical = monsterMatk > 0 ? Math.max(1, monsterMatk * MAGICAL_BASE_MULTIPLIER - stats.mdef * 0.45) : 0;
-
-  const warriorReductions = useMemo(() => {
-    const achilles = pickTableValue(ACHILLES_TABLE, achillesLevel) / 10;
-    const powerGuard = pickTableValue(POWER_GUARD_TABLE, powerGuardLevel);
-    const physicalMultiplier = (1 - achilles / 100) * (1 - powerGuard / 100);
-    return {
-      physical: achilles + powerGuard,
-      magical: 0,
-      achilles,
-      powerGuard,
-      physicalMultiplier,
-    };
-  }, [achillesLevel, powerGuardLevel]);
-
-  const mageReductions = useMemo(() => {
-    const invincible = pickTableValue(INVINCIBLE_TABLE, invincibleLevel);
-    const resistanceTable =
-      job.includes("썬/콜") ? RESIST_ICE_TABLE : job.includes("불/독") ? RESIST_FIRE_TABLE : RESIST_BISHOP_TABLE;
-    const resistance = pickTableValue(resistanceTable, resistanceLevel);
-    const magicGuard = pickTableValue(MAGIC_GUARD_TABLE, magicGuardLevel);
-    return {
-      physical: invincible,
-      magical: resistance,
-      invincible,
-      resistance,
-      magicGuard,
-    };
-  }, [invincibleLevel, resistanceLevel, magicGuardLevel, job]);
-
+  const magicGuard = pickTableValue(MAGIC_GUARD_TABLE, magicGuardLevel);
+  const invincible = jobGroup === "마법사" ? pickTableValue(INVINCIBLE_TABLE, invincibleLevel) : 0;
   const thiefMesoGuard = pickTableValue(MESO_GUARD_TABLE, mesoGuardLevel);
 
-  const reductionSummary = useMemo(() => {
-    if (jobGroup === "전사") return warriorReductions;
-    if (jobGroup === "마법사") return mageReductions;
-    if (jobGroup === "도적") return { physical: thiefMesoGuard, magical: thiefMesoGuard };
-    return { physical: 0, magical: 0 };
-  }, [jobGroup, warriorReductions, mageReductions, thiefMesoGuard]);
+  const jobClass: JobClass =
+    jobGroup === "전사"
+      ? "warrior"
+      : jobGroup === "마법사"
+        ? "magician"
+        : jobGroup === "궁수"
+          ? "archer"
+          : jobGroup === "도적"
+            ? "thief"
+            : "beginner";
 
-  const physicalRange = useMemo(() => {
-    const baseRange = calcDamageRange(basePhysical, 0, PHYSICAL_VARIANCE);
-    if (jobGroup === "전사") {
-      const mult = warriorReductions.physicalMultiplier;
-      return {
-        min: Math.max(1, Math.floor(baseRange.min * mult)),
-        max: Math.max(1, Math.floor(baseRange.max * mult)),
-        avg: Math.max(1, Math.floor(baseRange.avg * mult)),
-      };
-    }
-    return calcDamageRange(basePhysical, reductionSummary.physical, PHYSICAL_VARIANCE);
-  }, [basePhysical, jobGroup, reductionSummary.physical, warriorReductions.physicalMultiplier]);
+  const physicalRange = useMemo(
+    () =>
+      calcPhysicalTakenDamage({
+        character: {
+          level,
+          jobClass,
+          basicStats: { STR: stats.str, DEX: stats.dex, INT: stats.int, LUK: stats.luk },
+          secondaryStats: { PDD: stats.wdef, MDD: stats.mdef },
+          tempStats: {
+            InvinciblePercent: invincible,
+            MesoGuard: jobGroup === "도적" && mesoGuardLevel > 0,
+          },
+        },
+        mob: {
+          level: selectedMonster?.level ?? 1,
+          templatePADamage: monsterWatk,
+          templateMADamage: monsterMatk,
+        },
+      }),
+    [
+      level,
+      jobClass,
+      stats.str,
+      stats.dex,
+      stats.int,
+      stats.luk,
+      stats.wdef,
+      stats.mdef,
+      invincible,
+      jobGroup,
+      mesoGuardLevel,
+      selectedMonster?.level,
+      monsterWatk,
+      monsterMatk,
+    ],
+  );
 
-  const magicalRange = calcDamageRange(baseMagical, reductionSummary.magical, MAGICAL_VARIANCE);
+  const magicalRange = useMemo(
+    () =>
+      calcMagicalTakenDamage({
+        character: {
+          level,
+          jobClass,
+          basicStats: { STR: stats.str, DEX: stats.dex, INT: stats.int, LUK: stats.luk },
+          secondaryStats: { PDD: stats.wdef, MDD: stats.mdef },
+          tempStats: {
+            InvinciblePercent: invincible,
+            MesoGuard: jobGroup === "도적" && mesoGuardLevel > 0,
+          },
+        },
+        mob: {
+          level: selectedMonster?.level ?? 1,
+          templatePADamage: monsterWatk,
+          templateMADamage: monsterMatk,
+        },
+      }),
+    [
+      level,
+      jobClass,
+      stats.str,
+      stats.dex,
+      stats.int,
+      stats.luk,
+      stats.wdef,
+      stats.mdef,
+      invincible,
+      jobGroup,
+      mesoGuardLevel,
+      selectedMonster?.level,
+      monsterWatk,
+      monsterMatk,
+    ],
+  );
 
   const magePhysicalHp = useMemo(() => {
     if (jobGroup !== "마법사") return { min: physicalRange.min, max: physicalRange.max };
-    const hpMin = Math.max(1, Math.floor(physicalRange.min * (1 - mageReductions.magicGuard / 100)));
-    const hpMax = Math.max(1, Math.floor(physicalRange.max * (1 - mageReductions.magicGuard / 100)));
+    const hpMin = Math.max(1, Math.floor(physicalRange.min * (1 - magicGuard / 100)));
+    const hpMax = Math.max(1, Math.floor(physicalRange.max * (1 - magicGuard / 100)));
     return { min: hpMin, max: hpMax };
-  }, [jobGroup, physicalRange.min, physicalRange.max, mageReductions.magicGuard]);
+  }, [jobGroup, physicalRange.min, physicalRange.max, magicGuard]);
 
   const magePhysicalMp = useMemo(() => {
     if (jobGroup !== "마법사") return { min: 0, max: 0 };
-    const mpMin = Math.max(0, Math.floor(physicalRange.min * (mageReductions.magicGuard / 100)));
-    const mpMax = Math.max(0, Math.floor(physicalRange.max * (mageReductions.magicGuard / 100)));
+    const mpMin = Math.max(0, Math.floor(physicalRange.min * (magicGuard / 100)));
+    const mpMax = Math.max(0, Math.floor(physicalRange.max * (magicGuard / 100)));
     return { min: mpMin, max: mpMax };
-  }, [jobGroup, physicalRange.min, physicalRange.max, mageReductions.magicGuard]);
+  }, [jobGroup, physicalRange.min, physicalRange.max, magicGuard]);
 
   const mageMagicalHp = useMemo(() => {
     if (magicalRange.max <= 0) return { min: 0, max: 0 };
     if (jobGroup !== "마법사") return { min: magicalRange.min, max: magicalRange.max };
-    const hpMin = Math.max(1, Math.floor(magicalRange.min * (1 - mageReductions.magicGuard / 100)));
-    const hpMax = Math.max(1, Math.floor(magicalRange.max * (1 - mageReductions.magicGuard / 100)));
+    const hpMin = Math.max(1, Math.floor(magicalRange.min * (1 - magicGuard / 100)));
+    const hpMax = Math.max(1, Math.floor(magicalRange.max * (1 - magicGuard / 100)));
     return { min: hpMin, max: hpMax };
-  }, [jobGroup, magicalRange.min, magicalRange.max, mageReductions.magicGuard]);
+  }, [jobGroup, magicalRange.min, magicalRange.max, magicGuard]);
 
   const mageMagicalMp = useMemo(() => {
     if (jobGroup !== "마법사" || magicalRange.max <= 0) return { min: 0, max: 0 };
-    const mpMin = Math.max(0, Math.floor(magicalRange.min * (mageReductions.magicGuard / 100)));
-    const mpMax = Math.max(0, Math.floor(magicalRange.max * (mageReductions.magicGuard / 100)));
+    const mpMin = Math.max(0, Math.floor(magicalRange.min * (magicGuard / 100)));
+    const mpMax = Math.max(0, Math.floor(magicalRange.max * (magicGuard / 100)));
     return { min: mpMin, max: mpMax };
-  }, [jobGroup, magicalRange.min, magicalRange.max, mageReductions.magicGuard]);
+  }, [jobGroup, magicalRange.min, magicalRange.max, magicGuard]);
 
   const physicalOneShotChance = useMemo(() => {
     const hpMin = jobGroup === "마법사" ? magePhysicalHp.min : physicalRange.min;
@@ -443,21 +456,11 @@ export function TakenDamageCalculator() {
                   <summary className="cursor-pointer text-[11px] font-semibold">상세 계산 보기</summary>
                   <div className="mt-2 space-y-1 text-[11px] text-[color:var(--retro-text-muted)]">
                     <p>몬스터 물공/마공: {monsterWatk} / {monsterMatk}</p>
-                    <p>
-                      기본 물리 데미지: max(1, {monsterWatk} × {PHYSICAL_BASE_MULTIPLIER.toFixed(2)} - {stats.wdef} × 0.45) ={" "}
-                      {Math.floor(basePhysical)}
-                    </p>
-                    {monsterMatk > 0 ? (
-                      <p>
-                        기본 마법 데미지: max(1, {monsterMatk} × {MAGICAL_BASE_MULTIPLIER.toFixed(2)} - {stats.mdef} × 0.45) ={" "}
-                        {Math.floor(baseMagical)}
-                      </p>
-                    ) : null}
-                    <p>랜덤 범위: 물리 ±{(PHYSICAL_VARIANCE * 100).toFixed(1)}% / 마법 ±{(MAGICAL_VARIANCE * 100).toFixed(1)}%</p>
-                    <p>물리 감소율: {reductionSummary.physical.toFixed(1)}%</p>
-                    {monsterMatk > 0 ? <p>마법 감소율: {reductionSummary.magical.toFixed(1)}%</p> : null}
-                    {jobGroup === "마법사" && mageReductions.magicGuard > 0 ? (
-                      <p>매직 가드 분배: HP {(100 - mageReductions.magicGuard).toFixed(1)}% / MP {mageReductions.magicGuard.toFixed(1)}%</p>
+                    <p>몬스터 물공/마공: {monsterWatk} / {monsterMatk}</p>
+                    <p>기준 PDD: {getStandardPDD(jobClass, level)}</p>
+                    <p>랜덤 범위: 물리 0.8~0.85 / 마법 0.75~0.8</p>
+                    {jobGroup === "마법사" && magicGuard > 0 ? (
+                      <p>매직 가드 분배: HP {(100 - magicGuard).toFixed(1)}% / MP {magicGuard.toFixed(1)}%</p>
                     ) : null}
                     {jobGroup === "도적" && thiefMesoGuard > 0 ? (
                       <p>메소 가드 분배: HP {(100 - thiefMesoGuard).toFixed(1)}% / 메소 {thiefMesoGuard.toFixed(1)}%</p>
