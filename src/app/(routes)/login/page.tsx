@@ -10,7 +10,7 @@ function DiscordIcon() {
   );
 }
 
-async function signIn(provider: "discord" | "google") {
+async function signIn(provider: "discord") {
   const supabase = getSupabaseBrowserClient();
   const redirectTo = `${window.location.origin}/auth/callback`;
   await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
@@ -28,13 +28,6 @@ export default function LoginPage() {
       >
         <DiscordIcon />
         Discord로 로그인
-      </button>
-      <button
-        type="button"
-        className="btn-ghost w-full rounded-md px-4 py-2 text-sm font-semibold"
-        onClick={() => signIn("google")}
-      >
-        Google로 로그인(선택)
       </button>
     </section>
   );
