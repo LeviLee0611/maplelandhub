@@ -1,5 +1,7 @@
 import { NextResponse } from "next/server";
 
+export const runtime = "edge";
+
 type NotifyPayload = {
   type: "bug" | "feature" | "other";
   title: string;
@@ -62,4 +64,3 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: false, error: "unexpected_error" }, { status: 500 });
   }
 }
-
