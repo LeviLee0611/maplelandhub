@@ -46,6 +46,11 @@ export function ResultPanel({
           <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
             {result.oneShotChance >= 100 ? "현재 설정으로 한방컷 가능" : "현재 설정으로 한방컷 불가"}
           </div>
+          {result.oneShotChance < 100 ? (
+            <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+              예상 N방컷: {result.hitsToKill.min} ~ {result.hitsToKill.max} (평균 {result.hitsToKill.avg}방)
+            </div>
+          ) : null}
           <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
             한방컷 공격력: {formatNumber(result.oneShotAttack)}
           </div>

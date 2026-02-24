@@ -78,9 +78,13 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
   const maxPerSkill = calcDamagePerSkill(maxDamage * finalMultiplier, input.hitsPerSkill, input.accuracyRate);
   const hp = ensurePositive(input.monsterHp, 1);
 
-  // Legacy NC behavior is closer to a binary "one-shot possible" check
-  // using the upper bound attack value shown as #oneShot.
-  const oneShotChance = hp <= maxPerSkill ? 100 : 0;
+  const oneShotChance = (() => {
+    if (hp <= minPerSkill) return 100;
+    if (hp > maxPerSkill) return 0;
+    if (maxPerSkill === minPerSkill) return 0;
+    const rate = (maxPerSkill - hp) / (maxPerSkill - minPerSkill);
+    return Math.max(0, Math.min(1, rate)) * 100;
+  })();
 
   return {
     damagePerSkill: {
