@@ -29,7 +29,7 @@ export function SkillPanel({
           </span>
           <select
             id="skill-select"
-            className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+            className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-bg)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] focus:border-[var(--retro-border-strong)] focus:outline-none"
             value={skillName}
             onChange={(event) => onSkillChange(event.target.value)}
           >

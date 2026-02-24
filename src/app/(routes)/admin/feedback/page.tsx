@@ -24,6 +24,8 @@ export default function AdminFeedbackPage() {
   const [rows, setRows] = useState<FeedbackRow[]>([]);
   const [error, setError] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [savingId, setSavingId] = useState<string | null>(null);
+  const [statusFilter, setStatusFilter] = useState<FeedbackRow["status"] | "all">("new");
 
   const statusSummary = useMemo(() => {
     const counts: Record<FeedbackRow["status"], number> = {
@@ -34,6 +36,11 @@ export default function AdminFeedbackPage() {
     for (const row of rows) counts[row.status] += 1;
     return counts;
   }, [rows]);
+
+  const filteredRows = useMemo(() => {
+    if (statusFilter === "all") return rows;
+    return rows.filter((row) => row.status === statusFilter);
+  }, [rows, statusFilter]);
 
   useEffect(() => {
     let active = true;
@@ -112,6 +119,26 @@ export default function AdminFeedbackPage() {
     }
   }
 
+  async function updateStatus(rowId: string, nextStatus: FeedbackRow["status"]) {
+    if (savingId || deletingId) return;
+    const prevStatus = rows.find((row) => row.id === rowId)?.status;
+    if (!prevStatus || prevStatus === nextStatus) return;
+
+    setSavingId(rowId);
+    setRows((prev) => prev.map((row) => (row.id === rowId ? { ...row, status: nextStatus } : row)));
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { error: updateError } = await supabase.from("feedback_requests").update({ status: nextStatus }).eq("id", rowId);
+      if (updateError) throw updateError;
+    } catch (err) {
+      setRows((prev) => prev.map((row) => (row.id === rowId ? { ...row, status: prevStatus } : row)));
+      setError(err instanceof Error ? err.message : "상태 변경에 실패했습니다.");
+    } finally {
+      setSavingId(null);
+    }
+  }
+
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
@@ -135,31 +162,78 @@ export default function AdminFeedbackPage() {
         {!loading && authorized && !error ? (
           <>
             <div className="mt-6 flex flex-wrap items-center gap-2 text-xs">
-              <span className="retro-chip">새 문의 {statusSummary.new}건</span>
-              <span className="retro-chip">처리 중 {statusSummary.in_progress}건</span>
-              <span className="retro-chip">완료 {statusSummary.done}건</span>
-              <span className="text-slate-400">총 {rows.length}건</span>
+              {(["new", "in_progress", "done"] as const).map((key) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setStatusFilter(key)}
+                  className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${
+                    statusFilter === key
+                      ? "border-amber-300/80 bg-amber-400/10 text-amber-100"
+                      : "border-[var(--retro-border)] text-slate-200 hover:border-[var(--retro-border-strong)]"
+                  }`}
+                >
+                  {STATUS_LABEL[key]} {statusSummary[key]}건
+                </button>
+              ))}
+              <button
+                type="button"
+                onClick={() => setStatusFilter("all")}
+                className={`rounded-full border px-3 py-1 text-[11px] font-semibold ${
+                  statusFilter === "all"
+                    ? "border-amber-300/80 bg-amber-400/10 text-amber-100"
+                    : "border-[var(--retro-border)] text-slate-200 hover:border-[var(--retro-border-strong)]"
+                }`}
+              >
+                전체 {rows.length}건
+              </button>
             </div>
 
             <div className="mt-4 grid gap-3">
-              {rows.length === 0 ? (
-                <p className="text-sm text-slate-300">등록된 문의가 없습니다.</p>
+              {filteredRows.length === 0 ? (
+                <p className="text-sm text-slate-300">해당 상태의 문의가 없습니다.</p>
               ) : null}
 
-              {rows.map((row) => (
+              {filteredRows.map((row) => (
                 <article key={row.id} className="rounded-xl border border-[var(--retro-border)] bg-[var(--retro-cell)] p-4">
                   <div className="flex flex-wrap items-center gap-2 text-xs text-slate-300">
                     <span className="retro-chip">{TYPE_LABEL[row.type]}</span>
                     <span className="retro-chip">{STATUS_LABEL[row.status]}</span>
                     <span>작성일 {new Date(row.created_at).toLocaleString("ko-KR")}</span>
-                    <button
-                      type="button"
-                      onClick={() => deleteRow(row.id)}
-                      disabled={deletingId === row.id}
-                      className="ml-auto rounded border border-rose-400/70 px-2 py-1 text-[11px] font-semibold text-rose-200 hover:border-rose-300 disabled:opacity-50"
-                    >
-                      {deletingId === row.id ? "삭제 중..." : "삭제"}
-                    </button>
+                    <div className="ml-auto flex items-center gap-2">
+                      {row.status !== "done" ? (
+                        <>
+                          {row.status !== "in_progress" ? (
+                            <button
+                              type="button"
+                              onClick={() => updateStatus(row.id, "in_progress")}
+                              disabled={savingId === row.id}
+                              className="rounded border border-sky-400/70 px-2 py-1 text-[11px] font-semibold text-sky-200 hover:border-sky-300 disabled:opacity-50"
+                            >
+                              {savingId === row.id ? "처리 중..." : "처리중"}
+                            </button>
+                          ) : null}
+                          <button
+                            type="button"
+                            onClick={() => updateStatus(row.id, "done")}
+                            disabled={savingId === row.id}
+                            className="rounded border border-emerald-400/70 px-2 py-1 text-[11px] font-semibold text-emerald-200 hover:border-emerald-300 disabled:opacity-50"
+                          >
+                            {savingId === row.id ? "완료 중..." : "완료"}
+                          </button>
+                        </>
+                      ) : null}
+                      {row.status === "done" ? (
+                        <button
+                          type="button"
+                          onClick={() => deleteRow(row.id)}
+                          disabled={deletingId === row.id}
+                          className="rounded border border-rose-400/70 px-2 py-1 text-[11px] font-semibold text-rose-200 hover:border-rose-300 disabled:opacity-50"
+                        >
+                          {deletingId === row.id ? "삭제 중..." : "삭제"}
+                        </button>
+                      ) : null}
+                    </div>
                   </div>
                   <h2 className="mt-3 text-base font-semibold text-slate-100">{row.title}</h2>
                   <p className="mt-2 whitespace-pre-wrap text-sm text-slate-200">{row.message}</p>

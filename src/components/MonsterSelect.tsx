@@ -113,7 +113,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
       </span>
       <div className="relative">
         <input
-          className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0))] pl-10 pr-7 py-2 text-xs text-[color:var(--retro-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+          className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] pl-10 pr-7 py-2 text-xs text-[color:var(--retro-text)] shadow-[inset_0_1px_0_rgba(255,255,255,0.06)] focus:border-[var(--retro-border-strong)] focus:outline-none"
           value={value}
           onChange={handleChange}
           onFocus={() => {
@@ -146,7 +146,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
         {isOpen ? (
           <div
             ref={listRef}
-            className="absolute bottom-full z-20 mb-1 max-h-64 w-full overflow-auto rounded-[8px] border border-[var(--retro-border-strong)] bg-[var(--retro-cell)] p-1 shadow-[0_8px_24px_rgba(0,0,0,0.35)]"
+            className="absolute bottom-full z-30 mb-1 max-h-64 w-full overflow-auto rounded-[8px] border border-[var(--retro-border-strong)] bg-[var(--retro-bg)] p-1 shadow-[0_14px_30px_rgba(0,0,0,0.45)] backdrop-blur"
           >
             {filtered.length ? (
               filtered.map((monster, index) => (
