@@ -581,7 +581,17 @@ export default function OneHitCalculatorPage() {
 
       if (error) {
         setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
+        return;
       }
+
+      setPresetSlots((prev) => {
+        const next =
+          prev ??
+          Array.from({ length: QUICK_SLOT_COUNT }, () => null);
+        const updated = [...next];
+        updated[index] = { data };
+        return updated;
+      });
     } catch {
       setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
     }
@@ -606,7 +616,15 @@ export default function OneHitCalculatorPage() {
 
       if (error) {
         setProfileMessage("프리셋 삭제 중 오류가 발생했습니다.");
+        return;
       }
+
+      setPresetSlots((prev) => {
+        if (!prev) return prev;
+        const next = [...prev];
+        next[index] = null;
+        return next;
+      });
     } catch {
       setProfileMessage("프리셋 삭제 중 오류가 발생했습니다.");
     }
@@ -655,6 +673,15 @@ export default function OneHitCalculatorPage() {
         setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
         return;
       }
+
+      setPresetSlots((prev) => {
+        const next =
+          prev ??
+          Array.from({ length: QUICK_SLOT_COUNT }, () => null);
+        const updated = [...next];
+        updated[0] = { data: quickSnapshot };
+        return updated;
+      });
 
       setProfileMessage("로그인 계정 기준으로 프로필과 빠른저장 Default에 저장했습니다.");
     } catch {
