@@ -53,7 +53,7 @@ const features = [
 
 export default function HomePage() {
   return (
-    <section className="flex min-h-[70vh] flex-col items-center justify-center gap-10 text-center">
+    <section className="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center gap-10 py-8 text-center">
       <div className="glass-panel w-full max-w-3xl rounded-3xl px-6 py-10 md:px-12">
         <h1 className="display text-4xl font-semibold leading-tight md:text-5xl">
           메랜

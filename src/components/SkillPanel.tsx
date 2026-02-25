@@ -9,6 +9,7 @@ type SkillPanelProps = {
   skillLevelMax: number;
   onSkillLevelMax: () => void;
   skillOptions: string[];
+  children?: React.ReactNode;
 };
 
 export function SkillPanel({
@@ -19,6 +20,7 @@ export function SkillPanel({
   skillLevelMax,
   onSkillLevelMax,
   skillOptions,
+  children,
 }: SkillPanelProps) {
   return (
     <Panel title="액티브 스킬" tone="yellow">
@@ -58,13 +60,24 @@ export function SkillPanel({
             />
             <button
               type="button"
-              className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-              onClick={onSkillLevelMax}
+              className={`h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+                skillLevel === skillLevelMax
+                  ? "border-cyan-300/80 bg-cyan-300/20 text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.18)]"
+                  : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
+              }`}
+              onClick={() => {
+                if (skillLevel === skillLevelMax) {
+                  onSkillLevelChange(0);
+                  return;
+                }
+                onSkillLevelMax();
+              }}
             >
               M
             </button>
           </div>
         </div>
+        {children}
       </div>
     </Panel>
   );

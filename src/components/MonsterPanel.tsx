@@ -18,7 +18,7 @@ function getDisplayedNeedAcc(monster: Monster | undefined, characterLevel: numbe
   const eva = monster.eva ?? 0;
   const monsterLevel = monster.level ?? 0;
   const diffLevel = Math.max(0, monsterLevel - characterLevel);
-  const requiredAcc = Math.ceil((55.2 + (diffLevel * 2.15)) * eva / 15);
+  const requiredAcc = Math.ceil((55 + (diffLevel * 2)) * eva / 15);
   return Math.max(0, requiredAcc);
 }
 
@@ -53,8 +53,8 @@ export function MonsterPanel({
           </div>
           <div className="space-y-1">
             <div className="flex items-center justify-between">
-              <span className="text-sm font-semibold">{selected?.name ?? "-"}</span>
-              <span className="text-[11px] text-[color:var(--retro-text-muted)]">Lv. {selected?.level ?? 0}</span>
+              <span className="text-sm font-semibold">{selected?.name ?? "몬스터를 검색해 선택하세요"}</span>
+              <span className="text-[11px] text-[color:var(--retro-text-muted)]">Lv. {selected?.level ?? "-"}</span>
             </div>
             <div className="grid grid-cols-2 gap-2">
               <div>HP {formatNumber(selected?.hp ?? 0)}</div>

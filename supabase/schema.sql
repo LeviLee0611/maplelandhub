@@ -82,6 +82,12 @@ on public.profiles
 for select
 using (id = auth.uid());
 
+create policy "profiles_select_admin"
+on public.profiles
+for select
+to authenticated
+using (public.is_admin());
+
 create policy "profiles_insert_self"
 on public.profiles
 for insert

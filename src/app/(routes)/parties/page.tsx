@@ -49,7 +49,7 @@ export default function PartiesPage() {
 
   if (isComingSoon) {
     return (
-      <section className="space-y-4">
+      <section className="min-h-[calc(100vh-6rem)] space-y-4 py-6">
         <div className="flex items-center justify-between gap-3">
           <div>
             <h1 className="text-2xl font-bold">파티 매칭</h1>
@@ -73,7 +73,7 @@ export default function PartiesPage() {
   }
 
   return (
-    <section className="space-y-4">
+    <section className="min-h-[calc(100vh-6rem)] space-y-4 py-6">
       <div className="flex items-center justify-between gap-3">
         <div>
           <h1 className="text-2xl font-bold">파티 매칭</h1>

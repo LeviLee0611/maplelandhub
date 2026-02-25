@@ -8,6 +8,18 @@ type ResultPanelProps = {
     avg: number;
     max: number;
   };
+  motionDamageRanges?: {
+    slash: {
+      min: number;
+      avg: number;
+      max: number;
+    };
+    thrust: {
+      min: number;
+      avg: number;
+      max: number;
+    };
+  };
   result: OneHitResult;
   elementMultiplier?: number;
   bishopHealBonus?: number;
@@ -19,6 +31,7 @@ type ResultPanelProps = {
 
 export function ResultPanel({
   baseDamage,
+  motionDamageRanges,
   result,
   elementMultiplier = 1,
   bishopHealBonus = 1,
@@ -45,21 +58,42 @@ export function ResultPanel({
       }
     >
       <div className="space-y-4">
-        <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
-          <div className="text-[10px] text-[color:var(--retro-text-muted)]">한방컷 확률</div>
-          <div className="text-lg font-semibold text-[color:var(--retro-text)]">
-            {result.oneShotChance.toFixed(2)}%
-          </div>
-          <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
-            {result.oneShotChance >= 100 ? "현재 설정으로 한방컷 가능" : "현재 설정으로 한방컷 불가"}
-          </div>
-          {result.oneShotChance < 100 ? (
-            <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
-              예상 N방컷: {result.hitsToKill.min} ~ {result.hitsToKill.max} (평균 {result.hitsToKill.avg}방)
+        <div className="grid gap-3 md:grid-cols-2">
+          <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+            <div className="text-[10px] text-[color:var(--retro-text-muted)]">한방컷 확률</div>
+            <div className="text-lg font-semibold text-[color:var(--retro-text)]">
+              {result.oneShotChance.toFixed(2)}%
             </div>
-          ) : null}
-          <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
-            한방컷 공격력: {formatNumber(result.oneShotAttack)}
+            <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+              {result.oneShotChance >= 100 ? "현재 설정으로 한방컷 가능" : "현재 설정으로 한방컷 불가"}
+            </div>
+            {result.oneShotChance < 100 ? (
+              <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+                예상 N방컷: {result.hitsToKill.min} ~ {result.hitsToKill.max} (평균 {result.hitsToKill.avg}방)
+              </div>
+            ) : null}
+            <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+              한방컷 공격력: {formatNumber(result.oneShotAttack)}
+            </div>
+          </div>
+
+          <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+            <div className="text-[10px] text-[color:var(--retro-text-muted)]">N방컷 확률(근사)</div>
+            <div className="mt-2 space-y-1 text-[11px] text-[color:var(--retro-text)]">
+              {result.nShotChances.length === 0 ? (
+                <div className="text-[color:var(--retro-text-muted)]">계산값 없음</div>
+              ) : (
+                result.nShotChances.map((item) => (
+                  <div key={`${item.hits}-${item.isPlus ? "plus" : "exact"}`} className="flex items-center justify-between">
+                    <span>{item.isPlus ? `${item.hits}방컷 이상` : `${item.hits}방컷`}</span>
+                    <span className="font-semibold">{item.chance.toFixed(2)}%</span>
+                  </div>
+                ))
+              )}
+            </div>
+            <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+              데미지 범위를 단순 분포로 근사한 값입니다.
+            </div>
           </div>
         </div>
 
@@ -87,6 +121,28 @@ export function ResultPanel({
               </div>
             </div>
           </div>
+          {motionDamageRanges ? (
+            <div className="mt-2 grid gap-3 md:grid-cols-2">
+              <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
+                <div className="text-[10px] text-[color:var(--retro-text-muted)]">베기 모션 기본 범위</div>
+                <div className="text-sm font-semibold text-[color:var(--retro-text)]">
+                  {formatRange(motionDamageRanges.slash.min, motionDamageRanges.slash.max)}
+                </div>
+                <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+                  평균 {formatNumber(Math.round(motionDamageRanges.slash.avg))}
+                </div>
+              </div>
+              <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
+                <div className="text-[10px] text-[color:var(--retro-text-muted)]">찌르기 모션 기본 범위</div>
+                <div className="text-sm font-semibold text-[color:var(--retro-text)]">
+                  {formatRange(motionDamageRanges.thrust.min, motionDamageRanges.thrust.max)}
+                </div>
+                <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+                  평균 {formatNumber(Math.round(motionDamageRanges.thrust.avg))}
+                </div>
+              </div>
+            </div>
+          ) : null}
           <div className="mt-2 grid gap-3 md:grid-cols-2">
             <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">크리티컬 데미지 범위</div>

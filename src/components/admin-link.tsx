@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 
 export function AdminLink() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     let active = true;
@@ -17,10 +17,21 @@ export function AdminLink() {
       } = await supabase.auth.getUser();
 
       if (!user) {
-        if (active) setIsLoggedIn(false);
+        if (active) setIsAdmin(false);
         return;
       }
-      if (active) setIsLoggedIn(true);
+      const { data: adminRow, error } = await supabase
+        .from("admin_users")
+        .select("user_id")
+        .eq("user_id", user.id)
+        .maybeSingle();
+
+      if (error || !adminRow) {
+        if (active) setIsAdmin(false);
+        return;
+      }
+
+      if (active) setIsAdmin(true);
     }
 
     load();
@@ -38,10 +49,10 @@ export function AdminLink() {
     };
   }, []);
 
-  if (!isLoggedIn) return null;
+  if (!isAdmin) return null;
 
   return (
-    <Link href="/admin/feedback" className="hover:opacity-80">
+    <Link href="/admin" className="hover:opacity-80">
       관리자
     </Link>
   );

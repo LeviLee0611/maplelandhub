@@ -117,6 +117,9 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
           value={value}
           onChange={handleChange}
           onFocus={() => {
+            if (value === "달팽이") {
+              onChange("");
+            }
             setActiveIndex(0);
             setIsOpen(true);
           }}

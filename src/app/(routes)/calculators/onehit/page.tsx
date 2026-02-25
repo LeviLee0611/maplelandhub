@@ -23,6 +23,7 @@ import sharpEyesMapping from "@data/skills/sharpEyesMapping.json";
 import venomSkill from "@data/skills/venomSkill.json";
 import mapleHero from "@data/skills/mapleHero.json";
 import meditation from "@data/skills/meditation.json";
+import rage from "@data/skills/rage.json";
 
 const typedMonsters = getMonsters() as Monster[];
 const jobGroups = ["전사", "마법사", "궁수", "도적", "해적"] as const;
@@ -80,7 +81,7 @@ function normalizeMonsterElements(monster: Monster | undefined) {
 function getElementMultiplier(
   element: AttackElement,
   monster: Monster | undefined,
-  opts?: { isPageCharge: boolean; pageChargeSkill: string; pageChargeLevel: number },
+  opts?: { isPageCharge: boolean; pageChargeSkill: string; pageChargeLevel: number; skillName?: string; skillLevel?: number },
 ) {
   if (!monster || element === "무") return 1;
 
@@ -98,8 +99,21 @@ function getElementMultiplier(
     resistMultiplier = Math.max(0, (isHolyCharge ? 80 - level * 1.5 : 95 - level * 1.5) / 100);
   }
 
-  if (props.includes(`${element} 반감`)) return resistMultiplier;
-  if (props.includes(`${element} 약점`)) return weakMultiplier;
+  if (opts?.skillName && /(파이어 샷|아이스 샷)/.test(opts.skillName) && (opts.skillLevel ?? 0) > 0) {
+    const level = opts.skillLevel ?? 0;
+    weakMultiplier = (110 + level * 0.5) / 100;
+    resistMultiplier = Math.max(0, (90 - level * 0.5) / 100);
+  }
+
+  const isMagicComposition = opts?.skillName?.includes("매직 컴포지션");
+  if (props.includes(`${element} 반감`)) {
+    const base = resistMultiplier;
+    return isMagicComposition ? 1 - (1 - base) / 2 : base;
+  }
+  if (props.includes(`${element} 약점`)) {
+    const base = weakMultiplier;
+    return isMagicComposition ? 1 + (base - 1) / 2 : base;
+  }
   return 1;
 }
 
@@ -139,10 +153,13 @@ export default function OneHitCalculatorPage() {
   const [totalMagicInput, setTotalMagicInput] = useState(0);
   const [profileMessage, setProfileMessage] = useState("");
   const [stats, setStats] = useState({ str: 200, dex: 80, int: 4, luk: 30 });
+  const [weaponType, setWeaponType] = useState("");
+  const [weaponMotion, setWeaponMotion] = useState<"자동" | "베기" | "찌르기">("자동");
   const [arrowType, setArrowType] = useState("");
   const [starType, setStarType] = useState("");
   const [gloveAttackBonus, setGloveAttackBonus] = useState(0);
-  const [consumableAttackBonus, setConsumableAttackBonus] = useState(0);
+  const [stackableConsumableAttackBonus, setStackableConsumableAttackBonus] = useState(0);
+  const [exclusiveConsumableAttackBonus, setExclusiveConsumableAttackBonus] = useState(0);
 
   const [skillName, setSkillName] = useState("기본 공격");
   const [skillLevel, setSkillLevel] = useState(1);
@@ -152,6 +169,8 @@ export default function OneHitCalculatorPage() {
   const [criticalShotLevel, setCriticalShotLevel] = useState(0);
   const [shadowPartnerLevel, setShadowPartnerLevel] = useState(0);
   const [passiveMasteryBonus, setPassiveMasteryBonus] = useState(0);
+  const [healTargetCount, setHealTargetCount] = useState(1);
+  const [comboCounter, setComboCounter] = useState(1);
   const [pageChargeSkill, setPageChargeSkill] = useState<(typeof PAGE_CHARGE_SKILLS)[number]>("플레임 차지");
   const [pageChargeLevel, setPageChargeLevel] = useState(0);
   const [berserkLevel, setBerserkLevel] = useState(0);
@@ -169,11 +188,22 @@ export default function OneHitCalculatorPage() {
   const [mapleHeroLevel, setMapleHeroLevel] = useState(0);
   const [meditationLevel, setMeditationLevel] = useState(0);
 
-  const [monsterName, setMonsterName] = useState(typedMonsters[0]?.name ?? "");
+  const [monsterName, setMonsterName] = useState("");
   const [showFormula, setShowFormula] = useState(false);
 
+  const getMaxButtonClass = (isMax: boolean) =>
+    `h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+      isMax
+        ? "border-cyan-300/80 bg-cyan-300/20 text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.18)]"
+        : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
+    }`;
+
+  const toggleMax = (value: number, max: number, setter: (next: number) => void) => {
+    setter(value === max ? 0 : max);
+  };
+
   const selectedMonster = useMemo(
-    () => typedMonsters.find((monster) => monster.name === monsterName) ?? typedMonsters[0],
+    () => typedMonsters.find((monster) => monster.name === monsterName),
     [monsterName],
   );
 
@@ -187,11 +217,16 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
+    weaponType,
+    weaponMotion,
     arrowType,
     starType,
     gloveAttackBonus,
-    consumableAttackBonus,
+    stackableConsumableAttackBonus,
+    exclusiveConsumableAttackBonus,
     monsterName,
+    healTargetCount,
+    comboCounter,
   }), [
     nickname,
     jobGroup,
@@ -202,11 +237,16 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
+    weaponType,
+    weaponMotion,
     arrowType,
     starType,
     gloveAttackBonus,
-    consumableAttackBonus,
+    stackableConsumableAttackBonus,
+    exclusiveConsumableAttackBonus,
     monsterName,
+    healTargetCount,
+    comboCounter,
   ]);
 
   const quickSnapshot = useMemo(
@@ -220,10 +260,13 @@ export default function OneHitCalculatorPage() {
       totalAttackInput,
       totalMagicInput,
       stats,
+      weaponType,
+      weaponMotion,
       arrowType,
       starType,
       gloveAttackBonus,
-      consumableAttackBonus,
+      stackableConsumableAttackBonus,
+      exclusiveConsumableAttackBonus,
       skillName,
       skillLevel,
       mastery,
@@ -232,6 +275,8 @@ export default function OneHitCalculatorPage() {
       criticalShotLevel,
       shadowPartnerLevel,
       passiveMasteryBonus,
+      healTargetCount,
+      comboCounter,
       pageChargeSkill,
       pageChargeLevel,
       berserkLevel,
@@ -260,10 +305,13 @@ export default function OneHitCalculatorPage() {
       totalAttackInput,
       totalMagicInput,
       stats,
+      weaponType,
+      weaponMotion,
       arrowType,
       starType,
       gloveAttackBonus,
-      consumableAttackBonus,
+      stackableConsumableAttackBonus,
+      exclusiveConsumableAttackBonus,
       skillName,
       skillLevel,
       mastery,
@@ -272,6 +320,8 @@ export default function OneHitCalculatorPage() {
       criticalShotLevel,
       shadowPartnerLevel,
       passiveMasteryBonus,
+      healTargetCount,
+      comboCounter,
       pageChargeSkill,
       pageChargeLevel,
       berserkLevel,
@@ -303,6 +353,10 @@ export default function OneHitCalculatorPage() {
     }
     if (typeof snapshot.level === "number") setLevel(snapshot.level);
     if (typeof snapshot.characterAccuracy === "number") setCharacterAccuracy(snapshot.characterAccuracy);
+    if (typeof snapshot.weaponType === "string") setWeaponType(snapshot.weaponType);
+    if (typeof snapshot.weaponMotion === "string") {
+      setWeaponMotion(snapshot.weaponMotion as "자동" | "베기" | "찌르기");
+    }
     const legacyWeaponAttack = readLegacyNumber(snapshot as Record<string, unknown>, [
       "weaponAttackInput",
       "attackOptionTotal",
@@ -335,7 +389,15 @@ export default function OneHitCalculatorPage() {
     if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
     if (snapshot.stats) setStats(snapshot.stats);
     if (typeof snapshot.gloveAttackBonus === "number") setGloveAttackBonus(snapshot.gloveAttackBonus);
-    if (typeof snapshot.consumableAttackBonus === "number") setConsumableAttackBonus(snapshot.consumableAttackBonus);
+    if (typeof snapshot.stackableConsumableAttackBonus === "number") {
+      setStackableConsumableAttackBonus(snapshot.stackableConsumableAttackBonus);
+    }
+    if (typeof snapshot.exclusiveConsumableAttackBonus === "number") {
+      setExclusiveConsumableAttackBonus(snapshot.exclusiveConsumableAttackBonus);
+    }
+    if (typeof snapshot.consumableAttackBonus === "number") {
+      setExclusiveConsumableAttackBonus(snapshot.consumableAttackBonus);
+    }
     if (typeof snapshot.skillName === "string") setSkillName(snapshot.skillName);
     if (typeof snapshot.skillLevel === "number") setSkillLevel(snapshot.skillLevel);
     if (typeof snapshot.mastery === "number") setMastery(snapshot.mastery);
@@ -344,6 +406,8 @@ export default function OneHitCalculatorPage() {
     if (typeof snapshot.criticalShotLevel === "number") setCriticalShotLevel(snapshot.criticalShotLevel);
     if (typeof snapshot.shadowPartnerLevel === "number") setShadowPartnerLevel(snapshot.shadowPartnerLevel);
     if (typeof snapshot.passiveMasteryBonus === "number") setPassiveMasteryBonus(snapshot.passiveMasteryBonus);
+    if (typeof snapshot.healTargetCount === "number") setHealTargetCount(snapshot.healTargetCount);
+    if (typeof snapshot.comboCounter === "number") setComboCounter(snapshot.comboCounter);
     if (typeof snapshot.pageChargeSkill === "string") setPageChargeSkill(snapshot.pageChargeSkill as (typeof PAGE_CHARGE_SKILLS)[number]);
     if (typeof snapshot.pageChargeLevel === "number") setPageChargeLevel(snapshot.pageChargeLevel);
     if (typeof snapshot.berserkLevel === "number") setBerserkLevel(snapshot.berserkLevel);
@@ -375,6 +439,10 @@ export default function OneHitCalculatorPage() {
       if (saved.job) setJob(saved.job);
       if (typeof saved.level === "number") setLevel(saved.level);
       if (typeof saved.characterAccuracy === "number") setCharacterAccuracy(saved.characterAccuracy);
+      if (typeof saved.weaponType === "string") setWeaponType(saved.weaponType);
+      if (typeof saved.weaponMotion === "string") {
+        setWeaponMotion(saved.weaponMotion as "자동" | "베기" | "찌르기");
+      }
       const legacyWeaponAttack = readLegacyNumber(saved as Record<string, unknown>, [
         "weaponAttackInput",
         "attackOptionTotal",
@@ -407,7 +475,17 @@ export default function OneHitCalculatorPage() {
       if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
       if (saved.stats) setStats(saved.stats);
       if (typeof saved.gloveAttackBonus === "number") setGloveAttackBonus(saved.gloveAttackBonus);
-      if (typeof saved.consumableAttackBonus === "number") setConsumableAttackBonus(saved.consumableAttackBonus);
+      if (typeof saved.stackableConsumableAttackBonus === "number") {
+        setStackableConsumableAttackBonus(saved.stackableConsumableAttackBonus);
+      }
+      if (typeof saved.exclusiveConsumableAttackBonus === "number") {
+        setExclusiveConsumableAttackBonus(saved.exclusiveConsumableAttackBonus);
+      }
+      if (typeof saved.consumableAttackBonus === "number") {
+        setExclusiveConsumableAttackBonus(saved.consumableAttackBonus);
+      }
+      if (typeof saved.healTargetCount === "number") setHealTargetCount(saved.healTargetCount);
+      if (typeof saved.comboCounter === "number") setComboCounter(saved.comboCounter);
       if (typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
     } catch {
       // Ignore invalid local profile data
@@ -511,6 +589,44 @@ export default function OneHitCalculatorPage() {
   const isPagePaladinJob = job === "페이지/나이트/팔라딘";
   const isSpearmanJob = job === "스피어맨/드래곤나이트/다크나이트";
   const statLabelMap = { str: "STR", dex: "DEX", int: "INT", luk: "LUK" } as const;
+  const weaponTypesByGroup = useMemo(() => {
+    if (jobGroup === "전사") {
+      return [
+        "한손검",
+        "두손검",
+        "한손도끼",
+        "두손도끼",
+        "한손둔기",
+        "두손둔기",
+        "창",
+        "폴암",
+      ];
+    }
+    if (jobGroup === "궁수") return ["활", "석궁"];
+    if (jobGroup === "도적") return ["단검", "아대"];
+    if (jobGroup === "해적") return ["너클", "건"];
+    return [];
+  }, [jobGroup]);
+
+  useEffect(() => {
+    if (job === "어쌔신/허밋/나이트로드") {
+      setWeaponType("아대");
+    } else if (job === "시프/시프마스터/섀도어") {
+      setWeaponType("단검");
+    }
+  }, [job]);
+
+  const isWeaponLocked = job === "어쌔신/허밋/나이트로드" || job === "시프/시프마스터/섀도어";
+
+  const weaponNeedsMotion = useMemo(
+    () => ["한손도끼", "두손도끼", "한손둔기", "두손둔기", "폴암", "창"].includes(weaponType),
+    [weaponType],
+  );
+
+  useEffect(() => {
+    if (!weaponNeedsMotion) return;
+    setWeaponMotion((prev) => (prev === "자동" || prev === "베기" || prev === "찌르기" ? prev : "자동"));
+  }, [weaponNeedsMotion]);
 
   const arrowAttackBonus = useMemo(() => {
     if (!isArcherJob) return 0;
@@ -680,12 +796,6 @@ export default function OneHitCalculatorPage() {
     return { multiplier: 1 + rate * (damage - 1), rate, damage };
   }, [isArcherJob, isNightLordJob, criticalShotLevel, criticalThrowLevel]);
 
-  const criticalDamageMultiplier = useMemo(() => {
-    const candidates = [criticalPassiveEffect.damage, sharpEyesEffect.damage].filter((value) => value > 1);
-    if (candidates.length === 0) return 1;
-    return Math.max(...candidates);
-  }, [criticalPassiveEffect.damage, sharpEyesEffect.damage]);
-
   const criticalRate = useMemo(() => {
     return Math.max(criticalPassiveEffect.rate, sharpEyesEffect.rate);
   }, [criticalPassiveEffect.rate, sharpEyesEffect.rate]);
@@ -719,12 +829,33 @@ export default function OneHitCalculatorPage() {
 
   const heroComboEffect = useMemo(() => {
     const bySkillActive = damageMappingActive as Record<string, Record<string, number | { damage?: number; maxCount?: number }>>;
-    if (!isHeroJob) return { multiplier: 1 };
+    if (!isHeroJob || comboAttackLevel <= 0) return { multiplier: 1 };
     const levelKey = String(Math.min(Math.max(comboAttackLevel, 0), 30));
-    const entry = bySkillActive["콤보 어택"]?.[levelKey];
-    const damage = typeof entry === "number" ? entry : entry?.damage;
-    return { multiplier: damage ? damage / 100 : 1 };
-  }, [isHeroJob, comboAttackLevel]);
+    const comboEntry = bySkillActive["콤보 어택"]?.[levelKey];
+    const advEntry = bySkillActive["어드밴스드 콤보 어택"]?.[levelKey];
+    const comboPercent = typeof comboEntry === "number" ? comboEntry : comboEntry?.damage ?? 0;
+    const advPercent = typeof advEntry === "number" ? advEntry : advEntry?.damage ?? comboPercent;
+
+    const counter = Math.max(1, Math.min(10, comboCounter));
+    if (counter <= 5) {
+      const percent = (comboPercent - 100) + (counter - 1) * (comboAttackLevel / 6);
+      return { multiplier: percent > 0 ? percent / 100 : 1 };
+    }
+
+    const percent = (advPercent - 80) + (counter - 5) * 4;
+    return { multiplier: percent > 0 ? percent / 100 : 1 };
+  }, [isHeroJob, comboAttackLevel, comboCounter]);
+
+  const comboFinisherMultiplier = useMemo(() => {
+    if (!isHeroJob || comboCounter <= 0) return 1;
+    if (!(skillName.includes("패닉") || skillName.includes("코마"))) return 1;
+    const counter = Math.max(1, Math.min(10, comboCounter));
+    if (counter === 1) return 1;
+    if (counter === 2) return 1.2;
+    if (counter === 3) return 1.54;
+    if (counter === 4) return 2;
+    return 2.5;
+  }, [isHeroJob, comboCounter, skillName]);
 
   const amplificationEffect = useMemo(() => {
     const bySkillActive = damageMappingActive as Record<string, Record<string, number | { damage?: number; maxCount?: number }>>;
@@ -737,6 +868,16 @@ export default function OneHitCalculatorPage() {
 
   const damageMultiplier = skillBase ? skillBase.damage / 100 : 1.0;
   const hitsPerAttack = skillBase?.count ?? 1;
+
+  const criticalDamageMultiplier = (() => {
+    const skillPercent = damageMultiplier * 100;
+    if (skillPercent <= 0) return 1;
+    const baseCritPercent = criticalPassiveEffect.damage > 0 ? criticalPassiveEffect.damage * 100 : 100;
+    const sharpExtra = sharpEyesLevel > 0 ? 140 : 0;
+    return (skillPercent + baseCritPercent + sharpExtra - 100) / skillPercent;
+  })();
+
+  const criticalAverageMultiplier = 1 + criticalRate * (criticalDamageMultiplier - 1);
 
   useEffect(() => {
     if (!skillBase) return;
@@ -764,14 +905,32 @@ export default function OneHitCalculatorPage() {
     const heroValue = heroLevels.find((item) => item.level === mapleHeroLevel)?.value ?? 1;
     const attack = Math.floor(main * 2 + dex * 0.5);
     const magic = Math.floor(intel * 2 + luk * 0.5);
-    const acc = Math.floor(dex * 0.8 + level * 0.5);
+    const accuracyBase = (() => {
+      if (jobGroup === "전사" || jobGroup === "마법사") return dex * 0.8 + luk * 0.5;
+      if (job === "인파이터/버커니어/바이퍼") return dex * 0.9 + luk * 0.3;
+      if (jobGroup === "궁수" || jobGroup === "도적" || job === "건슬링거/발키리/캡틴") {
+        return dex * 0.6 + luk * 0.3;
+      }
+      return dex * 0.8 + luk * 0.5;
+    })();
+    const acc = Math.floor(accuracyBase + characterAccuracy);
     const primaryBase = jobProfile.primary === "str" ? main : jobProfile.primary === "dex" ? dex : jobProfile.primary === "int" ? intel : luk;
     const secondaryBase = jobProfile.secondary === "str" ? main : jobProfile.secondary === "dex" ? dex : luk;
     const thiefExtraSecondary = isNightLordJob || isShadowerJob ? main : 0;
     const primaryStat = primaryBase * heroValue;
     const secondaryStat = (secondaryBase + thiefExtraSecondary) * heroValue;
     return { attack, magic, acc, primaryStat, secondaryStat };
-  }, [stats, level, jobProfile, mapleHeroLevel, isNightLordJob, isShadowerJob]);
+  }, [
+    stats,
+    level,
+    jobProfile,
+    mapleHeroLevel,
+    isNightLordJob,
+    isShadowerJob,
+    jobGroup,
+    job,
+    characterAccuracy,
+  ]);
 
   const visibleStatFields = useMemo(() => {
     const primary = jobProfile.primary;
@@ -784,16 +943,34 @@ export default function OneHitCalculatorPage() {
     return levels.find((item) => item.level === meditationLevel)?.value ?? 0;
   }, [meditationLevel]);
 
+  const rageAttackBonus = useMemo(() => {
+    if (!isHeroJob) return 0;
+    const levels = rage.levels as Array<{ level: number; value: number }>;
+    return levels.find((item) => item.level === rageBonus)?.value ?? 0;
+  }, [isHeroJob, rageBonus]);
+
+  const effectiveConsumableAttackBonus = useMemo(() => {
+    const exclusive = isHeroJob && rageAttackBonus > 0 ? 0 : exclusiveConsumableAttackBonus;
+    return stackableConsumableAttackBonus + exclusive;
+  }, [isHeroJob, rageAttackBonus, stackableConsumableAttackBonus, exclusiveConsumableAttackBonus]);
+
   const weaponAttack = useMemo(() => {
     if (jobProfile.primary === "int") {
-      if (totalMagicInput > 0) return totalMagicInput;
+      if (totalMagicInput > 0) return totalMagicInput + meditationBonus;
       return derived.magic + meditationBonus;
     }
     if (weaponAttackInput > 0) {
-      return weaponAttackInput + arrowAttackBonus + starAttackBonus + gloveAttackBonus + consumableAttackBonus;
+      return (
+        weaponAttackInput +
+        arrowAttackBonus +
+        starAttackBonus +
+        gloveAttackBonus +
+        effectiveConsumableAttackBonus +
+        rageAttackBonus
+      );
     }
-    if (totalAttackInput > 0) return totalAttackInput;
-    return derived.attack;
+    if (totalAttackInput > 0) return totalAttackInput + rageAttackBonus;
+    return derived.attack + rageAttackBonus;
   }, [
     jobProfile.primary,
     totalMagicInput,
@@ -805,29 +982,165 @@ export default function OneHitCalculatorPage() {
     arrowAttackBonus,
     starAttackBonus,
     gloveAttackBonus,
-    consumableAttackBonus,
+    effectiveConsumableAttackBonus,
+    rageAttackBonus,
   ]);
 
-  const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
+  const weaponConstants = useMemo(() => {
+    if (jobProfile.primary === "int") {
+      return { min: 1, max: 1 };
+    }
 
-  const baseDamage = useMemo(() => {
+    switch (weaponType) {
+      case "한손도끼":
+      case "한손둔기":
+        return { min: 3.2, max: 4.4 };
+      case "두손도끼":
+      case "두손둔기":
+        return { min: 3.4, max: 4.8 };
+      case "폴암":
+      case "창":
+        return { min: 3.0, max: 5.0 };
+      case "한손검":
+        return { min: 4.0, max: 4.0 };
+      case "두손검":
+        return { min: 4.6, max: 4.6 };
+      case "너클":
+        return { min: 4.8, max: 4.8 };
+      case "활":
+        return { min: 3.4, max: 3.4 };
+      case "석궁":
+      case "단검":
+      case "아대":
+      case "건":
+        return { min: 3.6, max: 3.6 };
+      default:
+        return { min: jobProfile.multiplier, max: jobProfile.multiplier };
+    }
+  }, [jobProfile.primary, jobProfile.multiplier, weaponType]);
+
+  const weaponMotionConstants = useMemo(() => {
+    if (!weaponNeedsMotion) return null;
+    const isSpear = weaponType === "창";
+    const isPolearm = weaponType === "폴암";
+    if (isSpear) {
+      return { slash: weaponConstants.min, thrust: weaponConstants.max };
+    }
+    if (isPolearm) {
+      return { slash: weaponConstants.max, thrust: weaponConstants.min };
+    }
+    return { slash: weaponConstants.max, thrust: weaponConstants.min };
+  }, [weaponNeedsMotion, weaponType, weaponConstants]);
+
+  const weaponMultiplierRange = useMemo(() => {
+    if (!weaponNeedsMotion || !weaponMotionConstants) return weaponConstants;
+    if (weaponMotion === "베기") {
+      return { min: weaponMotionConstants.slash, max: weaponMotionConstants.slash };
+    }
+    if (weaponMotion === "찌르기") {
+      return { min: weaponMotionConstants.thrust, max: weaponMotionConstants.thrust };
+    }
+    return {
+      min: Math.min(weaponMotionConstants.slash, weaponMotionConstants.thrust),
+      max: Math.max(weaponMotionConstants.slash, weaponMotionConstants.thrust),
+    };
+  }, [weaponNeedsMotion, weaponConstants, weaponMotion, weaponMotionConstants]);
+
+  const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
+  const effectiveMastery = jobProfile.primary === "int"
+    ? Math.min(1, mastery)
+    : Math.min(1, (passiveMasteryBonus > 0 ? mastery : 0.1) + passiveMasteryRate);
+
+  const baseDamageRange = useMemo(() => {
     return calcBaseDamageFromStats({
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
       weaponAttack,
+      minStatMultiplier: weaponMultiplierRange.min,
+      maxStatMultiplier: weaponMultiplierRange.max,
       statMultiplier: jobProfile.multiplier,
-      skillMultiplier: damageMultiplier,
-      mastery: Math.min(1, mastery + passiveMasteryRate),
+      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
+      mastery: effectiveMastery,
+      isMagic: jobProfile.primary === "int",
     });
   }, [
     derived.primaryStat,
     derived.secondaryStat,
     weaponAttack,
+    weaponMultiplierRange.min,
+    weaponMultiplierRange.max,
     jobProfile.multiplier,
     damageMultiplier,
-    mastery,
-    passiveMasteryRate,
+    effectiveMastery,
+    jobProfile.primary,
   ]);
+
+  const motionWeightedAvgDamage = useMemo(() => {
+    if (!weaponNeedsMotion || weaponMotion !== "자동" || !weaponMotionConstants) return null;
+    const isSpearFamily = weaponType === "창" || weaponType === "폴암";
+    const slashWeight = isSpearFamily ? 2 : 3;
+    const thrustWeight = isSpearFamily ? 2 : 1;
+    const total = slashWeight + thrustWeight;
+    const weightedConstant =
+      (weaponMotionConstants.slash * slashWeight + weaponMotionConstants.thrust * thrustWeight) / total;
+    const masteryFactor = (0.9 * effectiveMastery + 1) / 2;
+    const skillMul = jobProfile.primary === "int" ? damageMultiplier : 1;
+    return ((derived.primaryStat * weightedConstant * masteryFactor + derived.secondaryStat) * weaponAttack * skillMul) / 100;
+  }, [
+    weaponNeedsMotion,
+    weaponMotion,
+    weaponMotionConstants,
+    derived.primaryStat,
+    derived.secondaryStat,
+    weaponAttack,
+    jobProfile.primary,
+    damageMultiplier,
+    effectiveMastery,
+    weaponType,
+  ]);
+
+  const motionDamageRanges = useMemo(() => {
+    if (!weaponNeedsMotion || weaponMotion !== "자동" || !weaponMotionConstants) return null;
+    const baseSlash = calcBaseDamageFromStats({
+      primaryStat: derived.primaryStat,
+      secondaryStat: derived.secondaryStat,
+      weaponAttack,
+      minStatMultiplier: weaponMotionConstants.slash,
+      maxStatMultiplier: weaponMotionConstants.slash,
+      statMultiplier: jobProfile.multiplier,
+      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
+      mastery: effectiveMastery,
+      isMagic: jobProfile.primary === "int",
+    });
+    const baseThrust = calcBaseDamageFromStats({
+      primaryStat: derived.primaryStat,
+      secondaryStat: derived.secondaryStat,
+      weaponAttack,
+      minStatMultiplier: weaponMotionConstants.thrust,
+      maxStatMultiplier: weaponMotionConstants.thrust,
+      statMultiplier: jobProfile.multiplier,
+      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
+      mastery: effectiveMastery,
+      isMagic: jobProfile.primary === "int",
+    });
+    return { slash: baseSlash, thrust: baseThrust };
+  }, [
+    weaponNeedsMotion,
+    weaponMotion,
+    weaponMotionConstants,
+    derived.primaryStat,
+    derived.secondaryStat,
+    weaponAttack,
+    jobProfile.multiplier,
+    jobProfile.primary,
+    damageMultiplier,
+    effectiveMastery,
+  ]);
+
+  const baseDamage = useMemo(() => {
+    if (motionWeightedAvgDamage === null) return baseDamageRange;
+    return { ...baseDamageRange, avgDamage: motionWeightedAvgDamage };
+  }, [baseDamageRange, motionWeightedAvgDamage]);
 
   const attackElement = useMemo<AttackElement>(() => {
     if (isPagePaladinJob && pageChargeLevel > 0) {
@@ -844,8 +1157,10 @@ export default function OneHitCalculatorPage() {
       isPageCharge: isPagePaladinJob,
       pageChargeSkill,
       pageChargeLevel,
+      skillName,
+      skillLevel,
     });
-  }, [attackElement, selectedMonster, isPagePaladinJob, pageChargeSkill, pageChargeLevel]);
+  }, [attackElement, selectedMonster, isPagePaladinJob, pageChargeSkill, pageChargeLevel, skillName, skillLevel]);
 
   const bishopHealBonus = useMemo(
     () => getBishopHealBonus(skillName, isClericJob, selectedMonster),
@@ -855,28 +1170,26 @@ export default function OneHitCalculatorPage() {
   const finalDamageMultiplier = useMemo(
     () =>
       skillEffects.buffMultiplier *
-      sharpEyesEffect.multiplier *
-      criticalPassiveEffect.multiplier *
+      (skillName === "힐" ? 1 : criticalAverageMultiplier) *
       shadowPartnerEffect.multiplier *
       pageChargeEffect.multiplier *
       berserkEffect.multiplier *
       levelToMultiplier(beholderBerserkBonus) *
       levelToMultiplier(beholderBuffBonus) *
       (isHeroJob ? levelToMultiplier(rushBonus) : 1) *
-      (isHeroJob ? levelToMultiplier(rageBonus) : 1) *
       heroComboEffect.multiplier *
+      comboFinisherMultiplier *
       amplificationEffect.multiplier *
       (isArchMageJob ? levelToMultiplier(ifritBonus) : 1) *
       (isClericJob ? levelToMultiplier(bahamutBonus) : 1) *
       (isBowmasterJob ? levelToMultiplier(focusBonus) : 1) *
       (isBowmasterJob ? levelToMultiplier(silverHawkBonus) : 1) *
       (isMarksmanJob ? levelToMultiplier(goldenEagleBonus) : 1) *
-      elementMultiplier *
-      bishopHealBonus,
+      (skillName === "힐" ? 1 : elementMultiplier) *
+      (skillName === "힐" ? 1 : bishopHealBonus),
     [
       skillEffects.buffMultiplier,
-      sharpEyesEffect.multiplier,
-      criticalPassiveEffect.multiplier,
+      criticalAverageMultiplier,
       shadowPartnerEffect.multiplier,
       pageChargeEffect.multiplier,
       berserkEffect.multiplier,
@@ -884,8 +1197,8 @@ export default function OneHitCalculatorPage() {
       beholderBuffBonus,
       isHeroJob,
       rushBonus,
-      rageBonus,
       heroComboEffect.multiplier,
+      comboFinisherMultiplier,
       amplificationEffect.multiplier,
       isArchMageJob,
       ifritBonus,
@@ -898,20 +1211,116 @@ export default function OneHitCalculatorPage() {
       goldenEagleBonus,
       elementMultiplier,
       bishopHealBonus,
+      skillName,
     ],
   );
 
+  const specialBaseDamage = useMemo(() => {
+    const str = stats.str;
+    const dex = stats.dex;
+    const luk = stats.luk;
+    const intel = stats.int;
+    const atk = weaponAttack;
+    const skillMul = damageMultiplier;
+
+    if (skillName === "럭키 세븐" || skillName === "트리플 스로우") {
+      return {
+        min: (luk * 2.5) * atk / 100,
+        max: (luk * 5) * atk / 100,
+        skillMultiplier: skillMul,
+        isMagic: false,
+        ignoreDefense: false,
+      };
+    }
+
+    if (skillName === "드래곤 로어") {
+      return {
+        min: ((str * 4 * 0.9 * effectiveMastery + dex) * atk) / 100,
+        max: ((str * 4 + dex) * atk) / 100,
+        skillMultiplier: skillMul,
+        isMagic: false,
+        ignoreDefense: false,
+      };
+    }
+
+    if (skillName === "베놈") {
+      return {
+        min: ((8.0 * (str + luk) + dex * 2) / 100) * skillMul,
+        max: ((18.5 * (str + luk) + dex * 2) / 100) * skillMul,
+        skillMultiplier: 1,
+        isMagic: false,
+        ignoreDefense: true,
+      };
+    }
+
+    if (skillName === "힐") {
+      const healCoeffMap: Record<number, number> = {
+        1: 4.0,
+        2: 3.166,
+        3: 2.75,
+        4: 2.5,
+        5: 2.333,
+      };
+      const coeff = healCoeffMap[healTargetCount] ?? 6.5;
+      const levelMultiplier = skillLevel * 0.1;
+      const baseMin = ((intel * 0.3 + luk) * (atk / 1000)) * coeff * levelMultiplier;
+      const baseMax = ((intel * 1.2 + luk) * (atk / 1000)) * coeff * levelMultiplier;
+      const mdef = selectedMonster?.mDef ?? 0;
+      return {
+        min: baseMin - mdef * 0.6,
+        max: baseMax - mdef * 0.5,
+        skillMultiplier: 1,
+        isMagic: true,
+        ignoreDefense: true,
+      };
+    }
+
+    if ([
+      "피닉스",
+      "프리져",
+      "실버 호크",
+      "골든 이글",
+      "옥토퍼스",
+      "가비오타",
+    ].includes(skillName)) {
+      return {
+        min: (dex * 2.5 * 0.7 + str) * skillMul,
+        max: (dex * 2.5 + str) * skillMul,
+        skillMultiplier: 1,
+        isMagic: false,
+        ignoreDefense: true,
+      };
+    }
+
+    return null;
+  }, [stats, weaponAttack, damageMultiplier, skillName, effectiveMastery, healTargetCount, skillLevel, selectedMonster]);
+
   const result = calcOneHit({
     monsterHp: selectedMonster?.hp ?? 1,
+    monsterLevel: selectedMonster?.level ?? 0,
+    characterLevel: level,
+    monsterDef: selectedMonster?.def ?? 0,
+    monsterMDef: selectedMonster?.mDef ?? 0,
+    isMagic: jobProfile.primary === "int" || specialBaseDamage?.isMagic,
     statDamage: {
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
       weaponAttack,
       statMultiplier: jobProfile.multiplier,
-      skillMultiplier: damageMultiplier,
-      mastery: Math.min(1, mastery + passiveMasteryRate),
+      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
+      mastery: effectiveMastery,
+      minStatMultiplier: weaponMultiplierRange.min,
+      maxStatMultiplier: weaponMultiplierRange.max,
+      isMagic: jobProfile.primary === "int",
     },
+    minDamage: specialBaseDamage?.min,
+    maxDamage: specialBaseDamage?.max,
+    avgDamage: specialBaseDamage
+      ? (specialBaseDamage.min + specialBaseDamage.max) / 2
+      : motionWeightedAvgDamage ?? undefined,
     finalDamageMultiplier,
+    skillMultiplier: specialBaseDamage?.skillMultiplier ?? (jobProfile.primary === "int" ? 1 : damageMultiplier),
+    ignoreDefense: specialBaseDamage?.ignoreDefense,
     hitsPerSkill: Math.max(1, hitsPerAttack),
     accuracyRate: 1,
   });
@@ -932,7 +1341,7 @@ export default function OneHitCalculatorPage() {
             getSnapshot={() => quickSnapshot}
             applySnapshot={applyQuickSnapshot}
             title="빠른 저장 (N방컷)"
-            preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName}`}
+            preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName || "몬스터 선택"}`}
           />
         </div>
 
@@ -988,6 +1397,38 @@ export default function OneHitCalculatorPage() {
                           ))}
                         </select>
                       </label>
+                      {jobGroup !== "마법사" ? (
+                        <label className="space-y-1">
+                          <span className="retro-chip">무기 타입</span>
+                          <select
+                            className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                            value={weaponType}
+                            onChange={(event) => setWeaponType(event.target.value)}
+                            disabled={isWeaponLocked}
+                          >
+                            <option value="">무기 선택</option>
+                            {weaponTypesByGroup.map((type) => (
+                              <option key={type} value={type}>
+                                {type}
+                              </option>
+                            ))}
+                          </select>
+                        </label>
+                      ) : null}
+                      {jobGroup !== "마법사" && weaponNeedsMotion ? (
+                        <label className="space-y-1">
+                          <span className="retro-chip">공격 모션</span>
+                          <select
+                            className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                            value={weaponMotion}
+                            onChange={(event) => setWeaponMotion(event.target.value as "자동" | "베기" | "찌르기")}
+                          >
+                            <option value="자동">자동(확률)</option>
+                            <option value="베기">베기</option>
+                            <option value="찌르기">찌르기</option>
+                          </select>
+                        </label>
+                      ) : null}
                     </div>
                     <div className="grid gap-2 md:grid-cols-2">
                       <div>
@@ -1036,38 +1477,46 @@ export default function OneHitCalculatorPage() {
                       />
                     ) : (
                       <>
-                        <NumberField
-                          id="weapon-attack"
-                          label="무기 공격력"
-                          value={weaponAttackInput}
-                          min={0}
-                          onChange={setWeaponAttackInput}
-                          helper="무기 공격력 입력 시 우선 적용"
-                        />
-                        <NumberField
-                          id="total-attack"
-                          label="총 공격력(선택)"
-                          value={totalAttackInput}
-                          min={0}
-                          onChange={setTotalAttackInput}
-                          helper="무기 공격력 미입력 시 사용"
-                        />
-                        <NumberField
-                          id="glove-attack"
-                          label="장갑 공격력"
-                          value={gloveAttackBonus}
-                          min={0}
-                          onChange={setGloveAttackBonus}
-                          helper="무기 공격력 입력 시에만 추가 반영"
-                        />
-                        <NumberField
-                          id="consumable-attack"
-                          label="소모품 버프 공격력"
-                          value={consumableAttackBonus}
-                          min={0}
-                          onChange={setConsumableAttackBonus}
-                          helper="예: 사이다, 명중/공격 관련 물약"
-                        />
+                        <div className="col-span-full grid gap-2 md:grid-cols-2">
+                          <NumberField
+                            id="weapon-attack"
+                            label="무기 공격력"
+                            value={weaponAttackInput}
+                            min={0}
+                            onChange={setWeaponAttackInput}
+                            helper="무기 공격력 입력 시 우선 적용"
+                          />
+                          <NumberField
+                            id="glove-attack"
+                            label="장갑 공격력"
+                            value={gloveAttackBonus}
+                            min={0}
+                            onChange={setGloveAttackBonus}
+                            helper="무기 공격력 입력 시에만 추가 반영"
+                          />
+                        </div>
+                        <div className="col-span-full grid gap-2 md:grid-cols-2">
+                          <NumberField
+                            id="consumable-attack-stackable"
+                            label="도핑(중복 가능)"
+                            value={stackableConsumableAttackBonus}
+                            min={0}
+                            onChange={setStackableConsumableAttackBonus}
+                            helper="중복 가능한 물약 합산"
+                          />
+                          <NumberField
+                            id="consumable-attack-exclusive"
+                            label="도핑(중복 불가)"
+                            value={exclusiveConsumableAttackBonus}
+                            min={0}
+                            onChange={setExclusiveConsumableAttackBonus}
+                            helper={
+                              isHeroJob
+                                ? "분노 사용 시 중첩 불가 도핑은 무효"
+                                : "중복 불가 도핑 중 1개만 적용"
+                            }
+                          />
+                        </div>
                         {isArcherJob ? (
                           <label className="space-y-1">
                             <span className="retro-chip">화살</span>
@@ -1163,7 +1612,46 @@ export default function OneHitCalculatorPage() {
             skillLevelMax={skillLevelMax}
             onSkillLevelMax={() => setSkillLevel(skillLevelMax)}
             skillOptions={skillOptions}
-          />
+          >
+            {skillName === "힐" ? (
+              <div className="space-y-1 text-xs">
+                <span className="retro-chip">힐 타겟 수</span>
+                <div className="flex items-center gap-2">
+                  <SpinnerInput
+                    id="heal-target-count"
+                    value={healTargetCount}
+                    onChange={(value) => setHealTargetCount(Math.max(1, Math.min(6, value)))}
+                    min={1}
+                    max={6}
+                    step={1}
+                    compact
+                    className="w-full"
+                    inputClassName="retro-number h-[30px] w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                  />
+                  <span className="text-[10px] text-[color:var(--retro-text-muted)]">1~6</span>
+                </div>
+              </div>
+            ) : null}
+            {skillName.includes("패닉") || skillName.includes("코마") || skillName.includes("콤보") ? (
+              <div className="space-y-1 text-xs">
+                <span className="retro-chip">콤보 카운터</span>
+                <div className="flex items-center gap-2">
+                  <SpinnerInput
+                    id="combo-counter"
+                    value={comboCounter}
+                    onChange={(value) => setComboCounter(Math.max(1, Math.min(10, value)))}
+                    min={1}
+                    max={10}
+                    step={1}
+                    compact
+                    className="w-full"
+                    inputClassName="retro-number h-[30px] w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                  />
+                  <span className="text-[10px] text-[color:var(--retro-text-muted)]">1~10</span>
+                </div>
+              </div>
+            ) : null}
+          </SkillPanel>
 
           <Panel title="패시브/버프 스킬" tone="yellow">
             <div className="space-y-4 text-xs">
@@ -1193,8 +1681,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setCriticalThrowLevel(30)}
+                          className={getMaxButtonClass(criticalThrowLevel === 30)}
+                          onClick={() => toggleMax(criticalThrowLevel, 30, setCriticalThrowLevel)}
                         >
                           M
                         </button>
@@ -1221,8 +1709,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setCriticalShotLevel(30)}
+                          className={getMaxButtonClass(criticalShotLevel === 30)}
+                          onClick={() => toggleMax(criticalShotLevel, 30, setCriticalShotLevel)}
                         >
                           M
                         </button>
@@ -1250,8 +1738,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setFocusBonus(30)}
+                            className={getMaxButtonClass(focusBonus === 30)}
+                            onClick={() => toggleMax(focusBonus, 30, setFocusBonus)}
                           >
                             M
                           </button>
@@ -1276,8 +1764,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setSilverHawkBonus(30)}
+                            className={getMaxButtonClass(silverHawkBonus === 30)}
+                            onClick={() => toggleMax(silverHawkBonus, 30, setSilverHawkBonus)}
                           >
                             M
                           </button>
@@ -1305,8 +1793,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setGoldenEagleBonus(30)}
+                          className={getMaxButtonClass(goldenEagleBonus === 30)}
+                          onClick={() => toggleMax(goldenEagleBonus, 30, setGoldenEagleBonus)}
                         >
                           M
                         </button>
@@ -1333,8 +1821,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setShadowPartnerLevel(30)}
+                          className={getMaxButtonClass(shadowPartnerLevel === 30)}
+                          onClick={() => toggleMax(shadowPartnerLevel, 30, setShadowPartnerLevel)}
                         >
                           M
                         </button>
@@ -1351,7 +1839,7 @@ export default function OneHitCalculatorPage() {
                       <div className="space-y-2">
                         <select
                           id="page-charge-skill"
-                          className="w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                          className="w-full max-w-[150px] rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
                           value={pageChargeSkill}
                           onChange={(event) => setPageChargeSkill(event.target.value as (typeof PAGE_CHARGE_SKILLS)[number])}
                         >
@@ -1374,8 +1862,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setPageChargeLevel(30)}
+                            className={getMaxButtonClass(pageChargeLevel === 30)}
+                            onClick={() => toggleMax(pageChargeLevel, 30, setPageChargeLevel)}
                           >
                             M
                           </button>
@@ -1404,8 +1892,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setBerserkLevel(30)}
+                            className={getMaxButtonClass(berserkLevel === 30)}
+                            onClick={() => toggleMax(berserkLevel, 30, setBerserkLevel)}
                           >
                             M
                           </button>
@@ -1430,8 +1918,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setBeholderBerserkBonus(30)}
+                            className={getMaxButtonClass(beholderBerserkBonus === 30)}
+                            onClick={() => toggleMax(beholderBerserkBonus, 30, setBeholderBerserkBonus)}
                           >
                             M
                           </button>
@@ -1456,8 +1944,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setBeholderBuffBonus(30)}
+                            className={getMaxButtonClass(beholderBuffBonus === 30)}
+                            onClick={() => toggleMax(beholderBuffBonus, 30, setBeholderBuffBonus)}
                           >
                             M
                           </button>
@@ -1479,19 +1967,19 @@ export default function OneHitCalculatorPage() {
                             value={rageBonus}
                             onChange={setRageBonus}
                             min={0}
-                            max={30}
+                            max={20}
                             step={1}
                             className="w-24"
                             inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setRageBonus(30)}
+                            className={getMaxButtonClass(rageBonus === 20)}
+                            onClick={() => toggleMax(rageBonus, 20, setRageBonus)}
                           >
                             M
                           </button>
-                          <span className="text-[10px] text-[color:var(--retro-text-muted)]">레벨=퍼센트</span>
+                          <span className="text-[10px] text-[color:var(--retro-text-muted)]">최대 20</span>
                         </div>
                       </div>
 
@@ -1512,8 +2000,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setComboAttackLevel(30)}
+                            className={getMaxButtonClass(comboAttackLevel === 30)}
+                            onClick={() => toggleMax(comboAttackLevel, 30, setComboAttackLevel)}
                           >
                             M
                           </button>
@@ -1538,8 +2026,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setRushBonus(30)}
+                            className={getMaxButtonClass(rushBonus === 30)}
+                            onClick={() => toggleMax(rushBonus, 30, setRushBonus)}
                           >
                             M
                           </button>
@@ -1568,8 +2056,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setAmplificationLevel(30)}
+                            className={getMaxButtonClass(amplificationLevel === 30)}
+                            onClick={() => toggleMax(amplificationLevel, 30, setAmplificationLevel)}
                           >
                             M
                           </button>
@@ -1594,8 +2082,8 @@ export default function OneHitCalculatorPage() {
                           />
                           <button
                             type="button"
-                            className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                            onClick={() => setIfritBonus(30)}
+                            className={getMaxButtonClass(ifritBonus === 30)}
+                            onClick={() => toggleMax(ifritBonus, 30, setIfritBonus)}
                           >
                             M
                           </button>
@@ -1623,8 +2111,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setBahamutBonus(30)}
+                          className={getMaxButtonClass(bahamutBonus === 30)}
+                          onClick={() => toggleMax(bahamutBonus, 30, setBahamutBonus)}
                         >
                           M
                         </button>
@@ -1654,8 +2142,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setPassiveMasteryBonus(20)}
+                          className={getMaxButtonClass(passiveMasteryBonus === 20)}
+                          onClick={() => toggleMax(passiveMasteryBonus, 20, setPassiveMasteryBonus)}
                         >
                           M
                         </button>
@@ -1685,8 +2173,8 @@ export default function OneHitCalculatorPage() {
                       />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setSharpEyesLevel(30)}
+                        className={getMaxButtonClass(sharpEyesLevel === 30)}
+                        onClick={() => toggleMax(sharpEyesLevel, 30, setSharpEyesLevel)}
                       >
                         M
                       </button>
@@ -1710,8 +2198,8 @@ export default function OneHitCalculatorPage() {
                       />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setMapleHeroLevel(30)}
+                        className={getMaxButtonClass(mapleHeroLevel === 30)}
+                        onClick={() => toggleMax(mapleHeroLevel, 30, setMapleHeroLevel)}
                       >
                         M
                       </button>
@@ -1736,8 +2224,8 @@ export default function OneHitCalculatorPage() {
                         />
                         <button
                           type="button"
-                          className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setMeditationLevel(20)}
+                          className={getMaxButtonClass(meditationLevel === 20)}
+                          onClick={() => toggleMax(meditationLevel, 20, setMeditationLevel)}
                         >
                           M
                         </button>
@@ -1768,6 +2256,18 @@ export default function OneHitCalculatorPage() {
               avg: baseDamage.avgDamage * finalDamageMultiplier,
               max: baseDamage.maxDamage * finalDamageMultiplier,
             }}
+            motionDamageRanges={motionDamageRanges ? {
+              slash: {
+                min: motionDamageRanges.slash.minDamage * finalDamageMultiplier,
+                avg: motionDamageRanges.slash.avgDamage * finalDamageMultiplier,
+                max: motionDamageRanges.slash.maxDamage * finalDamageMultiplier,
+              },
+              thrust: {
+                min: motionDamageRanges.thrust.minDamage * finalDamageMultiplier,
+                avg: motionDamageRanges.thrust.avgDamage * finalDamageMultiplier,
+                max: motionDamageRanges.thrust.maxDamage * finalDamageMultiplier,
+              },
+            } : undefined}
             result={result}
             elementMultiplier={elementMultiplier}
             bishopHealBonus={bishopHealBonus}

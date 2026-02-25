@@ -1,0 +1,28 @@
+{
+  "id": "rage",
+  "name": "분노",
+  "type": "flat_attack",
+  "levels": [
+    { "level": 0, "value": 0, "description": "미적용" },
+    { "level": 1, "value": 1, "description": "1레벨: 공격력+1" },
+    { "level": 2, "value": 1, "description": "2레벨: 공격력+1" },
+    { "level": 3, "value": 2, "description": "3레벨: 공격력+2" },
+    { "level": 4, "value": 2, "description": "4레벨: 공격력+2" },
+    { "level": 5, "value": 3, "description": "5레벨: 공격력+3" },
+    { "level": 6, "value": 3, "description": "6레벨: 공격력+3" },
+    { "level": 7, "value": 4, "description": "7레벨: 공격력+4" },
+    { "level": 8, "value": 4, "description": "8레벨: 공격력+4" },
+    { "level": 9, "value": 5, "description": "9레벨: 공격력+5" },
+    { "level": 10, "value": 5, "description": "10레벨: 공격력+5" },
+    { "level": 11, "value": 6, "description": "11레벨: 공격력+6" },
+    { "level": 12, "value": 6, "description": "12레벨: 공격력+6" },
+    { "level": 13, "value": 7, "description": "13레벨: 공격력+7" },
+    { "level": 14, "value": 7, "description": "14레벨: 공격력+7" },
+    { "level": 15, "value": 8, "description": "15레벨: 공격력+8" },
+    { "level": 16, "value": 8, "description": "16레벨: 공격력+8" },
+    { "level": 17, "value": 9, "description": "17레벨: 공격력+9" },
+    { "level": 18, "value": 10, "description": "18레벨: 공격력+10" },
+    { "level": 19, "value": 11, "description": "19레벨: 공격력+11" },
+    { "level": 20, "value": 12, "description": "20레벨: 공격력+12" }
+  ]
+}
