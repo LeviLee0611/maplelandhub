@@ -59,16 +59,24 @@ export function ResultPanel({
     >
       <div className="space-y-4">
         <div className="grid gap-3 md:grid-cols-2">
-          <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
-            <div className="text-[10px] text-[color:var(--retro-text-muted)]">한방컷 확률</div>
-            <div className="text-lg font-semibold text-[color:var(--retro-text)]">
+          <div
+            className={`rounded-[8px] border px-3 py-2 shadow-[0_12px_26px_rgba(0,0,0,0.18)] ${
+              result.oneShotChance >= 100
+                ? "border-emerald-300/60 bg-[linear-gradient(180deg,rgba(16,185,129,0.18),rgba(16,185,129,0.06))]"
+                : result.oneShotChance >= 50
+                  ? "border-amber-300/60 bg-[linear-gradient(180deg,rgba(251,191,36,0.2),rgba(251,191,36,0.06))]"
+                  : "border-sky-300/60 bg-[linear-gradient(180deg,rgba(56,189,248,0.2),rgba(56,189,248,0.06))]"
+            }`}
+          >
+            <div className="text-[11px] font-semibold text-[color:var(--retro-text)]">한방컷 확률</div>
+            <div className="text-xl font-extrabold tracking-tight text-[color:var(--retro-text)]">
               {result.oneShotChance.toFixed(2)}%
             </div>
-            <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+            <div className="mt-1 text-[11px] font-medium text-[color:var(--retro-text)]">
               {result.oneShotChance >= 100 ? "현재 설정으로 한방컷 가능" : "현재 설정으로 한방컷 불가"}
             </div>
             {result.oneShotChance < 100 ? (
-              <div className="mt-1 text-[11px] text-[color:var(--retro-text-muted)]">
+              <div className="mt-2 rounded-[8px] border border-emerald-300/40 bg-[linear-gradient(180deg,rgba(16,185,129,0.18),rgba(16,185,129,0.08))] px-3 py-2 text-sm font-semibold text-emerald-100 shadow-[0_0_20px_rgba(16,185,129,0.18)]">
                 예상 N방컷: {result.hitsToKill.min} ~ {result.hitsToKill.max} (평균 {result.hitsToKill.avg}방)
               </div>
             ) : null}
@@ -78,7 +86,7 @@ export function ResultPanel({
           </div>
 
           <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
-            <div className="text-[10px] text-[color:var(--retro-text-muted)]">N방컷 확률(근사)</div>
+            <div className="text-[11px] font-semibold text-[color:var(--retro-text)]">N방컷 확률(근사)</div>
             <div className="mt-2 space-y-1 text-[11px] text-[color:var(--retro-text)]">
               {result.nShotChances.length === 0 ? (
                 <div className="text-[color:var(--retro-text-muted)]">계산값 없음</div>
