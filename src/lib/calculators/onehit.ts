@@ -25,6 +25,7 @@ export type StatDamageInput = {
   maxStatMultiplier?: number;
   skillMultiplier?: number;
   mastery?: number; // 0-1
+  isMagic?: boolean;
 };
 
 export type OneHitResult = {
