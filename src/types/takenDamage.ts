@@ -18,6 +18,7 @@ export type TempStats = {
   InvinciblePercent?: number; // 0~100
   MesoGuard?: boolean;
   PowerUpPercent?: number; // 120 => 1.2x
+  ResistPercent?: number; // 0~100, magic resistance
 };
 
 export type CharacterInput = {

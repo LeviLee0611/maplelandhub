@@ -19,6 +19,25 @@ function applyMesoGuardHook(damage: number) {
   return { damage, reduce: 0 };
 }
 
+function calcC(str: number, dex: number, intel: number, luk: number) {
+  return str / 2800 + dex / 3200 + intel / 7200 + luk / 3200;
+}
+
+function calcD(level: number, mobLevel: number) {
+  if (level >= mobLevel) {
+    return 13 / (13 + (level - mobLevel));
+  }
+  return 1.3;
+}
+
+function calcB(pdd: number, stdPdd: number, level: number, mobLevel: number, str: number, dex: number, intel: number, luk: number) {
+  const c = calcC(str, dex, intel, luk);
+  const d = calcD(level, mobLevel);
+  const temp1 = c * (28 / 45) + (level * 7) / 13000;
+  const temp2 = d * (c + level / 550 + 0.28);
+  return pdd >= stdPdd ? temp1 : temp2;
+}
+
 export function calcPhysicalTakenDamage(ctx: CalcContext): DamageRange {
   const { character, mob } = ctx;
   const limits = {
@@ -31,42 +50,16 @@ export function calcPhysicalTakenDamage(ctx: CalcContext): DamageRange {
   let pad = (mob.templatePADamage ?? 0) + (mob.tempPADBonus ?? 0);
   pad = clamp(pad, 0, limits.MaxPad);
 
-  const rMin = pad * 0.8;
-  const rMax = pad * 0.85;
-
   const userPDD = clamp(character.secondaryStats.PDD + temp.PddBonus, 0, limits.MaxPdd);
-
-  const tMin = rMin * pad * 0.01;
-  const tMax = rMax * pad * 0.01;
+  const tMin = pad * pad * 0.0082;
+  const tMax = pad * pad * 0.0088;
 
   const { STR, DEX, INT, LUK } = character.basicStats;
-  let base = 0;
-  if (character.jobClass === "warrior") {
-    const v0 = (LUK + DEX) / 4 + INT / 9;
-    const v1 = (STR * 2) / 7;
-    base = Math.floor(v0 + v1);
-  } else {
-    const v0 = INT / 9 + (DEX * 2) / 7 + STR * 0.4;
-    const v1 = LUK / 4;
-    base = Math.floor(v0 + v1);
-  }
-
-  const mod = base * 0.00125;
   const standardPDD = getStandardPDD(character.jobClass, character.level);
-
-  let fac = 0;
-  if (userPDD < standardPDD) {
-    const opt = character.level / 550 + mod + 0.28;
-    if (character.level >= mob.level) {
-      fac = (opt * (userPDD - standardPDD) * 13) / ((character.level - mob.level) + 13);
-    } else {
-      fac = opt * (userPDD - standardPDD) * 1.3;
-    }
-  } else {
-    fac = base / 900 + ((character.level / 1300 + 0.28) * (userPDD - standardPDD) * 0.7);
-  }
-
-  const common = fac + (mod + 0.28) * userPDD;
+  const c = calcC(STR, DEX, INT, LUK);
+  const a = c + 0.28;
+  const b = calcB(userPDD, standardPDD, character.level, mob.level, STR, DEX, INT, LUK);
+  const common = userPDD * a + (userPDD - standardPDD) * b;
 
   let minDamage = tMin - common;
   let maxDamage = tMax - common;

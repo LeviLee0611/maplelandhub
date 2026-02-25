@@ -31,6 +31,7 @@ const POWER_GUARD_TABLE = [
 const ACHILLES_TABLE = [
   0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
 ];
+const MAGIC_ELEMENTS = ["무", "불", "독", "얼음", "전기", "성"] as const;
 
 function pickTableValue(table: number[], level: number) {
   const idx = Math.min(table.length - 1, Math.max(0, Math.round(level)));
@@ -48,6 +49,18 @@ function formatRange(min: number, max: number) {
   return `${min} ~ ${max}`;
 }
 
+function getMaxButtonClass(isMax: boolean) {
+  return `h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+    isMax
+      ? "border-cyan-300/80 bg-cyan-300/20 text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.18)]"
+      : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
+  }`;
+}
+
+function toggleMax(value: number, max: number, setter: (next: number) => void) {
+  setter(value === max ? 0 : max);
+}
+
 export function TakenDamageCalculator() {
   const [level, setLevel] = useState(120);
   const [maxHp, setMaxHp] = useState(6000);
@@ -55,6 +68,7 @@ export function TakenDamageCalculator() {
   const [job, setJob] = useState<string>(jobOptionsByGroup.전사[0]);
   const [stats, setStats] = useState({ str: 500, dex: 120, int: 20, luk: 50, wdef: 450, mdef: 280 });
   const [monsterName, setMonsterName] = useState(typedMonsters[0]?.name ?? "");
+  const [magicElement, setMagicElement] = useState<(typeof MAGIC_ELEMENTS)[number]>("무");
 
   const [achillesLevel, setAchillesLevel] = useState(0);
   const [powerGuardLevel, setPowerGuardLevel] = useState(0);
@@ -73,6 +87,7 @@ export function TakenDamageCalculator() {
       job,
       stats,
       monsterName,
+      magicElement,
       achillesLevel,
       powerGuardLevel,
       magicGuardLevel,
@@ -87,6 +102,7 @@ export function TakenDamageCalculator() {
       job,
       stats,
       monsterName,
+      magicElement,
       achillesLevel,
       powerGuardLevel,
       magicGuardLevel,
@@ -108,6 +124,9 @@ export function TakenDamageCalculator() {
     }
     if (snapshot.stats) setStats(snapshot.stats);
     if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
+    if (typeof snapshot.magicElement === "string" && MAGIC_ELEMENTS.includes(snapshot.magicElement as (typeof MAGIC_ELEMENTS)[number])) {
+      setMagicElement(snapshot.magicElement as (typeof MAGIC_ELEMENTS)[number]);
+    }
     if (typeof snapshot.achillesLevel === "number") setAchillesLevel(snapshot.achillesLevel);
     if (typeof snapshot.powerGuardLevel === "number") setPowerGuardLevel(snapshot.powerGuardLevel);
     if (typeof snapshot.magicGuardLevel === "number") setMagicGuardLevel(snapshot.magicGuardLevel);
@@ -127,6 +146,34 @@ export function TakenDamageCalculator() {
   const magicGuard = pickTableValue(MAGIC_GUARD_TABLE, magicGuardLevel);
   const invincible = jobGroup === "마법사" ? pickTableValue(INVINCIBLE_TABLE, invincibleLevel) : 0;
   const thiefMesoGuard = pickTableValue(MESO_GUARD_TABLE, mesoGuardLevel);
+  const isBishop = job.includes("비숍");
+  const isSunCol = job.includes("썬/콜");
+  const isFirePoison = job.includes("불/독");
+
+  const achillesReduce = jobGroup === "전사" ? pickTableValue(ACHILLES_TABLE, achillesLevel) / 10 : 0;
+  const powerGuardReduce = jobGroup === "전사" ? pickTableValue(POWER_GUARD_TABLE, powerGuardLevel) : 0;
+  const mesoGuardReduce = jobGroup === "도적" ? Math.max(0, 100 - thiefMesoGuard) : 0;
+
+  const physicalMultiplierPercent =
+    (1 - achillesReduce / 100) *
+    (1 - powerGuardReduce / 100) *
+    (1 - mesoGuardReduce / 100) *
+    100;
+
+  const magicalMultiplierPercent = (1 - achillesReduce / 100) * 100;
+
+  const resistancePercent = useMemo(() => {
+    if (jobGroup !== "마법사" || resistanceLevel <= 0) return 0;
+    if (magicElement === "무") return 0;
+    if (isBishop) return pickTableValue(RESIST_BISHOP_TABLE, resistanceLevel);
+    if (isSunCol && (magicElement === "얼음" || magicElement === "전기")) {
+      return pickTableValue(RESIST_ICE_TABLE, resistanceLevel);
+    }
+    if (isFirePoison && (magicElement === "불" || magicElement === "독")) {
+      return pickTableValue(RESIST_FIRE_TABLE, resistanceLevel);
+    }
+    return 0;
+  }, [jobGroup, resistanceLevel, magicElement, isBishop, isSunCol, isFirePoison]);
 
   const jobClass: JobClass =
     jobGroup === "전사"
@@ -150,6 +197,8 @@ export function TakenDamageCalculator() {
           tempStats: {
             InvinciblePercent: invincible,
             MesoGuard: jobGroup === "도적" && mesoGuardLevel > 0,
+            ResistPercent: resistancePercent,
+            PowerUpPercent: physicalMultiplierPercent,
           },
         },
         mob: {
@@ -170,6 +219,9 @@ export function TakenDamageCalculator() {
       invincible,
       jobGroup,
       mesoGuardLevel,
+      achillesReduce,
+      powerGuardReduce,
+      mesoGuardReduce,
       selectedMonster?.level,
       monsterWatk,
       monsterMatk,
@@ -187,6 +239,8 @@ export function TakenDamageCalculator() {
           tempStats: {
             InvinciblePercent: invincible,
             MesoGuard: jobGroup === "도적" && mesoGuardLevel > 0,
+            ResistPercent: resistancePercent,
+            PowerUpPercent: magicalMultiplierPercent,
           },
         },
         mob: {
@@ -207,6 +261,8 @@ export function TakenDamageCalculator() {
       invincible,
       jobGroup,
       mesoGuardLevel,
+      resistancePercent,
+      achillesReduce,
       selectedMonster?.level,
       monsterWatk,
       monsterMatk,
@@ -341,8 +397,8 @@ export function TakenDamageCalculator() {
                       <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={setAchillesLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setAchillesLevel(30)}
+                        className={getMaxButtonClass(achillesLevel === 30)}
+                        onClick={() => toggleMax(achillesLevel, 30, setAchillesLevel)}
                       >
                         M
                       </button>
@@ -351,8 +407,8 @@ export function TakenDamageCalculator() {
                       <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={setPowerGuardLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setPowerGuardLevel(30)}
+                        className={getMaxButtonClass(powerGuardLevel === 30)}
+                        onClick={() => toggleMax(powerGuardLevel, 30, setPowerGuardLevel)}
                       >
                         M
                       </button>
@@ -366,8 +422,8 @@ export function TakenDamageCalculator() {
                       <NumberField id="magic-guard" label="매직 가드 Lv" value={magicGuardLevel} min={0} max={20} onChange={setMagicGuardLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setMagicGuardLevel(20)}
+                        className={getMaxButtonClass(magicGuardLevel === 20)}
+                        onClick={() => toggleMax(magicGuardLevel, 20, setMagicGuardLevel)}
                       >
                         M
                       </button>
@@ -376,8 +432,8 @@ export function TakenDamageCalculator() {
                       <NumberField id="invincible" label="인빈서블 Lv" value={invincibleLevel} min={0} max={20} onChange={setInvincibleLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setInvincibleLevel(20)}
+                        className={getMaxButtonClass(invincibleLevel === 20)}
+                        onClick={() => toggleMax(invincibleLevel, 20, setInvincibleLevel)}
                       >
                         M
                       </button>
@@ -386,12 +442,26 @@ export function TakenDamageCalculator() {
                       <NumberField id="resistance" label="엘리멘트 레지스턴스 Lv" value={resistanceLevel} min={0} max={20} onChange={setResistanceLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setResistanceLevel(20)}
+                        className={getMaxButtonClass(resistanceLevel === 20)}
+                        onClick={() => toggleMax(resistanceLevel, 20, setResistanceLevel)}
                       >
                         M
                       </button>
                     </div>
+                    <label className="space-y-1">
+                      <span className="text-xs text-slate-300">마법 공격 속성</span>
+                      <select
+                        className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-sm text-slate-100 focus:border-[var(--retro-border-strong)] focus:outline-none"
+                        value={magicElement}
+                        onChange={(event) => setMagicElement(event.target.value as (typeof MAGIC_ELEMENTS)[number])}
+                      >
+                        {MAGIC_ELEMENTS.map((element) => (
+                          <option key={element} value={element}>
+                            {element}
+                          </option>
+                        ))}
+                      </select>
+                    </label>
                   </div>
                 ) : null}
 
@@ -403,8 +473,8 @@ export function TakenDamageCalculator() {
                       <NumberField id="meso-guard" label="메소 가드 Lv" value={mesoGuardLevel} min={0} max={20} onChange={setMesoGuardLevel} />
                       <button
                         type="button"
-                        className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                        onClick={() => setMesoGuardLevel(20)}
+                        className={getMaxButtonClass(mesoGuardLevel === 20)}
+                        onClick={() => toggleMax(mesoGuardLevel, 20, setMesoGuardLevel)}
                       >
                         M
                       </button>
@@ -430,7 +500,7 @@ export function TakenDamageCalculator() {
                   <div className="text-[10px] text-[color:var(--retro-text-muted)]">물리 공격 피격</div>
                   <div className="text-base font-semibold">
                     {jobGroup === "마법사"
-                      ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP), ${formatRange(magePhysicalMp.min, magePhysicalMp.max)} (MP)`
+                      ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP)`
                       : formatRange(physicalRange.min, physicalRange.max)}
                   </div>
                   <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
@@ -443,7 +513,7 @@ export function TakenDamageCalculator() {
                   <div className="text-base font-semibold">
                     {monsterMatk > 0
                       ? (jobGroup === "마법사"
-                        ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP), ${formatRange(mageMagicalMp.min, mageMagicalMp.max)} (MP)`
+                        ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)`
                         : formatRange(magicalRange.min, magicalRange.max))
                       : "마법공격 안함"}
                   </div>

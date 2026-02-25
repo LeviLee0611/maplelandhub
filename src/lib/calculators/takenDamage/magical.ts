@@ -10,6 +10,7 @@ function normalizeTemp(temp?: TempStats) {
     InvinciblePercent: temp?.InvinciblePercent ?? 0,
     MesoGuard: Boolean(temp?.MesoGuard),
     PowerUpPercent: temp?.PowerUpPercent ?? 0,
+    ResistPercent: temp?.ResistPercent ?? 0,
   };
 }
 
@@ -49,6 +50,11 @@ export function calcMagicalTakenDamage(ctx: CalcContext): DamageRange {
   if (temp.InvinciblePercent > 0) {
     minDamage -= (temp.InvinciblePercent * minDamage) / 100;
     maxDamage -= (temp.InvinciblePercent * maxDamage) / 100;
+  }
+
+  if (temp.ResistPercent > 0) {
+    minDamage -= (temp.ResistPercent * minDamage) / 100;
+    maxDamage -= (temp.ResistPercent * maxDamage) / 100;
   }
 
   let reduce = 0;

@@ -1,4 +1,5 @@
 import { getSupabaseServerClient } from "@/lib/supabase/server";
+import { AnnouncementWriteButton } from "@/components/announcement-write-button";
 
 export const runtime = "edge";
 
@@ -30,11 +31,14 @@ export default async function AnnouncementsPage() {
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
-        <header className="space-y-2">
-          <h1 className="text-2xl font-bold text-slate-100">공지/업데이트</h1>
-          <p className="text-sm text-slate-300">
-            서비스 운영 및 업데이트 내역을 공유합니다.
-          </p>
+        <header className="flex flex-wrap items-start justify-between gap-3">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-slate-100">공지/업데이트</h1>
+            <p className="text-sm text-slate-300">
+              서비스 운영 및 업데이트 내역을 공유합니다.
+            </p>
+          </div>
+          <AnnouncementWriteButton />
         </header>
 
         {rows.length === 0 ? (
