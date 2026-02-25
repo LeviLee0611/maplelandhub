@@ -129,8 +129,8 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
       };
     }
 
-    const maxAfter = maxValue * levelFactor - monsterDef * 0.5;
-    const minAfter = minValue * levelFactor - monsterDef * 0.6;
+    const maxAfter = maxValue * levelFactor - monsterDef / 5;
+    const minAfter = minValue * levelFactor - monsterDef / 6;
     return {
       min: minAfter * skillMultiplier,
       max: maxAfter * skillMultiplier,

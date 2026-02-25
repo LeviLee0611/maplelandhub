@@ -875,6 +875,7 @@ export default function OneHitCalculatorPage() {
   const skillLevelMax = useMemo(() => {
     const set20 = new Set(range20 as string[]);
     const set30 = new Set(range30 as string[]);
+    if (skillName === "어드밴스드 차지") return 10;
     if (set20.has(skillName)) return 20;
     if (set30.has(skillName)) return 30;
     return 30;
@@ -956,7 +957,7 @@ export default function OneHitCalculatorPage() {
   }, [isArcherJob, isNightLordJob, criticalShotLevel, criticalThrowLevel]);
 
   const criticalRate = useMemo(() => {
-    return Math.max(criticalPassiveEffect.rate, sharpEyesEffect.rate);
+    return Math.min(1, criticalPassiveEffect.rate + sharpEyesEffect.rate);
   }, [criticalPassiveEffect.rate, sharpEyesEffect.rate]);
 
   const shadowPartnerEffect = useMemo(() => {
@@ -1031,9 +1032,14 @@ export default function OneHitCalculatorPage() {
   const criticalDamageMultiplier = (() => {
     const skillPercent = damageMultiplier * 100;
     if (skillPercent <= 0) return 1;
-    const baseCritPercent = criticalPassiveEffect.damage > 0 ? criticalPassiveEffect.damage * 100 : 100;
-    const sharpExtra = sharpEyesLevel > 0 ? 140 : 0;
-    return (skillPercent + baseCritPercent + sharpExtra - 100) / skillPercent;
+
+    // Arrow Bomb uses true 2x crit damage (exception).
+    if (skillName === "에로우 봄") return 2;
+
+    const baseCritBonus = Math.max(0, criticalPassiveEffect.damage * 100 - 100);
+    const sharpBonus = sharpEyesLevel > 0 ? sharpEyesEffect.damage * 100 : 0;
+    const critExtra = baseCritBonus + sharpBonus;
+    return (skillPercent + critExtra) / skillPercent;
   })();
 
   const criticalAverageMultiplier = 1 + criticalRate * (criticalDamageMultiplier - 1);
