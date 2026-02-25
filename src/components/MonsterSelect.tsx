@@ -32,10 +32,14 @@ function getMonsterSearchKeys(name: string) {
 export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [showAllOnOpen, setShowAllOnOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
 
   const filtered = useMemo(() => {
+    if (showAllOnOpen) {
+      return monsters.slice(0, 60);
+    }
     const keyword = normalizeMonsterQuery(value);
     const list = keyword
       ? monsters.filter((monster) => {
@@ -72,6 +76,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
     onChange(event.target.value);
     setActiveIndex(0);
     setIsOpen(true);
+    setShowAllOnOpen(false);
   };
 
   const handleSelect = (monsterName: string) => {
@@ -120,6 +125,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
             if (value === "달팽이") {
               onChange("");
             }
+            setShowAllOnOpen(true);
             setActiveIndex(0);
             setIsOpen(true);
           }}
