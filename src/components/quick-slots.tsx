@@ -16,6 +16,7 @@ type QuickSlotsProps<T> = {
   slotsOverride?: Array<QuickSlotRecord<T>> | null;
   onSaveSlot?: (index: number, data: T) => void | Promise<void>;
   onDeleteSlot?: (index: number) => void | Promise<void>;
+  slotName?: (index: number) => string;
 };
 
 export function QuickSlots<T>({
@@ -28,6 +29,7 @@ export function QuickSlots<T>({
   slotsOverride = null,
   onSaveSlot,
   onDeleteSlot,
+  slotName,
 }: QuickSlotsProps<T>) {
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
   const [slots, setSlots] = useState<Array<QuickSlotRecord<T>>>(() => {
@@ -107,7 +109,9 @@ export function QuickSlots<T>({
         <div className="grid max-h-[60vh] gap-2 overflow-y-auto pr-1">
           {slots.map((slot, index) => (
             <div key={index} className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] p-2">
-              <div className="mb-1 text-[11px] font-semibold text-[color:var(--retro-text)]">슬롯 {index + 1}</div>
+              <div className="mb-1 text-[11px] font-semibold text-[color:var(--retro-text)]">
+                {slotName ? slotName(index) : `슬롯 ${index + 1}`}
+              </div>
               <div className="mb-2 truncate text-[10px] text-[color:var(--retro-text-muted)]">{slotLabels[index]}</div>
               <div className="flex items-center gap-1">
                 <button

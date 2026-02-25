@@ -532,6 +532,7 @@ export default function OneHitCalculatorPage() {
         (data ?? []).forEach((row) => {
           if (row.name === "default") {
             defaultPreset = row.data as QuickSnapshot;
+            nextSlots[0] = { data: row.data as QuickSnapshot };
             return;
           }
           const match = /^slot-(\d+)$/i.exec(row.name);
@@ -565,13 +566,14 @@ export default function OneHitCalculatorPage() {
 
       if (!user) return;
 
+      const presetName = index === 0 ? "default" : `slot-${index + 1}`;
       const { error } = await supabase
         .from("character_presets")
         .upsert(
           {
             user_id: user.id,
             calculator: "onehit",
-            name: `slot-${index + 1}`,
+            name: presetName,
             data,
           },
           { onConflict: "user_id,calculator,name" },
@@ -594,12 +596,13 @@ export default function OneHitCalculatorPage() {
 
       if (!user) return;
 
+      const presetName = index === 0 ? "default" : `slot-${index + 1}`;
       const { error } = await supabase
         .from("character_presets")
         .delete()
         .eq("user_id", user.id)
         .eq("calculator", "onehit")
-        .eq("name", `slot-${index + 1}`);
+        .eq("name", presetName);
 
       if (error) {
         setProfileMessage("프리셋 삭제 중 오류가 발생했습니다.");
@@ -653,7 +656,7 @@ export default function OneHitCalculatorPage() {
         return;
       }
 
-      setProfileMessage("로그인 계정 기준으로 프로필과 기본 프리셋을 저장했습니다.");
+      setProfileMessage("로그인 계정 기준으로 프로필과 빠른저장 Default에 저장했습니다.");
     } catch {
       setProfileMessage("저장 중 오류가 발생했습니다.");
     }
@@ -1475,6 +1478,7 @@ export default function OneHitCalculatorPage() {
             slotsOverride={presetSlots}
             onSaveSlot={handleQuickSlotSave}
             onDeleteSlot={handleQuickSlotDelete}
+            slotName={(index) => (index === 0 ? "Default" : `슬롯 ${index + 1}`)}
           />
         </div>
 
