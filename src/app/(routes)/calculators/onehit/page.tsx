@@ -395,9 +395,6 @@ export default function OneHitCalculatorPage() {
     if (typeof snapshot.exclusiveConsumableAttackBonus === "number") {
       setExclusiveConsumableAttackBonus(snapshot.exclusiveConsumableAttackBonus);
     }
-    if (typeof snapshot.consumableAttackBonus === "number") {
-      setExclusiveConsumableAttackBonus(snapshot.consumableAttackBonus);
-    }
     if (typeof snapshot.skillName === "string") setSkillName(snapshot.skillName);
     if (typeof snapshot.skillLevel === "number") setSkillLevel(snapshot.skillLevel);
     if (typeof snapshot.mastery === "number") setMastery(snapshot.mastery);
