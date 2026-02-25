@@ -53,6 +53,14 @@ function readLegacyNumber(snapshot: Record<string, unknown>, keys: string[]) {
   return null;
 }
 
+function readLegacyString(snapshot: Record<string, unknown>, keys: string[]) {
+  for (const key of keys) {
+    const value = snapshot[key];
+    if (typeof value === "string" && value.trim() !== "") return value;
+  }
+  return null;
+}
+
 function inferAttackElement(skillName: string): AttackElement {
   const normalized = String(skillName ?? "").trim();
   if (/(힐|홀리|샤이닝|엔젤|헤븐|제네시스)/.test(normalized)) return "성";
@@ -131,6 +139,10 @@ export default function OneHitCalculatorPage() {
   const [totalMagicInput, setTotalMagicInput] = useState(0);
   const [profileMessage, setProfileMessage] = useState("");
   const [stats, setStats] = useState({ str: 200, dex: 80, int: 4, luk: 30 });
+  const [arrowType, setArrowType] = useState("");
+  const [starType, setStarType] = useState("");
+  const [gloveAttackBonus, setGloveAttackBonus] = useState(0);
+  const [consumableAttackBonus, setConsumableAttackBonus] = useState(0);
 
   const [skillName, setSkillName] = useState("기본 공격");
   const [skillLevel, setSkillLevel] = useState(1);
@@ -175,6 +187,10 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
+    arrowType,
+    starType,
+    gloveAttackBonus,
+    consumableAttackBonus,
     monsterName,
   }), [
     nickname,
@@ -186,6 +202,10 @@ export default function OneHitCalculatorPage() {
     totalAttackInput,
     totalMagicInput,
     stats,
+    arrowType,
+    starType,
+    gloveAttackBonus,
+    consumableAttackBonus,
     monsterName,
   ]);
 
@@ -200,6 +220,10 @@ export default function OneHitCalculatorPage() {
       totalAttackInput,
       totalMagicInput,
       stats,
+      arrowType,
+      starType,
+      gloveAttackBonus,
+      consumableAttackBonus,
       skillName,
       skillLevel,
       mastery,
@@ -236,6 +260,10 @@ export default function OneHitCalculatorPage() {
       totalAttackInput,
       totalMagicInput,
       stats,
+      arrowType,
+      starType,
+      gloveAttackBonus,
+      consumableAttackBonus,
       skillName,
       skillLevel,
       mastery,
@@ -281,6 +309,16 @@ export default function OneHitCalculatorPage() {
       "weaponAttack",
     ]);
     if (legacyWeaponAttack !== null) setWeaponAttackInput(legacyWeaponAttack);
+    const legacyArrow = readLegacyString(snapshot as Record<string, unknown>, [
+      "arrowType",
+      "attackOption5",
+    ]);
+    if (legacyArrow !== null) setArrowType(legacyArrow);
+    const legacyStar = readLegacyString(snapshot as Record<string, unknown>, [
+      "starType",
+      "attackOption7",
+    ]);
+    if (legacyStar !== null) setStarType(legacyStar);
     const legacyAttack = readLegacyNumber(snapshot as Record<string, unknown>, [
       "totalAttackInput",
       "totalAttack",
@@ -296,6 +334,8 @@ export default function OneHitCalculatorPage() {
     ]);
     if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
     if (snapshot.stats) setStats(snapshot.stats);
+    if (typeof snapshot.gloveAttackBonus === "number") setGloveAttackBonus(snapshot.gloveAttackBonus);
+    if (typeof snapshot.consumableAttackBonus === "number") setConsumableAttackBonus(snapshot.consumableAttackBonus);
     if (typeof snapshot.skillName === "string") setSkillName(snapshot.skillName);
     if (typeof snapshot.skillLevel === "number") setSkillLevel(snapshot.skillLevel);
     if (typeof snapshot.mastery === "number") setMastery(snapshot.mastery);
@@ -341,6 +381,16 @@ export default function OneHitCalculatorPage() {
         "weaponAttack",
       ]);
       if (legacyWeaponAttack !== null) setWeaponAttackInput(legacyWeaponAttack);
+      const legacyArrow = readLegacyString(saved as Record<string, unknown>, [
+        "arrowType",
+        "attackOption5",
+      ]);
+      if (legacyArrow !== null) setArrowType(legacyArrow);
+      const legacyStar = readLegacyString(saved as Record<string, unknown>, [
+        "starType",
+        "attackOption7",
+      ]);
+      if (legacyStar !== null) setStarType(legacyStar);
       const legacyAttack = readLegacyNumber(saved as Record<string, unknown>, [
         "totalAttackInput",
         "totalAttack",
@@ -356,6 +406,8 @@ export default function OneHitCalculatorPage() {
       ]);
       if (legacyMagic !== null) setTotalMagicInput(legacyMagic);
       if (saved.stats) setStats(saved.stats);
+      if (typeof saved.gloveAttackBonus === "number") setGloveAttackBonus(saved.gloveAttackBonus);
+      if (typeof saved.consumableAttackBonus === "number") setConsumableAttackBonus(saved.consumableAttackBonus);
       if (typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
     } catch {
       // Ignore invalid local profile data
@@ -459,6 +511,52 @@ export default function OneHitCalculatorPage() {
   const isPagePaladinJob = job === "페이지/나이트/팔라딘";
   const isSpearmanJob = job === "스피어맨/드래곤나이트/다크나이트";
   const statLabelMap = { str: "STR", dex: "DEX", int: "INT", luk: "LUK" } as const;
+
+  const arrowAttackBonus = useMemo(() => {
+    if (!isArcherJob) return 0;
+    switch (arrowType) {
+      case "일반화살":
+        return 0;
+      case "청동화살":
+        return 1;
+      case "강철화살":
+        return 2;
+      case "빨간화살":
+      case "다이아화살":
+        return 4;
+      default:
+        return 0;
+    }
+  }, [arrowType, isArcherJob]);
+
+  const starAttackBonus = useMemo(() => {
+    if (!isNightLordJob) return 0;
+    switch (starType) {
+      case "수비표창":
+        return 15;
+      case "눈덩이":
+      case "월비표창":
+        return 17;
+      case "목비표창":
+      case "나무팽이":
+        return 19;
+      case "금비표창":
+      case "고드름":
+      case "메이플표창":
+        return 21;
+      case "토비표창":
+        return 23;
+      case "뇌전수리검":
+        return 25;
+      case "일비표창":
+      case "화비표창":
+        return 27;
+      case "절제된분노":
+        return 29;
+      default:
+        return 0;
+    }
+  }, [starType, isNightLordJob]);
 
   const skillOptions = useMemo(() => {
     if (
@@ -582,6 +680,16 @@ export default function OneHitCalculatorPage() {
     return { multiplier: 1 + rate * (damage - 1), rate, damage };
   }, [isArcherJob, isNightLordJob, criticalShotLevel, criticalThrowLevel]);
 
+  const criticalDamageMultiplier = useMemo(() => {
+    const candidates = [criticalPassiveEffect.damage, sharpEyesEffect.damage].filter((value) => value > 1);
+    if (candidates.length === 0) return 1;
+    return Math.max(...candidates);
+  }, [criticalPassiveEffect.damage, sharpEyesEffect.damage]);
+
+  const criticalRate = useMemo(() => {
+    return Math.max(criticalPassiveEffect.rate, sharpEyesEffect.rate);
+  }, [criticalPassiveEffect.rate, sharpEyesEffect.rate]);
+
   const shadowPartnerEffect = useMemo(() => {
     const bySkillActive = damageMappingActive as Record<string, Record<string, number | { damage?: number; maxCount?: number }>>;
     if (!isNightLordJob) return { multiplier: 1 };
@@ -681,7 +789,9 @@ export default function OneHitCalculatorPage() {
       if (totalMagicInput > 0) return totalMagicInput;
       return derived.magic + meditationBonus;
     }
-    if (weaponAttackInput > 0) return weaponAttackInput;
+    if (weaponAttackInput > 0) {
+      return weaponAttackInput + arrowAttackBonus + starAttackBonus + gloveAttackBonus + consumableAttackBonus;
+    }
     if (totalAttackInput > 0) return totalAttackInput;
     return derived.attack;
   }, [
@@ -692,6 +802,10 @@ export default function OneHitCalculatorPage() {
     derived.attack,
     derived.magic,
     meditationBonus,
+    arrowAttackBonus,
+    starAttackBonus,
+    gloveAttackBonus,
+    consumableAttackBonus,
   ]);
 
   const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
@@ -938,6 +1052,66 @@ export default function OneHitCalculatorPage() {
                           onChange={setTotalAttackInput}
                           helper="무기 공격력 미입력 시 사용"
                         />
+                        <NumberField
+                          id="glove-attack"
+                          label="장갑 공격력"
+                          value={gloveAttackBonus}
+                          min={0}
+                          onChange={setGloveAttackBonus}
+                          helper="무기 공격력 입력 시에만 추가 반영"
+                        />
+                        <NumberField
+                          id="consumable-attack"
+                          label="소모품 버프 공격력"
+                          value={consumableAttackBonus}
+                          min={0}
+                          onChange={setConsumableAttackBonus}
+                          helper="예: 사이다, 명중/공격 관련 물약"
+                        />
+                        {isArcherJob ? (
+                          <label className="space-y-1">
+                            <span className="retro-chip">화살</span>
+                            <select
+                              id="arrow-type"
+                              className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                              value={arrowType}
+                              onChange={(event) => setArrowType(event.target.value)}
+                            >
+                              <option value="">선택 안함</option>
+                              <option value="일반화살">일반 화살</option>
+                              <option value="청동화살">청동 화살</option>
+                              <option value="강철화살">강철 화살</option>
+                              <option value="빨간화살">빨간 화살</option>
+                              <option value="다이아화살">다이아 화살</option>
+                            </select>
+                          </label>
+                        ) : null}
+                        {isNightLordJob ? (
+                          <label className="space-y-1">
+                            <span className="retro-chip">표창</span>
+                            <select
+                              id="star-type"
+                              className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                              value={starType}
+                              onChange={(event) => setStarType(event.target.value)}
+                            >
+                              <option value="">선택 안함</option>
+                              <option value="수비표창">수비표창</option>
+                              <option value="눈덩이">눈덩이</option>
+                              <option value="월비표창">월비표창</option>
+                              <option value="목비표창">목비표창</option>
+                              <option value="나무팽이">나무팽이</option>
+                              <option value="금비표창">금비표창</option>
+                              <option value="고드름">고드름</option>
+                              <option value="메이플표창">메이플표창</option>
+                              <option value="토비표창">토비표창</option>
+                              <option value="뇌전수리검">뇌전수리검</option>
+                              <option value="일비표창">일비표창</option>
+                              <option value="화비표창">화비표창</option>
+                              <option value="절제된분노">절제된 분노</option>
+                            </select>
+                          </label>
+                        ) : null}
                       </>
                     )}
                     {isNightLordJob || isShadowerJob ? (
@@ -1473,7 +1647,7 @@ export default function OneHitCalculatorPage() {
                           value={passiveMasteryBonus}
                           onChange={setPassiveMasteryBonus}
                           min={0}
-                          max={30}
+                          max={20}
                           step={1}
                           className="w-24"
                           inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
@@ -1481,7 +1655,7 @@ export default function OneHitCalculatorPage() {
                         <button
                           type="button"
                           className="h-[30px] w-8 border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] transition duration-150 hover:-translate-y-0.5 hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)] active:translate-y-0"
-                          onClick={() => setPassiveMasteryBonus(30)}
+                          onClick={() => setPassiveMasteryBonus(20)}
                         >
                           M
                         </button>
@@ -1597,6 +1771,8 @@ export default function OneHitCalculatorPage() {
             result={result}
             elementMultiplier={elementMultiplier}
             bishopHealBonus={bishopHealBonus}
+            criticalDamageMultiplier={criticalDamageMultiplier}
+            criticalRate={criticalRate}
             showFormula={showFormula}
             onToggleFormula={() => setShowFormula((prev) => !prev)}
           />

@@ -11,6 +11,8 @@ type ResultPanelProps = {
   result: OneHitResult;
   elementMultiplier?: number;
   bishopHealBonus?: number;
+  criticalDamageMultiplier?: number;
+  criticalRate?: number;
   showFormula: boolean;
   onToggleFormula: () => void;
 };
@@ -20,9 +22,14 @@ export function ResultPanel({
   result,
   elementMultiplier = 1,
   bishopHealBonus = 1,
+  criticalDamageMultiplier = 1,
+  criticalRate = 0,
   showFormula,
   onToggleFormula,
 }: ResultPanelProps) {
+  const formatRange = (min: number, max: number) => `${formatNumber(Math.round(min))} - ${formatNumber(Math.round(max))}`;
+  const critMultiplier = criticalDamageMultiplier > 1 ? criticalDamageMultiplier : 1;
+  const critRatePercent = Math.max(0, Math.min(1, criticalRate)) * 100;
   return (
     <Panel
       title="결과"
@@ -60,18 +67,37 @@ export function ResultPanel({
           <summary className="cursor-pointer text-[11px] font-semibold text-[color:var(--retro-text)]">
             상세 데미지 보기
           </summary>
-          <div className="mt-2 grid gap-3 md:grid-cols-3">
+          <div className="mt-2 grid gap-3 md:grid-cols-2">
             <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
-              <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 최소</div>
-              <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.min ?? 0)}</div>
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 데미지 범위</div>
+              <div className="text-sm font-semibold text-[color:var(--retro-text)]">
+                {formatRange(baseDamage?.min ?? 0, baseDamage?.max ?? 0)}
+              </div>
+              <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+                평균 {formatNumber(Math.round(baseDamage?.avg ?? 0))}
+              </div>
             </div>
             <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
-              <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 평균</div>
-              <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.avg ?? 0)}</div>
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">스킬 1회 데미지 범위</div>
+              <div className="text-sm font-semibold text-[color:var(--retro-text)]">
+                {formatRange(result.damagePerSkill.min, result.damagePerSkill.max)}
+              </div>
+              <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+                평균 {formatNumber(Math.round(result.damagePerSkill.avg))}
+              </div>
             </div>
+          </div>
+          <div className="mt-2 grid gap-3 md:grid-cols-2">
             <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
-              <div className="text-[10px] text-[color:var(--retro-text-muted)]">기본 최대</div>
-              <div className="text-sm font-semibold text-[color:var(--retro-text)]">{Math.round(baseDamage?.max ?? 0)}</div>
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">크리티컬 데미지 범위</div>
+              <div className="text-sm font-semibold text-[color:var(--retro-text)]">
+                {critMultiplier > 1
+                  ? formatRange(result.damagePerSkill.min * critMultiplier, result.damagePerSkill.max * critMultiplier)
+                  : "크리티컬 적용 없음"}
+              </div>
+              <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
+                크리티컬 배율 {critMultiplier.toFixed(2)}x · 확률 {critRatePercent.toFixed(1)}%
+              </div>
             </div>
           </div>
           <div className="mt-2 grid gap-3 md:grid-cols-2">
