@@ -105,7 +105,7 @@ export function QuickSlots<T>({
       <summary className="inline-flex cursor-pointer list-none items-center rounded border border-[var(--retro-border)] bg-[var(--retro-cell-strong)] px-2 py-1 text-[11px] font-semibold text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)]">
         {title}
       </summary>
-      <div className="absolute left-0 top-full z-30 mt-2 w-[340px] max-w-[85vw] rounded-[10px] border border-[var(--retro-border-strong)] bg-[color:var(--retro-bg)] p-2 shadow-[0_16px_34px_rgba(0,0,0,0.32)]">
+      <div className="absolute left-0 top-full z-30 mt-2 w-[340px] max-w-[85vw] rounded-[10px] border border-[var(--retro-border-strong)] bg-[linear-gradient(180deg,rgba(6,10,20,0.98),rgba(6,12,24,0.94))] p-2 shadow-[0_20px_40px_rgba(0,0,0,0.45)] backdrop-blur-sm">
         <div className="grid max-h-[60vh] gap-2 overflow-y-auto pr-1">
           {slots.map((slot, index) => (
             <div key={index} className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] p-2">

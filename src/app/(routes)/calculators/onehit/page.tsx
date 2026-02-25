@@ -194,7 +194,7 @@ export default function OneHitCalculatorPage() {
   const [mapleHeroLevel, setMapleHeroLevel] = useState(0);
   const [meditationLevel, setMeditationLevel] = useState(0);
 
-  const [monsterName, setMonsterName] = useState("");
+  const [monsterName, setMonsterName] = useState("달팽이");
   const [showFormula, setShowFormula] = useState(false);
 
   const getMaxButtonClass = (isMax: boolean) =>
