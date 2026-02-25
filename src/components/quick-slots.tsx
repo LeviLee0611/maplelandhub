@@ -102,8 +102,12 @@ export function QuickSlots<T>({
 
   return (
     <details ref={detailsRef} className="relative inline-block">
-      <summary className="inline-flex cursor-pointer list-none items-center rounded border border-[var(--retro-border)] bg-[var(--retro-cell-strong)] px-2 py-1 text-[11px] font-semibold text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)]">
+      <summary className="inline-flex cursor-pointer list-none items-center gap-2 rounded-[7px] border border-cyan-300/40 bg-[linear-gradient(180deg,rgba(34,211,238,0.14),rgba(34,211,238,0.05))] px-2.5 py-1.5 text-[11px] font-semibold text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.12)] transition hover:-translate-y-0.5 hover:border-cyan-200/60 hover:bg-[linear-gradient(180deg,rgba(34,211,238,0.18),rgba(34,211,238,0.08))] active:translate-y-0">
+        <span className="inline-flex h-4 w-4 items-center justify-center rounded-[4px] border border-cyan-200/50 bg-cyan-200/10 text-[9px] font-bold text-cyan-100">
+          S
+        </span>
         {title}
+        <span className="text-[10px] text-cyan-100/70">▼</span>
       </summary>
       <div className="absolute left-0 top-full z-30 mt-2 w-[340px] max-w-[85vw] rounded-[10px] border border-[var(--retro-border-strong)] bg-[linear-gradient(180deg,rgba(6,10,20,0.98),rgba(6,12,24,0.94))] p-2 shadow-[0_20px_40px_rgba(0,0,0,0.45)] backdrop-blur-sm">
         <div className="grid max-h-[60vh] gap-2 overflow-y-auto pr-1">

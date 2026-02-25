@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Space_Grotesk, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { NavBar } from "@/components/nav-bar";
+import { AnnouncementBanner } from "@/components/announcement-banner";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -29,6 +30,7 @@ export default function RootLayout({
     <html lang="ko" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen">
         <div className="page-glow" aria-hidden="true" />
+        <AnnouncementBanner />
         <NavBar />
         <main className="mx-auto w-full max-w-6xl px-4 pb-16 pt-8">{children}</main>
       </body>

@@ -44,6 +44,17 @@ create table if not exists public.posts (
   updated_at timestamptz not null default now()
 );
 
+create table if not exists public.announcements (
+  id uuid primary key default gen_random_uuid(),
+  title text not null,
+  body text not null,
+  category text not null check (category in ('notice', 'update')),
+  is_pinned boolean default false,
+  published_at timestamptz not null default now(),
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
 create trigger set_posts_updated_at
 before update on public.posts
 for each row execute function public.set_updated_at();

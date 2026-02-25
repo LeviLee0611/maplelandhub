@@ -10,6 +10,9 @@ export function NavBar() {
           <img src="/favicon.ico" alt="메랜 Hub" className="h-[96px] w-[96px] rounded" />
         </Link>
         <nav className="flex items-center gap-3 text-sm" style={{ color: "var(--nav-text)" }}>
+          <Link href="/announcements" className="hover:opacity-80">
+            공지/업데이트
+          </Link>
           <Link href="/calculators/onehit" className="hover:opacity-80">
             N방컷 계산기
           </Link>

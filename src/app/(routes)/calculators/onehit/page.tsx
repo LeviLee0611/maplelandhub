@@ -1493,27 +1493,28 @@ export default function OneHitCalculatorPage() {
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
-        <header className="space-y-2">
-          <h1 className="text-2xl font-bold text-slate-100">N방컷 계산기</h1>
-          <p className="text-sm text-slate-300">
-            메이플랜드 캐릭터 스탯 창 느낌으로 입력하고, 몬스터 N방컷을 계산합니다.
-          </p>
+        <header className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+          <div className="space-y-2">
+            <h1 className="text-2xl font-bold text-slate-100">N방컷 계산기</h1>
+            <p className="text-sm text-slate-300">
+              캐릭터, 스킬, 몬스터 정보를 입력하면 한방컷 확률과 예상 N방컷을 계산합니다.
+            </p>
+          </div>
+          <div className="md:pt-1">
+            <QuickSlots
+              storageKey="mlh-quickslots-onehit-v1"
+              getSnapshot={() => quickSnapshot}
+              applySnapshot={applyQuickSnapshot}
+              title="슬롯 저장"
+              preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName || "몬스터 선택"}`}
+              slotCount={QUICK_SLOT_COUNT}
+              slotsOverride={presetSlots}
+              onSaveSlot={handleQuickSlotSave}
+              onDeleteSlot={handleQuickSlotDelete}
+              slotName={(index) => (index === 0 ? "Default" : `슬롯 ${index + 1}`)}
+            />
+          </div>
         </header>
-
-        <div className="mt-4">
-          <QuickSlots
-            storageKey="mlh-quickslots-onehit-v1"
-            getSnapshot={() => quickSnapshot}
-            applySnapshot={applyQuickSnapshot}
-            title="빠른 저장 (N방컷)"
-            preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName || "몬스터 선택"}`}
-            slotCount={QUICK_SLOT_COUNT}
-            slotsOverride={presetSlots}
-            onSaveSlot={handleQuickSlotSave}
-            onDeleteSlot={handleQuickSlotDelete}
-            slotName={(index) => (index === 0 ? "Default" : `슬롯 ${index + 1}`)}
-          />
-        </div>
 
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="space-y-6">

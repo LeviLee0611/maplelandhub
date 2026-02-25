@@ -81,6 +81,13 @@ export default function AdminDashboardPage() {
         {!loading && authorized && !error ? (
           <div className="mt-6 grid gap-3 md:grid-cols-2">
             <Link
+              href="/admin/announcements"
+              className="glass-panel flex h-full flex-col gap-2 rounded-xl p-4 text-left transition duration-300 hover:scale-[1.01]"
+            >
+              <div className="text-sm font-semibold text-slate-100">공지/업데이트 관리</div>
+              <p className="text-xs text-slate-300">공지사항과 업데이트 내역을 등록합니다.</p>
+            </Link>
+            <Link
               href="/admin/feedback"
               className="glass-panel flex h-full flex-col gap-2 rounded-xl p-4 text-left transition duration-300 hover:scale-[1.01]"
             >

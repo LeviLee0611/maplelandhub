@@ -165,6 +165,39 @@ export type Database = {
         };
         Relationships: [];
       };
+      announcements: {
+        Row: {
+          id: string;
+          title: string;
+          body: string;
+          category: "notice" | "update";
+          is_pinned: boolean | null;
+          published_at: string;
+          created_at: string;
+          updated_at: string;
+        };
+        Insert: {
+          id?: string;
+          title: string;
+          body: string;
+          category: "notice" | "update";
+          is_pinned?: boolean | null;
+          published_at?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Update: {
+          id?: string;
+          title?: string;
+          body?: string;
+          category?: "notice" | "update";
+          is_pinned?: boolean | null;
+          published_at?: string;
+          created_at?: string;
+          updated_at?: string;
+        };
+        Relationships: [];
+      };
       character_presets: {
         Row: {
           id: string;
