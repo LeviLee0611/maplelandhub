@@ -13,6 +13,9 @@ type QuickSlotsProps<T> = {
   title?: string;
   slotCount?: number;
   preview?: (data: T) => string;
+  slotsOverride?: Array<QuickSlotRecord<T>> | null;
+  onSaveSlot?: (index: number, data: T) => void | Promise<void>;
+  onDeleteSlot?: (index: number) => void | Promise<void>;
 };
 
 export function QuickSlots<T>({
@@ -22,6 +25,9 @@ export function QuickSlots<T>({
   title = "빠른 저장",
   slotCount = 6,
   preview,
+  slotsOverride = null,
+  onSaveSlot,
+  onDeleteSlot,
 }: QuickSlotsProps<T>) {
   const detailsRef = useRef<HTMLDetailsElement | null>(null);
   const [slots, setSlots] = useState<Array<QuickSlotRecord<T>>>(() => {
@@ -40,6 +46,11 @@ export function QuickSlots<T>({
   useEffect(() => {
     window.localStorage.setItem(storageKey, JSON.stringify(slots));
   }, [storageKey, slots]);
+
+  useEffect(() => {
+    if (!slotsOverride) return;
+    setSlots(Array.from({ length: slotCount }, (_, index) => slotsOverride[index] ?? null));
+  }, [slotCount, slotsOverride]);
 
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
@@ -71,6 +82,7 @@ export function QuickSlots<T>({
     const next = [...slots];
     next[index] = { data: getSnapshot() };
     setSlots(next);
+    void onSaveSlot?.(index, next[index]?.data as T);
   };
 
   const loadFromSlot = (index: number) => {
@@ -83,6 +95,7 @@ export function QuickSlots<T>({
     const next = [...slots];
     next[index] = null;
     setSlots(next);
+    void onDeleteSlot?.(index);
   };
 
   return (

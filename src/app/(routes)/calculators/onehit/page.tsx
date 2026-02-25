@@ -142,6 +142,12 @@ const jobOptionsByGroup = {
   해적: ["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"],
 } as const;
 
+const QUICK_SLOT_COUNT = 6;
+
+type QuickSlotRecord<T> = {
+  data: T;
+} | null;
+
 export default function OneHitCalculatorPage() {
   const [nickname, setNickname] = useState("");
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>(jobGroups[0]);
@@ -342,6 +348,9 @@ export default function OneHitCalculatorPage() {
     ],
   );
 
+  type QuickSnapshot = typeof quickSnapshot;
+  const [presetSlots, setPresetSlots] = useState<Array<QuickSlotRecord<QuickSnapshot>> | null>(null);
+
   function applyQuickSnapshot(snapshot: typeof quickSnapshot) {
     if (!snapshot) return;
     if (typeof snapshot.nickname === "string") setNickname(snapshot.nickname);
@@ -494,6 +503,112 @@ export default function OneHitCalculatorPage() {
     window.localStorage.setItem(PROFILE_STORAGE_KEY, JSON.stringify(profileSnapshot));
   }, [profileSnapshot]);
 
+  useEffect(() => {
+    let active = true;
+
+    async function loadPresetSlots() {
+      try {
+        const supabase = getSupabaseBrowserClient();
+        const {
+          data: { user },
+        } = await supabase.auth.getUser();
+        if (!user || !active) return;
+
+        const { data, error } = await supabase
+          .from("character_presets")
+          .select("name,data")
+          .eq("user_id", user.id)
+          .eq("calculator", "onehit");
+
+        if (error || !active) return;
+
+        const nextSlots: Array<QuickSlotRecord<QuickSnapshot>> = Array.from(
+          { length: QUICK_SLOT_COUNT },
+          () => null,
+        );
+
+        let defaultPreset: QuickSnapshot | null = null;
+
+        (data ?? []).forEach((row) => {
+          if (row.name === "default") {
+            defaultPreset = row.data as QuickSnapshot;
+            return;
+          }
+          const match = /^slot-(\d+)$/i.exec(row.name);
+          if (!match) return;
+          const index = Number.parseInt(match[1], 10) - 1;
+          if (Number.isNaN(index) || index < 0 || index >= QUICK_SLOT_COUNT) return;
+          nextSlots[index] = { data: row.data as QuickSnapshot };
+        });
+
+        setPresetSlots(nextSlots);
+        if (defaultPreset) {
+          applyQuickSnapshot(defaultPreset);
+        }
+      } catch {
+        // Ignore preset load failures
+      }
+    }
+
+    loadPresetSlots();
+    return () => {
+      active = false;
+    };
+  }, []);
+
+  const handleQuickSlotSave = async (index: number, data: QuickSnapshot) => {
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const { error } = await supabase
+        .from("character_presets")
+        .upsert(
+          {
+            user_id: user.id,
+            calculator: "onehit",
+            name: `slot-${index + 1}`,
+            data,
+          },
+          { onConflict: "user_id,calculator,name" },
+        );
+
+      if (error) {
+        setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
+      }
+    } catch {
+      setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
+    }
+  };
+
+  const handleQuickSlotDelete = async (index: number) => {
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!user) return;
+
+      const { error } = await supabase
+        .from("character_presets")
+        .delete()
+        .eq("user_id", user.id)
+        .eq("calculator", "onehit")
+        .eq("name", `slot-${index + 1}`);
+
+      if (error) {
+        setProfileMessage("프리셋 삭제 중 오류가 발생했습니다.");
+      }
+    } catch {
+      setProfileMessage("프리셋 삭제 중 오류가 발생했습니다.");
+    }
+  };
+
   async function saveProfileForLoginUser() {
     try {
       const supabase = getSupabaseBrowserClient();
@@ -521,7 +636,24 @@ export default function OneHitCalculatorPage() {
         return;
       }
 
-      setProfileMessage("로그인 계정 기준으로 프로필을 저장했습니다.");
+      const { error: presetError } = await supabase
+        .from("character_presets")
+        .upsert(
+          {
+            user_id: user.id,
+            calculator: "onehit",
+            name: "default",
+            data: quickSnapshot,
+          },
+          { onConflict: "user_id,calculator,name" },
+        );
+
+      if (presetError) {
+        setProfileMessage("프리셋 저장 중 오류가 발생했습니다.");
+        return;
+      }
+
+      setProfileMessage("로그인 계정 기준으로 프로필과 기본 프리셋을 저장했습니다.");
     } catch {
       setProfileMessage("저장 중 오류가 발생했습니다.");
     }
@@ -1339,6 +1471,10 @@ export default function OneHitCalculatorPage() {
             applySnapshot={applyQuickSnapshot}
             title="빠른 저장 (N방컷)"
             preview={(data) => `${data.nickname || "캐릭터"} / ${data.job} / Lv.${data.level} / ${data.monsterName || "몬스터 선택"}`}
+            slotCount={QUICK_SLOT_COUNT}
+            slotsOverride={presetSlots}
+            onSaveSlot={handleQuickSlotSave}
+            onDeleteSlot={handleQuickSlotDelete}
           />
         </div>
 
