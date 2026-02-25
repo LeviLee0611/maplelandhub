@@ -1,5 +1,8 @@
 import { NextResponse } from "next/server";
 import { getSupabaseAdminClient, getSupabaseServerClient } from "@/lib/supabase/server";
+import type { Database } from "@/types/database";
+
+type ProfileRow = Database["public"]["Tables"]["profiles"]["Row"];
 
 export async function GET(request: Request) {
   const authHeader = request.headers.get("authorization") || "";
@@ -41,7 +44,8 @@ export async function GET(request: Request) {
     const { data: profiles, error: profileError } = await adminClient
       .from("profiles")
       .select("*")
-      .in("id", userIds);
+      .in("id", userIds)
+      .returns<ProfileRow[]>();
 
     if (profileError) {
       return NextResponse.json({ error: profileError.message }, { status: 500 });
