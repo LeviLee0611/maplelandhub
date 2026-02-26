@@ -138,11 +138,44 @@ export function DropTable() {
   }, [selectedItemId]);
 
   const formatProb = (prob?: number) => {
-    if (typeof prob !== "number" || prob <= 0) return { percent: "정보 없음", fraction: null as string | null };
+    if (typeof prob !== "number" || prob <= 0) {
+      return { percent: "정보 없음", fraction: null as { num: number; den: number } | null };
+    }
     const percent = prob * 100;
-    const percentText = `${percent.toFixed(2)}%`;
-    const denom = Math.max(1, Math.round(1 / prob));
-    return { percent: percentText, fraction: `1/${denom}` };
+    const decimals =
+      percent >= 1
+        ? 2
+        : percent >= 0.01
+          ? 2
+          : percent >= 0.001
+            ? 3
+            : percent >= 0.0001
+              ? 4
+              : 5;
+    const percentText = `${percent.toFixed(decimals)}%`;
+
+    const scale = 1_000_000;
+    let numerator = Math.round(prob * scale);
+    let denominator = scale;
+    const gcd = (a: number, b: number): number => (b === 0 ? a : gcd(b, a % b));
+    if (numerator > 0) {
+      const divisor = gcd(numerator, denominator);
+      numerator = Math.floor(numerator / divisor);
+      denominator = Math.floor(denominator / divisor);
+    }
+    const fraction = numerator > 0 ? { num: numerator, den: denominator } : null;
+    return { percent: percentText, fraction };
+  };
+
+  const renderFraction = (fraction: { num: number; den: number } | null) => {
+    if (!fraction) return null;
+    return (
+      <span className="inline-flex flex-col items-center text-[12px] leading-none text-current">
+        <span>{fraction.num}</span>
+        <span className="my-0.5 h-px w-full bg-current/70" />
+        <span>{fraction.den}</span>
+      </span>
+    );
   };
 
   const formatAmount = (min?: number, max?: number) => {
@@ -357,25 +390,27 @@ export function DropTable() {
                       >
                         <img src={getItemIconUrl(entry.itemId)} alt={item?.name ?? String(entry.itemId)} className="h-12 w-12" />
                         <div className="flex-1">
-                        <div className="flex items-center justify-between">
-                            <div className="text-base font-semibold">
-                              {item?.name ?? "미확인 아이템"}
-                              {getItemLevel(item) !== null ? ` · Lv.${getItemLevel(item)}` : ""}
+                        <div className="flex items-start justify-between gap-3">
+                          <div>
+                            <div className="text-base font-semibold">{item?.name ?? "미확인 아이템"}</div>
+                            {getItemLevel(item) !== null ? (
+                              <div className="mt-1 text-xs text-[color:var(--retro-text-muted)]">Lv.{getItemLevel(item)}</div>
+                            ) : null}
+                            <div className="mt-1 text-xs text-[color:var(--retro-text-muted)]">
+                              {item ? getItemGroup(item) : "기타템"}
+                              {amountLabel ? ` · ${amountLabel}` : ""}
                             </div>
-                            {(() => {
-                              const prob = formatProb(entry.prob);
-                              return (
-                                <div className="rounded-full bg-cyan-300/15 px-2 py-0.5 text-xs font-semibold text-cyan-100">
-                                  {prob.percent}
-                                  {prob.fraction ? ` (${prob.fraction})` : ""}
-                                </div>
-                              );
-                            })()}
                           </div>
-                          <div className="mt-1 text-xs text-[color:var(--retro-text-muted)]">
-                            {amountLabel ? `${amountLabel} · ` : ""}
-                            {item ? getItemGroup(item) : "기타템"}
+                          {(() => {
+                            const prob = formatProb(entry.prob);
+                            return (
+                          <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs font-semibold text-cyan-100">
+                              <div className="text-sm">{prob.percent}</div>
+                              {prob.fraction ? <div className="mt-1">{renderFraction(prob.fraction)}</div> : null}
                           </div>
+                            );
+                          })()}
+                        </div>
                         </div>
                       </div>
                     );
@@ -407,14 +442,14 @@ export function DropTable() {
                       }}
                     />
                     <div className="flex-1">
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-start justify-between gap-3">
                         <div className="text-base font-semibold">{monster.name}</div>
                         {(() => {
                           const prob = formatProb(entry.prob);
                           return (
-                            <div className="rounded-full bg-emerald-300/15 px-2 py-0.5 text-xs font-semibold text-emerald-100">
-                              {prob.percent}
-                              {prob.fraction ? ` (${prob.fraction})` : ""}
+                            <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-emerald-200/30 bg-emerald-300/10 px-3 py-2 text-xs font-semibold text-emerald-100">
+                              <div className="text-sm">{prob.percent}</div>
+                              {prob.fraction ? <div className="mt-1">{renderFraction(prob.fraction)}</div> : null}
                             </div>
                           );
                         })()}
