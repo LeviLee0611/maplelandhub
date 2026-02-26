@@ -2,7 +2,7 @@ import fs from "fs/promises";
 import path from "path";
 import vm from "vm";
 
-const INPUT_PATH = path.resolve("src/data/drops.js");
+const INPUT_PATH = path.resolve("src/data/mapledb/drops.js");
 const OUTPUT_PATH = path.resolve("data/drops-parsed.json");
 
 function isDropTable(value) {
@@ -65,11 +65,11 @@ async function main() {
   }
 
   if (!dropTable) {
-    throw new Error("Drop table data not found in src/data/drops.js");
+    throw new Error("Drop table data not found in src/data/mapledb/drops.js");
   }
 
   if (!itemTable) {
-    throw new Error("Item table data not found in src/data/drops.js");
+    throw new Error("Item table data not found in src/data/mapledb/drops.js");
   }
 
   const parsedItems = {};

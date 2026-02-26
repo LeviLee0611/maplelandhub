@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-02-26T19:19:42.358Z",
+  "generatedAt": "2026-02-26T21:53:48.774Z",
   "source": "drops-parsed",
   "items": [
     {
@@ -20,104 +20,8 @@
       }
     },
     {
-      "id": 2290014,
-      "name": "[마스터리북]가디언 스피릿 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290015,
-      "name": "[마스터리북]가디언 스피릿 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290042,
-      "name": "[마스터리북]글레이셜 체인 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290043,
-      "name": "[마스터리북]글레이셜 체인 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
       "id": 2290086,
-      "name": "[마스터리북]닌자 스톰 20",
+      "name": "[마스터리북] 닌자 스톰 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -141,7 +45,7 @@
     },
     {
       "id": 2290082,
-      "name": "[마스터리북]닌자 앰부쉬 20",
+      "name": "[마스터리북] 닌자 앰부쉬 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -165,55 +69,7 @@
     },
     {
       "id": 2290083,
-      "name": "[마스터리북]닌자 앰부쉬 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290022,
-      "name": "[마스터리북]다크포스 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290023,
-      "name": "[마스터리북]다크포스 30",
+      "name": "[마스터리북] 닌자 앰부쉬 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -237,7 +93,7 @@
     },
     {
       "id": 2290004,
-      "name": "[마스터리북]돌진 20",
+      "name": "[마스터리북] 돌진 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -261,7 +117,55 @@
     },
     {
       "id": 2290005,
-      "name": "[마스터리북]돌진 30",
+      "name": "[마스터리북] 돌진 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290054,
+      "name": "[마스터리북] 드래곤 펄스 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290055,
+      "name": "[마스터리북] 드래곤 펄스 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -285,7 +189,7 @@
     },
     {
       "id": 2290019,
-      "name": "[마스터리북]디바인 차지 20",
+      "name": "[마스터리북] 디바인 차지 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -304,924 +208,12 @@
         "scroll": {
           "success": 70,
           "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290018,
-      "name": "[마스터리북]디바인 차지 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290096,
-      "name": "[마스터리북]메이플용사 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290040,
-      "name": "[마스터리북]메테오 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290041,
-      "name": "[마스터리북]메테오 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290000,
-      "name": "[마스터리북]몬스터 마그넷 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290001,
-      "name": "[마스터리북]몬스터 마그넷 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290036,
-      "name": "[마스터리북]미스트 이럽션 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290037,
-      "name": "[마스터리북]미스트 이럽션 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290078,
-      "name": "[마스터리북]베놈 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290079,
-      "name": "[마스터리북]베놈 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290056,
-      "name": "[마스터리북]보우 엑스퍼트 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290057,
-      "name": "[마스터리북]보우 엑스퍼트 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290090,
-      "name": "[마스터리북]부메랑 스텝 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290091,
-      "name": "[마스터리북]부메랑 스텝 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290010,
-      "name": "[마스터리북]브레이브 슬래시 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290011,
-      "name": "[마스터리북]브레이브 슬래시 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290012,
-      "name": "[마스터리북]블래스트 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290013,
-      "name": "[마스터리북]블래스트 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290046,
-      "name": "[마스터리북]블리자드 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290047,
-      "name": "[마스터리북]블리자드 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290026,
-      "name": "[마스터리북]빅뱅 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290027,
-      "name": "[마스터리북]빅뱅 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290020,
-      "name": "[마스터리북]생츄어리 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290021,
-      "name": "[마스터리북]생츄어리 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290052,
-      "name": "[마스터리북]샤프 아이즈 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290054,
-      "name": "[마스터리북]샤프 아이즈 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290053,
-      "name": "[마스터리북]샤프 아이즈 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290055,
-      "name": "[마스터리북]샤프 아이즈 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290080,
-      "name": "[마스터리북]쇼다운 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290074,
-      "name": "[마스터리북]스나이핑 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290075,
-      "name": "[마스터리북]스나이핑 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290006,
-      "name": "[마스터리북]스탠스 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290007,
-      "name": "[마스터리북]스탠스 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290072,
-      "name": "[마스터리북]스피릿 링크 : 프리져 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290062,
-      "name": "[마스터리북]스피릿 링크 : 피닉스 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290063,
-      "name": "[마스터리북]스피릿 링크 : 피닉스 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290088,
-      "name": "[마스터리북]스피릿 자벨린 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290089,
-      "name": "[마스터리북]스피릿 자벨린 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
         }
       }
     },
     {
       "id": 2290024,
-      "name": "[마스터리북]아케인 에임 20",
+      "name": "[마스터리북] 마나 리플렉션 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1245,7 +237,919 @@
     },
     {
       "id": 2290025,
-      "name": "[마스터리북]아케인 에임 30",
+      "name": "[마스터리북] 마나 리플렉션 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290096,
+      "name": "[마스터리북] 메이플용사 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290040,
+      "name": "[마스터리북] 메테오 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290041,
+      "name": "[마스터리북] 메테오 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290000,
+      "name": "[마스터리북] 몬스터 마그넷 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290001,
+      "name": "[마스터리북] 몬스터 마그넷 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290022,
+      "name": "[마스터리북] 버서크 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290023,
+      "name": "[마스터리북] 버서크 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290078,
+      "name": "[마스터리북] 베놈 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290079,
+      "name": "[마스터리북] 베놈 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290056,
+      "name": "[마스터리북] 보우 엑스퍼트 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290057,
+      "name": "[마스터리북] 보우 엑스퍼트 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290090,
+      "name": "[마스터리북] 부메랑 스텝 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290091,
+      "name": "[마스터리북] 부메랑 스텝 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290010,
+      "name": "[마스터리북] 브랜디쉬 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290011,
+      "name": "[마스터리북] 브랜디쉬 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290068,
+      "name": "[마스터리북] 블라인드 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290069,
+      "name": "[마스터리북] 블라인드 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290012,
+      "name": "[마스터리북] 블래스트 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290013,
+      "name": "[마스터리북] 블래스트 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290014,
+      "name": "[마스터리북] 블로킹 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290015,
+      "name": "[마스터리북] 블로킹 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290046,
+      "name": "[마스터리북] 블리자드 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290047,
+      "name": "[마스터리북] 블리자드 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290026,
+      "name": "[마스터리북] 빅뱅 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290027,
+      "name": "[마스터리북] 빅뱅 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290020,
+      "name": "[마스터리북] 생츄어리 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290021,
+      "name": "[마스터리북] 생츄어리 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290052,
+      "name": "[마스터리북] 샤프 아이즈 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290053,
+      "name": "[마스터리북] 샤프 아이즈 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290080,
+      "name": "[마스터리북] 쇼다운 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290074,
+      "name": "[마스터리북] 스나이핑 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290075,
+      "name": "[마스터리북] 스나이핑 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290006,
+      "name": "[마스터리북] 스탠스 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290007,
+      "name": "[마스터리북] 스탠스 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290088,
+      "name": "[마스터리북] 스피릿 자벨린 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290089,
+      "name": "[마스터리북] 스피릿 자벨린 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290042,
+      "name": "[마스터리북] 아이스 데몬 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290043,
+      "name": "[마스터리북] 아이스 데몬 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1269,7 +1173,7 @@
     },
     {
       "id": 2290002,
-      "name": "[마스터리북]아킬레스 20",
+      "name": "[마스터리북] 아킬레스 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1293,7 +1197,7 @@
     },
     {
       "id": 2290003,
-      "name": "[마스터리북]아킬레스 30",
+      "name": "[마스터리북] 아킬레스 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1317,7 +1221,7 @@
     },
     {
       "id": 2290092,
-      "name": "[마스터리북]암살 20",
+      "name": "[마스터리북] 암살 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1336,108 +1240,12 @@
         "scroll": {
           "success": 70,
           "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290034,
-      "name": "[마스터리북]어드밴스드 블레스 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290035,
-      "name": "[마스터리북]어드밴스드 블레스 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290064,
-      "name": "[마스터리북]어드밴스드 파이널 어택 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290065,
-      "name": "[마스터리북]어드밴스드 파이널 어택 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
         }
       }
     },
     {
       "id": 2290008,
-      "name": "[마스터리북]어드밴스드콤보 20",
+      "name": "[마스터리북] 어드밴스드콤보 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1461,7 +1269,7 @@
     },
     {
       "id": 2290009,
-      "name": "[마스터리북]어드밴스드콤보 30",
+      "name": "[마스터리북] 어드밴스드콤보 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1485,7 +1293,7 @@
     },
     {
       "id": 2290050,
-      "name": "[마스터리북]엔젤레이 20",
+      "name": "[마스터리북] 엔젤레이 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1509,79 +1317,7 @@
     },
     {
       "id": 2290051,
-      "name": "[마스터리북]엔젤레이 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290044,
-      "name": "[마스터리북]엘퀴네스 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290094,
-      "name": "[마스터리북]연막탄 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290095,
-      "name": "[마스터리북]연막탄 30",
+      "name": "[마스터리북] 엔젤레이 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1605,7 +1341,79 @@
     },
     {
       "id": 2290038,
-      "name": "[마스터리북]이프리트 20",
+      "name": "[마스터리북] 엘퀴네스 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290094,
+      "name": "[마스터리북] 연막탄 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290095,
+      "name": "[마스터리북] 연막탄 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290044,
+      "name": "[마스터리북] 이프리트 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1629,7 +1437,7 @@
     },
     {
       "id": 2290016,
-      "name": "[마스터리북]인레이지 20",
+      "name": "[마스터리북] 인레이지 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1653,7 +1461,7 @@
     },
     {
       "id": 2290017,
-      "name": "[마스터리북]인레이지 30",
+      "name": "[마스터리북] 인레이지 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1677,7 +1485,7 @@
     },
     {
       "id": 2290028,
-      "name": "[마스터리북]인피니티 20",
+      "name": "[마스터리북] 인피니티 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1701,103 +1509,7 @@
     },
     {
       "id": 2290029,
-      "name": "[마스터리북]인피니티 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290058,
-      "name": "[마스터리북]일루전 스탭 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290068,
-      "name": "[마스터리북]일루전 스탭 20",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 70,
-          "masterLevel": 20
-        }
-      }
-    },
-    {
-      "id": 2290059,
-      "name": "[마스터리북]일루전 스탭 30",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Character Modification",
-        "subCategory": "Mastery Book",
-        "lowItemId": 2280000,
-        "highItemId": 2292000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "scroll": {
-          "success": 50,
-          "masterLevel": 30
-        }
-      }
-    },
-    {
-      "id": 2290069,
-      "name": "[마스터리북]일루전 스탭 30",
+      "name": "[마스터리북] 인피니티 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1821,7 +1533,7 @@
     },
     {
       "id": 2290048,
-      "name": "[마스터리북]제네시스 20",
+      "name": "[마스터리북] 제네시스 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1845,7 +1557,55 @@
     },
     {
       "id": 2290049,
-      "name": "[마스터리북]제네시스 30",
+      "name": "[마스터리북] 제네시스 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290064,
+      "name": "[마스터리북] 집중 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290065,
+      "name": "[마스터리북] 집중 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1869,7 +1629,7 @@
     },
     {
       "id": 2290032,
-      "name": "[마스터리북]체인 라이트닝 20",
+      "name": "[마스터리북] 체인 라이트닝 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1893,7 +1653,7 @@
     },
     {
       "id": 2290066,
-      "name": "[마스터리북]크로스보우 엑스퍼트 20",
+      "name": "[마스터리북] 크로스보우 엑스퍼트 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1917,7 +1677,7 @@
     },
     {
       "id": 2290067,
-      "name": "[마스터리북]크로스보우 엑스퍼트 30",
+      "name": "[마스터리북] 크로스보우 엑스퍼트 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1941,7 +1701,7 @@
     },
     {
       "id": 2290084,
-      "name": "[마스터리북]트리플스로우 20",
+      "name": "[마스터리북] 트리플스로우 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1965,7 +1725,55 @@
     },
     {
       "id": 2290085,
-      "name": "[마스터리북]트리플스로우 30",
+      "name": "[마스터리북] 트리플스로우 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290036,
+      "name": "[마스터리북] 파이어 데몬 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290037,
+      "name": "[마스터리북] 파이어 데몬 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -1989,7 +1797,7 @@
     },
     {
       "id": 2290030,
-      "name": "[마스터리북]페럴라이즈 20",
+      "name": "[마스터리북] 페럴라이즈 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2013,7 +1821,7 @@
     },
     {
       "id": 2290076,
-      "name": "[마스터리북]페이크 20",
+      "name": "[마스터리북] 페이크 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2037,7 +1845,7 @@
     },
     {
       "id": 2290077,
-      "name": "[마스터리북]페이크 30",
+      "name": "[마스터리북] 페이크 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2061,7 +1869,7 @@
     },
     {
       "id": 2290060,
-      "name": "[마스터리북]폭풍의 시 20",
+      "name": "[마스터리북] 폭풍의 시 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2085,7 +1893,79 @@
     },
     {
       "id": 2290061,
-      "name": "[마스터리북]폭풍의 시 30",
+      "name": "[마스터리북] 폭풍의 시 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290072,
+      "name": "[마스터리북] 프리져 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290062,
+      "name": "[마스터리북] 피닉스 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290063,
+      "name": "[마스터리북] 피닉스 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2109,7 +1989,7 @@
     },
     {
       "id": 2290070,
-      "name": "[마스터리북]피어싱 20",
+      "name": "[마스터리북] 피어싱 20",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2133,7 +2013,7 @@
     },
     {
       "id": 2290071,
-      "name": "[마스터리북]피어싱 30",
+      "name": "[마스터리북] 피어싱 30",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Character Modification",
@@ -2152,6 +2032,126 @@
         "scroll": {
           "success": 50,
           "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290058,
+      "name": "[마스터리북] 햄스트링 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290059,
+      "name": "[마스터리북] 햄스트링 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290034,
+      "name": "[마스터리북] 홀리 실드 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
+        }
+      }
+    },
+    {
+      "id": 2290035,
+      "name": "[마스터리북] 홀리 실드 30",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 50,
+          "masterLevel": 30
+        }
+      }
+    },
+    {
+      "id": 2290018,
+      "name": "[마스터리북] 홀리 차지 20",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Character Modification",
+        "subCategory": "Mastery Book",
+        "lowItemId": 2280000,
+        "highItemId": 2292000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "scroll": {
+          "success": 70,
+          "masterLevel": 20
         }
       }
     },
@@ -2717,7 +2717,7 @@
     },
     {
       "id": 4000092,
-      "name": "간부 A의 손수건",
+      "name": "간부 A의 선글라스",
       "typeInfo": {
         "overallCategory": "Etc",
         "category": "Other",
@@ -2737,7 +2737,7 @@
     },
     {
       "id": 4000093,
-      "name": "간부 B의 왁스",
+      "name": "간부 B의 부적",
       "typeInfo": {
         "overallCategory": "Etc",
         "category": "Other",
@@ -4998,7 +4998,7 @@
     },
     {
       "id": 1092017,
-      "name": "골드 에인션트 실드",
+      "name": "골드 에이션트 실드",
       "typeInfo": {
         "overallCategory": "Equip",
         "category": "Armor",
@@ -10363,6 +10363,51 @@
       }
     },
     {
+      "id": 1041091,
+      "name": "그린 트란도트",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Top",
+        "lowItemId": 1040000,
+        "highItemId": 1050000
+      },
+      "equipGroup": "Coat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 210,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 1,
+          "reqLevel": 60,
+          "tuc": 7,
+          "incSTR": 1,
+          "incDEX": 4,
+          "incPDD": 65,
+          "islot": "Ma",
+          "vslot": "Ma",
+          "gender": 1,
+          "vslots": [
+            "Ma"
+          ],
+          "islots": [
+            "Ma"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 90000
+        },
+        "chair": {
+          "reqLevel": 60
+        }
+      }
+    },
+    {
       "id": 1061090,
       "name": "그린 트란도트 치마",
       "typeInfo": {
@@ -11990,6 +12035,52 @@
         },
         "chair": {
           "reqLevel": 10
+        }
+      }
+    },
+    {
+      "id": 1402009,
+      "name": "나무 야구 방망이",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Two-Handed Weapon",
+        "subCategory": "Two-Handed Sword",
+        "lowItemId": 1400000,
+        "highItemId": 1410000
+      },
+      "equipGroup": "Weapon",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 0,
+          "tuc": 7,
+          "incPAD": 20,
+          "attack": 5,
+          "attackSpeed": 5,
+          "islot": "WpSi",
+          "vslot": "WpSi",
+          "vslots": [
+            "Wp",
+            "Si"
+          ],
+          "islots": [
+            "Wp",
+            "Si"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 0
         }
       }
     },
@@ -20001,6 +20092,26 @@
       }
     },
     {
+      "id": 4000094,
+      "name": "두목의 포마드",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 190
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
       "id": 2044002,
       "name": "두손검 공격력 주문서 10%",
       "typeInfo": {
@@ -25750,6 +25861,102 @@
       }
     },
     {
+      "id": 1051092,
+      "name": "레드 카테",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Overall",
+        "lowItemId": 1050000,
+        "highItemId": 1060000
+      },
+      "equipGroup": "Longcoat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 140,
+          "reqINT": 0,
+          "reqLUK": 260,
+          "reqJob": 8,
+          "reqLevel": 100,
+          "tuc": 10,
+          "incDEX": 3,
+          "incLUK": 7,
+          "incPDD": 105,
+          "incEVA": 2,
+          "islot": "MaPn",
+          "vslot": "MaPn",
+          "gender": 1,
+          "vslots": [
+            "Ma",
+            "Pn"
+          ],
+          "islots": [
+            "Ma",
+            "Pn"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 240000
+        },
+        "chair": {
+          "reqLevel": 100
+        }
+      }
+    },
+    {
+      "id": 1050098,
+      "name": "레드 카티나스",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Overall",
+        "lowItemId": 1050000,
+        "highItemId": 1060000
+      },
+      "equipGroup": "Longcoat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 140,
+          "reqINT": 0,
+          "reqLUK": 260,
+          "reqJob": 8,
+          "reqLevel": 100,
+          "tuc": 10,
+          "incDEX": 3,
+          "incLUK": 7,
+          "incPDD": 105,
+          "incEVA": 2,
+          "islot": "MaPn",
+          "vslot": "MaPn",
+          "gender": 0,
+          "vslots": [
+            "Ma",
+            "Pn"
+          ],
+          "islots": [
+            "Ma",
+            "Pn"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 240000
+        },
+        "chair": {
+          "reqLevel": 100
+        }
+      }
+    },
+    {
       "id": 1050046,
       "name": "레드 칼라스",
       "typeInfo": {
@@ -26157,6 +26364,51 @@
         },
         "chair": {
           "reqLevel": 70
+        }
+      }
+    },
+    {
+      "id": 1041092,
+      "name": "레드 트란도트",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Top",
+        "lowItemId": 1040000,
+        "highItemId": 1050000
+      },
+      "equipGroup": "Coat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 210,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 1,
+          "reqLevel": 60,
+          "tuc": 7,
+          "incSTR": 4,
+          "incDEX": 1,
+          "incPDD": 65,
+          "islot": "Ma",
+          "vslot": "Ma",
+          "gender": 1,
+          "vslots": [
+            "Ma"
+          ],
+          "islots": [
+            "Ma"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 90000
+        },
+        "chair": {
+          "reqLevel": 60
         }
       }
     },
@@ -28571,32 +28823,6 @@
         "only": false,
         "shop": {
           "price": 1
-        }
-      }
-    },
-    {
-      "id": 2022245,
-      "name": "만능 연고",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "pad": "60",
-          "time": "50000",
-          "speed": "60",
-          "eva": "60"
         }
       }
     },
@@ -34752,26 +34978,6 @@
       }
     },
     {
-      "id": 4000094,
-      "name": "보스의 포머드",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 190
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
       "id": 2050002,
       "name": "보약",
       "typeInfo": {
@@ -34985,26 +35191,6 @@
         "only": false,
         "shop": {
           "price": 70
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
-      "id": 4000137,
-      "name": "부하D의 손톱",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 61
         },
         "slot": {
           "slotMax": 200
@@ -44692,6 +44878,103 @@
       }
     },
     {
+      "id": 1051091,
+      "name": "블루 카테",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Overall",
+        "lowItemId": 1050000,
+        "highItemId": 1060000
+      },
+      "equipGroup": "Longcoat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 140,
+          "reqINT": 0,
+          "reqLUK": 260,
+          "reqJob": 8,
+          "reqLevel": 100,
+          "tuc": 10,
+          "incDEX": 7,
+          "incLUK": 3,
+          "incPDD": 105,
+          "incEVA": 2,
+          "islot": "MaPn",
+          "vslot": "MaPn",
+          "gender": 1,
+          "vslots": [
+            "Ma",
+            "Pn"
+          ],
+          "islots": [
+            "Ma",
+            "Pn"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 240000
+        },
+        "chair": {
+          "reqLevel": 100
+        }
+      }
+    },
+    {
+      "id": 1050097,
+      "name": "블루 카티나스",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Overall",
+        "lowItemId": 1050000,
+        "highItemId": 1060000
+      },
+      "equipGroup": "Longcoat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 140,
+          "reqINT": 0,
+          "reqLUK": 260,
+          "reqJob": 8,
+          "reqLevel": 100,
+          "tuc": 10,
+          "incDEX": 7,
+          "incINT": 0,
+          "incLUK": 3,
+          "incPDD": 105,
+          "incEVA": 2,
+          "islot": "MaPn",
+          "vslot": "MaPn",
+          "gender": 0,
+          "vslots": [
+            "Ma",
+            "Pn"
+          ],
+          "islots": [
+            "Ma",
+            "Pn"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 240000
+        },
+        "chair": {
+          "reqLevel": 100
+        }
+      }
+    },
+    {
       "id": 1050045,
       "name": "블루 칼라스",
       "typeInfo": {
@@ -45160,6 +45443,51 @@
         },
         "chair": {
           "reqLevel": 70
+        }
+      }
+    },
+    {
+      "id": 1041093,
+      "name": "블루 트란도트",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Top",
+        "lowItemId": 1040000,
+        "highItemId": 1050000
+      },
+      "equipGroup": "Coat",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 210,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 1,
+          "reqLevel": 60,
+          "tuc": 7,
+          "incSTR": 4,
+          "incDEX": 1,
+          "incPDD": 65,
+          "islot": "Ma",
+          "vslot": "Ma",
+          "gender": 1,
+          "vslots": [
+            "Ma"
+          ],
+          "islots": [
+            "Ma"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 90000
+        },
+        "chair": {
+          "reqLevel": 60
         }
       }
     },
@@ -48590,26 +48918,6 @@
       }
     },
     {
-      "id": 2020008,
-      "name": "소시지 간식",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Food and Drink",
-        "lowItemId": 2010000,
-        "highItemId": 2022000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 630
-        },
-        "consumeSpec": {
-          "hp": "1200"
-        }
-      }
-    },
-    {
       "id": 4000118,
       "name": "소형 우주선",
       "typeInfo": {
@@ -48952,6 +49260,86 @@
         "only": false,
         "shop": {
           "price": 50
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000089,
+      "name": "수하 A의 배지",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 37
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000090,
+      "name": "수하 B의 명찰",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 38
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000091,
+      "name": "수하 C의 목걸이",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 40
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000137,
+      "name": "수하D의 손톱",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 61
         },
         "slot": {
           "slotMax": 200
@@ -49771,6 +50159,49 @@
       }
     },
     {
+      "id": 1082008,
+      "name": "스틸 브리건",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Glove",
+        "lowItemId": 1080000,
+        "highItemId": 1090000
+      },
+      "equipGroup": "Glove",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 125,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 1,
+          "reqLevel": 35,
+          "tuc": 5,
+          "incPDD": 13,
+          "islot": "Gv",
+          "vslot": "GlGw",
+          "vslots": [
+            "Gl",
+            "Gw"
+          ],
+          "islots": [
+            "Gv"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 35000
+        },
+        "chair": {
+          "reqLevel": 35
+        }
+      }
+    },
+    {
       "id": 1082009,
       "name": "스틸 브리스트",
       "typeInfo": {
@@ -50079,7 +50510,7 @@
     },
     {
       "id": 1092015,
-      "name": "스틸 에인션트 실드",
+      "name": "스틸 에이션트 실드",
       "typeInfo": {
         "overallCategory": "Equip",
         "category": "Armor",
@@ -51403,7 +51834,7 @@
     },
     {
       "id": 1092016,
-      "name": "실버 에인션트 실드",
+      "name": "실버 에이션트 실드",
       "typeInfo": {
         "overallCategory": "Equip",
         "category": "Armor",
@@ -53101,28 +53532,8 @@
       }
     },
     {
-      "id": 4000178,
-      "name": "아이언보어의 갑옷 조각",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 37
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
       "id": 4000039,
-      "name": "아이언호그의 철발굽",
+      "name": "아이언 호그의 철발굽",
       "typeInfo": {
         "overallCategory": "Etc",
         "category": "Other",
@@ -53134,6 +53545,26 @@
         "only": false,
         "shop": {
           "price": 38
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000178,
+      "name": "아이언보어의 갑옷조각",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 37
         },
         "slot": {
           "slotMax": 200
@@ -53525,6 +53956,52 @@
         },
         "slot": {
           "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 1402010,
+      "name": "알루미늄 야구 방망이",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Two-Handed Weapon",
+        "subCategory": "Two-Handed Sword",
+        "lowItemId": 1400000,
+        "highItemId": 1410000
+      },
+      "equipGroup": "Weapon",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 30,
+          "tuc": 7,
+          "incPAD": 48,
+          "attack": 5,
+          "attackSpeed": 5,
+          "islot": "WpSi",
+          "vslot": "WpSi",
+          "vslots": [
+            "Wp",
+            "Si"
+          ],
+          "islots": [
+            "Wp",
+            "Si"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 30
         }
       }
     },
@@ -59694,6 +60171,51 @@
       }
     },
     {
+      "id": 1082067,
+      "name": "적월 장갑",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Glove",
+        "lowItemId": 1080000,
+        "highItemId": 1090000
+      },
+      "equipGroup": "Glove",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 90,
+          "reqINT": 0,
+          "reqLUK": 140,
+          "reqJob": 8,
+          "reqLevel": 50,
+          "tuc": 5,
+          "incDEX": 1,
+          "incLUK": 2,
+          "incPDD": 19,
+          "islot": "Gv",
+          "vslot": "GlGw",
+          "vslots": [
+            "Gl",
+            "Gw"
+          ],
+          "islots": [
+            "Gv"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 90000
+        },
+        "chair": {
+          "reqLevel": 50
+        }
+      }
+    },
+    {
       "id": 1040094,
       "name": "적일",
       "typeInfo": {
@@ -61944,6 +62466,26 @@
       }
     },
     {
+      "id": 2020008,
+      "name": "천하장사",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Food and Drink",
+        "lowItemId": 2010000,
+        "highItemId": 2022000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 630
+        },
+        "consumeSpec": {
+          "hp": "1200"
+        }
+      }
+    },
+    {
       "id": 1412012,
       "name": "철제 도끼",
       "typeInfo": {
@@ -62749,6 +63291,50 @@
         },
         "shop": {
           "price": 60000
+        },
+        "chair": {
+          "reqLevel": 50
+        }
+      }
+    },
+    {
+      "id": 1082065,
+      "name": "청월 장갑",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Glove",
+        "lowItemId": 1080000,
+        "highItemId": 1090000
+      },
+      "equipGroup": "Glove",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 90,
+          "reqINT": 0,
+          "reqLUK": 140,
+          "reqJob": 8,
+          "reqLevel": 50,
+          "tuc": 5,
+          "incLUK": 1,
+          "incPDD": 18,
+          "islot": "Gv",
+          "vslot": "GlGw",
+          "vslots": [
+            "Gl",
+            "Gw"
+          ],
+          "islots": [
+            "Gv"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 85000
         },
         "chair": {
           "reqLevel": 50
@@ -66859,7 +67445,7 @@
     },
     {
       "id": 2022160,
-      "name": "파티 마나 엘릭서",
+      "name": "파티 마나엘릭서",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Consumable",
@@ -66930,7 +67516,7 @@
     },
     {
       "id": 2022162,
-      "name": "파티 파워 엘릭서",
+      "name": "파티 파워엘릭서",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Consumable",
@@ -71691,6 +72277,32 @@
       }
     },
     {
+      "id": 2022245,
+      "name": "호랑이 연고",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "pad": "60",
+          "time": "50000",
+          "speed": "60",
+          "eva": "60"
+        }
+      }
+    },
+    {
       "id": 2022246,
       "name": "호랑이 환",
       "typeInfo": {
@@ -73724,6 +74336,51 @@
       }
     },
     {
+      "id": 1082066,
+      "name": "황월 장갑",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Glove",
+        "lowItemId": 1080000,
+        "highItemId": 1090000
+      },
+      "equipGroup": "Glove",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 90,
+          "reqINT": 0,
+          "reqLUK": 140,
+          "reqJob": 8,
+          "reqLevel": 50,
+          "tuc": 5,
+          "incLUK": 3,
+          "incPDD": 20,
+          "incEVA": 1,
+          "islot": "Gv",
+          "vslot": "GlGw",
+          "vslots": [
+            "Gl",
+            "Gw"
+          ],
+          "islots": [
+            "Gv"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 95000
+        },
+        "chair": {
+          "reqLevel": 50
+        }
+      }
+    },
+    {
       "id": 1040096,
       "name": "황일",
       "typeInfo": {
@@ -75369,6 +76026,1042 @@
       }
     },
     {
+      "id": 4031906,
+      "name": "Balrog Claw",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 2002025,
+      "name": "Barbarian Elixir",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Potion",
+        "lowItemId": 2000000,
+        "highItemId": 2010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 500
+        },
+        "slot": {
+          "slotMax": 150
+        },
+        "consumeSpec": {
+          "hp": "1500"
+        }
+      }
+    },
+    {
+      "id": 4031590,
+      "name": "Birthday Candle",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031307,
+      "name": "Birthday Present (Blue)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4031306,
+      "name": "Birthday Present (Red)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4031447,
+      "name": "Bob's Snail Shell",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": true,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 35,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4929
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4930
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4931
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4932
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4933
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4934
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4935
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4936
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4937
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4938
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4939
+          },
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4031447
+            },
+            "id": 4940
+          }
+        ]
+      }
+    },
+    {
+      "id": 4000391,
+      "name": "Boomer Core",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031523,
+      "name": "Cherry Blossom Seed",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 0,
+          "notSale": true
+        }
+      }
+    },
+    {
+      "id": 1312017,
+      "name": "Chief Axe",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "One-Handed Weapon",
+        "subCategory": "One-Handed Axe",
+        "lowItemId": 1310000,
+        "highItemId": 1320000
+      },
+      "equipGroup": "Weapon",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 0,
+          "tuc": 7,
+          "incPAD": 30,
+          "attack": 1,
+          "attackSpeed": 4,
+          "islot": "Wp",
+          "vslot": "Wp",
+          "vslots": [
+            "Wp"
+          ],
+          "islots": [
+            "Wp"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 0
+        }
+      }
+    },
+    {
+      "id": 4000424,
+      "name": "Christmas Present box (Blue)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": true,
+        "shop": {
+          "price": 1
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4000424
+            },
+            "id": 5010
+          }
+        ]
+      }
+    },
+    {
+      "id": 4000425,
+      "name": "Christmas Present box (Purple)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": true,
+        "shop": {
+          "price": 1
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4000425
+            },
+            "id": 5009
+          }
+        ]
+      }
+    },
+    {
+      "id": 4000423,
+      "name": "Christmas Present box (Red)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": true,
+        "shop": {
+          "price": 1
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4000423
+            },
+            "id": 5011
+          }
+        ]
+      }
+    },
+    {
+      "id": 4000422,
+      "name": "Christmas Present box (White)",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": true,
+        "shop": {
+          "price": 1
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 1,
+              "id": 4000422
+            },
+            "id": 5012
+          }
+        ]
+      }
+    },
+    {
+      "id": 2020029,
+      "name": "Corn",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Food and Drink",
+        "lowItemId": 2010000,
+        "highItemId": 2022000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "consumeSpec": {
+          "mp": "100"
+        }
+      }
+    },
+    {
+      "id": 2022262,
+      "name": "Cranberry Sauce",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "mad": "30",
+          "time": "180000"
+        }
+      }
+    },
+    {
+      "id": 2022182,
+      "name": "Crystalized Pineapple Chew",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "consumeSpec": {
+          "pad": "20",
+          "time": "400000"
+        }
+      }
+    },
+    {
+      "id": 4031597,
+      "name": "Cupid Code Piece",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 150
+        }
+      }
+    },
+    {
+      "id": 2060004,
+      "name": "Diamond Arrow for Bow",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Projectile",
+        "subCategory": "Arrow",
+        "lowItemId": 2060000,
+        "highItemId": 2060005
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "incPAD": 4,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 20
+        },
+        "slot": {
+          "slotMax": 1000
+        }
+      }
+    },
+    {
+      "id": 2061004,
+      "name": "Diamond Arrow for Crossbow",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Projectile",
+        "subCategory": "Crossbow Bolt",
+        "lowItemId": 2061000,
+        "highItemId": 2061100
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "incPAD": 4,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 20
+        },
+        "slot": {
+          "slotMax": 1000
+        }
+      }
+    },
+    {
+      "id": 1032039,
+      "name": "Eclipse Earrings",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Accessory",
+        "subCategory": "Earrings",
+        "lowItemId": 1030000,
+        "highItemId": 1040000
+      },
+      "equipGroup": "Accessory",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 40,
+          "tuc": 5,
+          "incMDD": 20,
+          "islot": "Ae",
+          "vslot": "Ae",
+          "vslots": [
+            "Ae"
+          ],
+          "islots": [
+            "Ae"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 50000
+        },
+        "chair": {
+          "reqLevel": 40
+        }
+      }
+    },
+    {
+      "id": 2022242,
+      "name": "Edmund's Special Brew",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "pad": "14",
+          "mad": "30",
+          "time": "600000",
+          "hpR": "50",
+          "mpR": "50"
+        }
+      }
+    },
+    {
+      "id": 4031674,
+      "name": "Elpam Magnet",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 30
+        }
+      }
+    },
+    {
+      "id": 4031904,
+      "name": "Ergoth's Jawbone",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4031594,
+      "name": "Geist Fang",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 2022121,
+      "name": "Gelt Chocolate",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 8000
+        },
+        "consumeSpec": {
+          "time": "600000",
+          "mp": "100",
+          "hp": "100",
+          "pad": "120",
+          "pdd": "100",
+          "acc": "30",
+          "eva": "30",
+          "speed": "10",
+          "jump": "10"
+        }
+      }
+    },
+    {
+      "id": 2002023,
+      "name": "Ginger Ale",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Potion",
+        "lowItemId": 2000000,
+        "highItemId": 2010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1100
+        },
+        "consumeSpec": {
+          "hpR": "75",
+          "mpR": "75"
+        }
+      }
+    },
+    {
+      "id": 4031284,
+      "name": "Golden Egg",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 10000
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 2022264,
+      "name": "Gravy",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "mp": "800"
+        }
+      }
+    },
+    {
+      "id": 2022189,
+      "name": "Grilled Cheese",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 250
+        },
+        "consumeSpec": {
+          "hp": "500",
+          "mp": "500",
+          "pdd": "20",
+          "time": "1800000"
+        }
+      }
+    },
+    {
+      "id": 4031680,
+      "name": "Hyper Glyph",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        }
+      }
+    },
+    {
+      "id": 4031903,
+      "name": "Jack O'Lantern",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4000300,
+      "name": "Letty's Hairball",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4031593,
+      "name": "Lip Lock Key",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 10
+        }
+      }
+    },
+    {
+      "id": 4000399,
+      "name": "Loaded Spring",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 27
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000400,
+      "name": "Lock of Doll's Hair",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 50
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 2022251,
+      "name": "Maple Pop",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "time": "60000",
+          "acc": "100"
+        }
+      }
+    },
+    {
+      "id": 1001035,
+      "name": "Maplehontas",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Hat",
+        "lowItemId": 1000000,
+        "highItemId": 1010000
+      },
+      "equipGroup": "Cap",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 0,
+          "incPDD": 1,
+          "islot": "Cp",
+          "vslot": "CpH1H5",
+          "gender": 1,
+          "vslots": [
+            "Cp",
+            "H1",
+            "H5"
+          ],
+          "islots": [
+            "Cp"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 0
+        }
+      }
+    },
+    {
+      "id": 2022263,
+      "name": "Mashed Potato",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "hp": "800"
+        }
+      }
+    },
+    {
+      "id": 4031681,
+      "name": "MesoGear Map Piece",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        }
+      }
+    },
+    {
       "id": 4000126,
       "name": "MT-09의 연료",
       "typeInfo": {
@@ -75385,6 +77078,338 @@
         },
         "slot": {
           "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 2022117,
+      "name": "Mystical Maple Leaf",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "consumeSpec": {
+          "pad": "20",
+          "mad": "20",
+          "pdd": "50",
+          "mdd": "50",
+          "acc": "30",
+          "eva": "30",
+          "speed": "10",
+          "jump": "10",
+          "time": "1200000"
+        }
+      }
+    },
+    {
+      "id": 4031901,
+      "name": "Papulatus Curl",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4031764,
+      "name": "Paranormal Activity Report Page",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031812,
+      "name": "Paranormal Activity Report Page",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031905,
+      "name": "Pianus Scale",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 1000025,
+      "name": "Pilgrim Hat",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Hat",
+        "lowItemId": 1000000,
+        "highItemId": 1010000
+      },
+      "equipGroup": "Cap",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 0,
+          "incPDD": 1,
+          "islot": "Cp",
+          "vslot": "CpH1H5",
+          "gender": 0,
+          "vslots": [
+            "Cp",
+            "H1",
+            "H5"
+          ],
+          "islots": [
+            "Cp"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 0
+        }
+      }
+    },
+    {
+      "id": 2022247,
+      "name": "Red Gummy Slime",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "hp": "1200",
+          "mp": "1200"
+        }
+      }
+    },
+    {
+      "id": 4031525,
+      "name": "Ring Fragment",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 0,
+          "notSale": true
+        },
+        "relatedQuests": [
+          {
+            "itemRequirement": {
+              "count": 20,
+              "id": 4031525
+            },
+            "id": 8868
+          }
+        ]
+      }
+    },
+    {
+      "id": 2020030,
+      "name": "Roasted Turkey",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Food and Drink",
+        "lowItemId": 2010000,
+        "highItemId": 2022000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "consumeSpec": {
+          "hp": "100"
+        }
+      }
+    },
+    {
+      "id": 4031770,
+      "name": "Sepha Earring",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031524,
+      "name": "Silk Feather",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 0,
+          "notSale": true
+        }
+      }
+    },
+    {
+      "id": 2022244,
+      "name": "Smore",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "time": "600000",
+          "speed": "10",
+          "eva": "10",
+          "acc": "10",
+          "hpR": "25",
+          "mpR": "25",
+          "jump": "10"
+        }
+      }
+    },
+    {
+      "id": 2002024,
+      "name": "Sorcerer Elixir",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Potion",
+        "lowItemId": 2000000,
+        "highItemId": 2010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 500
+        },
+        "slot": {
+          "slotMax": 150
+        },
+        "consumeSpec": {
+          "mp": "1500"
         }
       }
     },
@@ -75412,6 +77437,193 @@
             "id": 3072
           }
         ]
+      }
+    },
+    {
+      "id": 2022261,
+      "name": "Stuffing Scoop",
+      "typeInfo": {
+        "overallCategory": "Use",
+        "category": "Consumable",
+        "subCategory": "Consumable",
+        "lowItemId": 2022000,
+        "highItemId": 2024000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 100
+        },
+        "consumeSpec": {
+          "hp": "600",
+          "mp": "600"
+        }
+      }
+    },
+    {
+      "id": 4031769,
+      "name": "Tarrymore Earring",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031675,
+      "name": "Temporal Fragment",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 30
+        }
+      }
+    },
+    {
+      "id": 4031902,
+      "name": "Tengu Nose",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "equip": {
+          "tradeBlock": true,
+          "vslots": [],
+          "islots": []
+        },
+        "shop": {
+          "price": 1,
+          "notSale": true
+        },
+        "slot": {
+          "slotMax": 1
+        }
+      }
+    },
+    {
+      "id": 4000301,
+      "name": "Toy Drum",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        },
+        "slot": {
+          "slotMax": 200
+        }
+      }
+    },
+    {
+      "id": 4000417,
+      "name": "trans",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4031596,
+      "name": "Wing Hammer",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1,
+          "notSale": true
+        }
+      }
+    },
+    {
+      "id": 1072239,
+      "name": "Yellow Snowshoes",
+      "typeInfo": {
+        "overallCategory": "Equip",
+        "category": "Armor",
+        "subCategory": "Shoes",
+        "lowItemId": 1070000,
+        "highItemId": 1080000
+      },
+      "equipGroup": "Shoes",
+      "meta": {
+        "only": false,
+        "equip": {
+          "reqSTR": 0,
+          "reqDEX": 0,
+          "reqINT": 0,
+          "reqLUK": 0,
+          "reqJob": 0,
+          "reqLevel": 50,
+          "tuc": 7,
+          "incDEX": 3,
+          "incINT": 3,
+          "incPDD": 30,
+          "incMDD": 10,
+          "islot": "So",
+          "vslot": "So",
+          "vslots": [
+            "So"
+          ],
+          "islots": [
+            "So"
+          ]
+        },
+        "cash": {
+          "cash": false
+        },
+        "shop": {
+          "price": 1
+        },
+        "chair": {
+          "reqLevel": 50
+        }
       }
     }
   ],
@@ -107140,10 +109352,6 @@
         "prob": 0.000016
       },
       {
-        "itemId": 1402013,
-        "prob": 0.00003
-      },
-      {
         "itemId": 1422012,
         "prob": 0.00004
       },
@@ -107330,10 +109538,6 @@
       {
         "itemId": 1382010,
         "prob": 0.000016
-      },
-      {
-        "itemId": 1402013,
-        "prob": 0.00003
       },
       {
         "itemId": 1422012,
@@ -133338,16 +135542,6 @@
       {
         "mobId": 9500161,
         "prob": 0.00008
-      }
-    ],
-    "1402013": [
-      {
-        "mobId": 9400120,
-        "prob": 0.00003
-      },
-      {
-        "mobId": 9400122,
-        "prob": 0.00003
       }
     ],
     "1402015": [

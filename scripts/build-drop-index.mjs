@@ -1,15 +1,19 @@
 import fs from "fs/promises";
 import path from "path";
+import vm from "vm";
 
 const REGION = "KMS";
 const VERSION = "389";
 const BASE = "https://maplestory.io/api";
-const ITEM_REGION = "KMS";
-const ITEM_VERSION = "389";
+const ITEM_REGION = "GMS";
+const ITEM_VERSION = "200";
+const KMS_ITEM_REGION = "KMS";
+const KMS_ITEM_VERSION = "284";
 
 const MONSTER_SOURCE = path.resolve("data/monsters.json");
 const OUTPUT_PATH = path.resolve("data/drop-index.json");
 const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
+const MAPLEDB_ITEM_DATA = path.resolve("src/data/mapledb/item_data.js");
 
 const CONCURRENCY = 4;
 const ITEM_CONCURRENCY = 6;
@@ -72,14 +76,66 @@ async function fetchRewardItemIds(mobId) {
   return ids;
 }
 
-async function fetchItemName(itemId) {
-  const url = `${BASE}/${ITEM_REGION}/${ITEM_VERSION}/item/${itemId}`;
-  const data = await fetchJson(url, 2);
-  const name = data?.description?.name ?? data?.name ?? "";
-  return name ? { id: itemId, name } : null;
+async function getFallbackVersions(region, excludeVersion, limit = 5) {
+  try {
+    const list = await fetchJson(`${BASE}/wz`, 1);
+    const versions = (list ?? [])
+      .filter((entry) => entry.region === region && entry.isReady)
+      .map((entry) => entry.mapleVersionId)
+      .filter((value) => /^\d+$/.test(String(value)))
+      .map((value) => String(value))
+      .sort((a, b) => Number(b) - Number(a));
+    const filtered = versions.filter((v) => v !== excludeVersion);
+    return filtered.slice(0, limit);
+  } catch {
+    return [];
+  }
+}
+
+async function fetchItemNameFromRegion(itemId, region, version, fallbackVersions = []) {
+  const tryFetch = async (ver) => {
+    const url = `${BASE}/${region}/${ver}/item/${itemId}`;
+    try {
+      const data = await fetchJson(url, 2);
+      const name = data?.description?.name ?? data?.name ?? "";
+      return name ? { id: itemId, name } : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const primary = await tryFetch(version);
+  if (primary) return primary;
+
+  for (const version of fallbackVersions) {
+    const fallback = await tryFetch(version);
+    if (fallback) return fallback;
+  }
+  return null;
+}
+
+async function loadMapleDbItemNames() {
+  try {
+    const code = await fs.readFile(MAPLEDB_ITEM_DATA, "utf8");
+    const sandbox = {};
+    vm.runInNewContext(code, sandbox, { timeout: 10000 });
+    const items = Array.isArray(sandbox.ITEMS) ? sandbox.ITEMS : [];
+    const map = new Map();
+    for (const entry of items) {
+      if (!entry || typeof entry.code !== "number") continue;
+      const name = entry.name_ko || entry.name_en;
+      if (name) {
+        map.set(entry.code, name);
+      }
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
 }
 
 async function main() {
+  const mapledbNames = await loadMapleDbItemNames();
   const raw = await fs.readFile(MONSTER_SOURCE, "utf8");
   const monsters = JSON.parse(raw);
   let mobIds = Array.from(
@@ -152,8 +208,15 @@ async function main() {
 
   const itemIdList = Array.from(itemIds);
   let itemProcessed = 0;
+  const fallbackVersions = await getFallbackVersions(ITEM_REGION, ITEM_VERSION);
+  const kmsFallbackVersions = await getFallbackVersions(KMS_ITEM_REGION, KMS_ITEM_VERSION);
   const items = await asyncPool(ITEM_CONCURRENCY, itemIdList, async (itemId) => {
-    const result = await fetchItemName(itemId);
+    const nameFromMapleDb = mapledbNames.get(itemId);
+    const result =
+      nameFromMapleDb
+        ? { id: itemId, name: nameFromMapleDb }
+        : (await fetchItemNameFromRegion(itemId, KMS_ITEM_REGION, KMS_ITEM_VERSION, kmsFallbackVersions)) ??
+          (await fetchItemNameFromRegion(itemId, ITEM_REGION, ITEM_VERSION, fallbackVersions));
     itemProcessed += 1;
     if (itemProcessed % 100 === 0 || itemProcessed === itemIdList.length) {
       console.log(`Fetched items: ${itemProcessed}/${itemIdList.length}`);
@@ -168,6 +231,26 @@ async function main() {
     };
   });
   const filteredItems = items.filter(Boolean).sort((a, b) => a.name.localeCompare(b.name, "ko"));
+  const validItemIds = new Set(filteredItems.map((item) => item.id));
+
+  for (const [mobId, rewards] of Object.entries(dropsByMonsterId)) {
+    const filteredRewards = rewards.filter((reward) => validItemIds.has(reward.itemId));
+    if (filteredRewards.length === 0) {
+      delete dropsByMonsterId[mobId];
+    } else {
+      dropsByMonsterId[mobId] = filteredRewards;
+    }
+  }
+
+  for (const [itemId, mobs] of Object.entries(monstersByItemId)) {
+    if (!validItemIds.has(Number(itemId))) {
+      delete monstersByItemId[itemId];
+      continue;
+    }
+    if (!Array.isArray(mobs) || mobs.length === 0) {
+      delete monstersByItemId[itemId];
+    }
+  }
 
   const payload = {
     generatedAt: new Date().toISOString(),

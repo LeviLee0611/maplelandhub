@@ -1,7 +1,7 @@
 const REGION = "KMS";
 const VERSION = "389";
 const BASE_URL = `https://maplestory.io/api/${REGION}/${VERSION}`;
-const ITEM_BASE_URL = "https://maplestory.io/api/GMS/62";
+const ITEM_BASE_URL = "https://maplestory.io/api/GMS/200";
 
 export function getMobIconUrl(mobCode: number | string) {
   return `${BASE_URL}/mob/${mobCode}/icon`;
