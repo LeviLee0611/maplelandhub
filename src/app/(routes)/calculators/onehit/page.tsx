@@ -196,6 +196,14 @@ export default function OneHitCalculatorPage() {
 
   const [monsterName, setMonsterName] = useState("달팽이");
   const [showFormula, setShowFormula] = useState(false);
+  const [mobParam] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("mob");
+  });
+
+  useEffect(() => {
+    if (mobParam) setMonsterName(mobParam);
+  }, [mobParam]);
 
   const getMaxButtonClass = (isMax: boolean) =>
     `h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
@@ -492,7 +500,7 @@ export default function OneHitCalculatorPage() {
       }
       if (typeof saved.healTargetCount === "number") setHealTargetCount(saved.healTargetCount);
       if (typeof saved.comboCounter === "number") setComboCounter(saved.comboCounter);
-      if (typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
+      if (!mobParam && typeof saved.monsterName === "string") setMonsterName(saved.monsterName);
     } catch {
       // Ignore invalid local profile data
     }

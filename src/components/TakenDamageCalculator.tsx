@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { NumberField } from "@/components/NumberField";
 import { MonsterPanel } from "@/components/MonsterPanel";
@@ -69,6 +69,14 @@ export function TakenDamageCalculator() {
   const [stats, setStats] = useState({ str: 500, dex: 120, int: 20, luk: 50, wdef: 450, mdef: 280 });
   const [monsterName, setMonsterName] = useState(typedMonsters[0]?.name ?? "");
   const [magicElement, setMagicElement] = useState<(typeof MAGIC_ELEMENTS)[number]>("무");
+  const [mobParam] = useState<string | null>(() => {
+    if (typeof window === "undefined") return null;
+    return new URLSearchParams(window.location.search).get("mob");
+  });
+
+  useEffect(() => {
+    if (mobParam) setMonsterName(mobParam);
+  }, [mobParam]);
 
   const [achillesLevel, setAchillesLevel] = useState(0);
   const [powerGuardLevel, setPowerGuardLevel] = useState(0);
@@ -123,7 +131,7 @@ export function TakenDamageCalculator() {
       }, 0);
     }
     if (snapshot.stats) setStats(snapshot.stats);
-    if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
+    if (!mobParam && typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
     if (typeof snapshot.magicElement === "string" && MAGIC_ELEMENTS.includes(snapshot.magicElement as (typeof MAGIC_ELEMENTS)[number])) {
       setMagicElement(snapshot.magicElement as (typeof MAGIC_ELEMENTS)[number]);
     }

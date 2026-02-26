@@ -235,13 +235,15 @@ export function DropTable() {
                 {query && showSuggestions ? (
                   <div className="absolute top-full z-20 mt-2 max-h-80 w-full overflow-auto rounded-[10px] border border-[var(--retro-border-strong)] bg-slate-950/95 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.55)] backdrop-blur">
                     <div className="space-y-4">
-                      <div>
-                        <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
-                        <div className="mt-2 space-y-1">
-                          {filteredItems.length === 0 ? (
-                            <div className="text-xs text-[color:var(--retro-text-muted)]">검색 결과 없음</div>
-                          ) : (
-                            filteredItems.map((item) => (
+                      {filteredItems.length === 0 && filteredMonsters.length === 0 ? (
+                        <div className="text-xs text-[color:var(--retro-text-muted)]">검색 결과 없음</div>
+                      ) : null}
+
+                      {filteredItems.length > 0 ? (
+                        <div>
+                          <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
+                          <div className="mt-2 space-y-1">
+                            {filteredItems.map((item) => (
                               <button
                                 key={item.id}
                                 type="button"
@@ -258,18 +260,16 @@ export function DropTable() {
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">{getItemGroup(item)}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">#{item.id}</span>
                               </button>
-                            ))
-                          )}
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      ) : null}
 
-                      <div>
-                        <h3 className="text-xs font-semibold text-slate-100">몬스터</h3>
-                        <div className="mt-2 space-y-1">
-                          {filteredMonsters.length === 0 ? (
-                            <div className="text-xs text-[color:var(--retro-text-muted)]">검색 결과 없음</div>
-                          ) : (
-                            filteredMonsters.map((monster) => (
+                      {filteredMonsters.length > 0 ? (
+                        <div>
+                          <h3 className="text-xs font-semibold text-slate-100">몬스터</h3>
+                          <div className="mt-2 space-y-1">
+                            {filteredMonsters.map((monster) => (
                               <button
                                 key={monster.mobCode}
                                 type="button"
@@ -287,10 +287,10 @@ export function DropTable() {
                                   Lv.{monster.level ?? "-"}
                                 </span>
                               </button>
-                            ))
-                          )}
+                            ))}
+                          </div>
                         </div>
-                      </div>
+                      ) : null}
                     </div>
                   </div>
                 ) : null}
@@ -336,20 +336,36 @@ export function DropTable() {
             ) : null}
 
             {selectedMonster ? (
-              <div className="rounded-[14px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-4 py-4 text-sm text-[color:var(--retro-text)]">
-                <div className="flex items-center justify-between">
-                  <div className="text-sm font-semibold text-slate-100">몬스터 정보</div>
-                  <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-[color:var(--retro-text-muted)]">
-                    Lv.{selectedMonster.level ?? "-"}
-                  </span>
+              <div className="space-y-3">
+                <div className="rounded-[14px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-4 py-4 text-sm text-[color:var(--retro-text)]">
+                  <div className="flex items-center justify-between">
+                    <div className="text-sm font-semibold text-slate-100">몬스터 정보</div>
+                    <span className="rounded-full bg-white/5 px-2 py-0.5 text-xs text-[color:var(--retro-text-muted)]">
+                      Lv.{selectedMonster.level ?? "-"}
+                    </span>
+                  </div>
+                  <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
+                    <div>HP {selectedMonster.hp ?? "-"}</div>
+                    <div>EXP {selectedMonster.exp ?? "-"}</div>
+                    <div>물공 {selectedMonster.watk ?? "-"}</div>
+                    <div>마공 {selectedMonster.matk ?? "-"}</div>
+                    <div>물방 {selectedMonster.def ?? "-"}</div>
+                    <div>마방 {selectedMonster.mDef ?? "-"}</div>
+                  </div>
                 </div>
-                <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                  <div>HP {selectedMonster.hp ?? "-"}</div>
-                  <div>EXP {selectedMonster.exp ?? "-"}</div>
-                  <div>물공 {selectedMonster.watk ?? "-"}</div>
-                  <div>마공 {selectedMonster.matk ?? "-"}</div>
-                  <div>물방 {selectedMonster.def ?? "-"}</div>
-                  <div>마방 {selectedMonster.mDef ?? "-"}</div>
+                <div className="flex flex-col gap-2">
+                  <a
+                    href={`/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-sky-200/30 bg-sky-200/10 px-3 py-2 text-xs font-semibold text-sky-100 hover:border-sky-200/60 hover:bg-sky-200/20"
+                  >
+                    N방컷 계산하기
+                  </a>
+                  <a
+                    href={`/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-emerald-200/30 bg-emerald-200/10 px-3 py-2 text-xs font-semibold text-emerald-100 hover:border-emerald-200/60 hover:bg-emerald-200/20"
+                  >
+                    피격뎀 계산하기
+                  </a>
                 </div>
               </div>
             ) : null}
