@@ -67,6 +67,7 @@ export function DropTable() {
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [selectedMonsterName, setSelectedMonsterName] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const groupOrder = ["주문서", "장비", "물약", "기타템"];
   const getItemGroup = (item: DropIndexItem) => {
@@ -119,6 +120,20 @@ export function DropTable() {
       .filter((monster) => getSearchKeys(monster.name).some((key) => key.includes(keyword)))
       .slice(0, 60);
   }, [query]);
+
+  const suggestionItems = useMemo(() => {
+    const items = filteredItems.map((item) => ({
+      type: "item" as const,
+      id: item.id,
+      label: item.name,
+    }));
+    const monsters = filteredMonsters.map((monster) => ({
+      type: "monster" as const,
+      id: monster.mobCode,
+      label: monster.name,
+    }));
+    return [...items, ...monsters];
+  }, [filteredItems, filteredMonsters]);
 
   const monsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
@@ -212,6 +227,7 @@ export function DropTable() {
           title="검색"
           tone="blue"
           actions={<span className="text-xs text-[color:var(--retro-text-muted)]">몬스터 · 아이템</span>}
+          className="shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           <div className="flex flex-col gap-4 text-sm text-[color:var(--retro-text)]">
             <div className="space-y-2">
@@ -226,11 +242,44 @@ export function DropTable() {
                     setSelectedItemId(null);
                     setSelectedMonsterName(null);
                     setShowSuggestions(true);
+                    setActiveIndex(-1);
                   }}
                   onFocus={() => setShowSuggestions(true)}
                   onBlur={() => setTimeout(() => setShowSuggestions(false), 120)}
+                  onKeyDown={(event) => {
+                    if (!showSuggestions) setShowSuggestions(true);
+                    if (event.key === "ArrowDown") {
+                      event.preventDefault();
+                      if (suggestionItems.length === 0) return;
+                      setActiveIndex((prev) => (prev + 1) % suggestionItems.length);
+                    }
+                    if (event.key === "ArrowUp") {
+                      event.preventDefault();
+                      if (suggestionItems.length === 0) return;
+                      setActiveIndex((prev) => (prev <= 0 ? suggestionItems.length - 1 : prev - 1));
+                    }
+                    if (event.key === "Enter") {
+                      if (activeIndex < 0 || activeIndex >= suggestionItems.length) return;
+                      event.preventDefault();
+                      const picked = suggestionItems[activeIndex];
+                      if (picked.type === "item") {
+                        setSelectedItemId(picked.id);
+                        setSelectedMonsterName(null);
+                        setQuery(picked.label);
+                      } else {
+                        setSelectedItemId(null);
+                        setSelectedMonsterName(picked.label);
+                        setQuery(picked.label);
+                      }
+                      setShowSuggestions(false);
+                    }
+                    if (event.key === "Escape") {
+                      setShowSuggestions(false);
+                      setActiveIndex(-1);
+                    }
+                  }}
                   placeholder="몬스터 또는 아이템 이름을 입력하세요"
-                  className="w-full rounded-[10px] border border-[var(--retro-border)] bg-[var(--retro-bg)] px-10 py-3.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/60 focus:outline-none focus:ring-2 focus:ring-cyan-200/20"
+                  className="w-full rounded-[12px] border border-cyan-200/30 bg-[var(--retro-bg)] px-10 py-3.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] shadow-[0_0_0_1px_rgba(34,211,238,0.15),0_10px_30px_rgba(0,0,0,0.35)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
                 />
                 {query && showSuggestions ? (
                   <div className="absolute top-full z-20 mt-2 max-h-80 w-full overflow-auto rounded-[10px] border border-[var(--retro-border-strong)] bg-slate-950/95 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.55)] backdrop-blur">
@@ -243,11 +292,15 @@ export function DropTable() {
                         <div>
                           <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
                           <div className="mt-2 space-y-1">
-                            {filteredItems.map((item) => (
+                            {filteredItems.map((item, index) => (
                               <button
                                 key={item.id}
                                 type="button"
-                                className="flex w-full items-center gap-2 rounded-[6px] border border-transparent px-2 py-2 text-left text-sm text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
+                                className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
+                                  activeIndex === index
+                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
+                                    : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
+                                }`}
                                 onClick={() => {
                                   setSelectedItemId(item.id);
                                   setSelectedMonsterName(null);
@@ -269,11 +322,17 @@ export function DropTable() {
                         <div>
                           <h3 className="text-xs font-semibold text-slate-100">몬스터</h3>
                           <div className="mt-2 space-y-1">
-                            {filteredMonsters.map((monster) => (
+                            {filteredMonsters.map((monster, index) => {
+                              const adjustedIndex = filteredItems.length + index;
+                              return (
                               <button
                                 key={monster.mobCode}
                                 type="button"
-                                className="flex w-full items-center gap-2 rounded-[6px] border border-transparent px-2 py-2 text-left text-sm text-[color:var(--retro-text)] hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
+                                className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
+                                  activeIndex === adjustedIndex
+                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
+                                    : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
+                                }`}
                                 onClick={() => {
                                   setSelectedItemId(null);
                                   setSelectedMonsterName(monster.name);
@@ -287,7 +346,8 @@ export function DropTable() {
                                   Lv.{monster.level ?? "-"}
                                 </span>
                               </button>
-                            ))}
+                            );
+                            })}
                           </div>
                         </div>
                       ) : null}
@@ -384,6 +444,7 @@ export function DropTable() {
                   : "결과 없음"}
             </span>
           }
+          className="shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           {selectedMonster && !selectedItemId ? (
             <div className="grid gap-4 sm:grid-cols-2">
