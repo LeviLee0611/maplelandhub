@@ -17,7 +17,7 @@ const body = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  title: "메이플랜드허브 - 도구와 파티 매칭",
+  title: "메랜Hub - 메이플랜드 도구들",
   description: "메이플랜드 유저를 위한 올인원 유틸리티 허브",
 };
 
