@@ -10,6 +10,15 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  async redirects() {
+    return [
+      {
+        source: "/calculators/taken-damage",
+        destination: "/calculator/damage",
+        permanent: true,
+      },
+    ];
+  },
 };
 
 export default nextConfig;
