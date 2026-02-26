@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "메이플랜드 파티 매칭",
+  title: "메랜Hub - 파티 매칭",
   description: "메이플랜드 파티 매칭 게시판에서 파티원을 빠르게 찾으세요.",
   keywords: ["메이플랜드", "파티 매칭", "파티 모집", "파티원 구하기"],
   alternates: {
     canonical: "/party",
+  },
+  openGraph: {
+    title: "메랜Hub - 파티 매칭",
+    description: "메이플랜드 파티 매칭 게시판에서 파티원을 빠르게 찾으세요.",
+  },
+  twitter: {
+    title: "메랜Hub - 파티 매칭",
+    description: "메이플랜드 파티 매칭 게시판에서 파티원을 빠르게 찾으세요.",
   },
 };
 

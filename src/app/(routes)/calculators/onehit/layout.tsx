@@ -1,11 +1,19 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "메이플랜드 N방컷 계산기",
+  title: "메랜Hub - N방컷 계산기",
   description: "몬스터 HP와 데미지로 N방컷을 빠르게 계산합니다.",
   keywords: ["메이플랜드", "N방컷 계산기", "n방컷", "원킬", "데미지 계산기"],
   alternates: {
     canonical: "/calculators/onehit",
+  },
+  openGraph: {
+    title: "메랜Hub - N방컷 계산기",
+    description: "몬스터 HP와 데미지로 N방컷을 빠르게 계산합니다.",
+  },
+  twitter: {
+    title: "메랜Hub - N방컷 계산기",
+    description: "몬스터 HP와 데미지로 N방컷을 빠르게 계산합니다.",
   },
 };
 

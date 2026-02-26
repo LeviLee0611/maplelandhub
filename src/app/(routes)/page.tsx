@@ -2,8 +2,19 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "메이플랜드허브 - 계산기와 파티 매칭",
+  title: "메랜Hub - 메이플랜드 도구들",
   description: "N방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    title: "메랜Hub - 메이플랜드 도구들",
+    description: "N방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
+  },
+  twitter: {
+    title: "메랜Hub - 메이플랜드 도구들",
+    description: "N방컷 계산기 등 메이플랜드 유틸리티를 빠르게 제공합니다.",
+  },
 };
 
 const features = [
