@@ -134,7 +134,7 @@ export function DropTable() {
         entry,
         monster: monsterMap.get(entry.mobId),
       }))
-      .filter((row) => row.monster);
+      .filter((row): row is { entry: MonsterDropEntry; monster: Monster } => Boolean(row.monster));
   }, [selectedItemId]);
 
   const formatProb = (prob?: number) => {
@@ -443,7 +443,16 @@ export function DropTable() {
                     />
                     <div className="flex-1">
                       <div className="flex items-start justify-between gap-3">
-                        <div className="text-base font-semibold">{monster.name}</div>
+                        <div>
+                          <div className="text-base font-semibold">{monster.name}</div>
+                          <div className="mt-1 text-xs text-[color:var(--retro-text-muted)]">
+                            Lv.{monster.level ?? "-"} · {monster.region ?? "지역 정보 없음"}
+                          </div>
+                          <div className="text-xs text-[color:var(--retro-text-muted)]">
+                            HP {monster.hp ?? "-"} · EXP {monster.exp ?? "-"}
+                            {formatAmountLabel(entry.min, entry.max) ? ` · ${formatAmountLabel(entry.min, entry.max)}` : ""}
+                          </div>
+                        </div>
                         {(() => {
                           const prob = formatProb(entry.prob);
                           return (
@@ -453,13 +462,6 @@ export function DropTable() {
                             </div>
                           );
                         })()}
-                      </div>
-                      <div className="mt-1 text-xs text-[color:var(--retro-text-muted)]">
-                        Lv.{monster.level ?? "-"} · {monster.region ?? "지역 정보 없음"}
-                      </div>
-                      <div className="text-xs text-[color:var(--retro-text-muted)]">
-                        HP {monster.hp ?? "-"} · EXP {monster.exp ?? "-"}
-                        {formatAmountLabel(entry.min, entry.max) ? ` · ${formatAmountLabel(entry.min, entry.max)}` : ""}
                       </div>
                     </div>
                   </div>
