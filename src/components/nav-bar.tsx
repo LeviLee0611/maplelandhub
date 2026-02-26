@@ -17,7 +17,10 @@ export function NavBar() {
             N방컷 계산기
           </Link>
           <Link href="/calculator/damage" className="hover:opacity-80">
-            피격 데미지
+            피격뎀 계산기
+          </Link>
+          <Link href="/drop-table" className="hover:opacity-80">
+            드랍 테이블
           </Link>
           <Link href="/party" className="hover:opacity-80">
             파티 매칭

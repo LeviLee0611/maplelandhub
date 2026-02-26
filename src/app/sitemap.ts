@@ -18,6 +18,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/drop-table`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/party`,
       lastModified: new Date(),
     },

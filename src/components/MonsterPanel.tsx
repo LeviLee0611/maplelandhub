@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Panel } from "@/components/Panel";
 import { MonsterSelect } from "@/components/MonsterSelect";
-import { getMobIconUrl } from "@/lib/maplestory-io";
+import { getMobAnimatedUrl } from "@/lib/maplestory-io";
 import type { Monster } from "@/types/monster";
 import { formatNumber } from "@/lib/utils";
 
@@ -40,7 +40,7 @@ export function MonsterPanel({
           <div className="flex h-[72px] w-[72px] items-center justify-center border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)]">
             {selected?.mobCode ? (
               <Image
-                src={getMobIconUrl(selected.mobCode)}
+                src={getMobAnimatedUrl(selected.mobCode)}
                 alt={selected.name}
                 width={56}
                 height={56}

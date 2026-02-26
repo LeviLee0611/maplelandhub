@@ -322,6 +322,24 @@ export function TakenDamageCalculator() {
           </p>
         </header>
 
+        <section className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs text-slate-200/90">
+          <h2 className="text-sm font-semibold text-slate-100">계산기 소개</h2>
+          <div className="mt-3 grid gap-2 md:grid-cols-3">
+            {[
+              "직업별 방어력 반영",
+              "마법 피해 계산",
+              "생존 시뮬레이션",
+            ].map((text) => (
+              <div
+                key={text}
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-emerald-200/60 hover:bg-white/10"
+              >
+                <h3 className="text-[12px] font-semibold text-slate-100">{text}</h3>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <div className="mt-4">
           <QuickSlots
             storageKey="mlh-quickslots-takendamage-v1"

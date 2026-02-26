@@ -1516,6 +1516,24 @@ export default function OneHitCalculatorPage() {
           </div>
         </header>
 
+        <section className="mt-6 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs text-slate-200/90">
+          <h2 className="text-sm font-semibold text-slate-100">계산기 소개</h2>
+          <div className="mt-3 grid gap-2 md:grid-cols-3">
+            {[
+              "한방컷 확률 계산",
+              "기대 처치 수 계산",
+              "확률 기반 사냥 효율 분석",
+            ].map((text) => (
+              <div
+                key={text}
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-cyan-200/60 hover:bg-white/10"
+              >
+                <h3 className="text-[12px] font-semibold text-slate-100">{text}</h3>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <div className="mt-6 grid gap-6 lg:grid-cols-2">
           <div className="space-y-6">
             <Panel title="캐릭터 정보" tone="blue">
