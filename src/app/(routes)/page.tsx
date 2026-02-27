@@ -23,6 +23,8 @@ const features = [
     description: "몬스터를 몇 방에 잡는지 빠르게 계산합니다",
     href: "/calculators/onehit",
     button: "계산기 열기",
+    accent: "from-sky-300/20 via-cyan-300/10 to-transparent",
+    ring: "border-sky-200/35 bg-sky-300/15",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-sky-300">
         <path
@@ -37,6 +39,8 @@ const features = [
     description: "몬스터 피격 데미지를 추정합니다",
     href: "/calculator/damage",
     button: "계산기 열기",
+    accent: "from-emerald-300/20 via-teal-300/10 to-transparent",
+    ring: "border-emerald-200/35 bg-emerald-300/15",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-emerald-300">
         <path
@@ -51,12 +55,24 @@ const features = [
     description: "몬스터/아이템 드랍 정보를 빠르게 검색합니다",
     href: "/drop-table",
     button: "드랍 테이블 열기",
+    accent: "from-indigo-300/20 via-violet-300/10 to-transparent",
+    ring: "border-indigo-200/35 bg-indigo-300/15",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-violet-300">
-        <path
-          fill="currentColor"
-          d="M12 2 3 6v6c0 5.25 3.75 9.75 9 11 5.25-1.25 9-5.75 9-11V6l-9-4Zm-1 6h2v2h-2V8Zm0 4h2v6h-2v-6Z"
-        />
+        <path fill="currentColor" d="M4 7.5 12 4l8 3.5-8 3.5L4 7.5Zm0 3.5 8 3.5 8-3.5V17l-8 3-8-3v-6Z" />
+      </svg>
+    ),
+  },
+  {
+    title: "메랜 퀘스트",
+    description: "NPC별 퀘스트 조건/보상을 검색합니다",
+    href: "/quests",
+    button: "퀘스트 열기",
+    accent: "from-cyan-300/20 via-blue-300/10 to-transparent",
+    ring: "border-cyan-200/35 bg-cyan-300/15",
+    icon: (
+      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-cyan-300">
+        <path fill="currentColor" d="M6 4h10a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H8l-3 2V6a2 2 0 0 1 1-2Zm3 3h4v2H9V7Zm0 4h4v4H9v-4Z" />
       </svg>
     ),
   },
@@ -65,6 +81,8 @@ const features = [
     description: "파티원을 쉽게 모집/탐색하세요",
     href: "/party",
     button: "매칭 보기",
+    accent: "from-amber-300/20 via-orange-300/10 to-transparent",
+    ring: "border-amber-200/35 bg-amber-300/15",
     icon: (
       <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-amber-300">
         <path
@@ -97,18 +115,25 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="grid w-full max-w-5xl gap-6 md:grid-cols-3">
+      <div className="grid w-full max-w-5xl gap-4 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
-          <div key={feature.title} className="glass-panel flex h-full flex-col gap-4 rounded-2xl p-6 text-left transition duration-300 hover:scale-[1.02]">
-            <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-white/5">{feature.icon}</div>
-            <div>
-              <h2 className="text-lg font-semibold">{feature.title}</h2>
-              <p className="mt-2 text-sm text-slate-200/90">{feature.description}</p>
+          <Link
+            href={feature.href}
+            key={feature.title}
+            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+          >
+            <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+            <div className="relative flex items-start gap-3">
+              <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+              <div className="min-w-0">
+                <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
+                  바로가기 →
+                </p>
+              </div>
             </div>
-            <Link href={feature.href} className="btn-ghost mt-auto inline-flex items-center justify-center rounded-full px-4 py-2 text-sm font-semibold">
-              {feature.button}
-            </Link>
-          </div>
+          </Link>
         ))}
       </div>
 
@@ -126,6 +151,10 @@ export default function HomePage() {
             ,
             <Link href="/drop-table" className="ml-2 font-semibold text-violet-200 hover:text-white">
               드랍 테이블
+            </Link>
+            ,
+            <Link href="/quests" className="ml-2 font-semibold text-cyan-200 hover:text-white">
+              메랜 퀘스트
             </Link>
             을 바로 이용할 수 있습니다.
           </p>

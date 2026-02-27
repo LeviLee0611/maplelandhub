@@ -22,6 +22,9 @@ export function NavBar() {
           <Link href="/drop-table" className="hover:opacity-80">
             드랍 테이블
           </Link>
+          <Link href="/quests" className="hover:opacity-80">
+            메랜 퀘스트
+          </Link>
           <Link href="/party" className="hover:opacity-80">
             파티 매칭
           </Link>

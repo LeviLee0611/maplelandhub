@@ -219,7 +219,7 @@ export function DropTable() {
   };
 
   return (
-    <div className="space-y-6">
+    <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <header className="glass-panel flex flex-col gap-3 rounded-3xl px-6 py-6 text-left">
         <h1 className="display text-4xl font-semibold md:text-5xl">드랍 테이블</h1>
         <p className="text-base text-slate-200/90 md:text-lg">
@@ -374,7 +374,7 @@ export function DropTable() {
             </div>
 
             {selectedItemId ? (
-              <div className="rounded-[10px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+              <div className="rounded-[10px] border border-cyan-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
                 <div className="flex items-center gap-2">
                   <img
                     src={getItemIconUrl(selectedItemId)}
@@ -398,7 +398,7 @@ export function DropTable() {
                 </div>
               </div>
             ) : selectedMonster ? (
-              <div className="rounded-[10px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+              <div className="rounded-[10px] border border-emerald-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(6,78,59,0.35)]">
                 <div className="flex items-center gap-2">
                   <img
                     src={getMobIconUrl(selectedMonster.mobCode)}
@@ -465,7 +465,7 @@ export function DropTable() {
                   : "결과 없음"}
             </span>
           }
-          className="shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
+          className="glass-panel-strong border-cyan-200/25 shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           {selectedMonster && !selectedItemId ? (
             <div className="grid gap-4 sm:grid-cols-2">
@@ -478,7 +478,7 @@ export function DropTable() {
                     return (
                       <div
                         key={`${entry.itemId}`}
-                        className="flex items-center gap-4 rounded-[12px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-4 py-3 text-sm transition hover:border-cyan-200/60 hover:bg-[var(--retro-cell-strong)]"
+                        className="retro-subsection flex items-center gap-4 rounded-[12px] border border-cyan-200/25 bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-cyan-200/60 hover:bg-[var(--retro-cell-strong)]"
                         onClick={() => {
                           setSelectedItemId(entry.itemId);
                           setSelectedMonsterName(null);
@@ -523,7 +523,7 @@ export function DropTable() {
                 {monstersForItem.map(({ monster, entry }) => (
                   <div
                     key={monster?.mobCode}
-                    className="flex items-center gap-4 rounded-[14px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-5 py-4 text-sm transition hover:border-emerald-200/60 hover:bg-[var(--retro-cell-strong)]"
+                    className="retro-subsection flex items-center gap-4 rounded-[14px] border border-emerald-200/25 bg-[var(--retro-cell)] px-5 py-4 text-sm shadow-[0_10px_20px_rgba(6,78,59,0.3)] transition hover:border-emerald-200/60 hover:bg-[var(--retro-cell-strong)]"
                     onClick={() => {
                       setSelectedItemId(null);
                       setSelectedMonsterName(monster.name);
@@ -571,6 +571,6 @@ export function DropTable() {
             )}
         </Panel>
       </div>
-    </div>
+    </section>
   );
 }

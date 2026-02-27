@@ -22,6 +22,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/quests`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/about`,
       lastModified: new Date(),
     },
@@ -59,6 +63,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/services/drop-table`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/services/quests`,
       lastModified: new Date(),
     },
     {

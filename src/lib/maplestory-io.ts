@@ -20,6 +20,10 @@ export function getMobRenderUrl(mobCode: number | string, action: "stand" | "mov
   return `${renderBase}/mob/${mobCode}/render/${action}`;
 }
 
+export function getNpcIconUrl(npcId: number | string) {
+  return `https://maplestory.io/api/gms/62/npc/${npcId}/icon`;
+}
+
 export function getItemIconUrl(itemId: number | string, resize = 2) {
   const suffix = resize ? `?resize=${resize}` : "";
   return `${ITEM_BASE_URL}/item/${itemId}/icon${suffix}`;

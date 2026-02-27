@@ -1,0 +1,8118 @@
+{
+  "generatedAt": "2026-02-27T19:07:55.458Z",
+  "source": "turbopack-dump-import",
+  "worlds": [
+    {
+      "id": "개미굴3",
+      "name": "개미굴3"
+    },
+    {
+      "id": "개미굴4",
+      "name": "개미굴4"
+    },
+    {
+      "id": "기타",
+      "name": "기타"
+    },
+    {
+      "id": "깊은숲",
+      "name": "깊은숲"
+    },
+    {
+      "id": "깊은숲사냥터2",
+      "name": "깊은숲사냥터2"
+    },
+    {
+      "id": "노틸러스",
+      "name": "노틸러스"
+    },
+    {
+      "id": "동쪽바위산2",
+      "name": "동쪽바위산2"
+    },
+    {
+      "id": "또다른입구",
+      "name": "또다른입구"
+    },
+    {
+      "id": "루디브리엄",
+      "name": "루디브리엄"
+    },
+    {
+      "id": "리스항구",
+      "name": "리스항구"
+    },
+    {
+      "id": "북쪽숲나무통로",
+      "name": "북쪽숲나무통로"
+    },
+    {
+      "id": "빅토리아 아일랜드",
+      "name": "빅토리아 아일랜드"
+    },
+    {
+      "id": "슬리피우드",
+      "name": "슬리피우드"
+    },
+    {
+      "id": "아쿠아리움",
+      "name": "아쿠아리움"
+    },
+    {
+      "id": "엘리니아",
+      "name": "엘리니아"
+    },
+    {
+      "id": "엘리니아남쪽필드",
+      "name": "엘리니아남쪽필드"
+    },
+    {
+      "id": "오르비스",
+      "name": "오르비스"
+    },
+    {
+      "id": "워닝스트리트",
+      "name": "워닝스트리트"
+    },
+    {
+      "id": "유적발굴단 캠프",
+      "name": "유적발굴단 캠프"
+    },
+    {
+      "id": "이블아이의굴1",
+      "name": "이블아이의굴1"
+    },
+    {
+      "id": "이블아이의굴4",
+      "name": "이블아이의굴4"
+    },
+    {
+      "id": "커닝시티",
+      "name": "커닝시티"
+    },
+    {
+      "id": "페리온",
+      "name": "페리온"
+    },
+    {
+      "id": "플로리나로드",
+      "name": "플로리나로드"
+    },
+    {
+      "id": "헤네시스",
+      "name": "헤네시스"
+    },
+    {
+      "id": "헤네시스동쪽언덕",
+      "name": "헤네시스동쪽언덕"
+    },
+    {
+      "id": "회복사우나실<고급>",
+      "name": "회복사우나실<고급>"
+    }
+  ],
+  "npcs": [
+    {
+      "id": 1052103,
+      "name": "넬라"
+    },
+    {
+      "id": 1020000,
+      "name": "돼지와 함께 춤을"
+    },
+    {
+      "id": 1081102,
+      "name": "라엘"
+    },
+    {
+      "id": 1061004,
+      "name": "로니"
+    },
+    {
+      "id": 1081101,
+      "name": "로엘"
+    },
+    {
+      "id": 1092012,
+      "name": "롤로네"
+    },
+    {
+      "id": 1040000,
+      "name": "루크"
+    },
+    {
+      "id": 1010100,
+      "name": "리나"
+    },
+    {
+      "id": 1092009,
+      "name": "리드"
+    },
+    {
+      "id": 1081100,
+      "name": "리엘"
+    },
+    {
+      "id": 1012101,
+      "name": "마야"
+    },
+    {
+      "id": 1022002,
+      "name": "만지"
+    },
+    {
+      "id": 1092007,
+      "name": "무라트"
+    },
+    {
+      "id": 2060006,
+      "name": "뮤즈"
+    },
+    {
+      "id": 1012106,
+      "name": "밍밍부인"
+    },
+    {
+      "id": 1092011,
+      "name": "바르톨"
+    },
+    {
+      "id": 1094000,
+      "name": "바트"
+    },
+    {
+      "id": 1092002,
+      "name": "베인"
+    },
+    {
+      "id": 1032104,
+      "name": "베티"
+    },
+    {
+      "id": 1092001,
+      "name": "보니"
+    },
+    {
+      "id": 2041022,
+      "name": "보좌관 티군"
+    },
+    {
+      "id": 2012019,
+      "name": "봉달이"
+    },
+    {
+      "id": 1012111,
+      "name": "브루스"
+    },
+    {
+      "id": 1092006,
+      "name": "블랙바크"
+    },
+    {
+      "id": 1063008,
+      "name": "뿔버섯 수배표지판"
+    },
+    {
+      "id": 1061005,
+      "name": "사비트라마"
+    },
+    {
+      "id": 1092003,
+      "name": "샤를"
+    },
+    {
+      "id": 1052102,
+      "name": "슈미"
+    },
+    {
+      "id": 1061003,
+      "name": "시워언해"
+    },
+    {
+      "id": 1094001,
+      "name": "아벨"
+    },
+    {
+      "id": 1052000,
+      "name": "알렉스"
+    },
+    {
+      "id": 1012110,
+      "name": "앤"
+    },
+    {
+      "id": 1032105,
+      "name": "에스텔"
+    },
+    {
+      "id": 1032101,
+      "name": "요정 로웬"
+    },
+    {
+      "id": 1032100,
+      "name": "요정 아르웬"
+    },
+    {
+      "id": 1032106,
+      "name": "요정 윙"
+    },
+    {
+      "id": 2012011,
+      "name": "요정 크리엘"
+    },
+    {
+      "id": 1022006,
+      "name": "윈스턴"
+    },
+    {
+      "id": 1022102,
+      "name": "유적발굴단 게시판"
+    },
+    {
+      "id": 1061012,
+      "name": "의미없는 존재"
+    },
+    {
+      "id": 1063005,
+      "name": "이블아이 수배표지판"
+    },
+    {
+      "id": 1022007,
+      "name": "이얀"
+    },
+    {
+      "id": 1052106,
+      "name": "이카루스"
+    },
+    {
+      "id": 1012003,
+      "name": "장로 스탄"
+    },
+    {
+      "id": 1052105,
+      "name": "정체불명의 그녀"
+    },
+    {
+      "id": 1012109,
+      "name": "제이"
+    },
+    {
+      "id": 1002100,
+      "name": "제인"
+    },
+    {
+      "id": 20000,
+      "name": "존"
+    },
+    {
+      "id": 1063007,
+      "name": "좀비버섯 수배표지판"
+    },
+    {
+      "id": 1063009,
+      "name": "주니어 부기 수배표지판"
+    },
+    {
+      "id": 1063003,
+      "name": "초록버섯 수배표지판"
+    },
+    {
+      "id": 1012108,
+      "name": "카밀라"
+    },
+    {
+      "id": 1063004,
+      "name": "커즈아이 수배표지판"
+    },
+    {
+      "id": 2060005,
+      "name": "켄타"
+    },
+    {
+      "id": 1002101,
+      "name": "쿤"
+    },
+    {
+      "id": 1092000,
+      "name": "탕윤"
+    },
+    {
+      "id": 9010008,
+      "name": "페티트"
+    },
+    {
+      "id": 1040002,
+      "name": "펜시"
+    },
+    {
+      "id": 1092013,
+      "name": "포쉐"
+    },
+    {
+      "id": 1012102,
+      "name": "피아"
+    },
+    {
+      "id": 1032001,
+      "name": "하인즈"
+    },
+    {
+      "id": 1012100,
+      "name": "헬레나"
+    }
+  ],
+  "quests": [
+    {
+      "id": 2103,
+      "name": "넬라의 꿈",
+      "worldId": "기타",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 8,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 8,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2121,
+      "name": "요정 숲의 전령2",
+      "worldId": "엘리니아",
+      "npcId": 1032001,
+      "repeatable": false,
+      "levelMin": 8,
+      "prerequisites": [
+        {
+          "questId": 2120,
+          "name": "요정 숲의 전령1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 8,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031345,
+              "name": "보호의 성수",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031346,
+            "name": "마법의 씨앗",
+            "count": 2
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2081,
+      "name": "전직에 대한 가르침",
+      "worldId": "리스항구",
+      "npcId": 1002101,
+      "repeatable": false,
+      "levelMin": 8,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 8,
+          "jobs": [
+            0
+          ]
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 65,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2104,
+      "name": "펜시의 빨간 털실뭉치",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1040002,
+      "repeatable": false,
+      "levelMin": 8,
+      "prerequisites": [
+        {
+          "questId": 2103,
+          "name": "넬라의 꿈"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 8,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031273,
+              "name": "빨간 털실뭉치",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2173,
+      "name": "검은 그림자의 정체 파악하기",
+      "worldId": "노틸러스",
+      "npcId": 1092002,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2172,
+          "name": "바트가 본 것은?"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031846,
+              "name": "검은 마법사의 증표",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": [
+            {
+              "id": 130101,
+              "name": "빨간 달팽이",
+              "quantity": 20,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 1210100,
+              "name": "돼지",
+              "quantity": 20,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2175,
+      "name": "검은 마법사의 수하",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2174,
+          "name": "무라트에게 보고하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 9300156,
+              "name": "검은 마법사의 수하",
+              "quantity": 1,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2092,
+      "name": "내 딸을 찾고 싶어 1",
+      "worldId": "헤네시스",
+      "npcId": 1012111,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2088,
+          "name": "버섯 몬스터를 연구하는 이유"
+        },
+        {
+          "questId": 2082,
+          "name": "스텀프는 무서워"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031174,
+              "name": "장난감 칼",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2093,
+      "name": "내 딸을 찾고 싶어 2",
+      "worldId": "페리온",
+      "npcId": 1022007,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2092,
+          "name": "내 딸을 찾고 싶어 1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031173,
+              "name": "이얀의 편지",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 500,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 9250,
+      "name": "메이플 멤버샵",
+      "worldId": "헤네시스",
+      "npcId": 9010008,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2300,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2022043,
+            "name": "후르츠 캔디",
+            "count": 6
+          }
+        ]
+      },
+      "guide": {
+        "notes": [
+          "정답은 [메이플 멤버샵]. 경험치를 무려 2300이나 주는 퀘스트. 편한 레벨업을 위해 초반에 반드시 진행하는 퀘스트로 보통 9레벨을 찍자마자 클리어한다."
+        ]
+      }
+    },
+    {
+      "id": 2174,
+      "name": "무라트에게 보고하기",
+      "worldId": "노틸러스",
+      "npcId": 1092002,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2173,
+          "name": "검은 그림자의 정체 파악하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031862,
+              "name": "검은 마법사의 증표",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031863,
+              "name": "보고서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2172,
+      "name": "바트가 본 것은?",
+      "worldId": "노틸러스",
+      "npcId": 1094000,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2171,
+          "name": "베인을 도와주세요."
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031845,
+              "name": "일일 보고서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2088,
+      "name": "버섯 몬스터를 연구하는 이유",
+      "worldId": "헤네시스",
+      "npcId": 1012111,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000001,
+              "name": "주황버섯의 갓",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000011,
+              "name": "버섯의 포자",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 300,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000000,
+            "name": "빨간 포션",
+            "count": 25
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2171,
+      "name": "베인을 도와주세요.",
+      "worldId": "노틸러스",
+      "npcId": 1092002,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2166,
+      "name": "빛나는 돌",
+      "worldId": "노틸러스",
+      "npcId": 1092003,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2165,
+          "name": "왕자님의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2089,
+      "name": "숙제 좀 도와줘",
+      "worldId": "엘리니아",
+      "npcId": 1032106,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000010,
+              "name": "슬라임의 방울",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000003,
+              "name": "나뭇가지",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000004,
+              "name": "물컹물컹한 액체",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 250,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000003,
+            "name": "파란 포션",
+            "count": 25
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2082,
+      "name": "스텀프는 무서워",
+      "worldId": "페리온",
+      "npcId": 1022007,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 130100,
+              "name": "스텀프",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 300,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2090,
+      "name": "심심해요 1",
+      "worldId": "커닝시티",
+      "npcId": 1052106,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {
+        "notes": [
+          "정답 1. 헥터 2. 발렌 3. 엘리니아"
+        ]
+      }
+    },
+    {
+      "id": 2091,
+      "name": "심심해요 2",
+      "worldId": "커닝시티",
+      "npcId": 1052106,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2090,
+          "name": "심심해요 1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000003,
+              "name": "나뭇가지",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000004,
+              "name": "물컹물컹한 액체",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 250,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000000,
+            "name": "빨간 포션",
+            "count": 25
+          },
+          {
+            "id": 2000003,
+            "name": "파란 포션",
+            "count": 15
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2162,
+      "name": "쓰다가 버려진 편지",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031839,
+              "name": "구겨진 편지지",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2165,
+      "name": "왕자님의 부탁",
+      "worldId": "노틸러스",
+      "npcId": 1092003,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2000006,
+              "name": "마나 엘릭서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2163,
+      "name": "헬레나의 기쁨",
+      "worldId": "헤네시스",
+      "npcId": 1012100,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2162,
+          "name": "쓰다가 버려진 편지"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2164,
+      "name": "헬레나의 선물",
+      "worldId": "헤네시스",
+      "npcId": 1012100,
+      "repeatable": false,
+      "levelMin": 10,
+      "prerequisites": [
+        {
+          "questId": 2163,
+          "name": "헬레나의 기쁨"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 10,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031840,
+              "name": "낡은 오르골",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 300,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2030019,
+            "name": "노틸러스 귀환 주문서",
+            "count": 5
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2000,
+      "name": "'돼지와 함께 춤을'의 집수리",
+      "worldId": "페리온",
+      "npcId": 1020000,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000018,
+              "name": "장작",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000003,
+              "name": "나뭇가지",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 300,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1092000,
+            "name": "강철 방패",
+            "count": 1
+          },
+          {
+            "id": 1092001,
+            "name": "빨간 삼각 방패",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2052,
+      "name": "[끈기의숲] 존의 분홍색 꽃 바구니",
+      "worldId": "리스항구",
+      "npcId": 20000,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031025,
+              "name": "핑크 비올라",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4003000,
+            "name": "나사",
+            "count": 30
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2176,
+      "name": "노틸러스호 깨끗이 하기 1",
+      "worldId": "노틸러스",
+      "npcId": 1092009,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000002,
+              "name": "돼지의 리본",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1300,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2178,
+      "name": "노틸러스호 깨끗이 하기 2",
+      "worldId": "노틸러스",
+      "npcId": 1092009,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [
+        {
+          "questId": 2177,
+          "name": "노틸러스호 깨끗이 하기 1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2022000,
+              "name": "맑은 물",
+              "count": 1,
+              "source": "상점"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2018,
+      "name": "던전입구를 지키는 경비병 루크",
+      "worldId": "워닝스트리트",
+      "npcId": 1040000,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2020000,
+              "name": "샐러드",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000034,
+              "name": "주니어 네키의 가죽",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000042,
+              "name": "스티지의 날개",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4021007,
+            "name": "다이아몬드",
+            "count": 1
+          },
+          {
+            "id": 4021000,
+            "name": "가넷",
+            "count": 1
+          },
+          {
+            "id": 4021001,
+            "name": "자수정",
+            "count": 1
+          },
+          {
+            "id": 4021002,
+            "name": "아쿠아마린",
+            "count": 1
+          },
+          {
+            "id": 4021003,
+            "name": "에메랄드",
+            "count": 1
+          },
+          {
+            "id": 4021004,
+            "name": "오팔",
+            "count": 1
+          },
+          {
+            "id": 4021005,
+            "name": "사파이어",
+            "count": 1
+          },
+          {
+            "id": 4021006,
+            "name": "토파즈",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2002,
+      "name": "마야와 이상한 약",
+      "worldId": "헤네시스",
+      "npcId": 1012101,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000006,
+              "name": "옥토퍼스의 다리",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000008,
+              "name": "죽은 자의 부적",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000004,
+              "name": "물컹물컹한 액체",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000005,
+              "name": "나뭇잎",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 270,
+        "meso": 5000,
+        "items": [
+          {
+            "id": 1002026,
+            "name": "갈색 삿갓",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2029,
+      "name": "마파의 의뢰",
+      "worldId": "커닝시티",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000012,
+              "name": "초록버섯의 갓",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000037,
+              "name": "버블링의 큰 방울",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 800,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2010004,
+            "name": "레몬",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2179,
+      "name": "비상식량 지키기",
+      "worldId": "노틸러스",
+      "npcId": 1092000,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 1210100,
+              "name": "돼지",
+              "quantity": 30,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 1210101,
+              "name": "리본 돼지",
+              "quantity": 30,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 1300,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2030,
+      "name": "슈미의 의뢰",
+      "worldId": "커닝시티",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [
+        {
+          "questId": 2029,
+          "name": "마파의 의뢰"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4003000,
+              "name": "나사",
+              "count": 5,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4003001,
+              "name": "가공된 나무",
+              "count": 5,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 900,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2020002,
+            "name": "케이크",
+            "count": 100
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2186,
+      "name": "안경을 찾아줘",
+      "worldId": "노틸러스",
+      "npcId": 1094001,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031853,
+              "name": "아벨의 안경",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2031,
+      "name": "안드레아의 의뢰",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [
+        {
+          "questId": 2030,
+          "name": "슈미의 의뢰"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000006,
+              "name": "옥토퍼스의 다리",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 2022000,
+              "name": "맑은 물",
+              "count": 1,
+              "source": "상점"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 224,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1082002,
+            "name": "노가다 목장갑",
+            "count": 1
+          },
+          {
+            "id": 1082004,
+            "name": "베논",
+            "count": 1
+          },
+          {
+            "id": 1082020,
+            "name": "블루 모리칸",
+            "count": 1
+          },
+          {
+            "id": 1082013,
+            "name": "블루 디로스",
+            "count": 1
+          },
+          {
+            "id": 1082032,
+            "name": "브론즈 스틸라인",
+            "count": 1
+          },
+          {
+            "id": 1082183,
+            "name": "브라운 레더 아머글로브",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2105,
+      "name": "위험한 던전! <1-초록버섯>",
+      "worldId": "깊은숲",
+      "npcId": 1063003,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 1110100,
+              "name": "초록버섯",
+              "quantity": 99,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000002,
+            "name": "하얀 포션",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2111,
+      "name": "위험한 던전!! <1-초록버섯>",
+      "worldId": "깊은숲",
+      "npcId": 1063003,
+      "repeatable": false,
+      "levelMin": 15,
+      "prerequisites": [
+        {
+          "questId": 2105,
+          "name": "위험한 던전! <1-초록버섯>"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 15,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 1110100,
+              "name": "초록버섯",
+              "quantity": 999,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000000,
+            "name": "빨간 포션",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2122,
+      "name": "만지와 비밀조직",
+      "worldId": "페리온",
+      "npcId": 1022002,
+      "repeatable": false,
+      "levelMin": 18,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 18,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2130100,
+              "name": "다크 엑스텀프",
+              "quantity": 10,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 1400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2124,
+      "name": "모래그림단의 보급품",
+      "worldId": "오르비스",
+      "npcId": 2012019,
+      "repeatable": false,
+      "levelMin": 18,
+      "prerequisites": [
+        {
+          "questId": 2123,
+          "name": "특별한 지령"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 18,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031619,
+              "name": "봉달이의 작은 상자",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2127,
+      "name": "사막으로...",
+      "worldId": "페리온",
+      "npcId": 1022002,
+      "repeatable": false,
+      "levelMin": 18,
+      "prerequisites": [
+        {
+          "questId": 2122,
+          "name": "만지와 비밀조직"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 18,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2123,
+      "name": "특별한 지령",
+      "worldId": "페리온",
+      "npcId": 1022002,
+      "repeatable": false,
+      "levelMin": 18,
+      "prerequisites": [
+        {
+          "questId": 2127,
+          "name": "사막으로..."
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 18,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2055,
+      "name": "[공사장B1] 슈미가 잃어버린 동전",
+      "worldId": "커닝시티",
+      "npcId": 1052102,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031039,
+              "name": "슈미의 동전",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2030000,
+            "name": "마을 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030001,
+            "name": "리스 항구 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030002,
+            "name": "엘리니아 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030003,
+            "name": "페리온 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030004,
+            "name": "헤네시스 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030005,
+            "name": "커닝시티 귀환 주문서",
+            "count": 30
+          },
+          {
+            "id": 2030006,
+            "name": "슬리피우드 귀환 주문서",
+            "count": 30
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2116,
+      "name": "나무 심기",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000195,
+              "name": "묘목",
+              "count": 54,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000000,
+            "name": "빨간 포션",
+            "count": 30
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2155,
+      "name": "달팽이 사냥",
+      "worldId": "엘리니아",
+      "npcId": 1032106,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2154,
+          "name": "이야기의 주인공"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000000,
+              "name": "파란 달팽이의 껍질",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000016,
+              "name": "빨간 달팽이의 껍질",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000019,
+              "name": "달팽이의 껍질",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2182,
+      "name": "떨어진 만찬 재료",
+      "worldId": "아쿠아리움",
+      "npcId": 2060005,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2181,
+          "name": "포쉐의 편지"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000161,
+              "name": "해마의 꼬리",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2062,
+      "name": "밍밍부인의 첫번째 고민",
+      "worldId": "헤네시스",
+      "npcId": 1012106,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000002,
+              "name": "돼지의 리본",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000010,
+              "name": "슬라임의 방울",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000037,
+              "name": "버블링의 큰 방울",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2156,
+      "name": "소원을 들어주는 무지개색 달팽이 껍질!?",
+      "worldId": "헤네시스",
+      "npcId": 1012102,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2155,
+          "name": "달팽이 사냥"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2180,
+      "name": "신선한 우유 구하기",
+      "worldId": "노틸러스",
+      "npcId": 1092000,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2179,
+          "name": "비상식량 지키기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031850,
+              "name": "우유통",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3600,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2014,
+      "name": "알렉스의 부탁",
+      "worldId": "커닝시티",
+      "npcId": 1052000,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2016,
+      "name": "어머니의 금시계",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1012003,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2015,
+          "name": "장로 스탄 설득하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031007,
+              "name": "오래된 금시계",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 600,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1032004,
+            "name": "금 링 귀고리",
+            "count": 1
+          },
+          {
+            "id": 1032005,
+            "name": "레드 크로스링",
+            "count": 1
+          },
+          {
+            "id": 1032006,
+            "name": "번개 귀고리",
+            "count": 1
+          },
+          {
+            "id": 1032007,
+            "name": "에메랄드 귀고리",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2153,
+      "name": "오래된 달팽이",
+      "worldId": "헤네시스",
+      "npcId": 1012102,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4161035,
+              "name": "달팽이 전설",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2183,
+      "name": "웨일족을 위한 만찬",
+      "worldId": "아쿠아리움",
+      "npcId": 2060005,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2182,
+          "name": "떨어진 만찬 재료"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031851,
+              "name": "웨일족 전용 통조림",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2106,
+      "name": "위험한 던전! <2-뿔버섯>",
+      "worldId": "개미굴3",
+      "npcId": 1063008,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2110200,
+              "name": "뿔버섯",
+              "quantity": 99,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 4500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000002,
+            "name": "하얀 포션",
+            "count": 100
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2112,
+      "name": "위험한 던전!! <2-뿔버섯>",
+      "worldId": "개미굴3",
+      "npcId": 1063008,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2106,
+          "name": "위험한 던전! <2-뿔버섯>"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2110200,
+              "name": "뿔버섯",
+              "quantity": 999,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000001,
+            "name": "주황 포션",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2154,
+      "name": "이야기의 주인공",
+      "worldId": "헤네시스",
+      "npcId": 1012106,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2153,
+          "name": "오래된 달팽이"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2015,
+      "name": "장로 스탄 설득하기",
+      "worldId": "헤네시스",
+      "npcId": 1012003,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2014,
+          "name": "알렉스의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000007,
+              "name": "이블아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000002,
+              "name": "돼지의 리본",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1600,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2181,
+      "name": "포쉐의 편지",
+      "worldId": "노틸러스",
+      "npcId": 1092013,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031858,
+              "name": "포쉐의 편지",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2009,
+      "name": "피아와 파란버섯",
+      "worldId": "헤네시스",
+      "npcId": 1012102,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000009,
+              "name": "파란버섯의 갓",
+              "count": 60,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000012,
+              "name": "초록버섯의 갓",
+              "count": 60,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2040000,
+            "name": "투구 방어력 주문서 100%",
+            "count": 1
+          },
+          {
+            "id": 2040001,
+            "name": "투구 방어력 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040002,
+            "name": "투구 방어력 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "recommendedAreas": "<파란버섯> - 헤네시스 [파란버섯의 숲]  ||  <초록버섯> - 엘리니아 [지혜의 숲] || [헤네시스 동쪽 사냥터]",
+        "notes": [
+          "보상인 투구방어력 10%, 60%는 10만메소 정도로 거래되기때문에, 포션값이 부족한 초반 무자본 시작 유저에게 추천하는 퀘스트"
+        ]
+      }
+    },
+    {
+      "id": 2066,
+      "name": "화석상자 배달",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [
+        {
+          "questId": 2065,
+          "name": "화석을 찾아서..."
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031148,
+              "name": "윈스턴의 소개장",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031149,
+              "name": "화석 상자",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 30000,
+        "items": [
+          {
+            "id": 2010002,
+            "name": "달걀",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2065,
+      "name": "화석을 찾아서...",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 20,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 20,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031147,
+              "name": "식물의 나뭇잎화석",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031146,
+              "name": "동물의 뼈화석",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 4500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2063,
+      "name": "밍밍부인의 두번째 고민",
+      "worldId": "헤네시스",
+      "npcId": 1012106,
+      "repeatable": false,
+      "levelMin": 21,
+      "prerequisites": [
+        {
+          "questId": 2062,
+          "name": "밍밍부인의 첫번째 고민"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 21,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2064,
+      "name": "에스텔의 부탁",
+      "worldId": "엘리니아남쪽필드",
+      "npcId": 1032105,
+      "repeatable": false,
+      "levelMin": 21,
+      "prerequisites": [
+        {
+          "questId": 2063,
+          "name": "밍밍부인의 두번째 고민"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 21,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4021000,
+              "name": "가넷",
+              "count": 1,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2076,
+      "name": "에스텔의 특별한 소스",
+      "worldId": "엘리니아남쪽필드",
+      "npcId": 1032105,
+      "repeatable": false,
+      "levelMin": 21,
+      "prerequisites": [
+        {
+          "questId": 2064,
+          "name": "에스텔의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 21,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000006,
+              "name": "옥토퍼스의 다리",
+              "count": 60,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000017,
+              "name": "돼지의 머리",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031154,
+              "name": "에스텔의 특제소스",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1200,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1002441,
+            "name": "리본돼지 머리띠",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2068,
+      "name": "동물화석 연구",
+      "worldId": "엘리니아",
+      "npcId": 1032104,
+      "repeatable": false,
+      "levelMin": 22,
+      "prerequisites": [
+        {
+          "questId": 2067,
+          "name": "식물화석 연구"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 22,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2069,
+      "name": "드레이크의 머리뼈 운반",
+      "worldId": "헤네시스동쪽언덕",
+      "npcId": 1012110,
+      "repeatable": false,
+      "levelMin": 22,
+      "prerequisites": [
+        {
+          "questId": 2068,
+          "name": "동물화석 연구"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 22,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031151,
+              "name": "박제된 드레이크 머리뼈",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2067,
+      "name": "식물화석 연구",
+      "worldId": "엘리니아",
+      "npcId": 1032104,
+      "repeatable": false,
+      "levelMin": 22,
+      "prerequisites": [
+        {
+          "questId": 2066,
+          "name": "화석상자 배달"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 22,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031150,
+              "name": "식물 샘플",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2107,
+      "name": "위험한 던전! <3-좀비버섯>",
+      "worldId": "개미굴4",
+      "npcId": 1063007,
+      "repeatable": false,
+      "levelMin": 22,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 22,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2230101,
+              "name": "좀비버섯",
+              "quantity": 99,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 5500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000006,
+            "name": "마나 엘릭서",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2113,
+      "name": "위험한 던전!! <3-좀비버섯>",
+      "worldId": "개미굴4",
+      "npcId": 1063007,
+      "repeatable": false,
+      "levelMin": 22,
+      "prerequisites": [
+        {
+          "questId": 2107,
+          "name": "위험한 던전! <3-좀비버섯>"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 22,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2230101,
+              "name": "좀비버섯",
+              "quantity": 999,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000003,
+            "name": "파란 포션",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2073,
+      "name": "카밀라의 유리구슬",
+      "worldId": "헤네시스",
+      "npcId": 1012108,
+      "repeatable": false,
+      "levelMin": 23,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 23,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031156,
+              "name": "반짝이는 유리구슬",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2020002,
+            "name": "케이크",
+            "count": 30
+          },
+          {
+            "id": 1322031,
+            "name": "세계의 돼지도감",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2070,
+      "name": "화석 연구 성과",
+      "worldId": "엘리니아",
+      "npcId": 1032104,
+      "repeatable": false,
+      "levelMin": 23,
+      "prerequisites": [
+        {
+          "questId": 2069,
+          "name": "드레이크의 머리뼈 운반"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 23,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 1032000,
+              "name": "추 귀고리",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000018,
+              "name": "장작",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031152,
+              "name": "화석연구 보고서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031153,
+              "name": "스텀프의 눈물",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000005,
+              "name": "나뭇잎",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3800,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1032025,
+            "name": "나뭇잎 귀고리",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2050,
+      "name": "[인내의숲] 헤르샤와 핑크 안시리움",
+      "worldId": "슬리피우드",
+      "npcId": 1061005,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031020,
+              "name": "핑크 안시리움",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2040504,
+            "name": "전신 갑옷 방어력 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040505,
+            "name": "전신 갑옷 방어력 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2207,
+      "name": "게으른 캘리코",
+      "worldId": "노틸러스",
+      "npcId": 1092011,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000007,
+              "name": "이블아이의 꼬리",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2177,
+      "name": "노틸러스호 깨끗이 하기 1",
+      "worldId": "노틸러스",
+      "npcId": 1092009,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2176,
+          "name": "노틸러스호 깨끗이 하기 1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000095,
+              "name": "쥐덫",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2034,
+      "name": "만슈타인의 의뢰",
+      "worldId": "커닝시티",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2033,
+          "name": "크리스의 의뢰"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000007,
+              "name": "이블아이의 꼬리",
+              "count": 200,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2200,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1072018,
+            "name": "파란색 캔버스화",
+            "count": 1
+          },
+          {
+            "id": 1072003,
+            "name": "에메랄드 배틀 그리브",
+            "count": 1
+          },
+          {
+            "id": 1072077,
+            "name": "화이트 매직슈즈",
+            "count": 1
+          },
+          {
+            "id": 1072081,
+            "name": "그린 헌터부츠",
+            "count": 1
+          },
+          {
+            "id": 1072035,
+            "name": "실버 체인슈즈",
+            "count": 1
+          },
+          {
+            "id": 1072294,
+            "name": "브라운 폴티 부츠",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2074,
+      "name": "메이플 고서를 되찾아라",
+      "worldId": "헤네시스",
+      "npcId": 1012109,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031157,
+              "name": "메이플 고서 上",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031158,
+              "name": "메이플 고서 中",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031159,
+              "name": "메이플 고서 下",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2075,
+      "name": "메이플 고서를 되찾아라2",
+      "worldId": "루디브리엄",
+      "npcId": 2041022,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2074,
+          "name": "메이플 고서를 되찾아라"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031160,
+              "name": "명예의 훈장",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 560,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1002436,
+            "name": "장로스탄의 모자",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2167,
+      "name": "바다의 정기를 먹고 사는 반딧불1",
+      "worldId": "노틸러스",
+      "npcId": 1092003,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2166,
+          "name": "빛나는 돌"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031841,
+              "name": "마법의 병",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2168,
+      "name": "바다의 정기를 먹고 사는 반딧불2",
+      "worldId": "아쿠아리움",
+      "npcId": 2060006,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2167,
+          "name": "바다의 정기를 먹고 사는 반딧불1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031842,
+              "name": "마법의 병",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2117,
+      "name": "발굴단원 샨의 부탁",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000197,
+              "name": "석판",
+              "count": 5,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000196,
+              "name": "목판",
+              "count": 5,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2032,
+      "name": "소문난의 의뢰",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2031,
+          "name": "안드레아의 의뢰"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000034,
+              "name": "주니어 네키의 가죽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000015,
+              "name": "뿔버섯의 갓",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 268,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000002,
+            "name": "하얀 포션",
+            "count": 100
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2017,
+      "name": "아르웬과 유리구두",
+      "worldId": "엘리니아",
+      "npcId": 1032100,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4001000,
+              "name": "아르웬의 유리구두",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 4000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4003002,
+            "name": "얼음 조각",
+            "count": 1
+          },
+          {
+            "id": 4003003,
+            "name": "요정의 날개",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2108,
+      "name": "오염된 던전! <1-이블아이>",
+      "worldId": "이블아이의굴1",
+      "npcId": 1063005,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2230100,
+              "name": "이블아이",
+              "quantity": 99,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000006,
+            "name": "마나 엘릭서",
+            "count": 100
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2114,
+      "name": "오염된 던전!! <1-이블아이>",
+      "worldId": "이블아이의굴1",
+      "npcId": 1063005,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2108,
+          "name": "오염된 던전! <1-이블아이>"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2230100,
+              "name": "이블아이",
+              "quantity": 999,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 4000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000006,
+            "name": "마나 엘릭서",
+            "count": 30
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2118,
+      "name": "유적 발굴지 몬스터 퇴치",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2117,
+          "name": "발굴단원 샨의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 2230111,
+              "name": "스톤 마스크",
+              "quantity": 300,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 2230110,
+              "name": "우드 마스크",
+              "quantity": 200,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 8000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000001,
+            "name": "주황 포션",
+            "count": 40
+          },
+          {
+            "id": 2040707,
+            "name": "신발 이동속도 주문서 60%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2204,
+      "name": "이상한 요리1",
+      "worldId": "노틸러스",
+      "npcId": 1092000,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000007,
+              "name": "이블아이의 꼬리",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2020004,
+            "name": "햄버거",
+            "count": 40
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2071,
+      "name": "정체불명 그녀의 부탁",
+      "worldId": "커닝시티",
+      "npcId": 1052105,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031155,
+              "name": "깨진 거울조각",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2300,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {
+        "recommendedAreas": "<와일드보어> - [와일드보어의 땅1, 2] ||  <좀비버섯> - [개미굴 1, 2]",
+        "notes": [
+          "보상인 허름한 망토는 저렙 망토작을 하는 유저들에게 수요가있어, 포션값이 부족한 초반 무자본 시작 유저에게 추천하는 퀘스트 와일드보어의 뿔은 [제인과 와일드보어] 퀘스트에 필요하므로 참고하자."
+        ]
+      }
+    },
+    {
+      "id": 2072,
+      "name": "정체불명 그녀의 정체",
+      "worldId": "커닝시티",
+      "npcId": 1052105,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2071,
+          "name": "정체불명 그녀의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000008,
+              "name": "죽은 자의 부적",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1102053,
+            "name": "허름한 망토",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2169,
+      "name": "커다란 진주",
+      "worldId": "노틸러스",
+      "npcId": 1092003,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2168,
+          "name": "바다의 정기를 먹고 사는 반딧불2"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031843,
+              "name": "커다란 진주",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2033,
+      "name": "크리스의 의뢰",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1052103,
+      "repeatable": false,
+      "levelMin": 25,
+      "prerequisites": [
+        {
+          "questId": 2032,
+          "name": "소문난의 의뢰"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 25,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000021,
+              "name": "동물의 가죽",
+              "count": 20,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4003004,
+              "name": "뻣뻣한 깃털",
+              "count": 50,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1384,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4011001,
+            "name": "강철",
+            "count": 1
+          },
+          {
+            "id": 4011000,
+            "name": "청동",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2001,
+      "name": "'돼지와 함께 춤을'의 새집 짓기",
+      "worldId": "페리온",
+      "npcId": 1020000,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2000,
+          "name": "'돼지와 함께 춤을'의 집수리"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000022,
+              "name": "스톤골렘의 돌조각",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4003000,
+              "name": "나사",
+              "count": 30,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4003001,
+              "name": "가공된 나무",
+              "count": 30,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4001004,
+              "name": "'돼지와 함께 춤을'의 땅문서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 20000,
+        "meso": 15000,
+        "items": [
+          {
+            "id": 2044702,
+            "name": "직업별 무기 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2056,
+      "name": "[공사장B2] 슈미가 잃어버린 돈뭉치",
+      "worldId": "커닝시티",
+      "npcId": 1052102,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2055,
+          "name": "[공사장B1] 슈미가 잃어버린 동전"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031040,
+              "name": "슈미의 돈뭉치",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000006,
+            "name": "마나 엘릭서",
+            "count": 100
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2053,
+      "name": "[끈기의숲] 존이 준비한 선물",
+      "worldId": "리스항구",
+      "npcId": 20000,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2052,
+          "name": "[끈기의숲] 존의 분홍색 꽃 바구니"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031026,
+              "name": "블루 비올라",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1082002,
+            "name": "노가다 목장갑",
+            "count": 1
+          },
+          {
+            "id": 1082036,
+            "name": "다크 브리건",
+            "count": 1
+          },
+          {
+            "id": 1082056,
+            "name": "다크 노엘",
+            "count": 1
+          },
+          {
+            "id": 1082070,
+            "name": "골드 스케일러",
+            "count": 1
+          },
+          {
+            "id": 1082045,
+            "name": "골드 아르비욘",
+            "count": 1
+          },
+          {
+            "id": 1082192,
+            "name": "브라운 쥬얼드",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2187,
+      "name": "구멍난 노틸러스호",
+      "worldId": "노틸러스",
+      "npcId": 1092001,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000073,
+              "name": "단단한 뿔",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 14000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2170,
+      "name": "김박사님에게 보낼 정보",
+      "worldId": "노틸러스",
+      "npcId": 1092012,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031844,
+              "name": "롤로네의 조사 자료",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 10000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2023,
+      "name": "되찾은 비밀의 책",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2020,
+          "name": "배고픈 로니"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031016,
+              "name": "비밀의 책",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5000,
+        "meso": 10000,
+        "items": [
+          {
+            "id": 1050018,
+            "name": "파란색 가운",
+            "count": 1
+          },
+          {
+            "id": 1051017,
+            "name": "빨간색 가운",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2210,
+      "name": "무라트에게 금화주머니를",
+      "worldId": "노틸러스",
+      "npcId": 1092011,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2208,
+          "name": "바르톨의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031891,
+              "name": "금화 주머니",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2208,
+      "name": "바르톨의 부탁",
+      "worldId": "노틸러스",
+      "npcId": 1092011,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031890,
+            "name": "워프카드",
+            "count": 5
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2020,
+      "name": "배고픈 로니",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2019,
+          "name": "비밀의 책의 단서"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000029,
+              "name": "루팡의 바나나",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031014,
+              "name": "리나의 특제 장어구이",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031015,
+              "name": "신선한 우유",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8800,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2211,
+      "name": "블랙바크에게 찢어진 지도를",
+      "worldId": "노틸러스",
+      "npcId": 1092011,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2208,
+          "name": "바르톨의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031892,
+              "name": "찢어진 지도",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2184,
+      "name": "블랙바크의 근심",
+      "worldId": "노틸러스",
+      "npcId": 1092006,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000035,
+              "name": "식탁보",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 12000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2019,
+      "name": "비밀의 책의 단서",
+      "worldId": "회복사우나실<고급>",
+      "npcId": 1061003,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {
+        "recommendedAreas": "<로니> - 엘리니아 [북쪽숲나무통로] || <리나> - 헤네시스 || <요정 로웬> - 엘리니아",
+        "notes": [
+          "보상으로 사우나 가운을 주기때문에 가운퀘로 불리며, 가운은 꽤 비싼가격에 팔린다. 미리 준비해둔 돼지머리와 다이아몬드 원석 10개가 없다면 메랜지지에 [가운퀘(세트)]를 판매하니 사는걸 추천한다.( + 무자본은 루팡과 커즈아이는 30lv에 잡기 힘들다)"
+        ]
+      }
+    },
+    {
+      "id": 2209,
+      "name": "슈린츠에게 레몬을",
+      "worldId": "노틸러스",
+      "npcId": 1092011,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2208,
+          "name": "바르톨의 부탁"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2010004,
+              "name": "레몬",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2022,
+      "name": "신선한 우유",
+      "worldId": "엘리니아",
+      "npcId": 1032101,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2020,
+          "name": "배고픈 로니"
+        },
+        {
+          "questId": 2023,
+          "name": "되찾은 비밀의 책"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            220,
+            230,
+            211,
+            221,
+            231,
+            212,
+            222,
+            232,
+            120,
+            300,
+            310,
+            320,
+            311,
+            321,
+            312,
+            322,
+            400,
+            410,
+            420,
+            130,
+            411,
+            421,
+            412,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            111,
+            522,
+            121,
+            131,
+            112,
+            122,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4021007,
+              "name": "다이아몬드",
+              "count": 1,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031015,
+            "name": "신선한 우유",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2109,
+      "name": "오염된 던전! <2-커즈아이>",
+      "worldId": "깊은숲사냥터2",
+      "npcId": 1063004,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 3230100,
+              "name": "커즈아이",
+              "quantity": 99,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2020015,
+            "name": "황혼의 이슬",
+            "count": 3
+          },
+          {
+            "id": 2020014,
+            "name": "새벽의 이슬",
+            "count": 3
+          },
+          {
+            "id": 2020013,
+            "name": "순록의 우유",
+            "count": 5
+          },
+          {
+            "id": 2044701,
+            "name": "직업별 무기 주문서 60%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "recommendedAreas": "슬리피우드  [깊은숲 사냥터 1]  || 엘리니아 [북쪽숲나무던전3]",
+        "notes": [
+          "직업별 무기 60% 주문서를 얻을 수도 있는 [필수 퀘스트]. 난이도에 비해 보상이 좋은 편이므로 도전해보자(운이 없다면 물약을 받는다. 재수없으므로 원샷하자) 완료후, 24시간마다 반복 가능한 [커즈아이 999마리] 퀘스트를 받을 수 있다"
+        ]
+      }
+    },
+    {
+      "id": 2115,
+      "name": "오염된 던전!! <2-커즈아이>",
+      "worldId": "깊은숲사냥터2",
+      "npcId": 1063004,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2109,
+          "name": "오염된 던전! <2-커즈아이>"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 3230100,
+              "name": "커즈아이",
+              "quantity": 999,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 5000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2044700,
+            "name": "무기 주문서 60% or 100%",
+            "count": 1
+          },
+          {
+            "id": 2041022,
+            "name": "망토 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2020013,
+            "name": "순록의 우유",
+            "count": 3
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2010,
+      "name": "제인과 와일드보어",
+      "worldId": "리스항구",
+      "npcId": 1002100,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000015,
+              "name": "뿔버섯의 갓",
+              "count": 120,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000020,
+              "name": "와일드보어의 송곳니",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2044401,
+            "name": "폴암 공격력 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2043701,
+            "name": "완드 마력 주문서 60%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "recommendedAreas": "[와일드보어] - 와일드보어의 땅 1, 2 || [뿔버섯] - 개미굴 1, 2",
+        "notes": [
+          "랜덤 무기 60% 주문서를 보상으로 주는 [필수 퀘스트]. 자신이 메이플에 재능(?)이 있는지 시험해 볼 수있는 대표 퀘스트 중 하나"
+        ]
+      }
+    },
+    {
+      "id": 2185,
+      "name": "카이린을 위한 드레스",
+      "worldId": "헤네시스",
+      "npcId": 1012106,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2184,
+          "name": "블랙바크의 근심"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031852,
+              "name": "드레스",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2021,
+      "name": "특제 장어구이",
+      "worldId": "헤네시스",
+      "npcId": 1010100,
+      "repeatable": false,
+      "levelMin": 30,
+      "prerequisites": [
+        {
+          "questId": 2020,
+          "name": "배고픈 로니"
+        },
+        {
+          "questId": 2023,
+          "name": "되찾은 비밀의 책"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 30,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000017,
+              "name": "돼지의 머리",
+              "count": 5,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000013,
+              "name": "커즈아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031014,
+            "name": "리나의 특제 장어구이",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2083,
+      "name": "이카루스의 행글라이더",
+      "worldId": "커닝시티",
+      "npcId": 1052106,
+      "repeatable": false,
+      "levelMin": 32,
+      "prerequisites": [
+        {
+          "questId": 2091,
+          "name": "심심해요 2"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 32,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4003001,
+              "name": "가공된 나무",
+              "count": 10,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4000042,
+              "name": "스티지의 날개",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4003004,
+              "name": "뻣뻣한 깃털",
+              "count": 50,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {
+        "notes": [
+          "망토를 얻기위해 선행 퀘스트로 [Lv10 이카루스의 심심해요 1, 2] 그리고 요정 윙의 [Lv10 숙제 좀 도와줘]를 먼저 완료해야한다. 1등 상은 [이동속도 +10 이카루스의 망토]"
+        ]
+      }
+    },
+    {
+      "id": 2110,
+      "name": "오염된 던전! <3-주니어 부기>",
+      "worldId": "이블아이의굴4",
+      "npcId": 1063009,
+      "repeatable": false,
+      "levelMin": 33,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 33,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000067,
+              "name": "주니어 부기의 뿔",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4021000,
+            "name": "가넷",
+            "count": 1
+          },
+          {
+            "id": 4021002,
+            "name": "아쿠아마린",
+            "count": 1
+          },
+          {
+            "id": 4021003,
+            "name": "에메랄드",
+            "count": 1
+          },
+          {
+            "id": 4021001,
+            "name": "자수정",
+            "count": 1
+          },
+          {
+            "id": 4021004,
+            "name": "오팔",
+            "count": 1
+          },
+          {
+            "id": 4021005,
+            "name": "사파이어",
+            "count": 1
+          },
+          {
+            "id": 4021006,
+            "name": "토파즈",
+            "count": 1
+          },
+          {
+            "id": 4021007,
+            "name": "다이아몬드",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2146,
+      "name": "괴목 스텀피",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2145,
+          "name": "스텀프 조사"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 3220000,
+              "name": "스텀피",
+              "quantity": 1,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 43500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2102,
+      "name": "바닷길을 따라서 아랫마을로",
+      "worldId": "헤네시스",
+      "npcId": 1012108,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2100,
+          "name": "아랫마을로 가는 두 가지 방법"
+        },
+        {
+          "questId": 2101,
+          "name": "하늘길을 따라서 아랫마을로"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031045,
+            "name": "오르비스 행 티켓(일반)",
+            "count": 1
+          },
+          {
+            "id": 4001019,
+            "name": "마법석 활성화 주문서",
+            "count": 1
+          },
+          {
+            "id": 4031242,
+            "name": "돌고래 택시 이용권",
+            "count": 3
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2144,
+      "name": "소문의 진상",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2145,
+      "name": "스텀프 조사",
+      "worldId": "동쪽바위산2",
+      "npcId": 1022006,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2144,
+          "name": "소문의 진상"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031773,
+              "name": "바짝 마른 나뭇가지",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 50,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2100,
+      "name": "아랫마을로 가는 두 가지 방법",
+      "worldId": "헤네시스",
+      "npcId": 1012108,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2099,
+          "name": "잃어버린 카밀라의 편지"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031240,
+              "name": "카밀라의 답장",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 800,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2024,
+      "name": "요정 로웬과 저주받은 인형",
+      "worldId": "엘리니아",
+      "npcId": 1032101,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2023,
+          "name": "되찾은 비밀의 책"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000031,
+              "name": "저주받은 인형",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000031,
+              "name": "저주받은 인형",
+              "count": 200,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000031,
+              "name": "저주받은 인형",
+              "count": 400,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000031,
+              "name": "저주받은 인형",
+              "count": 600,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000031,
+              "name": "저주받은 인형",
+              "count": 1000,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2040801,
+            "name": "장갑 민첩 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040802,
+            "name": "장갑 민첩 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "notes": [
+          "저주받은 인형 100개 모으기 : 광물의 원석 중 1종 7개 | 인기도 +1",
+          "저주받은 인형 200개 모으기 :  보석의 원석 중 1종 10개 | 인기도 +1",
+          "저주받은 인형 400개 모으기 : 금의 원석 or 다이아몬드의 원석 중 1종 5개 | 인기도 +2",
+          "저주받은 인형 600개 모으기 : 장갑 민첩성 주문서 10% or 60% 중 1개 | 인기도 +2",
+          "저주받은 인형 1000개 모으기 : (Lv.40) 직업별 모자 | 인기도 +3"
+        ]
+      }
+    },
+    {
+      "id": 2205,
+      "name": "이상한 요리2",
+      "worldId": "노틸러스",
+      "npcId": 1092000,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2204,
+          "name": "이상한 요리1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000013,
+              "name": "커즈아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 24000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2022003,
+            "name": "장어 구이",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2099,
+      "name": "잃어버린 카밀라의 편지",
+      "worldId": "헤네시스",
+      "npcId": 1012108,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031239,
+              "name": "카밀라에게 보내는 편지",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2058,
+      "name": "플로리나비치의 별미",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000136,
+              "name": "코코넛 열매",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 500,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2059,
+      "name": "플로리나비치의 별미 Ⅱ",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2058,
+          "name": "플로리나비치의 별미"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000029,
+              "name": "루팡의 바나나",
+              "count": 15,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000136,
+              "name": "코코넛 열매",
+              "count": 15,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000043,
+              "name": "로랑의 집게발",
+              "count": 150,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 7500,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2060,
+      "name": "플로리나비치의 별미 Ⅲ",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2059,
+          "name": "플로리나비치의 별미 Ⅱ"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000029,
+              "name": "루팡의 바나나",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000136,
+              "name": "코코넛 열매",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000043,
+              "name": "로랑의 집게발",
+              "count": 150,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000044,
+              "name": "클랑의 집게발",
+              "count": 150,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7000,
+        "meso": 20000,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2061,
+      "name": "플로리나비치의 별미 Ⅳ",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2060,
+          "name": "플로리나비치의 별미 Ⅲ"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000029,
+              "name": "루팡의 바나나",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000136,
+              "name": "코코넛 열매",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000043,
+              "name": "로랑의 집게발",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000044,
+              "name": "클랑의 집게발",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3000,
+        "meso": 3000,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2101,
+      "name": "하늘길을 따라서 아랫마을로",
+      "worldId": "헤네시스",
+      "npcId": 1012108,
+      "repeatable": false,
+      "levelMin": 35,
+      "prerequisites": [
+        {
+          "questId": 2100,
+          "name": "아랫마을로 가는 두 가지 방법"
+        },
+        {
+          "questId": 2102,
+          "name": "바닷길을 따라서 아랫마을로"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 35,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031045,
+            "name": "오르비스 행 티켓(일반)",
+            "count": 1
+          },
+          {
+            "id": 4031074,
+            "name": "루디브리엄 행 티켓(일반)",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2084,
+      "name": "이카루스의 열기구",
+      "worldId": "커닝시티",
+      "npcId": 1052106,
+      "repeatable": false,
+      "levelMin": 37,
+      "prerequisites": [
+        {
+          "questId": 2083,
+          "name": "이카루스의 행글라이더"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 37,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031164,
+              "name": "악어가죽 주머니",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000035,
+              "name": "식탁보",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 11000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2057,
+      "name": "[공사장B3] 슈미가 잃어버린 돈주머니",
+      "worldId": "커닝시티",
+      "npcId": 1052102,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [
+        {
+          "questId": 2056,
+          "name": "[공사장B2] 슈미가 잃어버린 돈뭉치"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031041,
+              "name": "슈미의 돈주머니",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 11000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000004,
+            "name": "엘릭서",
+            "count": 30
+          },
+          {
+            "id": 2040706,
+            "name": "신발 이동속도 주문서 100%",
+            "count": 1
+          },
+          {
+            "id": 2040707,
+            "name": "신발 이동속도 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040708,
+            "name": "신발 이동속도 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 3042,
+      "name": "새로운 세계로",
+      "worldId": "엘리니아",
+      "npcId": 1032106,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031197,
+              "name": "켈벨로스의 눈물",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {
+        "recommendedAreas": "<단단한뿔> - [붉은 빛의 정원 | 푸른 빛의 정원] || <네펜데스의 씨앗> - [산책로]",
+        "notes": [
+          "숨겨진 장공퀘스트로 난이도에 비해 보상이 좋은 [필수 퀘스트]. 엘리니아 [요정 윙]에게 [켈벨로스의 눈물]을 받아 오르비스 잡화상점에 있는 [요정 크리엘]에게 전달하며 진행된다. [빈 물약병]은 오르비스 곳곳에 있는 [나무상자]를 부시면 얻을 수 있다. 오르비스 왼쪽 포탈안에도 [나무상자]가 있으니 채널을 변경하며 얻어보자."
+        ]
+      }
+    },
+    {
+      "id": 2206,
+      "name": "이상한 요리3",
+      "worldId": "노틸러스",
+      "npcId": 1092000,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [
+        {
+          "questId": 2205,
+          "name": "이상한 요리2"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000023,
+              "name": "콜드아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 36000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2001001,
+            "name": "쭈쭈바",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2012,
+      "name": "제인의 두번째 도전",
+      "worldId": "리스항구",
+      "npcId": 1002100,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2012000,
+              "name": "드레이크의 피",
+              "count": 3,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000040,
+              "name": "머쉬맘의 포자",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000041,
+              "name": "멜러디의 실험용 개구리",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000036,
+              "name": "이상한 느낌의 약",
+              "count": 100,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000005,
+            "name": "파워엘릭서",
+            "count": 15
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2013,
+      "name": "제인의 마지막 도전",
+      "worldId": "리스항구",
+      "npcId": 1002100,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000030,
+              "name": "용의 가죽",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4011007,
+              "name": "달의 돌",
+              "count": 1,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 2012002,
+              "name": "고목 나무의 수액",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2040804,
+            "name": "장갑 공격력 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040805,
+            "name": "장갑 공격력 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2011,
+      "name": "제인의 첫번째 도전",
+      "worldId": "리스항구",
+      "npcId": 1002100,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [
+        {
+          "questId": 2010,
+          "name": "제인과 와일드보어"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 2022000,
+              "name": "맑은 물",
+              "count": 1,
+              "source": "상점"
+            },
+            {
+              "id": 4000041,
+              "name": "멜러디의 실험용 개구리",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000036,
+              "name": "이상한 느낌의 약",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000004,
+            "name": "엘릭서",
+            "count": 10
+          }
+        ]
+      },
+      "guide": {
+        "notes": [
+          "유명한 제인 장공퀘. 보상인 [장갑 공격력 주문서]는 비싼값에 거래되므로 [필수 퀘스트]다. 머쉬맘, 멜러디, 드레이크 등은 lv40때 잡기 매우 어려운 몬스터로 60이상 본캐가 없다면 부족한 재료 또는 [장공퀘 세트]를 사는것을 추천한다."
+        ]
+      }
+    },
+    {
+      "id": 3043,
+      "name": "크리엘 도와주기",
+      "worldId": "오르비스",
+      "npcId": 2012011,
+      "repeatable": false,
+      "levelMin": 40,
+      "prerequisites": [
+        {
+          "questId": 3042,
+          "name": "새로운 세계로"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 40,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000073,
+              "name": "단단한 뿔",
+              "count": 200,
+              "source": "오르비스/엘나스"
+            },
+            {
+              "id": 4031198,
+              "name": "빈 물약병",
+              "count": 20,
+              "source": "오르비스/엘나스"
+            },
+            {
+              "id": 4000058,
+              "name": "네펜데스의 씨앗",
+              "count": 50,
+              "source": "오르비스/엘나스"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 25000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2044701,
+            "name": "무기 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2040804,
+            "name": "장갑 공격력 주문서 60%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "notes": [
+          "요정 윙의 새로운 세계로 선행퀘를 클리어해야함"
+        ]
+      }
+    },
+    {
+      "id": 2085,
+      "name": "요정 윙을 찾아서…",
+      "worldId": "커닝시티",
+      "npcId": 1052106,
+      "repeatable": false,
+      "levelMin": 42,
+      "prerequisites": [
+        {
+          "questId": 2089,
+          "name": "숙제 좀 도와줘"
+        },
+        {
+          "questId": 2084,
+          "name": "이카루스의 열기구"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 42,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2087,
+      "name": "이카루스와 하늘을 나는 약",
+      "worldId": "엘리니아",
+      "npcId": 1032106,
+      "repeatable": false,
+      "levelMin": 42,
+      "prerequisites": [
+        {
+          "questId": 2086,
+          "name": "하늘을 나는 약의 재료"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 42,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031163,
+              "name": "비상의 비약",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 13000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1102054,
+            "name": "이카루스의 망토(회피)",
+            "count": 1
+          },
+          {
+            "id": 1102055,
+            "name": "이카루스의 망토(이속)",
+            "count": 1
+          },
+          {
+            "id": 1102056,
+            "name": "이카루스의 망토(점프)",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2086,
+      "name": "하늘을 나는 약의 재료",
+      "worldId": "엘리니아",
+      "npcId": 1032106,
+      "repeatable": false,
+      "levelMin": 42,
+      "prerequisites": [
+        {
+          "questId": 2085,
+          "name": "요정 윙을 찾아서…"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 42,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031165,
+              "name": "마녀풀의 잎사귀",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000036,
+              "name": "이상한 느낌의 약",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 100,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2047,
+      "name": "만지의 낡은 글라디우스",
+      "worldId": "페리온",
+      "npcId": 1022002,
+      "repeatable": false,
+      "levelMin": 45,
+      "prerequisites": [
+        {
+          "questId": 2008,
+          "name": "#2008"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 45,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 1302014,
+              "name": "낡은 글라디우스",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4001006,
+              "name": "불꽃 깃털",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4003002,
+              "name": "얼음 조각",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4021009,
+              "name": "별의 돌",
+              "count": 1,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4001005,
+              "name": "고대의 주문서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 7500,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1302015,
+            "name": "영웅의 글라디우스",
+            "count": 1
+          },
+          {
+            "id": 1032012,
+            "name": "해골 귀고리",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2035,
+      "name": "(전사) 경비병 루크의 모험 결심",
+      "worldId": "워닝스트리트",
+      "npcId": 1040000,
+      "repeatable": false,
+      "levelMin": 50,
+      "prerequisites": [
+        {
+          "questId": 2018,
+          "name": "던전입구를 지키는 경비병 루크"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 50,
+          "jobs": [
+            100,
+            110,
+            111,
+            112,
+            120,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4011005,
+              "name": "오리할콘",
+              "count": 10,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4000046,
+              "name": "타우로스피어의 뿔",
+              "count": 3,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000030,
+              "name": "용의 가죽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4003000,
+              "name": "나사",
+              "count": 40,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4031042,
+              "name": "검은 깃털",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 22000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1002100,
+            "name": "낡은 브론즈 노르만 헬름",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2051,
+      "name": "[인내의숲] 헤르샤와 두 뿌리 홍삼",
+      "worldId": "슬리피우드",
+      "npcId": 1061005,
+      "repeatable": false,
+      "levelMin": 50,
+      "prerequisites": [
+        {
+          "questId": 2050,
+          "name": "[인내의숲] 헤르샤와 핑크 안시리움"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 50,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031032,
+              "name": "두 뿌리 홍삼",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 25000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4021009,
+            "name": "별의 돌",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2096,
+      "name": "깊숙한 위험을 봉인하는 의식 1",
+      "worldId": "또다른입구",
+      "npcId": 1061012,
+      "repeatable": false,
+      "levelMin": 50,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 50,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031212,
+              "name": "싸늘한 기운",
+              "count": 33,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 12000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000005,
+            "name": "파워 엘릭서",
+            "count": 20
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2094,
+      "name": "악어퇴치1",
+      "worldId": "페리온",
+      "npcId": 1022007,
+      "repeatable": false,
+      "levelMin": 52,
+      "prerequisites": [
+        {
+          "questId": 2093,
+          "name": "내 딸을 찾고 싶어 2"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 52,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000034,
+              "name": "주니어 네키의 가죽",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": [
+            {
+              "id": 2130103,
+              "name": "주니어 네키",
+              "quantity": 40,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 3110100,
+              "name": "리게이터",
+              "quantity": 250,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 20000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2044702,
+            "name": "직업별 무기 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "recommendedAreas": "<리게이터> -  커닝시티 [방황의 늪 1, 2, 3] || <크로코> - 커닝시티 [위험한 크로코 1, 2]",
+        "notes": [
+          "망토와 무기 주문서를 선택하여 받을 수 있는 [필수 퀘스트].  *[이안]의 [스텀프는 무서워]헤네시스 [브루스]의 [버섯 몬스터를 연구하는 이유, 내 딸을 찾고 싶어 1, 2]퀘스트를 먼저 완료하여야한다. 혼자 클리어해도 괜찮지만, [리게이터]와 [크로코]는 파티원이 잡아도 카운팅되기 때문에 맵에 사냥하고있는 사람이 있다면 파티신청을 해보자."
+        ]
+      }
+    },
+    {
+      "id": 2095,
+      "name": "악어퇴치2",
+      "worldId": "페리온",
+      "npcId": 1022007,
+      "repeatable": false,
+      "levelMin": 52,
+      "prerequisites": [
+        {
+          "questId": 2094,
+          "name": "악어퇴치1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 52,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000033,
+              "name": "크로코의 가죽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": [
+            {
+              "id": 5130103,
+              "name": "크로코",
+              "quantity": 120,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 25000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2041013,
+            "name": "망토 힘 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2041016,
+            "name": "망토 지력 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2041019,
+            "name": "망토 민첩 주문서 60%",
+            "count": 1
+          },
+          {
+            "id": 2041022,
+            "name": "망토 행운 주문서 60%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2043,
+      "name": "(궁수) 마야를 위한 수집",
+      "worldId": "헤네시스",
+      "npcId": 1012101,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2042,
+          "name": "(궁수) 마야의 세번째 수집품"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": [
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4021007,
+              "name": "다이아몬드",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000025,
+              "name": "다크 스톤골렘의 돌조각",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000027,
+              "name": "와일드카고의 눈동자",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000044,
+              "name": "클랑의 집게발",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000028,
+              "name": "타우로마시스의 뿔",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 15000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1072144,
+            "name": "레드 고어부츠",
+            "count": 1
+          },
+          {
+            "id": 1072145,
+            "name": "블루 고어부츠",
+            "count": 1
+          },
+          {
+            "id": 1072146,
+            "name": "그린 고어부츠",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2041,
+      "name": "(궁수) 마야의 두번째 수집품",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1012101,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2040,
+          "name": "(궁수) 마야의 첫번째 수집품"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000024,
+              "name": "파이어보어의 송곳니",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000002,
+              "name": "돼지의 리본",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000035,
+              "name": "식탁보",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000037,
+              "name": "버블링의 큰 방울",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 2000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2042,
+      "name": "(궁수) 마야의 세번째 수집품",
+      "worldId": "빅토리아 아일랜드",
+      "npcId": 1012101,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2041,
+          "name": "(궁수) 마야의 두번째 수집품"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000039,
+              "name": "아이언 호그의 철발굽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000023,
+              "name": "콜드아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000026,
+              "name": "루팡 인형",
+              "count": 10,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000045,
+              "name": "엄티의 등껍질",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 5400,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2040,
+      "name": "(궁수) 마야의 첫번째 수집품",
+      "worldId": "헤네시스",
+      "npcId": 1012101,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2008,
+          "name": "#2008"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": [
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000000,
+              "name": "파란 달팽이의 껍질",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000003,
+              "name": "나뭇가지",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000011,
+              "name": "버섯의 포자",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000019,
+              "name": "달팽이의 껍질",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2044,
+      "name": "(도적) 빨간 망토 찾아오기",
+      "worldId": "기타",
+      "npcId": 1012102,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 3239,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2045,
+      "name": "(도적) 피아가 빌려간 물건",
+      "worldId": "기타",
+      "npcId": 1010100,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2044,
+          "name": "(도적) 빨간 망토 찾아오기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000028,
+              "name": "타우로마시스의 뿔",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4021008,
+              "name": "흑수정",
+              "count": 1,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4001005,
+              "name": "고대의 주문서",
+              "count": 1,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 12956,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2037,
+      "name": "(법사) 새집에 필요한 두번째 재료",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2036,
+          "name": "(법사) 새집에 필요한 첫번째 재료"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": [
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000006,
+              "name": "옥토퍼스의 다리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000008,
+              "name": "죽은 자의 부적",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000020,
+              "name": "와일드보어의 송곳니",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000013,
+              "name": "커즈아이의 꼬리",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 8000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2039,
+      "name": "(법사) 새집에 필요한 마지막 재료",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2038,
+          "name": "(법사) 새집에 필요한 세번째 재료"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000036,
+              "name": "이상한 느낌의 약",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000025,
+              "name": "다크 스톤골렘의 돌조각",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000027,
+              "name": "와일드카고의 눈동자",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000028,
+              "name": "타우로마시스의 뿔",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 12000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1072136,
+            "name": "핑크 앵클부츠",
+            "count": 1
+          },
+          {
+            "id": 1072137,
+            "name": "그린 앵클부츠",
+            "count": 1
+          },
+          {
+            "id": 1072138,
+            "name": "오렌지 앵클부츠",
+            "count": 1
+          },
+          {
+            "id": 1072139,
+            "name": "블루 앵클부츠",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2038,
+      "name": "(법사) 새집에 필요한 세번째 재료",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000014,
+              "name": "드레이크의 머리뼈",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000022,
+              "name": "스톤골렘의 돌조각",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000033,
+              "name": "크로코의 가죽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000029,
+              "name": "루팡의 바나나",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 10000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2036,
+      "name": "(법사) 새집에 필요한 첫번째 재료",
+      "worldId": "북쪽숲나무통로",
+      "npcId": 1061004,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2023,
+          "name": "되찾은 비밀의 책"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": [
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000016,
+              "name": "빨간 달팽이의 껍질",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000001,
+              "name": "주황버섯의 갓",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000004,
+              "name": "물컹물컹한 액체",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000005,
+              "name": "나뭇잎",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 6000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2160,
+      "name": "라엘 돕기",
+      "worldId": "플로리나로드",
+      "npcId": 1081102,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2157,
+          "name": "킹크랑의 제물"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 4130101,
+              "name": "엄티",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2159,
+      "name": "로엘 돕기",
+      "worldId": "플로리나로드",
+      "npcId": 1081101,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2157,
+          "name": "킹크랑의 제물"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 3230102,
+              "name": "로랑",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2158,
+      "name": "리엘 돕기",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2157,
+          "name": "킹크랑의 제물"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 4230104,
+              "name": "클랑",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 200,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2198,
+      "name": "스톤골렘 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2164,
+          "name": "헬레나의 선물"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 5130101,
+              "name": "스톤골렘",
+              "quantity": 80,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 90000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2046,
+      "name": "친구를 위한 선물들",
+      "worldId": "기타",
+      "npcId": 1010100,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2045,
+          "name": "(도적) 피아가 빌려간 물건"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000030,
+              "name": "용의 가죽",
+              "count": 50,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4003000,
+              "name": "나사",
+              "count": 40,
+              "source": "원석/보석/가공"
+            },
+            {
+              "id": 4011004,
+              "name": "은",
+              "count": 15,
+              "source": "원석/보석/가공"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 16195,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1041096,
+            "name": "엄버 맨티스",
+            "count": 1
+          },
+          {
+            "id": 1061095,
+            "name": "엄버 맨티스 바지",
+            "count": 1
+          },
+          {
+            "id": 1040100,
+            "name": "다크 스콜피오",
+            "count": 1
+          },
+          {
+            "id": 1060089,
+            "name": "다크 스콜피오 바지",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2161,
+      "name": "킹크랑을 물리칠 용사 등장!",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [
+        {
+          "questId": 2159,
+          "name": "로엘 돕기"
+        },
+        {
+          "questId": 2160,
+          "name": "라엘 돕기"
+        },
+        {
+          "questId": 2157,
+          "name": "킹크랑의 제물"
+        },
+        {
+          "questId": 2158,
+          "name": "리엘 돕기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 5220000,
+              "name": "킹크랑",
+              "quantity": 1,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 133500,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2157,
+      "name": "킹크랑의 제물",
+      "worldId": "플로리나로드",
+      "npcId": 1081100,
+      "repeatable": false,
+      "levelMin": 55,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 55,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 1000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2199,
+      "name": "다크 스톤골렘 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 58,
+      "prerequisites": [
+        {
+          "questId": 2198,
+          "name": "스톤골렘 퇴치하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 58,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 5130102,
+              "name": "다크 스톤골렘",
+              "quantity": 100,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 110000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2200,
+      "name": "믹스골렘 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 58,
+      "prerequisites": [
+        {
+          "questId": 2199,
+          "name": "다크 스톤골렘 퇴치하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 58,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 5150000,
+              "name": "믹스골렘",
+              "quantity": 100,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 110000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2054,
+      "name": "[끈기의숲] 존이 준비한 마지막 선물",
+      "worldId": "리스항구",
+      "npcId": 20000,
+      "repeatable": false,
+      "levelMin": 60,
+      "prerequisites": [
+        {
+          "questId": 2053,
+          "name": "[끈기의숲] 존이 준비한 선물"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 60,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031028,
+              "name": "화이트 비올라",
+              "count": 30,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 25000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 1032014,
+            "name": "분홍꽃 귀고리",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2201,
+      "name": "스켈레톤 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 60,
+      "prerequisites": [
+        {
+          "questId": 2199,
+          "name": "다크 스톤골렘 퇴치하기"
+        },
+        {
+          "questId": 2200,
+          "name": "믹스골렘 퇴치하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 60,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 5150001,
+              "name": "스켈레톤 사병",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 6230602,
+              "name": "스켈레톤 장교",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 130000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2119,
+      "name": "유적 발굴단의 공고문",
+      "worldId": "유적발굴단 캠프",
+      "npcId": 1022102,
+      "repeatable": false,
+      "levelMin": 60,
+      "prerequisites": [],
+      "requirements": {
+        "start": {
+          "levelMin": 60,
+          "jobs": [
+            100,
+            110,
+            200,
+            210,
+            211,
+            212,
+            220,
+            221,
+            222,
+            230,
+            231,
+            232,
+            111,
+            300,
+            310,
+            311,
+            312,
+            320,
+            321,
+            322,
+            400,
+            410,
+            411,
+            112,
+            412,
+            420,
+            421,
+            422,
+            500,
+            510,
+            520,
+            511,
+            521,
+            512,
+            120,
+            522,
+            121,
+            122,
+            130,
+            131,
+            132
+          ]
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4000206,
+              "name": "갈비뼈",
+              "count": 60,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000207,
+              "name": "골반뼈",
+              "count": 40,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4000208,
+              "name": "말 머리뼈",
+              "count": 20,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": [
+            {
+              "id": 6230602,
+              "name": "스켈레톤 장교",
+              "quantity": 100,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 7130103,
+              "name": "스켈레톤 지휘관",
+              "quantity": 40,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 5150001,
+              "name": "스켈레톤 사병",
+              "quantity": 200,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 25000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2044702,
+            "name": "직업별 무기 주문서 10%",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2202,
+      "name": "드레이크 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 64,
+      "prerequisites": [
+        {
+          "questId": 2201,
+          "name": "스켈레톤 퇴치하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 64,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 6230600,
+              "name": "아이스 드레이크",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 5130100,
+              "name": "드레이크",
+              "quantity": 50,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 140000,
+        "meso": 0,
+        "items": []
+      },
+      "guide": {}
+    },
+    {
+      "id": 2097,
+      "name": "깊숙한 위험을 봉인하는 의식 2",
+      "worldId": "또다른입구",
+      "npcId": 1061012,
+      "repeatable": false,
+      "levelMin": 65,
+      "prerequisites": [
+        {
+          "questId": 2096,
+          "name": "깊숙한 위험을 봉인하는 의식 1"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 65,
+          "jobs": []
+        },
+        "complete": {
+          "items": [
+            {
+              "id": 4031213,
+              "name": "와일드카고의 영혼석",
+              "count": 33,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031214,
+              "name": "타우로마시스의 영혼석",
+              "count": 18,
+              "source": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4031215,
+              "name": "타우로스피어의 영혼석",
+              "count": 18,
+              "source": "빅토리아 아일랜드"
+            }
+          ],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 45000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2000005,
+            "name": "파워 엘릭서",
+            "count": 30
+          }
+        ]
+      },
+      "guide": {}
+    },
+    {
+      "id": 2120,
+      "name": "요정 숲의 전령1",
+      "worldId": "엘리니아",
+      "npcId": 1032001,
+      "repeatable": false,
+      "levelMin": 70,
+      "prerequisites": [
+        {
+          "questId": 3242,
+          "name": "#3242"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 70,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": []
+        }
+      },
+      "rewards": {
+        "exp": 0,
+        "meso": 0,
+        "items": [
+          {
+            "id": 4031045,
+            "name": "오르비스 행 티켓(일반)",
+            "count": 1
+          },
+          {
+            "id": 4031331,
+            "name": "리프레 행 티켓(일반)",
+            "count": 1
+          },
+          {
+            "id": 4161013,
+            "name": "리프레 안내 책자",
+            "count": 1
+          }
+        ]
+      },
+      "guide": {
+        "notes": [
+          "루디브리엄의 장난감성의 전령 퀘스트와 동시에 받을 수 없습니다."
+        ]
+      }
+    },
+    {
+      "id": 2203,
+      "name": "타우로마시스 퇴치하기",
+      "worldId": "노틸러스",
+      "npcId": 1092007,
+      "repeatable": false,
+      "levelMin": 70,
+      "prerequisites": [
+        {
+          "questId": 2202,
+          "name": "드레이크 퇴치하기"
+        }
+      ],
+      "requirements": {
+        "start": {
+          "levelMin": 70,
+          "jobs": []
+        },
+        "complete": {
+          "items": [],
+          "mobs": [
+            {
+              "id": 7130100,
+              "name": "타우로마시스",
+              "quantity": 30,
+              "area": "빅토리아 아일랜드"
+            },
+            {
+              "id": 4230100,
+              "name": "콜드아이",
+              "quantity": 100,
+              "area": "빅토리아 아일랜드"
+            }
+          ]
+        }
+      },
+      "rewards": {
+        "exp": 180000,
+        "meso": 0,
+        "items": [
+          {
+            "id": 2020012,
+            "name": "살살녹는 치즈",
+            "count": 50
+          }
+        ]
+      },
+      "guide": {}
+    }
+  ]
+}
