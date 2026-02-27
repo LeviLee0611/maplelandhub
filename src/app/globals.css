@@ -546,3 +546,19 @@ html[data-theme="light"] .btn-login:hover {
     transform: translateY(0);
   }
 }
+
+@keyframes slimeFloat {
+  0% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-6px) translateX(4px);
+  }
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+}
+
+.slime-float {
+  animation: slimeFloat 3.5s ease-in-out infinite;
+}

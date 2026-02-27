@@ -22,6 +22,46 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/about`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/guide`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/contact`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/privacy`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/updates`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/changelog`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/probability`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/services/onehit`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/services/damage`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/services/drop-table`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/party`,
       lastModified: new Date(),
     },
