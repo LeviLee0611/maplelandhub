@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
-import { getItemIconUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
+import { getItemIconUrl, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
 import { getMonsters } from "@/lib/data/monsters";
 import type { Monster } from "@/types/monster";
 import dropIndex from "@data/drop-index.json";
@@ -207,6 +207,17 @@ export function DropTable() {
     return `수량 ${amount}`;
   };
 
+  const handleMobImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>, mobCode: number) => {
+    const target = event.currentTarget;
+    if (target.dataset.fallback === "animated") {
+      target.onerror = null;
+      target.src = getMobIconUrl(mobCode);
+      return;
+    }
+    target.dataset.fallback = "animated";
+    target.src = getMobAnimatedFallbackUrl(mobCode, "stand");
+  };
+
   return (
     <div className="space-y-6">
       <header className="glass-panel flex flex-col gap-3 rounded-3xl px-6 py-6 text-left">
@@ -340,7 +351,12 @@ export function DropTable() {
                                   setShowSuggestions(false);
                                 }}
                               >
-                                <img src={getMobIconUrl(monster.mobCode)} alt={monster.name} className="h-6 w-6" />
+                                <img
+                                  src={getMobIconUrl(monster.mobCode)}
+                                  alt={monster.name}
+                                  className="h-6 w-6"
+                                  onError={(event) => handleMobImageError(event, monster.mobCode)}
+                                />
                                 <span className="flex-1 truncate">{monster.name}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">
                                   Lv.{monster.level ?? "-"}
@@ -384,7 +400,12 @@ export function DropTable() {
             ) : selectedMonster ? (
               <div className="rounded-[10px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
                 <div className="flex items-center gap-2">
-                  <img src={getMobIconUrl(selectedMonster.mobCode)} alt={selectedMonster.name} className="h-12 w-12" />
+                  <img
+                    src={getMobIconUrl(selectedMonster.mobCode)}
+                    alt={selectedMonster.name}
+                    className="h-12 w-12"
+                    onError={(event) => handleMobImageError(event, selectedMonster.mobCode)}
+                  />
                   <div className="flex-1">
                     <div className="text-base font-semibold">{selectedMonster.name}</div>
                     <div className="text-xs text-[color:var(--retro-text-muted)]">
@@ -514,8 +535,7 @@ export function DropTable() {
                       alt={monster.name}
                       className="h-16 w-16"
                       onError={(event) => {
-                        event.currentTarget.onerror = null;
-                        event.currentTarget.src = getMobIconUrl(monster.mobCode);
+                        handleMobImageError(event, monster.mobCode);
                       }}
                     />
                     <div className="flex-1">

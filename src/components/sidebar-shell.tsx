@@ -221,7 +221,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
         )}
       </aside>
 
-      <div className={`mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-6 ${collapsed ? "lg:pl-20" : "lg:pl-72"}`}>
+      <div className="mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-6">
         <div className="hidden w-full items-center justify-end gap-3 pb-4 lg:flex">
           <AdminLink />
           <AuthButton />

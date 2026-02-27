@@ -11,6 +11,10 @@ export function getMobAnimatedUrl(mobCode: number | string, action: "move" | "st
   return `${BASE_URL}/mob/animated/${mobCode}/${action}`;
 }
 
+export function getMobAnimatedFallbackUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
+  return `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
+}
+
 export function getMobRenderUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
   const renderBase = "https://maplestory.io/api/GMS/62";
   return `${renderBase}/mob/${mobCode}/render/${action}`;

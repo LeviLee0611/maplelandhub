@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { getMobIconUrl } from "@/lib/maplestory-io";
+import { getMobAnimatedFallbackUrl, getMobIconUrl } from "@/lib/maplestory-io";
 import type { Monster } from "@/types/monster";
 
 type MonsterSelectProps = {
@@ -141,6 +141,16 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
               height={22}
               className="h-[22px] w-[22px] object-contain"
               unoptimized
+              onError={(event) => {
+                const target = event.currentTarget as HTMLImageElement;
+                if (target.dataset.fallback === "animated") {
+                  target.onerror = null;
+                  target.src = getMobIconUrl(selectedMonster.mobCode);
+                  return;
+                }
+                target.dataset.fallback = "animated";
+                target.src = getMobAnimatedFallbackUrl(selectedMonster.mobCode, "stand");
+              }}
             />
           ) : (
             <span className="inline-flex h-[22px] w-[22px] items-center justify-center rounded bg-[var(--retro-cell-strong)] text-[10px] text-[color:var(--retro-text-muted)]">
@@ -177,6 +187,16 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
                     height={24}
                     className="h-6 w-6 shrink-0 object-contain"
                     unoptimized
+                    onError={(event) => {
+                      const target = event.currentTarget as HTMLImageElement;
+                      if (target.dataset.fallback === "animated") {
+                        target.onerror = null;
+                        target.src = getMobIconUrl(monster.mobCode);
+                        return;
+                      }
+                      target.dataset.fallback = "animated";
+                      target.src = getMobAnimatedFallbackUrl(monster.mobCode, "stand");
+                    }}
                   />
                   <span className="flex-1">{monster.name}</span>
                   <span className="text-[10px] text-[color:var(--retro-text-muted)]">Lv.{monster.level}</span>
