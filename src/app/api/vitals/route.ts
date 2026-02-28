@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { addPerfReport, getRecentPerfReports, type PerfMetricReport } from "@/lib/perf/debug-store";
 
-export const runtime = "nodejs";
+export const runtime = "edge";
 
 function isPerfDebugEnabled() {
   return process.env.PERF_DEBUG === "1";
