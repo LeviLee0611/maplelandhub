@@ -13,7 +13,7 @@ const KMS_ITEM_VERSION = "284";
 const MONSTER_SOURCE = path.resolve("data/monsters.json");
 const OUTPUT_PATH = path.resolve("data/drop-index.json");
 const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
-const MAPLEDB_ITEM_DATA = path.resolve("src/data/mapledb/item_data.js");
+const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
 
 const CONCURRENCY = 4;
 const ITEM_CONCURRENCY = 6;
@@ -116,10 +116,14 @@ async function fetchItemNameFromRegion(itemId, region, version, fallbackVersions
 
 async function loadMapleDbItemNames() {
   try {
-    const code = await fs.readFile(MAPLEDB_ITEM_DATA, "utf8");
+    const code = await fs.readFile(MAPLEDB_EQUIP_DATA, "utf8");
     const sandbox = {};
     vm.runInNewContext(code, sandbox, { timeout: 10000 });
-    const items = Array.isArray(sandbox.ITEMS) ? sandbox.ITEMS : [];
+    const items = Array.isArray(sandbox.EQUIPS)
+      ? sandbox.EQUIPS
+      : Array.isArray(sandbox.ITEMS)
+        ? sandbox.ITEMS
+        : [];
     const map = new Map();
     for (const entry of items) {
       if (!entry || typeof entry.code !== "number") continue;

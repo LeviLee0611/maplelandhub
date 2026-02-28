@@ -62,8 +62,27 @@ function getSearchKeys(raw: string) {
   return Array.from(new Set([normalized, normalizeQuery(initials), normalizeQuery(firstTwoChars)]));
 }
 
+function getWorldMapGroup(region?: string) {
+  const text = String(region ?? "").trim();
+  if (!text) return "기타";
+  if (text.includes("빅토리아")) return "빅토리아";
+  if (text.includes("루디브리엄") || text.includes("시계탑")) return "루디브리움";
+  if (text.includes("오르비스")) return "오르비스";
+  if (text.includes("리프레")) return "리프레";
+  if (text.includes("엘나스") || text.includes("폐광")) return "엘나스";
+  if (text.includes("아쿠아")) return "아쿠아리움";
+  if (text.includes("마가티아")) return "마가티아";
+  if (text.includes("아리안트")) return "아리안트";
+  if (text.includes("무릉")) return "무릉도원";
+  if (text.includes("아랫마을")) return "아랫마을";
+  if (text.includes("지구방위본부")) return "지구방위본부";
+  if (text.includes("시간의 신전")) return "시간의 신전";
+  return text;
+}
+
 export function DropTable() {
   const [query, setQuery] = useState("");
+  const [selectedWorldMap, setSelectedWorldMap] = useState("all");
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
   const [selectedMonsterName, setSelectedMonsterName] = useState<string | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
@@ -114,12 +133,17 @@ export function DropTable() {
 
   const filteredMonsters = useMemo(() => {
     const keyword = normalizeQuery(query);
-    const sorted = [...monsterList].sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
+    const sorted = [...monsterList]
+      .filter((monster) => {
+        if (selectedWorldMap === "all") return true;
+        return getWorldMapGroup(monster.region) === selectedWorldMap;
+      })
+      .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
     if (!keyword) return sorted.slice(0, 60);
     return sorted
       .filter((monster) => getSearchKeys(monster.name).some((key) => key.includes(keyword)))
       .slice(0, 60);
-  }, [query]);
+  }, [query, selectedWorldMap]);
 
   const suggestionItems = useMemo(() => {
     const items = filteredItems.map((item) => ({
@@ -149,8 +173,49 @@ export function DropTable() {
         entry,
         monster: monsterMap.get(entry.mobId),
       }))
-      .filter((row): row is { entry: MonsterDropEntry; monster: Monster } => Boolean(row.monster));
-  }, [selectedItemId]);
+      .filter((row): row is { entry: MonsterDropEntry; monster: Monster } => Boolean(row.monster))
+      .filter((row) => {
+        if (selectedWorldMap === "all") return true;
+        return getWorldMapGroup(row.monster.region) === selectedWorldMap;
+      });
+  }, [selectedItemId, selectedWorldMap]);
+
+  const worldMapOptions = useMemo(() => {
+    const priority = [
+      "빅토리아",
+      "오르비스",
+      "루디브리움",
+      "리프레",
+      "엘나스",
+      "아쿠아리움",
+      "무릉도원",
+      "아리안트",
+      "마가티아",
+      "시간의 신전",
+      "기타",
+    ];
+    const counts = new Map<string, number>();
+    for (const monster of monsterList) {
+      const group = getWorldMapGroup(monster.region);
+      counts.set(group, (counts.get(group) ?? 0) + 1);
+    }
+
+    const labels = [...counts.keys()].sort((a, b) => {
+      const ai = priority.indexOf(a);
+      const bi = priority.indexOf(b);
+      if (ai !== -1 || bi !== -1) {
+        if (ai === -1) return 1;
+        if (bi === -1) return -1;
+        return ai - bi;
+      }
+      return a.localeCompare(b, "ko");
+    });
+
+    return labels.map((label) => ({
+      label,
+      count: counts.get(label) ?? 0,
+    }));
+  }, []);
 
   const formatProb = (prob?: number) => {
     if (typeof prob !== "number" || prob <= 0) {
@@ -370,6 +435,21 @@ export function DropTable() {
                     </div>
                   </div>
                 ) : null}
+              </div>
+              <div>
+                <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">월드맵 필터</label>
+                <select
+                  value={selectedWorldMap}
+                  onChange={(event) => setSelectedWorldMap(event.target.value)}
+                  className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
+                >
+                  <option value="all">전체 지역</option>
+                  {worldMapOptions.map((option) => (
+                    <option key={option.label} value={option.label}>
+                      {option.label} ({option.count})
+                    </option>
+                  ))}
+                </select>
               </div>
             </div>
 

@@ -20,41 +20,46 @@ if (!fs.existsSync(inputPath)) {
 }
 
 const raw = fs.readFileSync(inputPath, "utf8");
-const parseCall = raw.match(/JSON\.parse\((['"`])([\s\S]*?)\1\)/);
-
-if (!parseCall) {
+const parseCalls = [...raw.matchAll(/JSON\.parse\((['"`])([\s\S]*?)\1\)/g)];
+if (parseCalls.length === 0) {
   console.error("Could not find JSON.parse('...') payload in input.");
   process.exit(1);
 }
 
-const quote = parseCall[1];
-const literalBody = parseCall[2];
+const bundles = [];
+for (const parseCall of parseCalls) {
+  const quote = parseCall[1];
+  const literalBody = parseCall[2];
 
-let jsonText = "";
-try {
-  jsonText = vm.runInNewContext(`${quote}${literalBody}${quote}`);
-} catch (error) {
-  console.error("Failed to decode JSON.parse string literal.");
-  console.error(error);
-  process.exit(1);
-}
+  let jsonText = "";
+  try {
+    jsonText = vm.runInNewContext(`${quote}${literalBody}${quote}`);
+  } catch (error) {
+    console.error("Failed to decode JSON.parse string literal.");
+    console.error(error);
+    process.exit(1);
+  }
 
-let bundles = [];
-try {
-  bundles = JSON.parse(jsonText);
-} catch (error) {
-  console.error("Failed to parse decoded JSON text.");
-  console.error(error);
-  process.exit(1);
-}
+  let chunk = [];
+  try {
+    chunk = JSON.parse(jsonText);
+  } catch (error) {
+    console.error("Failed to parse decoded JSON text.");
+    console.error(error);
+    process.exit(1);
+  }
 
-if (!Array.isArray(bundles)) {
-  console.error("Expected decoded JSON root to be an array.");
-  process.exit(1);
+  if (!Array.isArray(chunk)) {
+    console.error("Expected decoded JSON root to be an array.");
+    process.exit(1);
+  }
+
+  bundles.push(...chunk);
 }
 
 const questNameById = new Map();
 const worldNameById = new Map();
+const EXCLUDED_QUEST_IDS = new Set([2103]); // 넬라의 꿈
 for (const bundle of bundles) {
   for (const q of bundle?.questList ?? []) {
     if (q?.questId && q?.questName && !questNameById.has(q.questId)) {
@@ -119,6 +124,7 @@ function normalizeWorldName(raw) {
 const npcs = new Map();
 const quests = [];
 const seen = new Set();
+const stagedQuests = [];
 
 for (const bundle of bundles) {
   for (const q of bundle?.questList ?? []) {
@@ -129,11 +135,10 @@ for (const bundle of bundles) {
 
     const id = Number(q?.questId);
     if (!Number.isFinite(id) || seen.has(id)) continue;
+    if (EXCLUDED_QUEST_IDS.has(id)) continue;
     seen.add(id);
 
     const worldName = pickWorldName(bundle, q);
-    const worldId = worldName;
-    worldNameById.set(worldId, worldName);
 
     const npcId = Number(questData?.npcId ?? requirementToStart?.npcId ?? 0) || 0;
     const npcName = String(questData?.npcName ?? "").trim();
@@ -149,7 +154,7 @@ for (const bundle of bundles) {
         const questId = Number(p.id);
         return {
           questId,
-          name: questNameById.get(questId) ?? `#${questId}`,
+          name: questNameById.get(questId) ?? "이전 퀘스트",
         };
       });
 
@@ -196,7 +201,7 @@ for (const bundle of bundles) {
     const quest = {
       id,
       name: String(q?.questName ?? `#${id}`),
-      worldId,
+      worldId: worldName,
       npcId,
       repeatable: Boolean(q?.questFlags?.isRepeatable),
       levelMin,
@@ -222,8 +227,36 @@ for (const bundle of bundles) {
       },
     };
 
-    quests.push(quest);
+    stagedQuests.push(quest);
   }
+}
+
+// NPC별로 "기타"가 아닌 월드명을 가장 많이 갖는 값을 대표값으로 사용
+const npcWorldVotes = new Map();
+for (const quest of stagedQuests) {
+  if (!quest.npcId || quest.worldId === "기타") continue;
+  if (!npcWorldVotes.has(quest.npcId)) npcWorldVotes.set(quest.npcId, new Map());
+  const voteMap = npcWorldVotes.get(quest.npcId);
+  voteMap.set(quest.worldId, (voteMap.get(quest.worldId) ?? 0) + 1);
+}
+
+const npcPreferredWorld = new Map();
+for (const [npcId, voteMap] of npcWorldVotes.entries()) {
+  const sorted = [...voteMap.entries()].sort((a, b) => b[1] - a[1]);
+  if (sorted.length > 0) {
+    npcPreferredWorld.set(npcId, sorted[0][0]);
+  }
+}
+
+for (const quest of stagedQuests) {
+  let resolvedWorld = quest.worldId;
+  if (resolvedWorld === "기타" && quest.npcId > 0) {
+    const inferred = npcPreferredWorld.get(quest.npcId);
+    if (inferred) resolvedWorld = inferred;
+  }
+  quest.worldId = resolvedWorld;
+  worldNameById.set(resolvedWorld, resolvedWorld);
+  quests.push(quest);
 }
 
 quests.sort((a, b) => {
