@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { AuthButton } from "@/components/auth-button";
 import { AdminLink } from "@/components/admin-link";
 
@@ -7,7 +8,7 @@ export function NavBar() {
     <header className="border-b backdrop-blur-xl" style={{ borderColor: "var(--nav-border)", background: "var(--nav-bg)" }}>
       <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4">
         <Link href="/" className="flex items-center">
-          <img src="/favicon.ico" alt="메랜 Hub" className="h-[96px] w-[96px] rounded" />
+          <Image src="/favicon.ico" alt="메랜 Hub" width={96} height={96} className="h-[96px] w-[96px] rounded" />
         </Link>
         <nav className="flex items-center gap-3 text-sm" style={{ color: "var(--nav-text)" }}>
           <Link href="/announcements" className="hover:opacity-80">
@@ -22,9 +23,10 @@ export function NavBar() {
           <Link href="/drop-table" className="hover:opacity-80">
             드랍 테이블
           </Link>
-          <Link href="/quests" className="hover:opacity-80">
+          <span className="inline-flex items-center gap-1 text-amber-100/90">
             메랜 퀘스트
-          </Link>
+            <span className="rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">Soon</span>
+          </span>
           <Link href="/party" className="hover:opacity-80">
             파티 매칭
           </Link>

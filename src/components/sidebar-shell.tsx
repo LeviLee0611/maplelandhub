@@ -1,16 +1,30 @@
 "use client";
 
+import dynamic from "next/dynamic";
 import { useState } from "react";
 import Link from "next/link";
-import { AuthButton } from "@/components/auth-button";
-import { AdminLink } from "@/components/admin-link";
+import Image from "next/image";
+
+const AdminLink = dynamic(() => import("@/components/admin-link").then((mod) => mod.AdminLink), {
+  ssr: false,
+  loading: () => null,
+});
+
+const AuthButton = dynamic(() => import("@/components/auth-button").then((mod) => mod.AuthButton), {
+  ssr: false,
+  loading: () => (
+    <Link href="/login" className="btn-login rounded-full px-4 py-1 text-sm">
+      로그인
+    </Link>
+  ),
+});
 
 const primaryLinks = [
   { label: "공지/업데이트", href: "/announcements", icon: "megaphone" },
   { label: "N방컷 계산기", href: "/calculators/onehit", icon: "target" },
   { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
   { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
-  { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
+  { label: "메랜 퀘스트", href: "/quests", icon: "quest", comingSoon: true },
   { label: "파티 매칭", href: "/party", icon: "users" },
   { label: "문의/요청", href: "/feedback", icon: "mail" },
 ];
@@ -124,7 +138,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
     <div className="min-h-screen">
       <div className="sticky top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[var(--nav-bg)] px-4 py-3 lg:hidden">
         <Link href="/" className="flex items-center gap-2">
-          <img src="/favicon.ico" alt="메랜Hub" className="h-10 w-10 rounded" />
+          <Image src="/favicon.ico" alt="메랜Hub" width={40} height={40} className="h-10 w-10 rounded" />
           <div>
             <div className="text-sm font-semibold text-slate-100">메랜Hub</div>
             <div className="text-[10px] text-slate-300/70">v1.0</div>
@@ -157,9 +171,11 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       >
         <div className="relative hidden items-center justify-between gap-3 lg:flex">
           <Link href="/" className={`flex items-center gap-3 ${collapsed ? "justify-center" : ""}`}>
-            <img
+            <Image
               src="/favicon.ico"
               alt="메랜Hub"
+              width={collapsed ? 32 : 48}
+              height={collapsed ? 32 : 48}
               className={collapsed ? "h-8 w-8 rounded" : "h-12 w-12 rounded"}
             />
             {!collapsed && (
@@ -185,23 +201,40 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
         </button>
 
         <div className="flex flex-col gap-2">
-          {primaryLinks.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              onClick={() => setOpen(false)}
-              title={collapsed ? link.label : undefined}
-              className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold ${
-                collapsed ? "justify-center" : "gap-3"
-              }`}
-            >
-              <span className="flex items-center gap-2">
-                <SidebarIcon name={link.icon} />
-                <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
+          {primaryLinks.map((link) =>
+            link.comingSoon ? (
+              <span
+                key={link.href}
+                title={collapsed ? `${link.label} (Coming Soon)` : undefined}
+                aria-disabled="true"
+                className={`flex cursor-not-allowed items-center justify-between rounded-xl border border-dashed border-amber-200/35 bg-amber-300/10 px-3 py-2 text-sm font-semibold text-amber-50/90 ${
+                  collapsed ? "justify-center" : "gap-3"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <SidebarIcon name={link.icon} />
+                  <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
+                </span>
+                <span className={collapsed ? "hidden" : "rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100"}>Soon</span>
               </span>
-              <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
-            </Link>
-          ))}
+            ) : (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                title={collapsed ? link.label : undefined}
+                className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold ${
+                  collapsed ? "justify-center" : "gap-3"
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <SidebarIcon name={link.icon} />
+                  <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
+                </span>
+                <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
+              </Link>
+            ),
+          )}
         </div>
 
         {!collapsed && (

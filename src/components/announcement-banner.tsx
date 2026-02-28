@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { unstable_cache } from "next/cache";
 import { getSupabaseServerClient } from "@/lib/supabase/server";
 
 type AnnouncementRow = {
@@ -14,16 +15,24 @@ const CATEGORY_LABEL: Record<AnnouncementRow["category"], string> = {
   update: "업데이트",
 };
 
-export async function AnnouncementBanner() {
-  const supabase = getSupabaseServerClient();
-  const { data } = await supabase
-    .from("announcements")
-    .select("id,title,category,published_at,is_pinned")
-    .order("is_pinned", { ascending: false })
-    .order("published_at", { ascending: false })
-    .limit(1);
+const getLatestAnnouncement = unstable_cache(
+  async () => {
+    const supabase = getSupabaseServerClient();
+    const { data } = await supabase
+      .from("announcements")
+      .select("id,title,category,published_at,is_pinned")
+      .order("is_pinned", { ascending: false })
+      .order("published_at", { ascending: false })
+      .limit(1);
 
-  const item = data?.[0] as AnnouncementRow | undefined;
+    return (data?.[0] as AnnouncementRow | undefined) ?? null;
+  },
+  ["latest-announcement-banner"],
+  { revalidate: 60 },
+);
+
+export async function AnnouncementBanner() {
+  const item = await getLatestAnnouncement();
   if (!item) return null;
 
   return (

@@ -3,6 +3,7 @@ import { Space_Grotesk, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { SidebarShell } from "@/components/sidebar-shell";
 import { AnnouncementBanner } from "@/components/announcement-banner";
+import { WebVitalsReporter } from "@/components/web-vitals-reporter";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -37,9 +38,12 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const perfDebugEnabled = process.env.PERF_DEBUG === "1";
+
   return (
     <html lang="ko" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen">
+        <WebVitalsReporter debug={perfDebugEnabled} />
         <div className="page-glow" aria-hidden="true" />
         <AnnouncementBanner />
         <SidebarShell>{children}</SidebarShell>

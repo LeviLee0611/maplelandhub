@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 
 export const metadata: Metadata = {
   title: "메랜Hub - 메이플랜드 도구들",
@@ -65,9 +66,10 @@ const features = [
   },
   {
     title: "메랜 퀘스트",
-    description: "NPC별 퀘스트 조건/보상을 검색합니다",
+    description: "곧 오픈됩니다",
     href: "/quests",
-    button: "퀘스트 열기",
+    button: "Coming Soon",
+    comingSoon: true,
     accent: "from-cyan-300/20 via-blue-300/10 to-transparent",
     ring: "border-cyan-200/35 bg-cyan-300/15",
     icon: (
@@ -104,9 +106,13 @@ export default function HomePage() {
         </div>
         <h1 className="relative z-10 mt-8 inline-flex items-center gap-2 text-3xl font-semibold leading-tight md:text-4xl">
           메랜Hub
-          <img
+          <Image
             src="https://maplestory.io/api/gms/62/mob/animated/6130101/move"
             alt="머쉬맘"
+            width={52}
+            height={40}
+            priority
+            unoptimized
             className="slime-float h-10 w-auto"
           />
         </h1>
@@ -117,23 +123,43 @@ export default function HomePage() {
 
       <div className="grid w-full max-w-5xl gap-4 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
-          <Link
-            href={feature.href}
-            key={feature.title}
-            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
-          >
-            <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
-            <div className="relative flex items-start gap-3">
-              <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
-              <div className="min-w-0">
-                <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
-                <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
-                <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
-                  바로가기 →
-                </p>
+          feature.comingSoon ? (
+            <div
+              key={feature.title}
+              aria-disabled="true"
+              className="glass-panel glass-panel-strong relative overflow-hidden rounded-2xl border border-amber-200/35 bg-amber-300/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)]"
+            >
+              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+              <div className="relative flex items-start gap-3">
+                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                  <p className="mt-2 inline-flex items-center rounded-full border border-amber-200/40 px-2 py-0.5 text-[11px] font-semibold text-amber-100">
+                    Coming Soon
+                  </p>
+                </div>
               </div>
             </div>
-          </Link>
+          ) : (
+            <Link
+              href={feature.href}
+              key={feature.title}
+              className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+            >
+              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+              <div className="relative flex items-start gap-3">
+                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                  <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
+                    바로가기 →
+                  </p>
+                </div>
+              </div>
+            </Link>
+          )
         ))}
       </div>
 
@@ -153,9 +179,12 @@ export default function HomePage() {
               드랍 테이블
             </Link>
             ,
-            <Link href="/quests" className="ml-2 font-semibold text-cyan-200 hover:text-white">
+            <span className="ml-2 font-semibold text-cyan-200/80">
               메랜 퀘스트
-            </Link>
+              <span className="ml-1 rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">
+                Coming Soon
+              </span>
+            </span>
             을 바로 이용할 수 있습니다.
           </p>
           <p className="mt-3">
