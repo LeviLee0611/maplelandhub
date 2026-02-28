@@ -80,9 +80,10 @@ const features = [
   },
   {
     title: "파티 매칭",
-    description: "파티원을 쉽게 모집/탐색하세요",
+    description: "곧 오픈됩니다",
     href: "/party",
-    button: "매칭 보기",
+    button: "Coming Soon",
+    comingSoon: true,
     accent: "from-amber-300/20 via-orange-300/10 to-transparent",
     ring: "border-amber-200/35 bg-amber-300/15",
     icon: (
@@ -121,7 +122,7 @@ export default function HomePage() {
         </p>
       </div>
 
-      <div className="grid w-full max-w-5xl gap-4 md:grid-cols-2 xl:grid-cols-3">
+      <div className="grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
           feature.comingSoon ? (
             <div
@@ -163,7 +164,7 @@ export default function HomePage() {
         ))}
       </div>
 
-      <section className="flex w-full max-w-5xl flex-col gap-4">
+      <section className="flex w-full max-w-6xl flex-col gap-4">
         <div className="glass-panel w-full rounded-3xl px-7 py-6 text-sm text-slate-200/90 md:text-base">
           <p>
             주요 유틸리티:

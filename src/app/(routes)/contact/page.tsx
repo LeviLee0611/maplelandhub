@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function ContactPage() {
   return (
-    <section className="mx-auto flex w-full max-w-4xl flex-col gap-6 px-4 py-10">
+    <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10">
       <div className="glass-panel rounded-3xl px-6 py-8">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-200/60">문의하기</p>
         <h1 className="mt-2 text-2xl font-semibold text-slate-100 md:text-3xl">문의하기</h1>

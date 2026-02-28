@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function DropTableInfoPage() {
   return (
-    <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10">
+    <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
       <div className="glass-panel rounded-3xl px-6 py-8">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-200/60">드랍 테이블 설명</p>
         <h1 className="mt-2 text-2xl font-semibold text-slate-100 md:text-3xl">드랍 테이블</h1>

@@ -37,7 +37,7 @@ export async function AnnouncementBanner() {
 
   return (
     <div className="banner-soft border-b border-[var(--nav-border)] bg-[linear-gradient(90deg,rgba(12,20,38,0.9),rgba(8,16,32,0.95))]">
-      <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-2 px-4 py-2 text-xs text-[color:var(--retro-text)]">
+      <div className="mx-auto flex max-w-[1600px] flex-wrap items-center gap-2 px-4 py-2 text-xs text-[color:var(--retro-text)] md:px-6 xl:px-8">
         <span className="rounded-full border border-emerald-300/40 bg-emerald-300/10 px-2 py-0.5 text-[11px] font-semibold text-emerald-100">
           {CATEGORY_LABEL[item.category]}
         </span>

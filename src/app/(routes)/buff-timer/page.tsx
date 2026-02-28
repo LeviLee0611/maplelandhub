@@ -21,7 +21,7 @@ export const metadata: Metadata = {
 
 export default function BuffTimerPage() {
   return (
-    <section className="mx-auto flex w-full max-w-4xl flex-col gap-5 px-4 py-10">
+    <section className="mx-auto flex w-full max-w-5xl flex-col gap-5 px-4 py-10">
       <div className="glass-panel rounded-3xl px-6 py-8">
         <h1 className="text-2xl font-semibold text-slate-100 md:text-3xl">버프 타이머</h1>
         <p className="mt-3 text-sm text-slate-200/90 md:text-base">

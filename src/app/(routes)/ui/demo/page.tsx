@@ -6,7 +6,7 @@ import { LabelCell, ValueCell, ValueCellMuted } from "@/components/ui/Cells";
 export default function UiDemoPage() {
   return (
     <div className="min-h-screen bg-[var(--retro-bg)] text-[color:var(--retro-text)]">
-      <div className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-8">
+      <div className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-8">
         <div className="border border-[var(--retro-border-strong)]">
           <div className="bg-[var(--retro-header-blue)] px-3 py-2 text-xs font-semibold tracking-[0.08em]">
             메이플랜드 캐릭터 스탯창

@@ -41,7 +41,7 @@ const steps = [
 
 export default function GuidePage() {
   return (
-    <section className="mx-auto flex w-full max-w-5xl flex-col gap-6 px-4 py-10">
+    <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
       <div className="glass-panel rounded-3xl px-6 py-8">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-200/60">사용방법</p>
         <h1 className="mt-2 text-2xl font-semibold text-slate-100 md:text-3xl">사용방법 (필독)</h1>

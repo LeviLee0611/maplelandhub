@@ -6,7 +6,7 @@ import { AdminLink } from "@/components/admin-link";
 export function NavBar() {
   return (
     <header className="border-b backdrop-blur-xl" style={{ borderColor: "var(--nav-border)", background: "var(--nav-bg)" }}>
-      <div className="mx-auto flex h-24 max-w-6xl items-center justify-between gap-4 px-4">
+      <div className="mx-auto flex h-24 max-w-[1600px] items-center justify-between gap-4 px-4 md:px-6 xl:px-8">
         <Link href="/" className="flex items-center">
           <Image src="/favicon.ico" alt="메랜 Hub" width={96} height={96} className="h-[96px] w-[96px] rounded" />
         </Link>
@@ -27,9 +27,10 @@ export function NavBar() {
             메랜 퀘스트
             <span className="rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">Soon</span>
           </span>
-          <Link href="/party" className="hover:opacity-80">
+          <span className="inline-flex items-center gap-1 text-amber-100/90">
             파티 매칭
-          </Link>
+            <span className="rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">Soon</span>
+          </span>
           <Link href="/feedback" className="hover:opacity-80">
             문의/요청
           </Link>

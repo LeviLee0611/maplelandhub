@@ -25,7 +25,7 @@ const primaryLinks = [
   { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
   { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
   { label: "메랜 퀘스트", href: "/quests", icon: "quest", comingSoon: true },
-  { label: "파티 매칭", href: "/party", icon: "users" },
+  { label: "파티 매칭", href: "/party", icon: "users", comingSoon: true },
   { label: "문의/요청", href: "/feedback", icon: "mail" },
 ];
 
@@ -262,7 +262,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div
-        className={`mx-auto flex w-full max-w-6xl flex-col px-4 pb-16 pt-6 transition-[padding] duration-200 ${
+        className={`mx-auto flex w-full max-w-[1600px] flex-col px-4 pb-16 pt-6 transition-[padding] duration-200 md:px-6 xl:px-8 ${
           collapsed ? "lg:pl-[4rem]" : "lg:pl-[16rem]"
         }`}
       >
