@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { Suspense } from "react";
 import { Space_Grotesk, Noto_Sans_KR } from "next/font/google";
 import "./globals.css";
 import { SidebarShell } from "@/components/sidebar-shell";
@@ -25,11 +26,11 @@ export const metadata: Metadata = {
     type: "website",
     siteName: "메랜Hub",
     locale: "ko_KR",
-    images: ["/images/bg-game.png.png"],
+    images: ["/favicon.ico"],
   },
   twitter: {
     card: "summary_large_image",
-    images: ["/images/bg-game.png.png"],
+    images: ["/favicon.ico"],
   },
 };
 
@@ -45,7 +46,9 @@ export default function RootLayout({
       <body className="min-h-screen">
         <WebVitalsReporter debug={perfDebugEnabled} />
         <div className="page-glow" aria-hidden="true" />
-        <AnnouncementBanner />
+        <Suspense fallback={null}>
+          <AnnouncementBanner />
+        </Suspense>
         <SidebarShell>{children}</SidebarShell>
       </body>
     </html>

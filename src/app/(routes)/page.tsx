@@ -108,13 +108,11 @@ export default function HomePage() {
         <h1 className="relative z-10 mt-8 inline-flex items-center gap-2 text-3xl font-semibold leading-tight md:text-4xl">
           메랜Hub
           <Image
-            src="https://maplestory.io/api/gms/62/mob/animated/6130101/move"
-            alt="머쉬맘"
-            width={52}
+            src="/favicon.ico"
+            alt="메랜Hub 아이콘"
+            width={40}
             height={40}
-            priority
-            unoptimized
-            className="slime-float h-10 w-auto"
+            className="h-10 w-10 rounded"
           />
         </h1>
         <p className="relative z-10 mt-3 text-sm text-slate-200/90 md:text-base">
