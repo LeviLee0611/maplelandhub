@@ -12,7 +12,10 @@ function DiscordIcon() {
 
 async function signIn(provider: "discord") {
   const supabase = getSupabaseBrowserClient();
-  const redirectTo = `${window.location.origin}/auth/callback`;
+  const searchParams = new URLSearchParams(window.location.search);
+  const next = searchParams.get("next");
+  const safeNext = next && next.startsWith("/") ? next : "/quests";
+  const redirectTo = `${window.location.origin}/auth/callback?next=${encodeURIComponent(safeNext)}`;
   await supabase.auth.signInWithOAuth({ provider, options: { redirectTo } });
 }
 

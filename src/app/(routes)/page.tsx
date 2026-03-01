@@ -66,10 +66,9 @@ const features = [
   },
   {
     title: "메랜 퀘스트",
-    description: "곧 오픈됩니다",
+    description: "퀘스트 데이터와 조건/보상을 확인합니다",
     href: "/quests",
-    button: "Coming Soon",
-    comingSoon: true,
+    button: "퀘스트 열기",
     accent: "from-cyan-300/20 via-blue-300/10 to-transparent",
     ring: "border-cyan-200/35 bg-cyan-300/15",
     icon: (
@@ -178,12 +177,9 @@ export default function HomePage() {
               드랍 테이블
             </Link>
             ,
-            <span className="ml-2 font-semibold text-cyan-200/80">
+            <Link href="/quests" className="ml-2 font-semibold text-cyan-200 hover:text-white">
               메랜 퀘스트
-              <span className="ml-1 rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">
-                Coming Soon
-              </span>
-            </span>
+            </Link>
             을 바로 이용할 수 있습니다.
           </p>
           <p className="mt-3">

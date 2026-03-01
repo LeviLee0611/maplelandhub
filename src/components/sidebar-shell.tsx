@@ -24,7 +24,7 @@ const primaryLinks = [
   { label: "N방컷 계산기", href: "/calculators/onehit", icon: "target" },
   { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
   { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
-  { label: "메랜 퀘스트", href: "/quests", icon: "quest", comingSoon: true },
+  { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
   { label: "파티 매칭", href: "/party", icon: "users", comingSoon: true },
   { label: "문의/요청", href: "/feedback", icon: "mail" },
 ];
