@@ -17,6 +17,11 @@ const CATEGORY_LABEL: Record<AnnouncementRow["category"], string> = {
 
 const getLatestAnnouncement = unstable_cache(
   async () => {
+    const hasSupabasePublicEnv =
+      Boolean(process.env.NEXT_PUBLIC_SUPABASE_URL) &&
+      Boolean(process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY);
+    if (!hasSupabasePublicEnv) return null;
+
     const supabase = getSupabaseServerClient();
     const { data } = await supabase
       .from("announcements")
