@@ -13,6 +13,9 @@ import monstersJson from "@data/monsters.json";
 import dropIndexJson from "@data/drop-index.json";
 import itemDetailByJson from "@data/item-detail-by.json";
 
+type RewardTypeFilter = "all" | "exp" | "meso" | "item";
+type RewardItemTypeFilter = "all" | "scroll" | "equip" | "etc";
+
 const data = questJson as QuestData;
 const monsterData = monstersJson as Array<{
   name: string;
@@ -212,8 +215,8 @@ export function QuestBoard() {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
   const [maxLevel, setMaxLevel] = useState("");
-  const [rewardTypeFilter, setRewardTypeFilter] = useState("all");
-  const [rewardItemTypeFilter, setRewardItemTypeFilter] = useState("all");
+  const [rewardTypeFilter, setRewardTypeFilter] = useState<RewardTypeFilter>("all");
+  const [rewardItemTypeFilter, setRewardItemTypeFilter] = useState<RewardItemTypeFilter>("all");
   const [showTrackedOnly, setShowTrackedOnly] = useState(false);
   const [highlightedQuestId, setHighlightedQuestId] = useState<number | null>(null);
 
@@ -274,7 +277,7 @@ export function QuestBoard() {
             prob: typeof entry?.prob === "number" ? entry.prob : undefined,
           };
         })
-        .filter((v): v is { mobId: number; name: string; region?: string; prob?: number } => Boolean(v));
+        .filter((v): v is NonNullable<typeof v> => Boolean(v));
     };
 
     // item_detail BY 데이터를 우선 반영
@@ -760,7 +763,7 @@ export function QuestBoard() {
             <select
               value={rewardTypeFilter}
               onChange={(event) => {
-                const next = event.target.value;
+                const next = event.target.value as RewardTypeFilter;
                 setRewardTypeFilter(next);
                 if (next !== "item") setRewardItemTypeFilter("all");
               }}
@@ -774,7 +777,7 @@ export function QuestBoard() {
 
             <select
               value={rewardItemTypeFilter}
-              onChange={(event) => setRewardItemTypeFilter(event.target.value)}
+              onChange={(event) => setRewardItemTypeFilter(event.target.value as RewardItemTypeFilter)}
               disabled={rewardTypeFilter !== "item"}
               className={`w-full rounded-[10px] border px-3 py-2.5 text-sm focus:outline-none focus:ring-4 md:text-base lg:px-4 lg:py-3 lg:text-lg ${
                 rewardTypeFilter === "item"
