@@ -2,22 +2,22 @@ import fs from "node:fs";
 import path from "node:path";
 import vm from "node:vm";
 
-const NPC_SOURCE_PATH = path.resolve("src/data/mapledb/npcs.js");
-const OUTPUT_PATH = path.resolve("data/npc-locations.json");
+const MONSTER_SOURCE_PATH = path.resolve("src/data/mapledb/monsters.js");
+const OUTPUT_PATH = path.resolve("data/monster-spawns.json");
 const BASE_URL = "https://mapledb.kr/search.php";
-const CONCURRENCY = Number(process.env.NPC_MAP_CONCURRENCY ?? 6);
-const LIMIT = Number(process.env.NPC_MAP_LIMIT ?? 0);
-const CODE_FILTER = String(process.env.NPC_MAP_CODES ?? "")
+const CONCURRENCY = Number(process.env.MONSTER_MAP_CONCURRENCY ?? 6);
+const LIMIT = Number(process.env.MONSTER_MAP_LIMIT ?? 0);
+const CODE_FILTER = String(process.env.MONSTER_MAP_CODES ?? "")
   .split(",")
   .map((value) => Number(value.trim()))
   .filter((value) => Number.isFinite(value) && value > 0);
 
-function loadNpcRows() {
-  const source = fs.readFileSync(NPC_SOURCE_PATH, "utf8");
+function loadMonsterRows() {
+  const source = fs.readFileSync(MONSTER_SOURCE_PATH, "utf8");
   const sandbox = {};
   vm.createContext(sandbox);
   vm.runInContext(source, sandbox);
-  const rows = Array.isArray(sandbox.NPCS) ? sandbox.NPCS : [];
+  const rows = Array.isArray(sandbox.MOBS) ? sandbox.MOBS : [];
   return rows
     .map((row) => ({
       code: Number(row.code),
@@ -28,7 +28,7 @@ function loadNpcRows() {
 }
 
 function decodeHtmlEntities(input) {
-  return input
+  return String(input ?? "")
     .replace(/&quot;/g, "\"")
     .replace(/&#39;/g, "'")
     .replace(/&amp;/g, "&")
@@ -36,40 +36,39 @@ function decodeHtmlEntities(input) {
     .replace(/&gt;/g, ">");
 }
 
-function parseNpcName(html) {
+function parseMobName(html) {
   const match = html.match(/<span class="text-bold fs-5 m-0">\s*([^<]+?)\s*<\/span>/);
   return match ? decodeHtmlEntities(match[1].trim()) : null;
 }
 
-function parseNpcNameEn(html) {
+function parseMobNameEn(html) {
   const match = html.match(/<span class="color-gray fs-2 m-0">\s*([^<]+?)\s*<\/span>/);
   return match ? decodeHtmlEntities(match[1].trim()) : null;
 }
 
-function parseNpcMaps(html) {
+function parseSpawnMaps(html) {
   const maps = [];
   const seen = new Set();
   const regex =
-    /<a class="search-page-add-content-box"[^>]*href="(?:https:\/\/mapledb\.kr)?\/?search\.php\?q=(\d+)&t=map"[^>]*>[\s\S]*?(?:<h4[^>]*>\s*([^<]+?)\s*<\/h4>|<img[^>]*alt="([^"]+?)\s*이미지"[^>]*>)/g;
+    /<a[^>]*href="(?:https:\/\/mapledb\.kr)?\/?search\.php\?q=(\d+)&t=map"[^>]*>[\s\S]*?<span>\s*([^<]+?)\s*<\/span>/g;
 
   let match;
   while ((match = regex.exec(html)) !== null) {
     const mapCode = Number(match[1]);
-    if (!Number.isFinite(mapCode)) continue;
+    if (!Number.isFinite(mapCode) || mapCode <= 0) continue;
     if (seen.has(mapCode)) continue;
     seen.add(mapCode);
-
     maps.push({
       map_code: mapCode,
-      map_name: decodeHtmlEntities(String(match[2] ?? match[3] ?? "").trim()),
+      map_name: decodeHtmlEntities(String(match[2] ?? "").trim()),
     });
   }
 
   return maps;
 }
 
-async function fetchNpcPage(code) {
-  const url = `${BASE_URL}?q=${encodeURIComponent(String(code))}&t=npc`;
+async function fetchMonsterPage(code) {
+  const url = `${BASE_URL}?q=${encodeURIComponent(String(code))}&t=mob`;
   const response = await fetch(url, {
     headers: {
       "user-agent":
@@ -89,20 +88,20 @@ async function runWorker(queue, results, errors) {
     if (!row) return;
 
     try {
-      const html = await fetchNpcPage(row.code);
-      const npcName = parseNpcName(html) ?? row.name_ko;
-      const npcNameEn = parseNpcNameEn(html) ?? row.name_en;
-      const maps = parseNpcMaps(html);
+      const html = await fetchMonsterPage(row.code);
+      const monsterName = parseMobName(html) ?? row.name_ko;
+      const monsterNameEn = parseMobNameEn(html) ?? row.name_en;
+      const maps = parseSpawnMaps(html);
       results.push({
-        npc_code: row.code,
-        npc_name: npcName,
-        npc_name_en: npcNameEn,
+        mob_code: row.code,
+        mob_name: monsterName,
+        mob_name_en: monsterNameEn,
         maps,
       });
     } catch (error) {
       errors.push({
-        npc_code: row.code,
-        npc_name: row.name_ko,
+        mob_code: row.code,
+        mob_name: row.name_ko,
         error: error instanceof Error ? error.message : String(error),
       });
     }
@@ -110,17 +109,18 @@ async function runWorker(queue, results, errors) {
 }
 
 async function main() {
-  const allRows = loadNpcRows();
+  const allRows = loadMonsterRows();
   const filteredRows = CODE_FILTER.length
     ? allRows.filter((row) => CODE_FILTER.includes(row.code))
     : allRows;
   const rows = LIMIT > 0 ? filteredRows.slice(0, LIMIT) : filteredRows;
+
   const queue = [...rows];
   const results = [];
   const errors = [];
 
   console.log(
-    `NPC rows: ${rows.length}, concurrency: ${CONCURRENCY}${CODE_FILTER.length ? `, filteredCodes=${CODE_FILTER.length}` : ""}`,
+    `Monster rows: ${rows.length}, concurrency: ${CONCURRENCY}${CODE_FILTER.length ? `, filteredCodes=${CODE_FILTER.length}` : ""}`,
   );
 
   const workers = Array.from({ length: Math.max(1, CONCURRENCY) }, () =>
@@ -128,12 +128,12 @@ async function main() {
   );
   await Promise.all(workers);
 
-  results.sort((a, b) => a.npc_code - b.npc_code);
-  errors.sort((a, b) => a.npc_code - b.npc_code);
+  results.sort((a, b) => a.mob_code - b.mob_code);
+  errors.sort((a, b) => a.mob_code - b.mob_code);
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    source: "mapledb.kr search.php?t=npc",
+    source: "mapledb.kr search.php?t=mob",
     count: results.length,
     withMaps: results.filter((row) => row.maps.length > 0).length,
     withoutMaps: results.filter((row) => row.maps.length === 0).length,

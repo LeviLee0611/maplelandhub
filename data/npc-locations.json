@@ -1,24 +1,27 @@
 {
-  "generatedAt": "2026-03-01T10:36:01.113Z",
+  "generatedAt": "2026-03-02T21:57:53.885Z",
   "source": "mapledb.kr search.php?t=npc",
   "count": 826,
-  "withMaps": 559,
-  "withoutMaps": 267,
+  "withMaps": 609,
+  "withoutMaps": 217,
   "errorCount": 0,
   "rows": [
     {
       "npc_code": 2000,
       "npc_name": "로저",
+      "npc_name_en": "Roger",
       "maps": []
     },
     {
       "npc_code": 2001,
       "npc_name": "센",
+      "npc_name_en": "Sen",
       "maps": []
     },
     {
       "npc_code": 2002,
       "npc_name": "피터",
+      "npc_name_en": "Peter",
       "maps": [
         {
           "map_code": 30000,
@@ -29,6 +32,7 @@
     {
       "npc_code": 2003,
       "npc_name": "로빈",
+      "npc_name_en": "Robin",
       "maps": [
         {
           "map_code": 40000,
@@ -39,6 +43,7 @@
     {
       "npc_code": 2004,
       "npc_name": "토드",
+      "npc_name_en": "Todd",
       "maps": [
         {
           "map_code": 30000,
@@ -49,6 +54,7 @@
     {
       "npc_code": 2005,
       "npc_name": "쌤",
+      "npc_name_en": "Sam",
       "maps": [
         {
           "map_code": 40000,
@@ -59,21 +65,25 @@
     {
       "npc_code": 2006,
       "npc_name": "티앤크",
+      "npc_name_en": "Tienk",
       "maps": []
     },
     {
       "npc_code": 2100,
       "npc_name": "세라",
+      "npc_name_en": "Sera",
       "maps": []
     },
     {
       "npc_code": 2101,
       "npc_name": "히나",
+      "npc_name_en": "Heena",
       "maps": []
     },
     {
       "npc_code": 2102,
       "npc_name": "다나",
+      "npc_name_en": "Nina",
       "maps": [
         {
           "map_code": 20000,
@@ -84,6 +94,7 @@
     {
       "npc_code": 2103,
       "npc_name": "마리아",
+      "npc_name_en": "Maria",
       "maps": [
         {
           "map_code": 50000,
@@ -94,6 +105,7 @@
     {
       "npc_code": 10000,
       "npc_name": "피오",
+      "npc_name_en": "Pio",
       "maps": [
         {
           "map_code": 1010000,
@@ -104,16 +116,19 @@
     {
       "npc_code": 11000,
       "npc_name": "시드",
+      "npc_name_en": "Sid",
       "maps": []
     },
     {
       "npc_code": 11100,
       "npc_name": "루시",
+      "npc_name_en": "Lucy",
       "maps": []
     },
     {
       "npc_code": 12000,
       "npc_name": "루카스",
+      "npc_name_en": "Lucas",
       "maps": [
         {
           "map_code": 1010000,
@@ -124,6 +139,7 @@
     {
       "npc_code": 12100,
       "npc_name": "마이",
+      "npc_name_en": "Mai",
       "maps": [
         {
           "map_code": 1020000,
@@ -134,6 +150,7 @@
     {
       "npc_code": 12101,
       "npc_name": "레인",
+      "npc_name_en": "Rain",
       "maps": [
         {
           "map_code": 1010000,
@@ -144,6 +161,7 @@
     {
       "npc_code": 20000,
       "npc_name": "존",
+      "npc_name_en": "John",
       "maps": [
         {
           "map_code": 104000000,
@@ -154,16 +172,19 @@
     {
       "npc_code": 20001,
       "npc_name": "바리",
+      "npc_name_en": "Bari",
       "maps": []
     },
     {
       "npc_code": 20002,
       "npc_name": "빅스",
+      "npc_name_en": "Biggs",
       "maps": []
     },
     {
       "npc_code": 20100,
       "npc_name": "유나",
+      "npc_name_en": "Yoona",
       "maps": [
         {
           "map_code": 1000000,
@@ -174,16 +195,19 @@
     {
       "npc_code": 21000,
       "npc_name": "판",
+      "npc_name_en": "Pan",
       "maps": []
     },
     {
       "npc_code": 22000,
       "npc_name": "바실리",
+      "npc_name_en": "Shanks",
       "maps": []
     },
     {
       "npc_code": 1001000,
       "npc_name": "실버",
+      "npc_name_en": "Silver",
       "maps": [
         {
           "map_code": 104000003,
@@ -194,6 +218,7 @@
     {
       "npc_code": 1001001,
       "npc_name": "나타샤",
+      "npc_name_en": "Natasha",
       "maps": [
         {
           "map_code": 104000001,
@@ -204,6 +229,7 @@
     {
       "npc_code": 1001100,
       "npc_name": "미나",
+      "npc_name_en": "Mina",
       "maps": [
         {
           "map_code": 104000002,
@@ -214,6 +240,7 @@
     {
       "npc_code": 1002000,
       "npc_name": "필",
+      "npc_name_en": "Phil",
       "maps": [
         {
           "map_code": 104000000,
@@ -224,6 +251,7 @@
     {
       "npc_code": 1002001,
       "npc_name": "테오",
+      "npc_name_en": "Teo",
       "maps": [
         {
           "map_code": 104000000,
@@ -234,6 +262,7 @@
     {
       "npc_code": 1002002,
       "npc_name": "페이슨",
+      "npc_name_en": "Pason",
       "maps": [
         {
           "map_code": 104000000,
@@ -244,6 +273,7 @@
     {
       "npc_code": 1002003,
       "npc_name": "몽롱 할배",
+      "npc_name_en": "Mr. Goldstein",
       "maps": [
         {
           "map_code": 104000000,
@@ -254,6 +284,7 @@
     {
       "npc_code": 1002004,
       "npc_name": "리스항구 모범택시",
+      "npc_name_en": "VIP Cab",
       "maps": [
         {
           "map_code": 104000000,
@@ -264,6 +295,7 @@
     {
       "npc_code": 1002005,
       "npc_name": "김서방",
+      "npc_name_en": "Mr. Kim",
       "maps": [
         {
           "map_code": 104000000,
@@ -274,6 +306,7 @@
     {
       "npc_code": 1002006,
       "npc_name": "체프",
+      "npc_name_en": "Chef",
       "maps": [
         {
           "map_code": 104000000,
@@ -284,6 +317,7 @@
     {
       "npc_code": 1002100,
       "npc_name": "제인",
+      "npc_name_en": "Jane",
       "maps": [
         {
           "map_code": 104000000,
@@ -294,6 +328,7 @@
     {
       "npc_code": 1002101,
       "npc_name": "쿤",
+      "npc_name_en": "Olaf",
       "maps": [
         {
           "map_code": 104000000,
@@ -304,6 +339,7 @@
     {
       "npc_code": 1010100,
       "npc_name": "리나",
+      "npc_name_en": "Rina",
       "maps": [
         {
           "map_code": 100000000,
@@ -314,6 +350,7 @@
     {
       "npc_code": 1011000,
       "npc_name": "칼",
+      "npc_name_en": "Karl",
       "maps": [
         {
           "map_code": 100000101,
@@ -324,6 +361,7 @@
     {
       "npc_code": 1011001,
       "npc_name": "샘",
+      "npc_name_en": "Sam",
       "maps": [
         {
           "map_code": 100000101,
@@ -334,6 +372,7 @@
     {
       "npc_code": 1011100,
       "npc_name": "루나",
+      "npc_name_en": "Luna",
       "maps": [
         {
           "map_code": 100000102,
@@ -344,6 +383,7 @@
     {
       "npc_code": 1012000,
       "npc_name": "빅토리아 중형택시",
+      "npc_name_en": "Regular Cab",
       "maps": [
         {
           "map_code": 100000000,
@@ -354,11 +394,13 @@
     {
       "npc_code": 1012001,
       "npc_name": "돌팔이",
+      "npc_name_en": "Dr. Squint",
       "maps": []
     },
     {
       "npc_code": 1012002,
       "npc_name": "비셔스",
+      "npc_name_en": "Vicious",
       "maps": [
         {
           "map_code": 100000100,
@@ -369,6 +411,7 @@
     {
       "npc_code": 1012003,
       "npc_name": "장로 스탄",
+      "npc_name_en": "Chief Stan",
       "maps": [
         {
           "map_code": 100000000,
@@ -379,6 +422,7 @@
     {
       "npc_code": 1012004,
       "npc_name": "큐트",
+      "npc_name_en": "Doofus",
       "maps": [
         {
           "map_code": 100000100,
@@ -393,6 +437,7 @@
     {
       "npc_code": 1012005,
       "npc_name": "클로이",
+      "npc_name_en": "Cloy",
       "maps": [
         {
           "map_code": 100000200,
@@ -403,6 +448,7 @@
     {
       "npc_code": 1012006,
       "npc_name": "바르토스",
+      "npc_name_en": "Trainer Bartos",
       "maps": [
         {
           "map_code": 100000202,
@@ -413,6 +459,7 @@
     {
       "npc_code": 1012007,
       "npc_name": "프로드",
+      "npc_name_en": "Trainer Frod",
       "maps": [
         {
           "map_code": 100000202,
@@ -423,6 +470,7 @@
     {
       "npc_code": 1012008,
       "npc_name": "카이지",
+      "npc_name_en": "Casey",
       "maps": [
         {
           "map_code": 100000203,
@@ -433,6 +481,7 @@
     {
       "npc_code": 1012009,
       "npc_name": "이서방",
+      "npc_name_en": "Mr. Lee",
       "maps": [
         {
           "map_code": 100000200,
@@ -443,6 +492,7 @@
     {
       "npc_code": 1012100,
       "npc_name": "헬레나",
+      "npc_name_en": "Athena Pierce",
       "maps": [
         {
           "map_code": 100000201,
@@ -453,6 +503,7 @@
     {
       "npc_code": 1012101,
       "npc_name": "마야",
+      "npc_name_en": "Maya",
       "maps": [
         {
           "map_code": 100000001,
@@ -463,6 +514,7 @@
     {
       "npc_code": 1012102,
       "npc_name": "피아",
+      "npc_name_en": "Pia",
       "maps": [
         {
           "map_code": 100000200,
@@ -473,6 +525,7 @@
     {
       "npc_code": 1012103,
       "npc_name": "나탈리",
+      "npc_name_en": "Natalie",
       "maps": [
         {
           "map_code": 100000104,
@@ -483,6 +536,7 @@
     {
       "npc_code": 1012104,
       "npc_name": "브리트니",
+      "npc_name_en": "Brittany",
       "maps": [
         {
           "map_code": 100000104,
@@ -493,6 +547,7 @@
     {
       "npc_code": 1012105,
       "npc_name": "나미녀",
+      "npc_name_en": "Ms. Tan",
       "maps": [
         {
           "map_code": 100000105,
@@ -503,6 +558,7 @@
     {
       "npc_code": 1012106,
       "npc_name": "밍밍부인",
+      "npc_name_en": "Mrs. Ming Ming",
       "maps": [
         {
           "map_code": 100000000,
@@ -513,6 +569,7 @@
     {
       "npc_code": 1012107,
       "npc_name": "유타",
+      "npc_name_en": "Utah",
       "maps": [
         {
           "map_code": 900000000,
@@ -523,6 +580,7 @@
     {
       "npc_code": 1012108,
       "npc_name": "카밀라",
+      "npc_name_en": "Camila",
       "maps": [
         {
           "map_code": 100000000,
@@ -533,6 +591,7 @@
     {
       "npc_code": 1012109,
       "npc_name": "제이",
+      "npc_name_en": "Jay",
       "maps": [
         {
           "map_code": 100000000,
@@ -543,6 +602,7 @@
     {
       "npc_code": 1012110,
       "npc_name": "앤",
+      "npc_name_en": "Anne",
       "maps": [
         {
           "map_code": 100010000,
@@ -553,6 +613,7 @@
     {
       "npc_code": 1012111,
       "npc_name": "브루스",
+      "npc_name_en": "Bruce",
       "maps": [
         {
           "map_code": 100000000,
@@ -563,6 +624,7 @@
     {
       "npc_code": 1012112,
       "npc_name": "토리",
+      "npc_name_en": "Tory",
       "maps": [
         {
           "map_code": 100000200,
@@ -581,6 +643,7 @@
     {
       "npc_code": 1012113,
       "npc_name": "토미",
+      "npc_name_en": "Tommy",
       "maps": [
         {
           "map_code": 910010100,
@@ -599,6 +662,7 @@
     {
       "npc_code": 1012114,
       "npc_name": "어흥이",
+      "npc_name_en": "Growlie",
       "maps": [
         {
           "map_code": 910010000,
@@ -609,6 +673,7 @@
     {
       "npc_code": 1020000,
       "npc_name": "돼지와 함께 춤을",
+      "npc_name_en": "Blackbull",
       "maps": [
         {
           "map_code": 102000000,
@@ -619,6 +684,7 @@
     {
       "npc_code": 1021000,
       "npc_name": "리버",
+      "npc_name_en": "River",
       "maps": [
         {
           "map_code": 102000001,
@@ -629,6 +695,7 @@
     {
       "npc_code": 1021001,
       "npc_name": "해리",
+      "npc_name_en": "Harry",
       "maps": [
         {
           "map_code": 102000001,
@@ -639,6 +706,7 @@
     {
       "npc_code": 1021100,
       "npc_name": "그레고리 손",
+      "npc_name_en": "Arturo",
       "maps": [
         {
           "map_code": 102000002,
@@ -649,6 +717,7 @@
     {
       "npc_code": 1022000,
       "npc_name": "주먹펴고 일어서",
+      "npc_name_en": "Dances with Balrog",
       "maps": [
         {
           "map_code": 102000003,
@@ -659,6 +728,7 @@
     {
       "npc_code": 1022001,
       "npc_name": "페리온 중형택시",
+      "npc_name_en": "Regular Cab",
       "maps": [
         {
           "map_code": 102000000,
@@ -669,6 +739,7 @@
     {
       "npc_code": 1022002,
       "npc_name": "만지",
+      "npc_name_en": "Manji",
       "maps": [
         {
           "map_code": 102000000,
@@ -679,6 +750,7 @@
     {
       "npc_code": 1022003,
       "npc_name": "선더",
+      "npc_name_en": "Mr. Thunder",
       "maps": [
         {
           "map_code": 102000000,
@@ -689,6 +761,7 @@
     {
       "npc_code": 1022004,
       "npc_name": "스미스",
+      "npc_name_en": "Mr. Smith",
       "maps": [
         {
           "map_code": 102000000,
@@ -699,6 +772,7 @@
     {
       "npc_code": 1022005,
       "npc_name": "왕서방",
+      "npc_name_en": "Mr. Wang",
       "maps": [
         {
           "map_code": 102000000,
@@ -709,6 +783,7 @@
     {
       "npc_code": 1022006,
       "npc_name": "윈스턴",
+      "npc_name_en": "Winston",
       "maps": [
         {
           "map_code": 101030401,
@@ -719,6 +794,7 @@
     {
       "npc_code": 1022007,
       "npc_name": "이얀",
+      "npc_name_en": "Ayan",
       "maps": [
         {
           "map_code": 102000000,
@@ -729,6 +805,7 @@
     {
       "npc_code": 1022008,
       "npc_name": "불타버린 검",
+      "npc_name_en": "Burnt Sword",
       "maps": [
         {
           "map_code": 101030402,
@@ -739,6 +816,7 @@
     {
       "npc_code": 1022100,
       "npc_name": "소피아",
+      "npc_name_en": "Sophia",
       "maps": [
         {
           "map_code": 102000002,
@@ -749,6 +827,7 @@
     {
       "npc_code": 1022101,
       "npc_name": "루니",
+      "npc_name_en": "Rooney",
       "maps": [
         {
           "map_code": 261000000,
@@ -759,6 +838,7 @@
     {
       "npc_code": 1022102,
       "npc_name": "유적발굴단 게시판",
+      "npc_name_en": "The Excavator Board",
       "maps": [
         {
           "map_code": 101030104,
@@ -769,11 +849,13 @@
     {
       "npc_code": 1022103,
       "npc_name": "분수 조각상",
+      "npc_name_en": "Fountain Statue",
       "maps": []
     },
     {
       "npc_code": 1031000,
       "npc_name": "요정 플로라",
+      "npc_name_en": "Flora the Fairy",
       "maps": [
         {
           "map_code": 101000001,
@@ -784,6 +866,7 @@
     {
       "npc_code": 1031001,
       "npc_name": "요정 세라비",
+      "npc_name_en": "Serabi the Fairy",
       "maps": [
         {
           "map_code": 101000001,
@@ -794,6 +877,7 @@
     {
       "npc_code": 1031100,
       "npc_name": "요정 렌",
+      "npc_name_en": "Len the Fairy",
       "maps": [
         {
           "map_code": 101000002,
@@ -804,6 +888,7 @@
     {
       "npc_code": 1032000,
       "npc_name": "엘리니아 중형택시",
+      "npc_name_en": "Regular Cab",
       "maps": [
         {
           "map_code": 101000000,
@@ -814,6 +899,7 @@
     {
       "npc_code": 1032001,
       "npc_name": "하인즈",
+      "npc_name_en": "Grendel the Really Old",
       "maps": [
         {
           "map_code": 101000003,
@@ -824,6 +910,7 @@
     {
       "npc_code": 1032002,
       "npc_name": "에뜨랑",
+      "npc_name_en": "Francois",
       "maps": [
         {
           "map_code": 101000000,
@@ -834,6 +921,7 @@
     {
       "npc_code": 1032003,
       "npc_name": "쉐인",
+      "npc_name_en": "Shane",
       "maps": [
         {
           "map_code": 101000000,
@@ -844,6 +932,7 @@
     {
       "npc_code": 1032004,
       "npc_name": "루이스",
+      "npc_name_en": "Louis",
       "maps": [
         {
           "map_code": 101000100,
@@ -852,12 +941,25 @@
         {
           "map_code": 101000101,
           "map_name": "히든스트리트: 라니아의 집 앞뜰"
+        },
+        {
+          "map_code": 101000102,
+          "map_name": "히든스트리트: 인내의숲<3단계>"
+        },
+        {
+          "map_code": 101000103,
+          "map_name": "히든스트리트: 인내의숲<4단계>"
+        },
+        {
+          "map_code": 101000104,
+          "map_name": "히든스트리트: 인내의숲<5단계>"
         }
       ]
     },
     {
       "npc_code": 1032005,
       "npc_name": "엘리니아 모범택시",
+      "npc_name_en": "VIP Cab",
       "maps": [
         {
           "map_code": 101000000,
@@ -868,6 +970,7 @@
     {
       "npc_code": 1032006,
       "npc_name": "박서방",
+      "npc_name_en": "Mr. Park",
       "maps": [
         {
           "map_code": 101000000,
@@ -878,6 +981,7 @@
     {
       "npc_code": 1032007,
       "npc_name": "죠엘",
+      "npc_name_en": "Joel",
       "maps": [
         {
           "map_code": 101000300,
@@ -888,6 +992,7 @@
     {
       "npc_code": 1032008,
       "npc_name": "체리",
+      "npc_name_en": "Cherry",
       "maps": [
         {
           "map_code": 101000300,
@@ -898,11 +1003,18 @@
     {
       "npc_code": 1032009,
       "npc_name": "푸린",
-      "maps": []
+      "npc_name_en": "Purin",
+      "maps": [
+        {
+          "map_code": 101000301,
+          "map_name": "빅토리아로드: 출발하기전<오르비스행>"
+        }
+      ]
     },
     {
       "npc_code": 1032100,
       "npc_name": "요정 아르웬",
+      "npc_name_en": "Arwen the Fairy",
       "maps": [
         {
           "map_code": 101000000,
@@ -913,6 +1025,7 @@
     {
       "npc_code": 1032101,
       "npc_name": "요정 로웬",
+      "npc_name_en": "Rowen the Fairy",
       "maps": [
         {
           "map_code": 101000000,
@@ -923,6 +1036,7 @@
     {
       "npc_code": 1032102,
       "npc_name": "요정 마르",
+      "npc_name_en": "Mar the Fairy",
       "maps": [
         {
           "map_code": 101000200,
@@ -933,6 +1047,7 @@
     {
       "npc_code": 1032103,
       "npc_name": "엘모스",
+      "npc_name_en": "El Moth",
       "maps": [
         {
           "map_code": 101010102,
@@ -943,6 +1058,7 @@
     {
       "npc_code": 1032104,
       "npc_name": "베티",
+      "npc_name_en": "Betty",
       "maps": [
         {
           "map_code": 101000000,
@@ -953,6 +1069,7 @@
     {
       "npc_code": 1032105,
       "npc_name": "에스텔",
+      "npc_name_en": "Estelle",
       "maps": [
         {
           "map_code": 100050000,
@@ -963,6 +1080,7 @@
     {
       "npc_code": 1032106,
       "npc_name": "요정 윙",
+      "npc_name_en": "Wing the Fairy",
       "maps": [
         {
           "map_code": 101000000,
@@ -973,16 +1091,19 @@
     {
       "npc_code": 1032107,
       "npc_name": "리프",
+      "npc_name_en": "Reef",
       "maps": []
     },
     {
       "npc_code": 1032108,
       "npc_name": "리프",
+      "npc_name_en": "Reef",
       "maps": []
     },
     {
       "npc_code": 1040000,
       "npc_name": "루크",
+      "npc_name_en": "Luke",
       "maps": [
         {
           "map_code": 106010100,
@@ -993,6 +1114,7 @@
     {
       "npc_code": 1040001,
       "npc_name": "마이크",
+      "npc_name_en": "Mike",
       "maps": [
         {
           "map_code": 106000300,
@@ -1003,6 +1125,7 @@
     {
       "npc_code": 1040002,
       "npc_name": "펜시",
+      "npc_name_en": "Fanzy",
       "maps": [
         {
           "map_code": 101020000,
@@ -1013,6 +1136,7 @@
     {
       "npc_code": 1043000,
       "npc_name": "꽃 무더기",
+      "npc_name_en": "a pile of flowers",
       "maps": [
         {
           "map_code": 101000101,
@@ -1023,11 +1147,18 @@
     {
       "npc_code": 1043001,
       "npc_name": "약초 덤불",
-      "maps": []
+      "npc_name_en": "a pile of herbs",
+      "maps": [
+        {
+          "map_code": 101000104,
+          "map_name": "히든스트리트: 인내의숲<5단계>"
+        }
+      ]
     },
     {
       "npc_code": 1051000,
       "npc_name": "만슈타인",
+      "npc_name_en": "Cutthroat Manny",
       "maps": [
         {
           "map_code": 103000001,
@@ -1038,6 +1169,7 @@
     {
       "npc_code": 1051001,
       "npc_name": "마파",
+      "npc_name_en": "Don Hwang",
       "maps": [
         {
           "map_code": 103000001,
@@ -1048,6 +1180,7 @@
     {
       "npc_code": 1051002,
       "npc_name": "소문난",
+      "npc_name_en": "Dr. Faymus",
       "maps": [
         {
           "map_code": 103000002,
@@ -1058,6 +1191,7 @@
     {
       "npc_code": 1052000,
       "npc_name": "알렉스",
+      "npc_name_en": "Alex",
       "maps": [
         {
           "map_code": 103000000,
@@ -1068,11 +1202,13 @@
     {
       "npc_code": 1052001,
       "npc_name": "다크로드",
+      "npc_name_en": "Dark Lord",
       "maps": []
     },
     {
       "npc_code": 1052002,
       "npc_name": "뒷골목의 제이엠",
+      "npc_name_en": "JM From tha Streetz",
       "maps": [
         {
           "map_code": 103000000,
@@ -1083,6 +1219,7 @@
     {
       "npc_code": 1052003,
       "npc_name": "크리스",
+      "npc_name_en": "Chris",
       "maps": [
         {
           "map_code": 103000006,
@@ -1093,6 +1230,7 @@
     {
       "npc_code": 1052004,
       "npc_name": "덴마",
+      "npc_name_en": "Denma the Owner",
       "maps": [
         {
           "map_code": 100000103,
@@ -1103,6 +1241,7 @@
     {
       "npc_code": 1052005,
       "npc_name": "돌팔이",
+      "npc_name_en": "Dr. Feeble",
       "maps": [
         {
           "map_code": 100000103,
@@ -1113,6 +1252,7 @@
     {
       "npc_code": 1052006,
       "npc_name": "웅이",
+      "npc_name_en": "Jake",
       "maps": [
         {
           "map_code": 103000100,
@@ -1123,6 +1263,7 @@
     {
       "npc_code": 1052007,
       "npc_name": "개찰구",
+      "npc_name_en": "The Ticket Gate",
       "maps": [
         {
           "map_code": 103000100,
@@ -1133,26 +1274,75 @@
     {
       "npc_code": 1052008,
       "npc_name": "보물상자",
-      "maps": []
+      "npc_name_en": "Treasure Chest",
+      "maps": [
+        {
+          "map_code": 103000902,
+          "map_name": "3호선공사장: B1<지하철기지창>"
+        }
+      ]
     },
     {
       "npc_code": 1052009,
       "npc_name": "보물상자",
-      "maps": []
+      "npc_name_en": "Treasure Chest",
+      "maps": [
+        {
+          "map_code": 103000905,
+          "map_name": "3호선공사장: B2<지하철기지창>"
+        }
+      ]
     },
     {
       "npc_code": 1052010,
       "npc_name": "보물상자",
-      "maps": []
+      "npc_name_en": "Treasure Chest",
+      "maps": [
+        {
+          "map_code": 103000909,
+          "map_name": "3호선공사장: B3<지하철기지창>"
+        }
+      ]
     },
     {
       "npc_code": 1052011,
       "npc_name": "나가는 곳",
-      "maps": []
+      "npc_name_en": "Exit",
+      "maps": [
+        {
+          "map_code": 103000900,
+          "map_name": "3호선공사장: B1<1구역>"
+        },
+        {
+          "map_code": 103000901,
+          "map_name": "3호선공사장: B1<2구역>"
+        },
+        {
+          "map_code": 103000903,
+          "map_name": "3호선공사장: B2<1구역>"
+        },
+        {
+          "map_code": 103000904,
+          "map_name": "3호선공사장: B2<2구역>"
+        },
+        {
+          "map_code": 103000906,
+          "map_name": "3호선공사장: B3<1구역>"
+        },
+        {
+          "map_code": 103000907,
+          "map_name": "3호선공사장: B3<2구역>"
+        },
+        {
+          "map_code": 103000908,
+          "map_name": "3호선공사장: B3<3구역>"
+        }
+      ]
     },
     {
       "npc_code": 1052012,
       "npc_name": "몽롱",
+      "npc_name_en": "Mong from Kong",
       "maps": [
         {
           "map_code": 103000000,
@@ -1163,21 +1353,25 @@
     {
       "npc_code": 1052013,
       "npc_name": "컴퓨터",
+      "npc_name_en": "Computer",
       "maps": []
     },
     {
       "npc_code": 1052014,
       "npc_name": "자판기",
+      "npc_name_en": "Vending Machine",
       "maps": []
     },
     {
       "npc_code": 1052015,
       "npc_name": "빌리",
+      "npc_name_en": "Billy",
       "maps": []
     },
     {
       "npc_code": 1052016,
       "npc_name": "커닝시티 중형택시",
+      "npc_name_en": "Regular Cab",
       "maps": [
         {
           "map_code": 103000000,
@@ -1188,6 +1382,7 @@
     {
       "npc_code": 1052017,
       "npc_name": "홍서방",
+      "npc_name_en": "Mr. Hong",
       "maps": [
         {
           "map_code": 103000000,
@@ -1198,6 +1393,7 @@
     {
       "npc_code": 1052100,
       "npc_name": "돈 지오바네",
+      "npc_name_en": "Don Giovanni",
       "maps": [
         {
           "map_code": 103000005,
@@ -1208,6 +1404,7 @@
     {
       "npc_code": 1052101,
       "npc_name": "안드레아",
+      "npc_name_en": "Andre",
       "maps": [
         {
           "map_code": 103000005,
@@ -1218,6 +1415,7 @@
     {
       "npc_code": 1052102,
       "npc_name": "슈미",
+      "npc_name_en": "Shumi",
       "maps": [
         {
           "map_code": 103000000,
@@ -1228,6 +1426,7 @@
     {
       "npc_code": 1052103,
       "npc_name": "넬라",
+      "npc_name_en": "Nella",
       "maps": [
         {
           "map_code": 103000000,
@@ -1238,6 +1437,7 @@
     {
       "npc_code": 1052104,
       "npc_name": "툴카스",
+      "npc_name_en": "Tulcus",
       "maps": [
         {
           "map_code": 107000100,
@@ -1248,6 +1448,7 @@
     {
       "npc_code": 1052105,
       "npc_name": "정체불명의 그녀",
+      "npc_name_en": "Jane Doe",
       "maps": [
         {
           "map_code": 103000004,
@@ -1258,6 +1459,7 @@
     {
       "npc_code": 1052106,
       "npc_name": "이카루스",
+      "npc_name_en": "Icarus",
       "maps": [
         {
           "map_code": 103000000,
@@ -1268,11 +1470,13 @@
     {
       "npc_code": 1052108,
       "npc_name": "넘어진 쓰레기통",
+      "npc_name_en": "Knocked Trash Can",
       "maps": []
     },
     {
       "npc_code": 1061000,
       "npc_name": "크리슈라마",
+      "npc_name_en": "Chrishrama",
       "maps": [
         {
           "map_code": 105040300,
@@ -1283,6 +1487,7 @@
     {
       "npc_code": 1061001,
       "npc_name": "24시간 포장마차",
+      "npc_name_en": "24 Hr Mobile Store",
       "maps": [
         {
           "map_code": 105070001,
@@ -1293,21 +1498,29 @@
     {
       "npc_code": 1061002,
       "npc_name": "시원해",
-      "maps": []
+      "npc_name_en": "Mr. Sweatbottom",
+      "maps": [
+        {
+          "map_code": 105040401,
+          "map_name": "던전: 회복사우나실<일반>"
+        }
+      ]
     },
     {
       "npc_code": 1061003,
       "npc_name": "시워언해",
+      "npc_name_en": "Mr. Wetbottom",
       "maps": [
         {
           "map_code": 105040402,
-          "map_name": "비밀의 책의 단서"
+          "map_name": "던전: 회복사우나실<고급>"
         }
       ]
     },
     {
       "npc_code": 1061004,
       "npc_name": "로니",
+      "npc_name_en": "Ronnie",
       "maps": [
         {
           "map_code": 101020001,
@@ -1318,6 +1531,7 @@
     {
       "npc_code": 1061005,
       "npc_name": "사비트라마",
+      "npc_name_en": "Sabitrama",
       "maps": [
         {
           "map_code": 105040300,
@@ -1328,6 +1542,7 @@
     {
       "npc_code": 1061006,
       "npc_name": "이상한 모양의 석상",
+      "npc_name_en": "Mysterious Statue",
       "maps": [
         {
           "map_code": 105040300,
@@ -1338,11 +1553,42 @@
     {
       "npc_code": 1061007,
       "npc_name": "부서지고 있는 석상",
-      "maps": []
+      "npc_name_en": "Crumbling Statue",
+      "maps": [
+        {
+          "map_code": 105040310,
+          "map_name": "히든스트리트: 끈기의깊은숲<1단계>"
+        },
+        {
+          "map_code": 105040311,
+          "map_name": "히든스트리트: 끈기의깊은숲<2단계>"
+        },
+        {
+          "map_code": 105040312,
+          "map_name": "히든스트리트: 끈기의깊은숲<3단계>"
+        },
+        {
+          "map_code": 105040313,
+          "map_name": "히든스트리트: 끈기의깊은숲<4단계>"
+        },
+        {
+          "map_code": 105040314,
+          "map_name": "히든스트리트: 끈기의깊은숲<5단계>"
+        },
+        {
+          "map_code": 105040315,
+          "map_name": "히든스트리트: 끈기의깊은숲<6단계>"
+        },
+        {
+          "map_code": 105040316,
+          "map_name": "히든스트리트: 끈기의깊은숲<7단계>"
+        }
+      ]
     },
     {
       "npc_code": 1061008,
       "npc_name": "오서방",
+      "npc_name_en": "Mr. Oh",
       "maps": [
         {
           "map_code": 105040300,
@@ -1353,6 +1599,7 @@
     {
       "npc_code": 1061009,
       "npc_name": "차원의 문",
+      "npc_name_en": "Door of Dimension",
       "maps": [
         {
           "map_code": 100040106,
@@ -1379,6 +1626,7 @@
     {
       "npc_code": 1061010,
       "npc_name": "빛나는 수정",
+      "npc_name_en": "Sparkling Crystal",
       "maps": [
         {
           "map_code": 108010101,
@@ -1405,6 +1653,7 @@
     {
       "npc_code": 1061011,
       "npc_name": "기억하고 있는 자",
+      "npc_name_en": "The Rememberer",
       "maps": [
         {
           "map_code": 105040300,
@@ -1415,6 +1664,7 @@
     {
       "npc_code": 1061012,
       "npc_name": "의미없는 존재",
+      "npc_name_en": "Insignificant Being",
       "maps": [
         {
           "map_code": 105090200,
@@ -1425,6 +1675,7 @@
     {
       "npc_code": 1061013,
       "npc_name": "그윈",
+      "npc_name_en": "Gwin",
       "maps": [
         {
           "map_code": 105090200,
@@ -1435,6 +1686,7 @@
     {
       "npc_code": 1061100,
       "npc_name": "호텔 안내원",
+      "npc_name_en": "Hotel Receptionist",
       "maps": [
         {
           "map_code": 105040400,
@@ -1445,21 +1697,40 @@
     {
       "npc_code": 1063000,
       "npc_name": "분홍색 꽃 무더기",
-      "maps": []
+      "npc_name_en": "a pile of pink flowers",
+      "maps": [
+        {
+          "map_code": 105040311,
+          "map_name": "히든스트리트: 끈기의깊은숲<2단계>"
+        }
+      ]
     },
     {
       "npc_code": 1063001,
       "npc_name": "파란색 꽃 무더기",
-      "maps": []
+      "npc_name_en": "a pile of blue flowers",
+      "maps": [
+        {
+          "map_code": 105040313,
+          "map_name": "히든스트리트: 끈기의깊은숲<4단계>"
+        }
+      ]
     },
     {
       "npc_code": 1063002,
       "npc_name": "흰색 꽃 무더기",
-      "maps": []
+      "npc_name_en": "a pile of white flowers",
+      "maps": [
+        {
+          "map_code": 105040316,
+          "map_name": "히든스트리트: 끈기의깊은숲<7단계>"
+        }
+      ]
     },
     {
       "npc_code": 1063003,
       "npc_name": "초록버섯 수배표지판",
+      "npc_name_en": "Wanted : G. Mushroom",
       "maps": [
         {
           "map_code": 105030000,
@@ -1470,6 +1741,7 @@
     {
       "npc_code": 1063004,
       "npc_name": "커즈아이 수배표지판",
+      "npc_name_en": "Wanted : Curse Eye",
       "maps": [
         {
           "map_code": 105040200,
@@ -1480,6 +1752,7 @@
     {
       "npc_code": 1063005,
       "npc_name": "이블아이 수배표지판",
+      "npc_name_en": "Wanted : Evil Eye",
       "maps": [
         {
           "map_code": 105070100,
@@ -1490,11 +1763,13 @@
     {
       "npc_code": 1063006,
       "npc_name": "콜드아이 수배표지판",
+      "npc_name_en": "Wanted : Cold Eye",
       "maps": []
     },
     {
       "npc_code": 1063007,
       "npc_name": "좀비버섯 수배표지판",
+      "npc_name_en": "Wanted : Z. Mushroom",
       "maps": [
         {
           "map_code": 105050300,
@@ -1505,6 +1780,7 @@
     {
       "npc_code": 1063008,
       "npc_name": "뿔버섯 수배표지판",
+      "npc_name_en": "Wanted : H. Mushroom",
       "maps": [
         {
           "map_code": 105050200,
@@ -1515,6 +1791,7 @@
     {
       "npc_code": 1063009,
       "npc_name": "주니어 부기 수배표지판",
+      "npc_name_en": "Wanted : Jr. Boogie",
       "maps": [
         {
           "map_code": 105070400,
@@ -1525,11 +1802,13 @@
     {
       "npc_code": 1063010,
       "npc_name": "드레이크 수배표지판",
+      "npc_name_en": "Wanted : Drake",
       "maps": []
     },
     {
       "npc_code": 1072000,
       "npc_name": "돼지와 함께 일어서",
+      "npc_name_en": "Warrior Job Instructor",
       "maps": [
         {
           "map_code": 102020300,
@@ -1540,6 +1819,7 @@
     {
       "npc_code": 1072001,
       "npc_name": "마법사 전직교관",
+      "npc_name_en": "Magician Job Instructor",
       "maps": [
         {
           "map_code": 101020000,
@@ -1550,6 +1830,7 @@
     {
       "npc_code": 1072002,
       "npc_name": "궁수 전직교관",
+      "npc_name_en": "Bowman Job Instructor",
       "maps": [
         {
           "map_code": 106010000,
@@ -1560,6 +1841,7 @@
     {
       "npc_code": 1072003,
       "npc_name": "도적 전직교관",
+      "npc_name_en": "Thief Job Instructor",
       "maps": [
         {
           "map_code": 102040000,
@@ -1570,6 +1852,7 @@
     {
       "npc_code": 1072004,
       "npc_name": "전사 전직교관",
+      "npc_name_en": "Warrior Job Instructor",
       "maps": [
         {
           "map_code": 108000300,
@@ -1588,6 +1871,7 @@
     {
       "npc_code": 1072005,
       "npc_name": "마법사 전직교관",
+      "npc_name_en": "Magician Job Instructor",
       "maps": [
         {
           "map_code": 108000200,
@@ -1606,6 +1890,7 @@
     {
       "npc_code": 1072006,
       "npc_name": "궁수 전직교관",
+      "npc_name_en": "Bowman Job Instructor",
       "maps": [
         {
           "map_code": 108000100,
@@ -1624,6 +1909,7 @@
     {
       "npc_code": 1072007,
       "npc_name": "도적 전직교관",
+      "npc_name_en": "Thief Job Instructor",
       "maps": [
         {
           "map_code": 108000400,
@@ -1642,6 +1928,7 @@
     {
       "npc_code": 1072008,
       "npc_name": "카이린",
+      "npc_name_en": "Kyrin",
       "maps": [
         {
           "map_code": 108000500,
@@ -1664,6 +1951,7 @@
     {
       "npc_code": 1081000,
       "npc_name": "발렌",
+      "npc_name_en": "Valen",
       "maps": [
         {
           "map_code": 110000000,
@@ -1674,6 +1962,7 @@
     {
       "npc_code": 1081001,
       "npc_name": "파이슨",
+      "npc_name_en": "Pison",
       "maps": [
         {
           "map_code": 110000000,
@@ -1684,6 +1973,7 @@
     {
       "npc_code": 1081100,
       "npc_name": "리엘",
+      "npc_name_en": "Riel",
       "maps": [
         {
           "map_code": 110000000,
@@ -1694,6 +1984,7 @@
     {
       "npc_code": 1081101,
       "npc_name": "로엘",
+      "npc_name_en": "Roel",
       "maps": [
         {
           "map_code": 110000000,
@@ -1704,6 +1995,7 @@
     {
       "npc_code": 1081102,
       "npc_name": "라엘",
+      "npc_name_en": "Rael",
       "maps": [
         {
           "map_code": 110000000,
@@ -1714,6 +2006,7 @@
     {
       "npc_code": 1090000,
       "npc_name": "카이린",
+      "npc_name_en": "Kyrin",
       "maps": [
         {
           "map_code": 912010200,
@@ -1724,196 +2017,235 @@
     {
       "npc_code": 1091000,
       "npc_name": "모건",
+      "npc_name_en": "Morgan",
       "maps": []
     },
     {
       "npc_code": 1091001,
       "npc_name": "로도스",
+      "npc_name_en": "Rodos",
       "maps": []
     },
     {
       "npc_code": 1091002,
       "npc_name": "갤리",
+      "npc_name_en": "Gali",
       "maps": []
     },
     {
       "npc_code": 1091003,
       "npc_name": "세릴",
+      "npc_name_en": "Serryl",
       "maps": []
     },
     {
       "npc_code": 1091004,
       "npc_name": "돈틀레스",
+      "npc_name_en": "Dondlass",
       "maps": []
     },
     {
       "npc_code": 1092000,
       "npc_name": "탕윤",
+      "npc_name_en": "Tangyoon",
       "maps": []
     },
     {
       "npc_code": 1092001,
       "npc_name": "보니",
+      "npc_name_en": "Bonnie",
       "maps": []
     },
     {
       "npc_code": 1092002,
       "npc_name": "베인",
+      "npc_name_en": "Baine",
       "maps": []
     },
     {
       "npc_code": 1092003,
       "npc_name": "샤를",
+      "npc_name_en": "Sharyl",
       "maps": []
     },
     {
       "npc_code": 1092004,
       "npc_name": "캘리코",
+      "npc_name_en": "Calico",
       "maps": []
     },
     {
       "npc_code": 1092006,
       "npc_name": "블랙바크",
+      "npc_name_en": "Black Bark",
       "maps": []
     },
     {
       "npc_code": 1092007,
       "npc_name": "무라트",
+      "npc_name_en": "Muirhat",
       "maps": []
     },
     {
       "npc_code": 1092008,
       "npc_name": "슈린츠",
+      "npc_name_en": "Shulynch",
       "maps": []
     },
     {
       "npc_code": 1092009,
       "npc_name": "리드",
+      "npc_name_en": "Mrs. Reade",
       "maps": []
     },
     {
       "npc_code": 1092010,
       "npc_name": "잭",
+      "npc_name_en": "Jack",
       "maps": []
     },
     {
       "npc_code": 1092011,
       "npc_name": "바르톨",
+      "npc_name_en": "Bartol",
       "maps": []
     },
     {
       "npc_code": 1092012,
       "npc_name": "롤로네",
+      "npc_name_en": "Rolonay",
       "maps": []
     },
     {
       "npc_code": 1092013,
       "npc_name": "포쉐",
+      "npc_name_en": "Porchay",
       "maps": []
     },
     {
       "npc_code": 1092014,
       "npc_name": "노틸러스 중형택시",
+      "npc_name_en": "Nautilus' Mid-Sized Taxi",
       "maps": []
     },
     {
       "npc_code": 1092015,
       "npc_name": "정수기",
+      "npc_name_en": "Water Filter",
       "maps": []
     },
     {
       "npc_code": 1092016,
       "npc_name": "빛나는 돌",
+      "npc_name_en": "Shiny Stone",
       "maps": []
     },
     {
       "npc_code": 1092017,
       "npc_name": "이름없는 상인",
+      "npc_name_en": "Anonymous Merchant",
       "maps": []
     },
     {
       "npc_code": 1092018,
       "npc_name": "휴지통",
+      "npc_name_en": "Trash Can",
       "maps": []
     },
     {
       "npc_code": 1092019,
       "npc_name": "조나단",
+      "npc_name_en": "Lord Jonathan",
       "maps": []
     },
     {
       "npc_code": 1092090,
       "npc_name": "엄마 젖소",
+      "npc_name_en": "Mother Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1092091,
       "npc_name": "엄마 젖소",
+      "npc_name_en": "Mother Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1092092,
       "npc_name": "엄마 젖소",
+      "npc_name_en": "Mother Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1092093,
       "npc_name": "아기 젖소",
+      "npc_name_en": "Baby Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1092094,
       "npc_name": "아기 젖소",
+      "npc_name_en": "Baby Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1092095,
       "npc_name": "아기 젖소",
+      "npc_name_en": "Baby Milk Cow",
       "maps": []
     },
     {
       "npc_code": 1093000,
       "npc_name": "뿌빠",
+      "npc_name_en": "Pupa",
       "maps": []
     },
     {
       "npc_code": 1094000,
       "npc_name": "바트",
+      "npc_name_en": "Bart",
       "maps": []
     },
     {
       "npc_code": 1094001,
       "npc_name": "아벨",
+      "npc_name_en": "Abel",
       "maps": []
     },
     {
       "npc_code": 1094002,
       "npc_name": "풀 숲",
+      "npc_name_en": "Bush",
       "maps": []
     },
     {
       "npc_code": 1094003,
       "npc_name": "풀 숲",
+      "npc_name_en": "Bush",
       "maps": []
     },
     {
       "npc_code": 1094004,
       "npc_name": "풀 숲",
+      "npc_name_en": "Bush",
       "maps": []
     },
     {
       "npc_code": 1094005,
       "npc_name": "풀 숲",
+      "npc_name_en": "Bush",
       "maps": []
     },
     {
       "npc_code": 1094006,
       "npc_name": "풀 숲",
+      "npc_name_en": "Bush",
       "maps": []
     },
     {
       "npc_code": 2001000,
       "npc_name": "클리프",
+      "npc_name_en": "Cliff",
       "maps": [
         {
           "map_code": 209000000,
@@ -1924,6 +2256,7 @@
     {
       "npc_code": 2001001,
       "npc_name": "나뭇가지 눈사람",
+      "npc_name_en": "Branch Snowman",
       "maps": [
         {
           "map_code": 209000000,
@@ -1934,6 +2267,7 @@
     {
       "npc_code": 2001002,
       "npc_name": "양동이 눈사람",
+      "npc_name_en": "Metal Bucket Snowman",
       "maps": [
         {
           "map_code": 209000000,
@@ -1944,6 +2278,7 @@
     {
       "npc_code": 2001003,
       "npc_name": "밀짚모자 눈사람",
+      "npc_name_en": "Straw Hat Snowman",
       "maps": [
         {
           "map_code": 209000000,
@@ -1954,6 +2289,7 @@
     {
       "npc_code": 2001004,
       "npc_name": "목도리 눈사람",
+      "npc_name_en": "Scarf Snowman",
       "maps": [
         {
           "map_code": 209000001,
@@ -2020,11 +2356,13 @@
     {
       "npc_code": 2001005,
       "npc_name": "루퍼트",
+      "npc_name_en": "Rupert",
       "maps": []
     },
     {
       "npc_code": 2002000,
       "npc_name": "루피",
+      "npc_name_en": "Rupi",
       "maps": [
         {
           "map_code": 209000000,
@@ -2035,6 +2373,7 @@
     {
       "npc_code": 2002001,
       "npc_name": "루디",
+      "npc_name_en": "Rudi",
       "maps": [
         {
           "map_code": 209000000,
@@ -2045,6 +2384,7 @@
     {
       "npc_code": 2002002,
       "npc_name": "토르",
+      "npc_name_en": "Torr",
       "maps": [
         {
           "map_code": 209000000,
@@ -2055,6 +2395,7 @@
     {
       "npc_code": 2010000,
       "npc_name": "찰리중사",
+      "npc_name_en": "Staff Sergeant Charlie",
       "maps": [
         {
           "map_code": 200000000,
@@ -2065,6 +2406,7 @@
     {
       "npc_code": 2010001,
       "npc_name": "미노",
+      "npc_name_en": "Mino the Owner",
       "maps": [
         {
           "map_code": 200000202,
@@ -2075,6 +2417,7 @@
     {
       "npc_code": 2010002,
       "npc_name": "프란츠",
+      "npc_name_en": "Franz the Owner",
       "maps": [
         {
           "map_code": 200000201,
@@ -2085,6 +2428,7 @@
     {
       "npc_code": 2010003,
       "npc_name": "네브",
+      "npc_name_en": "Neve",
       "maps": [
         {
           "map_code": 200000200,
@@ -2095,6 +2439,7 @@
     {
       "npc_code": 2010004,
       "npc_name": "윌슨상병",
+      "npc_name_en": "Corporal Wilson",
       "maps": [
         {
           "map_code": 200000200,
@@ -2105,6 +2450,7 @@
     {
       "npc_code": 2010005,
       "npc_name": "슈리",
+      "npc_name_en": "Shuri",
       "maps": [
         {
           "map_code": 200000000,
@@ -2115,6 +2461,7 @@
     {
       "npc_code": 2010006,
       "npc_name": "티니",
+      "npc_name_en": "Trina",
       "maps": [
         {
           "map_code": 200000000,
@@ -2125,21 +2472,40 @@
     {
       "npc_code": 2010007,
       "npc_name": "헤라클",
-      "maps": []
+      "npc_name_en": "Heracle",
+      "maps": [
+        {
+          "map_code": 200000301,
+          "map_name": "오르비스: 길드본부<영웅의전당>"
+        }
+      ]
     },
     {
       "npc_code": 2010008,
       "npc_name": "레아",
-      "maps": []
+      "npc_name_en": "Lea",
+      "maps": [
+        {
+          "map_code": 200000301,
+          "map_name": "오르비스: 길드본부<영웅의전당>"
+        }
+      ]
     },
     {
       "npc_code": 2010009,
       "npc_name": "레나리우",
-      "maps": []
+      "npc_name_en": "Lenario",
+      "maps": [
+        {
+          "map_code": 200000301,
+          "map_name": "오르비스: 길드본부<영웅의전당>"
+        }
+      ]
     },
     {
       "npc_code": 2012000,
       "npc_name": "이프",
+      "npc_name_en": "Agatha",
       "maps": [
         {
           "map_code": 200000100,
@@ -2150,16 +2516,29 @@
     {
       "npc_code": 2012001,
       "npc_name": "리니",
-      "maps": []
+      "npc_name_en": "Rini",
+      "maps": [
+        {
+          "map_code": 200000111,
+          "map_name": "오르비스: 정거장<빅토리아행>"
+        }
+      ]
     },
     {
       "npc_code": 2012002,
       "npc_name": "에린",
-      "maps": []
+      "npc_name_en": "Erin",
+      "maps": [
+        {
+          "map_code": 200000112,
+          "map_name": "오르비스: 출발하기전<빅토리아행>"
+        }
+      ]
     },
     {
       "npc_code": 2012003,
       "npc_name": "요정 네리",
+      "npc_name_en": "Neri the Fairy",
       "maps": [
         {
           "map_code": 200000001,
@@ -2170,6 +2549,7 @@
     {
       "npc_code": 2012004,
       "npc_name": "요정 누리",
+      "npc_name_en": "Nuri the Fairy",
       "maps": [
         {
           "map_code": 200000001,
@@ -2180,6 +2560,7 @@
     {
       "npc_code": 2012005,
       "npc_name": "요정 에델",
+      "npc_name_en": "Edel the Fairy",
       "maps": [
         {
           "map_code": 200000002,
@@ -2190,6 +2571,7 @@
     {
       "npc_code": 2012006,
       "npc_name": "이스",
+      "npc_name_en": "Platform Usher",
       "maps": [
         {
           "map_code": 200000100,
@@ -2200,6 +2582,7 @@
     {
       "npc_code": 2012007,
       "npc_name": "린스",
+      "npc_name_en": "Rinz the Assistant",
       "maps": [
         {
           "map_code": 200000202,
@@ -2210,6 +2593,7 @@
     {
       "npc_code": 2012008,
       "npc_name": "로미",
+      "npc_name_en": "Romi",
       "maps": [
         {
           "map_code": 200000203,
@@ -2220,6 +2604,7 @@
     {
       "npc_code": 2012009,
       "npc_name": "리자",
+      "npc_name_en": "Riza the Assistant",
       "maps": [
         {
           "map_code": 200000201,
@@ -2230,6 +2615,7 @@
     {
       "npc_code": 2012010,
       "npc_name": "가정부 엘마",
+      "npc_name_en": "Elma the Housekeeper",
       "maps": [
         {
           "map_code": 200000200,
@@ -2240,6 +2626,7 @@
     {
       "npc_code": 2012011,
       "npc_name": "요정 크리엘",
+      "npc_name_en": "Kriel the Fairy",
       "maps": [
         {
           "map_code": 200000002,
@@ -2250,6 +2637,7 @@
     {
       "npc_code": 2012012,
       "npc_name": "리사",
+      "npc_name_en": "Lisa",
       "maps": [
         {
           "map_code": 200000000,
@@ -2260,36 +2648,57 @@
     {
       "npc_code": 2012013,
       "npc_name": "서나",
-      "maps": []
+      "npc_name_en": "Sunny",
+      "maps": [
+        {
+          "map_code": 200000121,
+          "map_name": "오르비스: 정거장<루디브리엄행>"
+        }
+      ]
     },
     {
       "npc_code": 2012014,
       "npc_name": "오르비스 마법석",
-      "maps": []
+      "npc_name_en": "Orbis Magic Spot",
+      "maps": [
+        {
+          "map_code": 200080200,
+          "map_name": "오르비스탑: 오르비스탑<20층>"
+        }
+      ]
     },
     {
       "npc_code": 2012015,
       "npc_name": "엘나스 마법석",
-      "maps": []
+      "npc_name_en": "El Nath Magic Spot",
+      "maps": [
+        {
+          "map_code": 200082100,
+          "map_name": "오르비스탑: 오르비스탑<1층>"
+        }
+      ]
     },
     {
       "npc_code": 2012016,
       "npc_name": "샤미닝",
+      "npc_name_en": "Aileen",
       "maps": []
     },
     {
       "npc_code": 2012017,
       "npc_name": "휴즈",
+      "npc_name_en": "Hughes the Fuse",
       "maps": [
         {
           "map_code": 200082301,
-          "map_name": "휴즈의 취미"
+          "map_name": "히든스트리트: 오르비스탑<휴즈의 연구실>"
         }
       ]
     },
     {
       "npc_code": 2012018,
       "npc_name": "에릭손",
+      "npc_name_en": "Ericsson",
       "maps": [
         {
           "map_code": 200000200,
@@ -2300,6 +2709,7 @@
     {
       "npc_code": 2012019,
       "npc_name": "봉달이",
+      "npc_name_en": "Moppie",
       "maps": [
         {
           "map_code": 200000000,
@@ -2310,6 +2720,7 @@
     {
       "npc_code": 2012020,
       "npc_name": "알퐁스 그린",
+      "npc_name_en": "Alfonse Green",
       "maps": [
         {
           "map_code": 200010000,
@@ -2320,16 +2731,29 @@
     {
       "npc_code": 2012021,
       "npc_name": "라미니",
-      "maps": []
+      "npc_name_en": "Ramini",
+      "maps": [
+        {
+          "map_code": 200000131,
+          "map_name": "오르비스: 정거장<리프레행>"
+        }
+      ]
     },
     {
       "npc_code": 2012022,
       "npc_name": "펠라스",
-      "maps": []
+      "npc_name_en": "Pelace",
+      "maps": [
+        {
+          "map_code": 200000132,
+          "map_name": "오르비스: 정거장<리프레행>"
+        }
+      ]
     },
     {
       "npc_code": 2012023,
       "npc_name": "단풍잎 구슬",
+      "npc_name_en": "Maple Leaf Marble",
       "maps": [
         {
           "map_code": 200000300,
@@ -2340,66 +2764,148 @@
     {
       "npc_code": 2012024,
       "npc_name": "이그네트",
-      "maps": []
+      "npc_name_en": "Egnet",
+      "maps": [
+        {
+          "map_code": 200000152,
+          "map_name": "오르비스: 정거장<아리안트행>"
+        }
+      ]
     },
     {
       "npc_code": 2012025,
       "npc_name": "제라스",
-      "maps": []
+      "npc_name_en": "Geras",
+      "maps": [
+        {
+          "map_code": 200000151,
+          "map_name": "오르비스: 정거장<아리안트행>"
+        }
+      ]
     },
     {
       "npc_code": 2012026,
       "npc_name": "엘리쟈",
+      "npc_name_en": "Elliza",
       "maps": []
     },
     {
       "npc_code": 2012027,
       "npc_name": "하프줄<도>",
+      "npc_name_en": "Harp String <C>",
       "maps": []
     },
     {
       "npc_code": 2012028,
       "npc_name": "하프줄<레>",
+      "npc_name_en": "Harp String <D>",
       "maps": []
     },
     {
       "npc_code": 2012029,
       "npc_name": "하프줄<미>",
+      "npc_name_en": "Harp String <E>",
       "maps": []
     },
     {
       "npc_code": 2012031,
       "npc_name": "하프줄<솔>",
+      "npc_name_en": "Harp String <G>",
       "maps": []
     },
     {
       "npc_code": 2012032,
       "npc_name": "하프줄<라>",
+      "npc_name_en": "Harp String <A>",
       "maps": []
     },
     {
       "npc_code": 2012033,
       "npc_name": "하프줄<시>",
+      "npc_name_en": "Harp String <B>",
       "maps": []
     },
     {
       "npc_code": 2013000,
       "npc_name": "요정 웡키",
-      "maps": []
+      "npc_name_en": "Wonky the Fairy",
+      "maps": [
+        {
+          "map_code": 200080101,
+          "map_name": "히든스트리트: 알 수 없는 탑<퇴장맵>"
+        },
+        {
+          "map_code": 920010000,
+          "map_name": "히든스트리트: 여신의 탑<입구>"
+        }
+      ]
     },
     {
       "npc_code": 2013001,
       "npc_name": "시종 이크",
-      "maps": []
+      "npc_name_en": "Chamberlain Eak",
+      "maps": [
+        {
+          "map_code": 920010100,
+          "map_name": "히든스트리트: 여신의 탑<중앙탑>"
+        },
+        {
+          "map_code": 920010200,
+          "map_name": "히든스트리트: 여신의 탑<산책로>"
+        },
+        {
+          "map_code": 920010300,
+          "map_name": "히든스트리트: 여신의 탑<창고>"
+        },
+        {
+          "map_code": 920010400,
+          "map_name": "히든스트리트: 여신의 탑<휴게실>"
+        },
+        {
+          "map_code": 920010500,
+          "map_name": "히든스트리트: 여신의 탑<봉인된 방>"
+        },
+        {
+          "map_code": 920010600,
+          "map_name": "히든스트리트: 여신의 탑<중앙탑>"
+        },
+        {
+          "map_code": 920010700,
+          "map_name": "히든스트리트: 여신의 탑<올라가는 길>"
+        },
+        {
+          "map_code": 920010800,
+          "map_name": "히든스트리트: 여신의 탑<정원>"
+        },
+        {
+          "map_code": 920010900,
+          "map_name": "히든스트리트: 여신의 탑<죄인의 방>"
+        },
+        {
+          "map_code": 920011000,
+          "map_name": "히든스트리트: 여신의 탑<암흑의 방>"
+        },
+        {
+          "map_code": 920011200,
+          "map_name": "히든스트리트: 여신의 탑<나가는 길>"
+        }
+      ]
     },
     {
       "npc_code": 2013002,
       "npc_name": "여신 미네르바",
-      "maps": []
+      "npc_name_en": "Minerva the Goddess",
+      "maps": [
+        {
+          "map_code": 920011300,
+          "map_name": "히든스트리트: 여신의 탑<여신의 축복>"
+        }
+      ]
     },
     {
       "npc_code": 2020000,
       "npc_name": "보겐",
+      "npc_name_en": "Vogen",
       "maps": [
         {
           "map_code": 211000100,
@@ -2410,6 +2916,7 @@
     {
       "npc_code": 2020001,
       "npc_name": "스코트",
+      "npc_name_en": "Scott",
       "maps": [
         {
           "map_code": 211000101,
@@ -2420,6 +2927,7 @@
     {
       "npc_code": 2020002,
       "npc_name": "고든",
+      "npc_name_en": "Gordon",
       "maps": [
         {
           "map_code": 211000100,
@@ -2430,6 +2938,7 @@
     {
       "npc_code": 2020003,
       "npc_name": "폭스상사",
+      "npc_name_en": "Master Sergeant Fox",
       "maps": [
         {
           "map_code": 211000000,
@@ -2440,6 +2949,7 @@
     {
       "npc_code": 2020004,
       "npc_name": "무슬",
+      "npc_name_en": "Mr. Mohammed",
       "maps": [
         {
           "map_code": 211000100,
@@ -2450,6 +2960,7 @@
     {
       "npc_code": 2020005,
       "npc_name": "알케스터",
+      "npc_name_en": "Alcaster",
       "maps": [
         {
           "map_code": 211000100,
@@ -2460,6 +2971,7 @@
     {
       "npc_code": 2020006,
       "npc_name": "제이드",
+      "npc_name_en": "Jade",
       "maps": [
         {
           "map_code": 211000000,
@@ -2470,6 +2982,7 @@
     {
       "npc_code": 2020007,
       "npc_name": "스카두르",
+      "npc_name_en": "Scadur",
       "maps": [
         {
           "map_code": 211000000,
@@ -2480,6 +2993,7 @@
     {
       "npc_code": 2020008,
       "npc_name": "타일러스",
+      "npc_name_en": "Tylus",
       "maps": [
         {
           "map_code": 211000001,
@@ -2490,6 +3004,7 @@
     {
       "npc_code": 2020009,
       "npc_name": "로베이라",
+      "npc_name_en": "Robeira",
       "maps": [
         {
           "map_code": 211000001,
@@ -2500,6 +3015,7 @@
     {
       "npc_code": 2020010,
       "npc_name": "레네",
+      "npc_name_en": "Rene",
       "maps": [
         {
           "map_code": 211000001,
@@ -2510,6 +3026,7 @@
     {
       "npc_code": 2020011,
       "npc_name": "아레크",
+      "npc_name_en": "Arec",
       "maps": [
         {
           "map_code": 211000001,
@@ -2520,11 +3037,13 @@
     {
       "npc_code": 2020012,
       "npc_name": "눈의 정령 조각상",
+      "npc_name_en": "Spirit of Snow Statue",
       "maps": []
     },
     {
       "npc_code": 2020013,
       "npc_name": "페드로",
+      "npc_name_en": "Pedro",
       "maps": [
         {
           "map_code": 211000001,
@@ -2535,6 +3054,7 @@
     {
       "npc_code": 2022000,
       "npc_name": "루미",
+      "npc_name_en": "Rumi",
       "maps": [
         {
           "map_code": 211000101,
@@ -2545,6 +3065,7 @@
     {
       "npc_code": 2022001,
       "npc_name": "하나",
+      "npc_name_en": "Hana",
       "maps": [
         {
           "map_code": 211000102,
@@ -2555,11 +3076,18 @@
     {
       "npc_code": 2022002,
       "npc_name": "바른",
-      "maps": []
+      "npc_name_en": "Barun",
+      "maps": [
+        {
+          "map_code": 200080800,
+          "map_name": "오르비스탑: 오르비스탑<14층>"
+        }
+      ]
     },
     {
       "npc_code": 2022003,
       "npc_name": "샤모스",
+      "npc_name_en": "Shammos",
       "maps": [
         {
           "map_code": 211000001,
@@ -2570,6 +3098,7 @@
     {
       "npc_code": 2022004,
       "npc_name": "타일러스",
+      "npc_name_en": "Tylus",
       "maps": [
         {
           "map_code": 921100301,
@@ -2580,11 +3109,13 @@
     {
       "npc_code": 2023000,
       "npc_name": "위험지역 총알택시",
+      "npc_name_en": "Danger Zone Taxi",
       "maps": []
     },
     {
       "npc_code": 2030000,
       "npc_name": "제프",
+      "npc_name_en": "Jeff",
       "maps": [
         {
           "map_code": 211040200,
@@ -2595,6 +3126,7 @@
     {
       "npc_code": 2030001,
       "npc_name": "브라보하사",
+      "npc_name_en": "Sergeant Bravo",
       "maps": [
         {
           "map_code": 211050000,
@@ -2605,6 +3137,7 @@
     {
       "npc_code": 2030002,
       "npc_name": "이지병장",
+      "npc_name_en": "Corporal Easy",
       "maps": [
         {
           "map_code": 200080000,
@@ -2615,6 +3148,7 @@
     {
       "npc_code": 2030003,
       "npc_name": "눈 덮인바위",
+      "npc_name_en": "Rock Covered in Snow",
       "maps": [
         {
           "map_code": 211040100,
@@ -2625,6 +3159,7 @@
     {
       "npc_code": 2030004,
       "npc_name": "작은 무덤",
+      "npc_name_en": "Small Tomb",
       "maps": [
         {
           "map_code": 211040500,
@@ -2635,16 +3170,18 @@
     {
       "npc_code": 2030005,
       "npc_name": "조각상",
+      "npc_name_en": "Statue",
       "maps": [
         {
           "map_code": 200081400,
-          "map_name": "되찾은 고대의 책"
+          "map_name": "오르비스탑: 오르비스탑<8층>"
         }
       ]
     },
     {
       "npc_code": 2030006,
       "npc_name": "성스러운 돌",
+      "npc_name_en": "Holy Stone",
       "maps": [
         {
           "map_code": 211040401,
@@ -2655,6 +3192,7 @@
     {
       "npc_code": 2030007,
       "npc_name": "석상의 파편",
+      "npc_name_en": "Piece of Statue",
       "maps": [
         {
           "map_code": 211042101,
@@ -2665,6 +3203,7 @@
     {
       "npc_code": 2030008,
       "npc_name": "아도비스",
+      "npc_name_en": "Adobis",
       "maps": [
         {
           "map_code": 211042300,
@@ -2675,6 +3214,7 @@
     {
       "npc_code": 2030009,
       "npc_name": "글리버",
+      "npc_name_en": "Glibber",
       "maps": [
         {
           "map_code": 211040200,
@@ -2685,9 +3225,18 @@
     {
       "npc_code": 2030010,
       "npc_name": "아몬",
+      "npc_name_en": "Amon",
       "maps": [
         {
           "map_code": 280020000,
+          "map_name": "아도비스의임무2: 화산의숨결<1단계>"
+        },
+        {
+          "map_code": 280020001,
+          "map_name": "아도비스의임무2: 화산의숨결<2단계>"
+        },
+        {
+          "map_code": 280030000,
           "map_name": "마지막임무: 카오스자쿰의제단"
         }
       ]
@@ -2695,6 +3244,7 @@
     {
       "npc_code": 2030011,
       "npc_name": "알리",
+      "npc_name_en": "Ali",
       "maps": [
         {
           "map_code": 280090000,
@@ -2705,16 +3255,18 @@
     {
       "npc_code": 2030012,
       "npc_name": "허클",
+      "npc_name_en": "Huckle",
       "maps": [
         {
           "map_code": 200081201,
-          "map_name": "허클의 마법재료 모으기"
+          "map_name": "히든스트리트: 오르비스탑<비밀의 방>"
         }
       ]
     },
     {
       "npc_code": 2030013,
       "npc_name": "아도비스",
+      "npc_name_en": "Adobis",
       "maps": [
         {
           "map_code": 211042400,
@@ -2725,6 +3277,7 @@
     {
       "npc_code": 2030014,
       "npc_name": "고대 빙석",
+      "npc_name_en": "Ancient Icy Stone",
       "maps": [
         {
           "map_code": 921100100,
@@ -2735,6 +3288,7 @@
     {
       "npc_code": 2032000,
       "npc_name": "????",
+      "npc_name_en": "????",
       "maps": [
         {
           "map_code": 200050001,
@@ -2745,6 +3299,7 @@
     {
       "npc_code": 2032001,
       "npc_name": "스피루나",
+      "npc_name_en": "Spiruna",
       "maps": [
         {
           "map_code": 200050001,
@@ -2755,6 +3310,7 @@
     {
       "npc_code": 2032002,
       "npc_name": "아우라",
+      "npc_name_en": "Aura",
       "maps": [
         {
           "map_code": 280010000,
@@ -2765,11 +3321,18 @@
     {
       "npc_code": 2032003,
       "npc_name": "리라",
-      "maps": []
+      "npc_name_en": "Lira",
+      "maps": [
+        {
+          "map_code": 280020001,
+          "map_name": "아도비스의임무2: 화산의숨결<2단계>"
+        }
+      ]
     },
     {
       "npc_code": 2032004,
       "npc_name": "용암",
+      "npc_name_en": "Suspicious Lava",
       "maps": [
         {
           "map_code": 211042101,
@@ -2780,6 +3343,7 @@
     {
       "npc_code": 2040000,
       "npc_name": "멜",
+      "npc_name_en": "Mel",
       "maps": [
         {
           "map_code": 220000100,
@@ -2790,6 +3354,7 @@
     {
       "npc_code": 2040001,
       "npc_name": "장난감병정 델브",
+      "npc_name_en": "Delv the Toy Soldier",
       "maps": [
         {
           "map_code": 221024400,
@@ -2800,6 +3365,7 @@
     {
       "npc_code": 2040002,
       "npc_name": "장난감병정 올슨",
+      "npc_name_en": "Olson the Toy Soldier",
       "maps": [
         {
           "map_code": 221024400,
@@ -2810,16 +3376,22 @@
     {
       "npc_code": 2040003,
       "npc_name": "조교 챙",
+      "npc_name_en": "Assistant Cheng",
       "maps": [
         {
           "map_code": 220020000,
-          "map_name": "정비 부품의 행방"
+          "map_name": "루디브리엄성: 장난감공장<1공정>1구역"
+        },
+        {
+          "map_code": 922000000,
+          "map_name": "히든스트리트: 장난감공장<4구역>"
         }
       ]
     },
     {
       "npc_code": 2040004,
       "npc_name": "오뚝이 일꾼1",
+      "npc_name_en": "Roly-Poly 1",
       "maps": [
         {
           "map_code": 221024200,
@@ -2830,6 +3402,7 @@
     {
       "npc_code": 2040005,
       "npc_name": "오뚝이 일꾼2",
+      "npc_name_en": "Roly-Poly 2",
       "maps": [
         {
           "map_code": 221023700,
@@ -2840,6 +3413,7 @@
     {
       "npc_code": 2040006,
       "npc_name": "오뚝이 일꾼3",
+      "npc_name_en": "Roly-Poly 3",
       "maps": [
         {
           "map_code": 221023400,
@@ -2850,6 +3424,7 @@
     {
       "npc_code": 2040007,
       "npc_name": "오뚝이 일꾼4",
+      "npc_name_en": "Roly-Poly 4",
       "maps": [
         {
           "map_code": 221023200,
@@ -2860,6 +3435,7 @@
     {
       "npc_code": 2040008,
       "npc_name": "오뚝이 일꾼5",
+      "npc_name_en": "Roly-Poly 5",
       "maps": [
         {
           "map_code": 221022700,
@@ -2870,6 +3446,7 @@
     {
       "npc_code": 2040009,
       "npc_name": "오뚝이 일꾼6",
+      "npc_name_en": "Roly-Poly 6",
       "maps": [
         {
           "map_code": 221022200,
@@ -2880,6 +3457,7 @@
     {
       "npc_code": 2040010,
       "npc_name": "오뚝이 일꾼7",
+      "npc_name_en": "Roly-Poly 7",
       "maps": [
         {
           "map_code": 221021700,
@@ -2890,6 +3468,7 @@
     {
       "npc_code": 2040011,
       "npc_name": "오뚝이 일꾼8",
+      "npc_name_en": "Roly-Poly 8",
       "maps": [
         {
           "map_code": 221021100,
@@ -2900,6 +3479,7 @@
     {
       "npc_code": 2040012,
       "npc_name": "오뚝이 일꾼9",
+      "npc_name_en": "Roly-Poly 9",
       "maps": [
         {
           "map_code": 221020600,
@@ -2910,6 +3490,7 @@
     {
       "npc_code": 2040013,
       "npc_name": "오뚝이 일꾼10",
+      "npc_name_en": "Roly-Poly 10",
       "maps": [
         {
           "map_code": 221020200,
@@ -2920,6 +3501,7 @@
     {
       "npc_code": 2040014,
       "npc_name": "치코",
+      "npc_name_en": "Chico",
       "maps": [
         {
           "map_code": 220000300,
@@ -2930,16 +3512,18 @@
     {
       "npc_code": 2040015,
       "npc_name": "공장장 카호",
+      "npc_name_en": "Manager Karl",
       "maps": [
         {
           "map_code": 220020300,
-          "map_name": "근무 중 이상 무"
+          "map_name": "루디브리엄성: 장난감공장<메인공정1>"
         }
       ]
     },
     {
       "npc_code": 2040016,
       "npc_name": "파이",
+      "npc_name_en": "Pi",
       "maps": [
         {
           "map_code": 220000300,
@@ -2950,6 +3534,7 @@
     {
       "npc_code": 2040017,
       "npc_name": "메소레인저 그린",
+      "npc_name_en": "Green Mesoranger",
       "maps": [
         {
           "map_code": 221030400,
@@ -2960,6 +3545,7 @@
     {
       "npc_code": 2040018,
       "npc_name": "메소레인저 블랙",
+      "npc_name_en": "Black Mesoranger",
       "maps": [
         {
           "map_code": 221040000,
@@ -2970,6 +3556,7 @@
     {
       "npc_code": 2040019,
       "npc_name": "에버",
+      "npc_name_en": "Everton",
       "maps": [
         {
           "map_code": 220000003,
@@ -2980,6 +3567,7 @@
     {
       "npc_code": 2040020,
       "npc_name": "지로큰",
+      "npc_name_en": "Sarah",
       "maps": [
         {
           "map_code": 220000303,
@@ -2990,6 +3578,7 @@
     {
       "npc_code": 2040021,
       "npc_name": "페이",
+      "npc_name_en": "Tara",
       "maps": [
         {
           "map_code": 220000303,
@@ -3000,11 +3589,18 @@
     {
       "npc_code": 2040022,
       "npc_name": "라이돌",
-      "maps": []
+      "npc_name_en": "Rydole",
+      "maps": [
+        {
+          "map_code": 220020600,
+          "map_name": "루디브리엄성: 장난감공장<기계실>"
+        }
+      ]
     },
     {
       "npc_code": 2040023,
       "npc_name": "길잃은 병정",
+      "npc_name_en": "Lost Soldier",
       "maps": [
         {
           "map_code": 221023700,
@@ -3015,6 +3611,7 @@
     {
       "npc_code": 2040024,
       "npc_name": "에오스 마법석",
+      "npc_name_en": "First Eos Rock",
       "maps": [
         {
           "map_code": 221024400,
@@ -3025,6 +3622,7 @@
     {
       "npc_code": 2040025,
       "npc_name": "두번째 에오스의 돌",
+      "npc_name_en": "Second Eos Rock",
       "maps": [
         {
           "map_code": 221022900,
@@ -3035,6 +3633,7 @@
     {
       "npc_code": 2040026,
       "npc_name": "세번째 에오스의 돌",
+      "npc_name_en": "Third Eos Rock",
       "maps": [
         {
           "map_code": 221021700,
@@ -3045,6 +3644,7 @@
     {
       "npc_code": 2040027,
       "npc_name": "네번째 에오스의 돌",
+      "npc_name_en": "Fourth Eos Rock",
       "maps": [
         {
           "map_code": 221020000,
@@ -3055,6 +3655,7 @@
     {
       "npc_code": 2040028,
       "npc_name": "장난감병정 마크",
+      "npc_name_en": "Mark the Toy Soldier",
       "maps": [
         {
           "map_code": 922000010,
@@ -3065,16 +3666,18 @@
     {
       "npc_code": 2040029,
       "npc_name": "괘종시계",
+      "npc_name_en": "Grandpa Clock",
       "maps": [
         {
           "map_code": 220050000,
-          "map_name": "괘종시계의 위기"
+          "map_name": "루디브리엄성: 잃어버린시간<1>"
         }
       ]
     },
     {
       "npc_code": 2040030,
       "npc_name": "위습",
+      "npc_name_en": "Wisp",
       "maps": [
         {
           "map_code": 220000400,
@@ -3085,6 +3688,7 @@
     {
       "npc_code": 2040031,
       "npc_name": "문서뭉치",
+      "npc_name_en": "Document Roll",
       "maps": [
         {
           "map_code": 220000304,
@@ -3095,6 +3699,7 @@
     {
       "npc_code": 2040032,
       "npc_name": "위버",
+      "npc_name_en": "Weaver",
       "maps": [
         {
           "map_code": 220000006,
@@ -3105,6 +3710,7 @@
     {
       "npc_code": 2040033,
       "npc_name": "네르",
+      "npc_name_en": "Neru",
       "maps": [
         {
           "map_code": 220000006,
@@ -3115,6 +3721,7 @@
     {
       "npc_code": 2040034,
       "npc_name": "표지판",
+      "npc_name_en": "Red Sign",
       "maps": [
         {
           "map_code": 221024500,
@@ -3125,51 +3732,106 @@
     {
       "npc_code": 2040035,
       "npc_name": "아르토",
-      "maps": []
+      "npc_name_en": "Arturo",
+      "maps": [
+        {
+          "map_code": 922011100,
+          "map_name": "히든스트리트: 버려진 탑<모험의 결실>"
+        }
+      ]
     },
     {
       "npc_code": 2040036,
       "npc_name": "레드 벌룬",
-      "maps": []
+      "npc_name_en": "Red Balloon",
+      "maps": [
+        {
+          "map_code": 922010100,
+          "map_name": "히든스트리트: 버려진 탑<1단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040037,
       "npc_name": "오렌지 벌룬",
-      "maps": []
+      "npc_name_en": "Orange Balloon",
+      "maps": [
+        {
+          "map_code": 922010200,
+          "map_name": "히든스트리트: 버려진 탑<2단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040038,
       "npc_name": "옐로우 벌룬",
-      "maps": []
+      "npc_name_en": "Yellow Balloon",
+      "maps": [
+        {
+          "map_code": 922010300,
+          "map_name": "히든스트리트: 버려진 탑<3단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040039,
       "npc_name": "옐로그린 벌룬",
-      "maps": []
+      "npc_name_en": "Lime Balloon",
+      "maps": [
+        {
+          "map_code": 922010400,
+          "map_name": "히든스트리트: 버려진 탑<2단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040040,
       "npc_name": "그린 벌룬",
-      "maps": []
+      "npc_name_en": "Green Balloon",
+      "maps": [
+        {
+          "map_code": 922010500,
+          "map_name": "히든스트리트: 버려진 탑<5단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040041,
       "npc_name": "아쿠아 벌룬",
-      "maps": []
+      "npc_name_en": "Aqua Balloon",
+      "maps": [
+        {
+          "map_code": 922010600,
+          "map_name": "히든스트리트: 버려진 탑<3단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040042,
       "npc_name": "스카이블루 벌룬",
-      "maps": []
+      "npc_name_en": "Sky-Blue Balloon",
+      "maps": [
+        {
+          "map_code": 922010700,
+          "map_name": "히든스트리트: 버려진 탑<4단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040043,
       "npc_name": "블루 벌룬",
-      "maps": []
+      "npc_name_en": "Blue Balloon",
+      "maps": [
+        {
+          "map_code": 922010800,
+          "map_name": "히든스트리트: 버려진 탑<5단계>"
+        }
+      ]
     },
     {
       "npc_code": 2040044,
       "npc_name": "바이올렛 벌룬",
+      "npc_name_en": "Violet Balloon",
       "maps": [
         {
           "map_code": 922010900,
@@ -3180,11 +3842,18 @@
     {
       "npc_code": 2040045,
       "npc_name": "핑크 벌룬",
-      "maps": []
+      "npc_name_en": "Pink Balloon",
+      "maps": [
+        {
+          "map_code": 922011000,
+          "map_name": "히든스트리트: 버려진 탑<보너스>"
+        }
+      ]
     },
     {
       "npc_code": 2040046,
       "npc_name": "할리",
+      "npc_name_en": "Robert Holly",
       "maps": [
         {
           "map_code": 220000000,
@@ -3195,9 +3864,46 @@
     {
       "npc_code": 2040047,
       "npc_name": "병정 앤더슨",
+      "npc_name_en": "Sgt. Anderson",
       "maps": [
         {
           "map_code": 922010000,
+          "map_name": "히든스트리트: 버려진 탑<모험의 끝>"
+        },
+        {
+          "map_code": 922010100,
+          "map_name": "히든스트리트: 버려진 탑<1단계>"
+        },
+        {
+          "map_code": 922010200,
+          "map_name": "히든스트리트: 버려진 탑<2단계>"
+        },
+        {
+          "map_code": 922010300,
+          "map_name": "히든스트리트: 버려진 탑<3단계>"
+        },
+        {
+          "map_code": 922010400,
+          "map_name": "히든스트리트: 버려진 탑<2단계>"
+        },
+        {
+          "map_code": 922010500,
+          "map_name": "히든스트리트: 버려진 탑<5단계>"
+        },
+        {
+          "map_code": 922010600,
+          "map_name": "히든스트리트: 버려진 탑<3단계>"
+        },
+        {
+          "map_code": 922010700,
+          "map_name": "히든스트리트: 버려진 탑<4단계>"
+        },
+        {
+          "map_code": 922010800,
+          "map_name": "히든스트리트: 버려진 탑<5단계>"
+        },
+        {
+          "map_code": 922010900,
           "map_name": "히든스트리트: 시공의 균열"
         }
       ]
@@ -3205,6 +3911,7 @@
     {
       "npc_code": 2040048,
       "npc_name": "나나",
+      "npc_name_en": "Nara",
       "maps": [
         {
           "map_code": 220000000,
@@ -3215,6 +3922,7 @@
     {
       "npc_code": 2040049,
       "npc_name": "사탕기계",
+      "npc_name_en": "Gumball Machine",
       "maps": [
         {
           "map_code": 221021600,
@@ -3225,6 +3933,7 @@
     {
       "npc_code": 2040050,
       "npc_name": "떠돌이 연금술사",
+      "npc_name_en": "Eurek the Alchemist",
       "maps": [
         {
           "map_code": 105040300,
@@ -3247,6 +3956,7 @@
     {
       "npc_code": 2040051,
       "npc_name": "톨이",
+      "npc_name_en": "Toly",
       "maps": [
         {
           "map_code": 220050300,
@@ -3257,6 +3967,7 @@
     {
       "npc_code": 2040052,
       "npc_name": "사서 위즈",
+      "npc_name_en": "Wiz the Librarian",
       "maps": [
         {
           "map_code": 222020000,
@@ -3267,16 +3978,33 @@
     {
       "npc_code": 2041000,
       "npc_name": "티티앙",
-      "maps": []
+      "npc_name_en": "Tian",
+      "maps": [
+        {
+          "map_code": 220000110,
+          "map_name": "루디브리엄: 정거장<오르비스행>"
+        }
+      ]
     },
     {
       "npc_code": 2041001,
       "npc_name": "에린",
-      "maps": []
+      "npc_name_en": "Rosey",
+      "maps": [
+        {
+          "map_code": 200000122,
+          "map_name": "오르비스: 출발하기전<루디브리엄행>"
+        },
+        {
+          "map_code": 220000111,
+          "map_name": "루디브리엄: 출발하기전<오르비스행>"
+        }
+      ]
     },
     {
       "npc_code": 2041002,
       "npc_name": "히드",
+      "npc_name_en": "Hid",
       "maps": [
         {
           "map_code": 220000001,
@@ -3287,6 +4015,7 @@
     {
       "npc_code": 2041003,
       "npc_name": "미루",
+      "npc_name_en": "Miru",
       "maps": [
         {
           "map_code": 220000001,
@@ -3297,6 +4026,7 @@
     {
       "npc_code": 2041004,
       "npc_name": "마르셀",
+      "npc_name_en": "Marcel",
       "maps": [
         {
           "map_code": 220000000,
@@ -3307,6 +4037,7 @@
     {
       "npc_code": 2041005,
       "npc_name": "네미",
+      "npc_name_en": "Nemi",
       "maps": [
         {
           "map_code": 220000302,
@@ -3317,6 +4048,7 @@
     {
       "npc_code": 2041006,
       "npc_name": "미스키",
+      "npc_name_en": "Misky",
       "maps": [
         {
           "map_code": 220000002,
@@ -3327,6 +4059,7 @@
     {
       "npc_code": 2041007,
       "npc_name": "미유",
+      "npc_name_en": "Miyu",
       "maps": [
         {
           "map_code": 220000004,
@@ -3337,6 +4070,7 @@
     {
       "npc_code": 2041008,
       "npc_name": "세피",
+      "npc_name_en": "Seppy",
       "maps": [
         {
           "map_code": 220000000,
@@ -3347,6 +4081,7 @@
     {
       "npc_code": 2041009,
       "npc_name": "미니",
+      "npc_name_en": "Mini",
       "maps": [
         {
           "map_code": 220000004,
@@ -3357,6 +4092,7 @@
     {
       "npc_code": 2041010,
       "npc_name": "앨",
+      "npc_name_en": "Ellie",
       "maps": [
         {
           "map_code": 220000003,
@@ -3367,6 +4103,7 @@
     {
       "npc_code": 2041011,
       "npc_name": "메소레인저 옐로우",
+      "npc_name_en": "Yellow Mesoranger",
       "maps": [
         {
           "map_code": 221030000,
@@ -3377,6 +4114,7 @@
     {
       "npc_code": 2041012,
       "npc_name": "메소레인저 핑크",
+      "npc_name_en": "Pink Mesoranger",
       "maps": [
         {
           "map_code": 221030200,
@@ -3387,6 +4125,7 @@
     {
       "npc_code": 2041013,
       "npc_name": "지나",
+      "npc_name_en": "Gina",
       "maps": [
         {
           "map_code": 220000005,
@@ -3397,6 +4136,7 @@
     {
       "npc_code": 2041014,
       "npc_name": "패트리샤",
+      "npc_name_en": "Patricia",
       "maps": [
         {
           "map_code": 220000000,
@@ -3407,6 +4147,7 @@
     {
       "npc_code": 2041015,
       "npc_name": "코린",
+      "npc_name_en": "Korin",
       "maps": [
         {
           "map_code": 220000301,
@@ -3417,6 +4158,7 @@
     {
       "npc_code": 2041016,
       "npc_name": "미르겔",
+      "npc_name_en": "Vega",
       "maps": [
         {
           "map_code": 221022000,
@@ -3427,6 +4169,7 @@
     {
       "npc_code": 2041017,
       "npc_name": "쿠커스",
+      "npc_name_en": "Ace of Hearts",
       "maps": [
         {
           "map_code": 100000000,
@@ -3457,26 +4200,40 @@
     {
       "npc_code": 2041018,
       "npc_name": "조립공 한스",
-      "maps": []
+      "npc_name_en": "Hans the Assembler",
+      "maps": [
+        {
+          "map_code": 220030100,
+          "map_name": "루디브리엄성: 장난감공장<2공정>2구역"
+        }
+      ]
     },
     {
       "npc_code": 2041019,
       "npc_name": "수리공 로키",
+      "npc_name_en": "Rocky the Repairman",
       "maps": [
         {
           "map_code": 220030200,
-          "map_name": "로키의 수리 부품"
+          "map_name": "루디브리엄성: 장난감공장<메인공정2>"
         }
       ]
     },
     {
       "npc_code": 2041020,
       "npc_name": "기계공 맥",
-      "maps": []
+      "npc_name_en": "Mac the Mechanic",
+      "maps": [
+        {
+          "map_code": 220030400,
+          "map_name": "루디브리엄성: 장난감공장<2공정>5구역"
+        }
+      ]
     },
     {
       "npc_code": 2041021,
       "npc_name": "Mr. 피에로",
+      "npc_name_en": "Mr. Bouffon",
       "maps": [
         {
           "map_code": 220050300,
@@ -3487,6 +4244,7 @@
     {
       "npc_code": 2041022,
       "npc_name": "보좌관 티군",
+      "npc_name_en": "Tigun the Advisor",
       "maps": [
         {
           "map_code": 220000400,
@@ -3497,6 +4255,7 @@
     {
       "npc_code": 2041023,
       "npc_name": "플로",
+      "npc_name_en": "Flo",
       "maps": [
         {
           "map_code": 220050300,
@@ -3507,6 +4266,7 @@
     {
       "npc_code": 2041024,
       "npc_name": "조형물",
+      "npc_name_en": "Tombstone",
       "maps": [
         {
           "map_code": 220080000,
@@ -3517,6 +4277,7 @@
     {
       "npc_code": 2041025,
       "npc_name": "기계장치",
+      "npc_name_en": "Machine Apparatus",
       "maps": [
         {
           "map_code": 220080001,
@@ -3527,16 +4288,18 @@
     {
       "npc_code": 2041026,
       "npc_name": "고스트헌터 밥",
+      "npc_name_en": "Ghosthunter Bob",
       "maps": [
         {
           "map_code": 220070000,
-          "map_name": "속박의 굴레"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<1>"
         }
       ]
     },
     {
       "npc_code": 2041027,
       "npc_name": "수집광 매이션",
+      "npc_name_en": "Mason the Collector",
       "maps": [
         {
           "map_code": 220000307,
@@ -3547,6 +4310,7 @@
     {
       "npc_code": 2041028,
       "npc_name": "정체불명의 도적",
+      "npc_name_en": "Unknown Thief",
       "maps": [
         {
           "map_code": 922020200,
@@ -3557,6 +4321,7 @@
     {
       "npc_code": 2042000,
       "npc_name": "슈피겔만",
+      "npc_name_en": "Spiegelmann",
       "maps": [
         {
           "map_code": 980000000,
@@ -3567,11 +4332,38 @@
     {
       "npc_code": 2042001,
       "npc_name": "슈피겔만",
-      "maps": []
+      "npc_name_en": "Spiegelmann",
+      "maps": [
+        {
+          "map_code": 980000100,
+          "map_name": "몬스터 카니발: 카니발 필드1 <대기실>"
+        },
+        {
+          "map_code": 980000200,
+          "map_name": "몬스터 카니발: 카니발 필드2<대기실>"
+        },
+        {
+          "map_code": 980000300,
+          "map_name": "몬스터 카니발: 카니발 필드3<대기실>"
+        },
+        {
+          "map_code": 980000400,
+          "map_name": "몬스터 카니발: 카니발 필드4<대기실>"
+        },
+        {
+          "map_code": 980000500,
+          "map_name": "몬스터 카니발: 카니발 필드5<대기실>"
+        },
+        {
+          "map_code": 980000600,
+          "map_name": "몬스터 카니발: 카니발 필드6<대기실>"
+        }
+      ]
     },
     {
       "npc_code": 2042002,
       "npc_name": "슈피겔만",
+      "npc_name_en": "Spiegelmann",
       "maps": [
         {
           "map_code": 103000000,
@@ -3588,27 +4380,105 @@
         {
           "map_code": 980000010,
           "map_name": "몬스터 카니발: 나가는 곳"
+        },
+        {
+          "map_code": 980000103,
+          "map_name": "몬스터 카니발: 카니발 필드1 <승리의 외침>"
+        },
+        {
+          "map_code": 980000104,
+          "map_name": "몬스터 카니발: 카니발 필드1 <패자의 오기>"
+        },
+        {
+          "map_code": 980000203,
+          "map_name": "몬스터 카니발: 카니발 필드2 <승리의 외침>"
+        },
+        {
+          "map_code": 980000204,
+          "map_name": "몬스터 카니발: 카니발 필드2 <패자의 오기>"
+        },
+        {
+          "map_code": 980000303,
+          "map_name": "몬스터 카니발: 카니발 필드3 <승리의 외침>"
+        },
+        {
+          "map_code": 980000304,
+          "map_name": "몬스터 카니발: 카니발 필드3 <패자의 오기>"
+        },
+        {
+          "map_code": 980000403,
+          "map_name": "몬스터 카니발: 카니발 필드4 <승리의 외침>"
+        },
+        {
+          "map_code": 980000404,
+          "map_name": "몬스터 카니발: 카니발 필드4 <패자의 오기>"
+        },
+        {
+          "map_code": 980000503,
+          "map_name": "몬스터 카니발: 카니발 필드5 <승리의 외침>"
+        },
+        {
+          "map_code": 980000504,
+          "map_name": "몬스터 카니발: 카니발 필드5 <패자의 오기>"
+        },
+        {
+          "map_code": 980000603,
+          "map_name": "몬스터 카니발: 카니발 필드6 <승리의 외침>"
+        },
+        {
+          "map_code": 980000604,
+          "map_name": "몬스터 카니발: 카니발 필드6 <패자의 오기>"
         }
       ]
     },
     {
       "npc_code": 2042003,
       "npc_name": "조수 레드",
-      "maps": []
+      "npc_name_en": "Assistant Red",
+      "maps": [
+        {
+          "map_code": 980000100,
+          "map_name": "몬스터 카니발: 카니발 필드1 <대기실>"
+        },
+        {
+          "map_code": 980000300,
+          "map_name": "몬스터 카니발: 카니발 필드3<대기실>"
+        },
+        {
+          "map_code": 980000500,
+          "map_name": "몬스터 카니발: 카니발 필드5<대기실>"
+        }
+      ]
     },
     {
       "npc_code": 2042004,
       "npc_name": "조수 블루",
-      "maps": []
+      "npc_name_en": "Assistant Blue",
+      "maps": [
+        {
+          "map_code": 980000200,
+          "map_name": "몬스터 카니발: 카니발 필드2<대기실>"
+        },
+        {
+          "map_code": 980000400,
+          "map_name": "몬스터 카니발: 카니발 필드4<대기실>"
+        },
+        {
+          "map_code": 980000600,
+          "map_name": "몬스터 카니발: 카니발 필드6<대기실>"
+        }
+      ]
     },
     {
       "npc_code": 2043000,
       "npc_name": "파풀라투스",
+      "npc_name_en": "Papulatus",
       "maps": []
     },
     {
       "npc_code": 2050000,
       "npc_name": "마운틴",
+      "npc_name_en": "Dr. San",
       "maps": [
         {
           "map_code": 221000200,
@@ -3619,6 +4489,7 @@
     {
       "npc_code": 2050001,
       "npc_name": "김박사",
+      "npc_name_en": "Dr. Kim",
       "maps": [
         {
           "map_code": 221000300,
@@ -3629,6 +4500,7 @@
     {
       "npc_code": 2050002,
       "npc_name": "외계인 그레이",
+      "npc_name_en": "Alien Gray",
       "maps": [
         {
           "map_code": 221040100,
@@ -3639,6 +4511,7 @@
     {
       "npc_code": 2050003,
       "npc_name": "스페이슨",
+      "npc_name_en": "Spacen",
       "maps": [
         {
           "map_code": 221000200,
@@ -3649,6 +4522,7 @@
     {
       "npc_code": 2050004,
       "npc_name": "구보",
+      "npc_name_en": "Kubo the Storageman",
       "maps": [
         {
           "map_code": 221000200,
@@ -3659,6 +4533,7 @@
     {
       "npc_code": 2050005,
       "npc_name": "철이",
+      "npc_name_en": "Chury",
       "maps": [
         {
           "map_code": 221000200,
@@ -3669,6 +4544,7 @@
     {
       "npc_code": 2050006,
       "npc_name": "훈이",
+      "npc_name_en": "Hoony",
       "maps": [
         {
           "map_code": 221030300,
@@ -3679,6 +4555,7 @@
     {
       "npc_code": 2050007,
       "npc_name": "건이",
+      "npc_name_en": "Gunny",
       "maps": [
         {
           "map_code": 221030500,
@@ -3689,6 +4566,7 @@
     {
       "npc_code": 2050008,
       "npc_name": "마에스터 장군",
+      "npc_name_en": "General Maestro",
       "maps": [
         {
           "map_code": 221000000,
@@ -3699,6 +4577,7 @@
     {
       "npc_code": 2050009,
       "npc_name": "부사관 메딘",
+      "npc_name_en": "Jr. Officer Medin",
       "maps": [
         {
           "map_code": 221000000,
@@ -3709,6 +4588,7 @@
     {
       "npc_code": 2050010,
       "npc_name": "의무병 라이스",
+      "npc_name_en": "Rice the Medic",
       "maps": [
         {
           "map_code": 221000000,
@@ -3719,6 +4599,7 @@
     {
       "npc_code": 2050011,
       "npc_name": "병사 케빈",
+      "npc_name_en": "Kevin the Soldier",
       "maps": [
         {
           "map_code": 221000000,
@@ -3729,6 +4610,7 @@
     {
       "npc_code": 2050012,
       "npc_name": "요원 M",
+      "npc_name_en": "Agent Marco",
       "maps": [
         {
           "map_code": 221000000,
@@ -3739,6 +4621,7 @@
     {
       "npc_code": 2050013,
       "npc_name": "포터",
+      "npc_name_en": "Porter",
       "maps": [
         {
           "map_code": 221000300,
@@ -3749,6 +4632,7 @@
     {
       "npc_code": 2050014,
       "npc_name": "운석1",
+      "npc_name_en": "Meteorite 1",
       "maps": [
         {
           "map_code": 221040000,
@@ -3759,6 +4643,7 @@
     {
       "npc_code": 2050015,
       "npc_name": "운석2",
+      "npc_name_en": "Meteorite 2",
       "maps": [
         {
           "map_code": 221040200,
@@ -3769,6 +4654,7 @@
     {
       "npc_code": 2050016,
       "npc_name": "운석3",
+      "npc_name_en": "Meteorite 3",
       "maps": [
         {
           "map_code": 221040300,
@@ -3779,6 +4665,7 @@
     {
       "npc_code": 2050017,
       "npc_name": "운석4",
+      "npc_name_en": "Meteorite 4",
       "maps": [
         {
           "map_code": 221040100,
@@ -3789,6 +4676,7 @@
     {
       "npc_code": 2050018,
       "npc_name": "운석5",
+      "npc_name_en": "Meteorite 5",
       "maps": [
         {
           "map_code": 221040201,
@@ -3799,6 +4687,7 @@
     {
       "npc_code": 2050019,
       "npc_name": "운석6",
+      "npc_name_en": "Meteorite 6",
       "maps": [
         {
           "map_code": 221040400,
@@ -3809,6 +4698,7 @@
     {
       "npc_code": 2050020,
       "npc_name": "수송선",
+      "npc_name_en": "Dropship",
       "maps": [
         {
           "map_code": 221030401,
@@ -3819,6 +4709,7 @@
     {
       "npc_code": 2051000,
       "npc_name": "페퍼",
+      "npc_name_en": "Dr. Pepper",
       "maps": [
         {
           "map_code": 221000200,
@@ -3829,6 +4720,7 @@
     {
       "npc_code": 2051001,
       "npc_name": "케이",
+      "npc_name_en": "Kay",
       "maps": [
         {
           "map_code": 221000200,
@@ -3839,6 +4731,7 @@
     {
       "npc_code": 2060000,
       "npc_name": "나누크",
+      "npc_name_en": "Nanuke",
       "maps": [
         {
           "map_code": 230010201,
@@ -3849,6 +4742,7 @@
     {
       "npc_code": 2060001,
       "npc_name": "로빈슨",
+      "npc_name_en": "Robinson",
       "maps": [
         {
           "map_code": 230020201,
@@ -3859,6 +4753,7 @@
     {
       "npc_code": 2060002,
       "npc_name": "태공",
+      "npc_name_en": "Tae Gong",
       "maps": [
         {
           "map_code": 230030101,
@@ -3869,6 +4764,7 @@
     {
       "npc_code": 2060003,
       "npc_name": "멜리아스",
+      "npc_name_en": "Melias",
       "maps": [
         {
           "map_code": 230000002,
@@ -3879,6 +4775,7 @@
     {
       "npc_code": 2060004,
       "npc_name": "오안네스",
+      "npc_name_en": "Oannes",
       "maps": [
         {
           "map_code": 230000002,
@@ -3889,6 +4786,7 @@
     {
       "npc_code": 2060005,
       "npc_name": "켄타",
+      "npc_name_en": "Kenta",
       "maps": [
         {
           "map_code": 230000003,
@@ -3899,6 +4797,7 @@
     {
       "npc_code": 2060006,
       "npc_name": "뮤즈",
+      "npc_name_en": "Muse",
       "maps": [
         {
           "map_code": 230000003,
@@ -3909,6 +4808,7 @@
     {
       "npc_code": 2060007,
       "npc_name": "칼립소",
+      "npc_name_en": "Calypso",
       "maps": [
         {
           "map_code": 230000002,
@@ -3919,6 +4819,7 @@
     {
       "npc_code": 2060008,
       "npc_name": "제라드",
+      "npc_name_en": "Gerrard",
       "maps": [
         {
           "map_code": 230000002,
@@ -3929,6 +4830,7 @@
     {
       "npc_code": 2060009,
       "npc_name": "돌고래",
+      "npc_name_en": "Dolphin",
       "maps": [
         {
           "map_code": 230000000,
@@ -3939,6 +4841,7 @@
     {
       "npc_code": 2060100,
       "npc_name": "카르타",
+      "npc_name_en": "Carta",
       "maps": [
         {
           "map_code": 230040001,
@@ -3949,6 +4852,7 @@
     {
       "npc_code": 2060101,
       "npc_name": "탐사대장 탱",
+      "npc_name_en": "Taeng the Explorer",
       "maps": [
         {
           "map_code": 230040401,
@@ -3959,11 +4863,13 @@
     {
       "npc_code": 2060102,
       "npc_name": "일그러진 차원의 문",
+      "npc_name_en": "Door to the Warped Dimension",
       "maps": []
     },
     {
       "npc_code": 2070000,
       "npc_name": "노서방",
+      "npc_name_en": "Mr. Noh",
       "maps": [
         {
           "map_code": 222000000,
@@ -3974,6 +4880,7 @@
     {
       "npc_code": 2070001,
       "npc_name": "뺑덕어멈",
+      "npc_name_en": "Bung's Mama",
       "maps": [
         {
           "map_code": 222000000,
@@ -3984,6 +4891,7 @@
     {
       "npc_code": 2070002,
       "npc_name": "먹쇠",
+      "npc_name_en": "Moki",
       "maps": [
         {
           "map_code": 222000000,
@@ -3994,6 +4902,7 @@
     {
       "npc_code": 2070003,
       "npc_name": "돌쇠",
+      "npc_name_en": "Dori",
       "maps": [
         {
           "map_code": 222000000,
@@ -4004,6 +4913,7 @@
     {
       "npc_code": 2071000,
       "npc_name": "박첨지",
+      "npc_name_en": "Chumji",
       "maps": [
         {
           "map_code": 222000000,
@@ -4014,6 +4924,7 @@
     {
       "npc_code": 2071001,
       "npc_name": "흥부",
+      "npc_name_en": "Hongbu",
       "maps": [
         {
           "map_code": 222000000,
@@ -4024,6 +4935,7 @@
     {
       "npc_code": 2071002,
       "npc_name": "놀부",
+      "npc_name_en": "Nolbu",
       "maps": [
         {
           "map_code": 222000000,
@@ -4034,6 +4946,7 @@
     {
       "npc_code": 2071003,
       "npc_name": "칠남",
+      "npc_name_en": "Chil Nam",
       "maps": [
         {
           "map_code": 222000000,
@@ -4044,6 +4957,7 @@
     {
       "npc_code": 2071004,
       "npc_name": "콩쥐",
+      "npc_name_en": "Kong Ji",
       "maps": [
         {
           "map_code": 222000000,
@@ -4054,6 +4968,7 @@
     {
       "npc_code": 2071005,
       "npc_name": "칠성",
+      "npc_name_en": "Chil Sung",
       "maps": [
         {
           "map_code": 222000000,
@@ -4064,6 +4979,7 @@
     {
       "npc_code": 2071006,
       "npc_name": "제비",
+      "npc_name_en": "Swallow",
       "maps": [
         {
           "map_code": 222000000,
@@ -4074,6 +4990,7 @@
     {
       "npc_code": 2071007,
       "npc_name": "연이 할머니",
+      "npc_name_en": "Grandma Yeon",
       "maps": [
         {
           "map_code": 222000000,
@@ -4084,6 +5001,7 @@
     {
       "npc_code": 2071008,
       "npc_name": "햇님이",
+      "npc_name_en": "Haenim",
       "maps": [
         {
           "map_code": 222000000,
@@ -4094,6 +5012,7 @@
     {
       "npc_code": 2071009,
       "npc_name": "심봉사",
+      "npc_name_en": "Mr. Shim",
       "maps": [
         {
           "map_code": 222000000,
@@ -4104,6 +5023,7 @@
     {
       "npc_code": 2071010,
       "npc_name": "산신령",
+      "npc_name_en": "God of Mountains",
       "maps": [
         {
           "map_code": 222010002,
@@ -4114,6 +5034,7 @@
     {
       "npc_code": 2071011,
       "npc_name": "나무꾼",
+      "npc_name_en": "Tree Cutter",
       "maps": [
         {
           "map_code": 222010102,
@@ -4124,26 +5045,31 @@
     {
       "npc_code": 2071012,
       "npc_name": "낯익은 처녀",
+      "npc_name_en": "A Familiar Lady",
       "maps": []
     },
     {
       "npc_code": 2071013,
       "npc_name": "노란 왕도깨비",
+      "npc_name_en": "Yellow King Goblin",
       "maps": []
     },
     {
       "npc_code": 2071014,
       "npc_name": "파란 왕도깨비",
+      "npc_name_en": "Blue King Goblin",
       "maps": []
     },
     {
       "npc_code": 2071015,
       "npc_name": "초록 왕도깨비",
+      "npc_name_en": "Green King Goblin",
       "maps": []
     },
     {
       "npc_code": 2072000,
       "npc_name": "칠성이네 볏짐",
+      "npc_name_en": "Chil Sung's Rice Stacks",
       "maps": [
         {
           "map_code": 222000000,
@@ -4154,6 +5080,7 @@
     {
       "npc_code": 2072001,
       "npc_name": "칠남이네 볏짐",
+      "npc_name_en": "Chil Nam's Rice Stacks",
       "maps": [
         {
           "map_code": 222000000,
@@ -4164,11 +5091,13 @@
     {
       "npc_code": 2073000,
       "npc_name": "박첨지",
+      "npc_name_en": "Park Chum Ji",
       "maps": []
     },
     {
       "npc_code": 2080000,
       "npc_name": "모스",
+      "npc_name_en": "Mos",
       "maps": [
         {
           "map_code": 240000000,
@@ -4179,6 +5108,7 @@
     {
       "npc_code": 2080001,
       "npc_name": "슬라이",
+      "npc_name_en": "Sly",
       "maps": [
         {
           "map_code": 240000002,
@@ -4189,6 +5119,7 @@
     {
       "npc_code": 2080002,
       "npc_name": "맥스",
+      "npc_name_en": "Max",
       "maps": [
         {
           "map_code": 240000000,
@@ -4199,6 +5130,7 @@
     {
       "npc_code": 2080003,
       "npc_name": "노만",
+      "npc_name_en": "Norman",
       "maps": [
         {
           "map_code": 240010800,
@@ -4209,6 +5141,7 @@
     {
       "npc_code": 2080004,
       "npc_name": "무디",
+      "npc_name_en": "Moodie",
       "maps": [
         {
           "map_code": 240000000,
@@ -4219,6 +5152,7 @@
     {
       "npc_code": 2080005,
       "npc_name": "코스쿠",
+      "npc_name_en": "Koscu",
       "maps": [
         {
           "map_code": 240000000,
@@ -4229,11 +5163,13 @@
     {
       "npc_code": 2080006,
       "npc_name": "돌고래",
+      "npc_name_en": "Dolphin",
       "maps": []
     },
     {
       "npc_code": 2081000,
       "npc_name": "촌장 타타모",
+      "npc_name_en": "Chief Tatamo",
       "maps": [
         {
           "map_code": 240000000,
@@ -4244,6 +5180,7 @@
     {
       "npc_code": 2081001,
       "npc_name": "쿠모",
+      "npc_name_en": "Kumo",
       "maps": [
         {
           "map_code": 240000005,
@@ -4254,6 +5191,7 @@
     {
       "npc_code": 2081002,
       "npc_name": "이토",
+      "npc_name_en": "Ito",
       "maps": [
         {
           "map_code": 240000004,
@@ -4264,6 +5202,7 @@
     {
       "npc_code": 2081003,
       "npc_name": "야쿠",
+      "npc_name_en": "Yaku",
       "maps": [
         {
           "map_code": 240000003,
@@ -4274,6 +5213,7 @@
     {
       "npc_code": 2081004,
       "npc_name": "팜",
+      "npc_name_en": "Pam",
       "maps": [
         {
           "map_code": 240000006,
@@ -4284,6 +5224,7 @@
     {
       "npc_code": 2081005,
       "npc_name": "케로벤",
+      "npc_name_en": "Keroben",
       "maps": [
         {
           "map_code": 240040700,
@@ -4294,6 +5235,7 @@
     {
       "npc_code": 2081006,
       "npc_name": "모이라",
+      "npc_name_en": "Moira",
       "maps": [
         {
           "map_code": 240040700,
@@ -4304,6 +5246,7 @@
     {
       "npc_code": 2081007,
       "npc_name": "기사 라울",
+      "npc_name_en": "Raul the Knight",
       "maps": [
         {
           "map_code": 240040400,
@@ -4314,11 +5257,13 @@
     {
       "npc_code": 2081008,
       "npc_name": "나인스피릿의 아기용",
+      "npc_name_en": "Nine Spirit's Baby Dragon",
       "maps": []
     },
     {
       "npc_code": 2081009,
       "npc_name": "무스",
+      "npc_name_en": "Moose",
       "maps": [
         {
           "map_code": 240010400,
@@ -4329,6 +5274,7 @@
     {
       "npc_code": 2081010,
       "npc_name": "무스",
+      "npc_name_en": "Moose",
       "maps": [
         {
           "map_code": 924000000,
@@ -4347,6 +5293,7 @@
     {
       "npc_code": 2081100,
       "npc_name": "하르모니아",
+      "npc_name_en": "Harmonia",
       "maps": [
         {
           "map_code": 240010501,
@@ -4357,6 +5304,7 @@
     {
       "npc_code": 2081200,
       "npc_name": "그리토",
+      "npc_name_en": "Gritto",
       "maps": [
         {
           "map_code": 240010501,
@@ -4367,6 +5315,7 @@
     {
       "npc_code": 2081300,
       "npc_name": "레고르",
+      "npc_name_en": "Legor",
       "maps": [
         {
           "map_code": 240010501,
@@ -4377,6 +5326,7 @@
     {
       "npc_code": 2081400,
       "npc_name": "헬린",
+      "npc_name_en": "Hellin",
       "maps": [
         {
           "map_code": 240010501,
@@ -4387,6 +5337,7 @@
     {
       "npc_code": 2081500,
       "npc_name": "새뮤엘",
+      "npc_name_en": "Samuel",
       "maps": [
         {
           "map_code": 240010501,
@@ -4397,6 +5348,7 @@
     {
       "npc_code": 2082000,
       "npc_name": "뮤",
+      "npc_name_en": "Mue",
       "maps": [
         {
           "map_code": 240000100,
@@ -4407,6 +5359,7 @@
     {
       "npc_code": 2082001,
       "npc_name": "타미",
+      "npc_name_en": "Tommie",
       "maps": [
         {
           "map_code": 240000110,
@@ -4417,11 +5370,18 @@
     {
       "npc_code": 2082002,
       "npc_name": "해리",
-      "maps": []
+      "npc_name_en": "Harry",
+      "maps": [
+        {
+          "map_code": 240000111,
+          "map_name": "리프레: 출발하기 전<오르비스행>"
+        }
+      ]
     },
     {
       "npc_code": 2083000,
       "npc_name": "결사대 암호석판",
+      "npc_name_en": "Encrypted Slate of the Squad",
       "maps": [
         {
           "map_code": 240050000,
@@ -4432,6 +5392,7 @@
     {
       "npc_code": 2083001,
       "npc_name": "혼테일의 이정표",
+      "npc_name_en": "Horntail's Schedule",
       "maps": [
         {
           "map_code": 240050000,
@@ -4454,6 +5415,7 @@
     {
       "npc_code": 2083002,
       "npc_name": "나무뿌리 수정",
+      "npc_name_en": "Crystal of Roots",
       "maps": [
         {
           "map_code": 240050100,
@@ -4516,6 +5478,7 @@
     {
       "npc_code": 2083003,
       "npc_name": "미로방 그루터기",
+      "npc_name_en": "Stump at the Room of Maze",
       "maps": [
         {
           "map_code": 240050100,
@@ -4526,6 +5489,7 @@
     {
       "npc_code": 2083004,
       "npc_name": "원정대의 표식",
+      "npc_name_en": "Mark of the Squad",
       "maps": [
         {
           "map_code": 240050400,
@@ -4536,6 +5500,7 @@
     {
       "npc_code": 2083005,
       "npc_name": "생명의 샘",
+      "npc_name_en": "Fountain of Life",
       "maps": [
         {
           "map_code": 240050400,
@@ -4546,6 +5511,7 @@
     {
       "npc_code": 2090000,
       "npc_name": "판서방",
+      "npc_name_en": "Mr. Pan",
       "maps": [
         {
           "map_code": 250000000,
@@ -4556,6 +5522,7 @@
     {
       "npc_code": 2090001,
       "npc_name": "공공",
+      "npc_name_en": "Gong Gong",
       "maps": [
         {
           "map_code": 250000000,
@@ -4566,6 +5533,7 @@
     {
       "npc_code": 2090002,
       "npc_name": "비디원",
+      "npc_name_en": "Bidiwon",
       "maps": [
         {
           "map_code": 250000000,
@@ -4576,6 +5544,7 @@
     {
       "npc_code": 2090003,
       "npc_name": "달숙",
+      "npc_name_en": "Dalsuk",
       "maps": [
         {
           "map_code": 250000002,
@@ -4586,6 +5555,7 @@
     {
       "npc_code": 2090004,
       "npc_name": "도의진",
+      "npc_name_en": "Mr. Do",
       "maps": [
         {
           "map_code": 250000000,
@@ -4596,9 +5566,14 @@
     {
       "npc_code": 2090005,
       "npc_name": "학",
+      "npc_name_en": "Hak",
       "maps": [
         {
           "map_code": 200000141,
+          "map_name": "오르비스: 정거장<무릉행>"
+        },
+        {
+          "map_code": 250000100,
           "map_name": "무릉: 무릉 사원"
         },
         {
@@ -4610,6 +5585,7 @@
     {
       "npc_code": 2090006,
       "npc_name": "라야",
+      "npc_name_en": "Laya",
       "maps": [
         {
           "map_code": 250000000,
@@ -4620,6 +5596,7 @@
     {
       "npc_code": 2090100,
       "npc_name": "루오 할아범",
+      "npc_name_en": "Grandpa Luo",
       "maps": [
         {
           "map_code": 250000003,
@@ -4630,6 +5607,7 @@
     {
       "npc_code": 2090101,
       "npc_name": "리리슈슈",
+      "npc_name_en": "Lilishu",
       "maps": [
         {
           "map_code": 250000003,
@@ -4640,6 +5618,7 @@
     {
       "npc_code": 2090102,
       "npc_name": "나란",
+      "npc_name_en": "Naran",
       "maps": [
         {
           "map_code": 250000000,
@@ -4650,6 +5629,7 @@
     {
       "npc_code": 2090103,
       "npc_name": "파타",
+      "npc_name_en": "Pata",
       "maps": [
         {
           "map_code": 250000000,
@@ -4660,6 +5640,7 @@
     {
       "npc_code": 2090104,
       "npc_name": "노마",
+      "npc_name_en": "Noma",
       "maps": [
         {
           "map_code": 250000000,
@@ -4670,6 +5651,7 @@
     {
       "npc_code": 2091000,
       "npc_name": "노공",
+      "npc_name_en": "No Gong",
       "maps": [
         {
           "map_code": 250000100,
@@ -4680,6 +5662,7 @@
     {
       "npc_code": 2091001,
       "npc_name": "도공",
+      "npc_name_en": "Do Gong",
       "maps": [
         {
           "map_code": 250000100,
@@ -4690,6 +5673,7 @@
     {
       "npc_code": 2091002,
       "npc_name": "태상",
+      "npc_name_en": "Tae Sang",
       "maps": [
         {
           "map_code": 250000001,
@@ -4700,6 +5684,7 @@
     {
       "npc_code": 2091003,
       "npc_name": "한태수",
+      "npc_name_en": "Tae Soo",
       "maps": [
         {
           "map_code": 250010500,
@@ -4710,11 +5695,13 @@
     {
       "npc_code": 2091004,
       "npc_name": "요괴선사",
+      "npc_name_en": "Master Goblin",
       "maps": []
     },
     {
       "npc_code": 2092000,
       "npc_name": "구영감",
+      "npc_name_en": "Mr. Ku",
       "maps": [
         {
           "map_code": 251000000,
@@ -4725,6 +5712,7 @@
     {
       "npc_code": 2092001,
       "npc_name": "황선장",
+      "npc_name_en": "Captain Hwang",
       "maps": [
         {
           "map_code": 251000000,
@@ -4735,6 +5723,7 @@
     {
       "npc_code": 2093000,
       "npc_name": "무탄",
+      "npc_name_en": "Mu Tan",
       "maps": [
         {
           "map_code": 251000000,
@@ -4745,6 +5734,7 @@
     {
       "npc_code": 2093001,
       "npc_name": "소원기",
+      "npc_name_en": "So Won",
       "maps": [
         {
           "map_code": 251000000,
@@ -4755,6 +5745,7 @@
     {
       "npc_code": 2093002,
       "npc_name": "란밍",
+      "npc_name_en": "Lan Ming",
       "maps": [
         {
           "map_code": 251000000,
@@ -4765,6 +5756,7 @@
     {
       "npc_code": 2093003,
       "npc_name": "공서방",
+      "npc_name_en": "Mr. Gong",
       "maps": [
         {
           "map_code": 251000000,
@@ -4775,6 +5767,7 @@
     {
       "npc_code": 2093004,
       "npc_name": "돌고래",
+      "npc_name_en": "Dolphin",
       "maps": [
         {
           "map_code": 251000100,
@@ -4785,16 +5778,18 @@
     {
       "npc_code": 2094000,
       "npc_name": "구옹",
+      "npc_name_en": "Guon",
       "maps": [
         {
           "map_code": 251010404,
-          "map_name": "해적 퇴치"
+          "map_name": "히든스트리트: 해적선 너머<입장맵>"
         }
       ]
     },
     {
       "npc_code": 2094001,
       "npc_name": "우양",
+      "npc_name_en": "Wu Yang",
       "maps": [
         {
           "map_code": 925100600,
@@ -4805,6 +5800,7 @@
     {
       "npc_code": 2094002,
       "npc_name": "구옹",
+      "npc_name_en": "Guon",
       "maps": [
         {
           "map_code": 925100000,
@@ -4831,6 +5827,7 @@
     {
       "npc_code": 2095000,
       "npc_name": "델리",
+      "npc_name_en": "Delli",
       "maps": [
         {
           "map_code": 925010200,
@@ -4841,6 +5838,7 @@
     {
       "npc_code": 2100000,
       "npc_name": "아흐마드",
+      "npc_name_en": "Ahmad",
       "maps": [
         {
           "map_code": 260000000,
@@ -4851,6 +5849,7 @@
     {
       "npc_code": 2100001,
       "npc_name": "무하마드",
+      "npc_name_en": "Muhamad",
       "maps": [
         {
           "map_code": 260000200,
@@ -4861,6 +5860,7 @@
     {
       "npc_code": 2100002,
       "npc_name": "자이드",
+      "npc_name_en": "Zaid",
       "maps": [
         {
           "map_code": 260000000,
@@ -4871,6 +5871,7 @@
     {
       "npc_code": 2100003,
       "npc_name": "야스민",
+      "npc_name_en": "Jasmin",
       "maps": [
         {
           "map_code": 260000000,
@@ -4881,6 +5882,7 @@
     {
       "npc_code": 2100004,
       "npc_name": "사가티",
+      "npc_name_en": "SagaT",
       "maps": [
         {
           "map_code": 260000000,
@@ -4891,6 +5893,7 @@
     {
       "npc_code": 2100005,
       "npc_name": "샤티",
+      "npc_name_en": "Shati",
       "maps": [
         {
           "map_code": 260000000,
@@ -4901,6 +5904,7 @@
     {
       "npc_code": 2100006,
       "npc_name": "마즈라",
+      "npc_name_en": "Mazra",
       "maps": [
         {
           "map_code": 260000000,
@@ -4911,6 +5915,7 @@
     {
       "npc_code": 2100007,
       "npc_name": "라일라",
+      "npc_name_en": "Lila",
       "maps": [
         {
           "map_code": 260000000,
@@ -4921,6 +5926,7 @@
     {
       "npc_code": 2100008,
       "npc_name": "바드르",
+      "npc_name_en": "Vard",
       "maps": [
         {
           "map_code": 260000000,
@@ -4931,6 +5937,7 @@
     {
       "npc_code": 2100009,
       "npc_name": "알딘",
+      "npc_name_en": "Aldin",
       "maps": [
         {
           "map_code": 260000000,
@@ -4941,6 +5948,7 @@
     {
       "npc_code": 2101000,
       "npc_name": "시린",
+      "npc_name_en": "Sirin",
       "maps": [
         {
           "map_code": 260000200,
@@ -4951,6 +5959,7 @@
     {
       "npc_code": 2101001,
       "npc_name": "지유르",
+      "npc_name_en": "Jiyur",
       "maps": [
         {
           "map_code": 260000200,
@@ -4961,6 +5970,7 @@
     {
       "npc_code": 2101002,
       "npc_name": "에레스카",
+      "npc_name_en": "Eleska",
       "maps": [
         {
           "map_code": 260000200,
@@ -4971,6 +5981,7 @@
     {
       "npc_code": 2101003,
       "npc_name": "아딘",
+      "npc_name_en": "Ardin",
       "maps": [
         {
           "map_code": 260000200,
@@ -4981,6 +5992,7 @@
     {
       "npc_code": 2101004,
       "npc_name": "티건",
+      "npc_name_en": "Tigun",
       "maps": [
         {
           "map_code": 260000300,
@@ -4991,6 +6003,7 @@
     {
       "npc_code": 2101005,
       "npc_name": "바이런",
+      "npc_name_en": "Byron",
       "maps": [
         {
           "map_code": 260000200,
@@ -5001,6 +6014,7 @@
     {
       "npc_code": 2101006,
       "npc_name": "어린왕자",
+      "npc_name_en": "Le Petit Prince",
       "maps": [
         {
           "map_code": 260010500,
@@ -5011,31 +6025,40 @@
     {
       "npc_code": 2101007,
       "npc_name": "아레다",
+      "npc_name_en": "Areda",
       "maps": [
         {
           "map_code": 260000303,
-          "map_name": "왕비의 화장품"
+          "map_name": "아리안트궁전: 아리안트 궁전<왕의 방>"
         }
       ]
     },
     {
       "npc_code": 2101008,
       "npc_name": "셰헤라자드",
+      "npc_name_en": "Schegerazade",
       "maps": [
         {
           "map_code": 260000303,
-          "map_name": "누나의 편지"
+          "map_name": "아리안트궁전: 아리안트 궁전<왕의 방>"
         }
       ]
     },
     {
       "npc_code": 2101009,
       "npc_name": "압둘라 8세",
-      "maps": []
+      "npc_name_en": "Abdullah VIII",
+      "maps": [
+        {
+          "map_code": 260000303,
+          "map_name": "아리안트궁전: 아리안트 궁전<왕의 방>"
+        }
+      ]
     },
     {
       "npc_code": 2101010,
       "npc_name": "자노",
+      "npc_name_en": "Jano",
       "maps": [
         {
           "map_code": 260000201,
@@ -5046,6 +6069,7 @@
     {
       "npc_code": 2101011,
       "npc_name": "세쟌",
+      "npc_name_en": "Sejan",
       "maps": [
         {
           "map_code": 260000200,
@@ -5056,6 +6080,7 @@
     {
       "npc_code": 2101012,
       "npc_name": "수상한 남자",
+      "npc_name_en": "Strange Guy",
       "maps": [
         {
           "map_code": 260010400,
@@ -5066,6 +6091,7 @@
     {
       "npc_code": 2101013,
       "npc_name": "카르카사",
+      "npc_name_en": "Karcasa",
       "maps": [
         {
           "map_code": 260010600,
@@ -5076,6 +6102,7 @@
     {
       "npc_code": 2101014,
       "npc_name": "세자르",
+      "npc_name_en": "Cesar",
       "maps": [
         {
           "map_code": 980010000,
@@ -5086,6 +6113,7 @@
     {
       "npc_code": 2101015,
       "npc_name": "압둘라 8세",
+      "npc_name_en": "Abdullah VIII",
       "maps": [
         {
           "map_code": 980010010,
@@ -5096,6 +6124,7 @@
     {
       "npc_code": 2101016,
       "npc_name": "아레다",
+      "npc_name_en": "Areda",
       "maps": [
         {
           "map_code": 980010010,
@@ -5106,6 +6135,7 @@
     {
       "npc_code": 2101017,
       "npc_name": "세자르",
+      "npc_name_en": "Cesar",
       "maps": [
         {
           "map_code": 980010100,
@@ -5136,6 +6166,7 @@
     {
       "npc_code": 2101018,
       "npc_name": "세자르",
+      "npc_name_en": "Cesar",
       "maps": [
         {
           "map_code": 100000000,
@@ -5158,6 +6189,7 @@
     {
       "npc_code": 2102000,
       "npc_name": "아세손",
+      "npc_name_en": "Asesson",
       "maps": [
         {
           "map_code": 260000100,
@@ -5168,11 +6200,18 @@
     {
       "npc_code": 2102001,
       "npc_name": "슬린",
-      "maps": []
+      "npc_name_en": "Slyn",
+      "maps": [
+        {
+          "map_code": 260000110,
+          "map_name": "아리안트: 출발하기전<오르비스행>"
+        }
+      ]
     },
     {
       "npc_code": 2102002,
       "npc_name": "시라스",
+      "npc_name_en": "Syras",
       "maps": [
         {
           "map_code": 260000100,
@@ -5183,6 +6222,7 @@
     {
       "npc_code": 2103000,
       "npc_name": "궁전 오아시스",
+      "npc_name_en": "Palace Oasis",
       "maps": [
         {
           "map_code": 260000300,
@@ -5193,6 +6233,7 @@
     {
       "npc_code": 2103001,
       "npc_name": "비밀의 벽",
+      "npc_name_en": "Secret wall",
       "maps": [
         {
           "map_code": 260000200,
@@ -5203,11 +6244,18 @@
     {
       "npc_code": 2103002,
       "npc_name": "왕비의 장식장",
-      "maps": []
+      "npc_name_en": "Queen's cabinet",
+      "maps": [
+        {
+          "map_code": 260000303,
+          "map_name": "아리안트궁전: 아리안트 궁전<왕의 방>"
+        }
+      ]
     },
     {
       "npc_code": 2103003,
       "npc_name": "아리안트 민가1",
+      "npc_name_en": "Ariant private house1",
       "maps": [
         {
           "map_code": 260000202,
@@ -5218,6 +6266,7 @@
     {
       "npc_code": 2103004,
       "npc_name": "아리안트 민가2",
+      "npc_name_en": "Ariant private house2",
       "maps": [
         {
           "map_code": 260000203,
@@ -5228,6 +6277,7 @@
     {
       "npc_code": 2103005,
       "npc_name": "아리안트 민가4",
+      "npc_name_en": "Ariant private house4",
       "maps": [
         {
           "map_code": 260000205,
@@ -5238,6 +6288,7 @@
     {
       "npc_code": 2103006,
       "npc_name": "아리안트 민가6",
+      "npc_name_en": "Ariant private house6",
       "maps": [
         {
           "map_code": 260000207,
@@ -5248,6 +6299,7 @@
     {
       "npc_code": 2103007,
       "npc_name": "보물상자",
+      "npc_name_en": "Treasure Box",
       "maps": [
         {
           "map_code": 260010402,
@@ -5258,6 +6310,7 @@
     {
       "npc_code": 2103008,
       "npc_name": "기묘한 목소리",
+      "npc_name_en": "Mysterious voice",
       "maps": [
         {
           "map_code": 260010401,
@@ -5268,6 +6321,7 @@
     {
       "npc_code": 2103009,
       "npc_name": "아리안트 민가1 찬장",
+      "npc_name_en": "Ariant private house1 Cupboard",
       "maps": [
         {
           "map_code": 260000202,
@@ -5278,6 +6332,7 @@
     {
       "npc_code": 2103010,
       "npc_name": "아리안트 민가2 찬장",
+      "npc_name_en": "Ariant private house2 Cupboard",
       "maps": [
         {
           "map_code": 260000203,
@@ -5288,6 +6343,7 @@
     {
       "npc_code": 2103011,
       "npc_name": "아리안트 민가4 찬장",
+      "npc_name_en": "Ariant private house4 Cupboard",
       "maps": [
         {
           "map_code": 260000205,
@@ -5298,6 +6354,7 @@
     {
       "npc_code": 2103012,
       "npc_name": "아리안트 민가6 찬장",
+      "npc_name_en": "Ariant private house6 Cupboard",
       "maps": [
         {
           "map_code": 260000207,
@@ -5308,6 +6365,7 @@
     {
       "npc_code": 2110000,
       "npc_name": "로슨",
+      "npc_name_en": "Rosen",
       "maps": [
         {
           "map_code": 261000000,
@@ -5318,6 +6376,7 @@
     {
       "npc_code": 2110001,
       "npc_name": "제리",
+      "npc_name_en": "Jerry",
       "maps": [
         {
           "map_code": 261000000,
@@ -5328,21 +6387,25 @@
     {
       "npc_code": 2110002,
       "npc_name": "루이",
+      "npc_name_en": "Kyol",
       "maps": []
     },
     {
       "npc_code": 2110003,
       "npc_name": "반리",
+      "npc_name_en": "Ramain",
       "maps": []
     },
     {
       "npc_code": 2110004,
       "npc_name": "스탠",
+      "npc_name_en": "Meren",
       "maps": []
     },
     {
       "npc_code": 2110005,
       "npc_name": "낙타 택시",
+      "npc_name_en": "Camel Taxi",
       "maps": [
         {
           "map_code": 260020700,
@@ -5353,21 +6416,25 @@
     {
       "npc_code": 2111000,
       "npc_name": "카슨",
+      "npc_name_en": "Carson",
       "maps": []
     },
     {
       "npc_code": 2111001,
       "npc_name": "매드",
+      "npc_name_en": "Maed",
       "maps": []
     },
     {
       "npc_code": 2111002,
       "npc_name": "드랭",
+      "npc_name_en": "De lang",
       "maps": []
     },
     {
       "npc_code": 2111003,
       "npc_name": "휴머노이드 A",
+      "npc_name_en": "Humanoid A",
       "maps": [
         {
           "map_code": 261000000,
@@ -5378,6 +6445,7 @@
     {
       "npc_code": 2111004,
       "npc_name": "필리아",
+      "npc_name_en": "Philia",
       "maps": [
         {
           "map_code": 261000000,
@@ -5388,6 +6456,7 @@
     {
       "npc_code": 2111005,
       "npc_name": "키니",
+      "npc_name_en": "Kiny",
       "maps": [
         {
           "map_code": 261000000,
@@ -5398,6 +6467,7 @@
     {
       "npc_code": 2111006,
       "npc_name": "파웬",
+      "npc_name_en": "Pawen",
       "maps": [
         {
           "map_code": 261020401,
@@ -5408,6 +6478,7 @@
     {
       "npc_code": 2111007,
       "npc_name": "브로커 한",
+      "npc_name_en": "Broker Han.",
       "maps": [
         {
           "map_code": 261000000,
@@ -5418,6 +6489,7 @@
     {
       "npc_code": 2111008,
       "npc_name": "베딘",
+      "npc_name_en": "Bedin.",
       "maps": [
         {
           "map_code": 261010000,
@@ -5428,6 +6500,7 @@
     {
       "npc_code": 2111009,
       "npc_name": "러셀론",
+      "npc_name_en": "Russellon",
       "maps": [
         {
           "map_code": 261020000,
@@ -5438,31 +6511,37 @@
     {
       "npc_code": 2111010,
       "npc_name": "알카드노의 책장",
+      "npc_name_en": "Alchedeno's Cabinet.",
       "maps": []
     },
     {
       "npc_code": 2111011,
       "npc_name": "벽",
+      "npc_name_en": "Wall",
       "maps": []
     },
     {
       "npc_code": 2111012,
       "npc_name": "책장",
+      "npc_name_en": "Cabinet",
       "maps": []
     },
     {
       "npc_code": 2111013,
       "npc_name": "액자",
+      "npc_name_en": "Picture frame",
       "maps": []
     },
     {
       "npc_code": 2111014,
       "npc_name": "책상",
+      "npc_name_en": "Desk",
       "maps": []
     },
     {
       "npc_code": 2111015,
       "npc_name": "러셀론의 책상",
+      "npc_name_en": "Russellon's Desk",
       "maps": [
         {
           "map_code": 261020200,
@@ -5473,46 +6552,55 @@
     {
       "npc_code": 2111016,
       "npc_name": "드랭의 비밀책",
+      "npc_name_en": "De Lang's Secret book",
       "maps": []
     },
     {
       "npc_code": 2111017,
       "npc_name": "첫번째 파이프손잡이",
+      "npc_name_en": "1st Pipe handle",
       "maps": []
     },
     {
       "npc_code": 2111018,
       "npc_name": "두번째 파이프손잡이",
+      "npc_name_en": "2nd Pipe handle",
       "maps": []
     },
     {
       "npc_code": 2111019,
       "npc_name": "세번째 파이프손잡이",
+      "npc_name_en": "3rd Pipe handle",
       "maps": []
     },
     {
       "npc_code": 2111020,
       "npc_name": "첫번째 마법진",
+      "npc_name_en": "1st Magical array.",
       "maps": []
     },
     {
       "npc_code": 2111021,
       "npc_name": "두번째 마법진",
+      "npc_name_en": "2nd Magical array",
       "maps": []
     },
     {
       "npc_code": 2111022,
       "npc_name": "세번째 마법진",
+      "npc_name_en": "3rd Magical array",
       "maps": []
     },
     {
       "npc_code": 2111023,
       "npc_name": "마법진 중앙",
+      "npc_name_en": "Magical array center.",
       "maps": []
     },
     {
       "npc_code": 2111024,
       "npc_name": "비밀통로",
+      "npc_name_en": "Secret passege",
       "maps": [
         {
           "map_code": 261010000,
@@ -5527,6 +6615,7 @@
     {
       "npc_code": 2111025,
       "npc_name": "제어장치",
+      "npc_name_en": "Control Device",
       "maps": [
         {
           "map_code": 261020401,
@@ -5537,6 +6626,7 @@
     {
       "npc_code": 2111026,
       "npc_name": "미완성 마법진",
+      "npc_name_en": "Incomplete Magic Square",
       "maps": [
         {
           "map_code": 261010102,
@@ -5547,256 +6637,307 @@
     {
       "npc_code": 2112000,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112001,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112002,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112003,
       "npc_name": "줄리엣",
+      "npc_name_en": "Brittany",
       "maps": []
     },
     {
       "npc_code": 2112004,
       "npc_name": "로미오",
+      "npc_name_en": "Brady",
       "maps": []
     },
     {
       "npc_code": 2112005,
       "npc_name": "줄리엣",
+      "npc_name_en": "Brittany",
       "maps": []
     },
     {
       "npc_code": 2112006,
       "npc_name": "로미오",
+      "npc_name_en": "Brady",
       "maps": []
     },
     {
       "npc_code": 2112007,
       "npc_name": "조사 결과",
+      "npc_name_en": "Investigation Result.",
       "maps": []
     },
     {
       "npc_code": 2112008,
       "npc_name": "줄리엣",
+      "npc_name_en": "Brittany",
       "maps": []
     },
     {
       "npc_code": 2112009,
       "npc_name": "로미오",
+      "npc_name_en": "Brady",
       "maps": []
     },
     {
       "npc_code": 2112010,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112011,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112012,
       "npc_name": "유레테",
+      "npc_name_en": "Yulete",
       "maps": []
     },
     {
       "npc_code": 2112013,
       "npc_name": "조사 결과",
+      "npc_name_en": "Investigation Result.",
       "maps": []
     },
     {
       "npc_code": 2112014,
       "npc_name": "유레테",
+      "npc_name_en": "유레테",
       "maps": []
     },
     {
       "npc_code": 2120000,
       "npc_name": "가면신사",
+      "npc_name_en": "Masked Gentleman",
       "maps": []
     },
     {
       "npc_code": 2120001,
       "npc_name": "문지기",
+      "npc_name_en": "문지기",
       "maps": []
     },
     {
       "npc_code": 2120002,
       "npc_name": "집사",
+      "npc_name_en": "Steward",
       "maps": []
     },
     {
       "npc_code": 2120003,
       "npc_name": "메이드",
+      "npc_name_en": "Maid",
       "maps": []
     },
     {
       "npc_code": 2120004,
       "npc_name": "조나스",
+      "npc_name_en": "조나스",
       "maps": []
     },
     {
       "npc_code": 2120005,
       "npc_name": "소필리아",
+      "npc_name_en": "소필리아",
       "maps": []
     },
     {
       "npc_code": 2120006,
       "npc_name": "루드밀라",
+      "npc_name_en": "루드밀라",
       "maps": []
     },
     {
       "npc_code": 2120007,
       "npc_name": "조이",
+      "npc_name_en": "조이",
       "maps": []
     },
     {
       "npc_code": 2120008,
       "npc_name": "유령 T",
+      "npc_name_en": "유령 T",
       "maps": []
     },
     {
       "npc_code": 2120009,
       "npc_name": "집사",
+      "npc_name_en": "Steward",
       "maps": []
     },
     {
       "npc_code": 2121000,
       "npc_name": "이름 모를 고양이",
+      "npc_name_en": "이름 모를 고양이",
       "maps": []
     },
     {
       "npc_code": 2121001,
       "npc_name": "비석이 쓰러진 무덤",
+      "npc_name_en": "비석이 쓰러진 무덤",
       "maps": []
     },
     {
       "npc_code": 2121002,
       "npc_name": "이름 모를 무덤",
+      "npc_name_en": "이름 모를 무덤",
       "maps": []
     },
     {
       "npc_code": 2121003,
       "npc_name": "찾는 이 없는 무덤",
+      "npc_name_en": "찾는 이 없는 무덤",
       "maps": []
     },
     {
       "npc_code": 2121004,
       "npc_name": "누군가의 무덤",
+      "npc_name_en": "누군가의 무덤",
       "maps": []
     },
     {
       "npc_code": 2121005,
       "npc_name": "피아노",
+      "npc_name_en": "피아노",
       "maps": []
     },
     {
       "npc_code": 2121006,
       "npc_name": "누군가의 액자1",
+      "npc_name_en": "누군가의 액자1",
       "maps": []
     },
     {
       "npc_code": 2121007,
       "npc_name": "누군가의 액자2",
+      "npc_name_en": "누군가의 액자2",
       "maps": []
     },
     {
       "npc_code": 2121008,
       "npc_name": "누군가의 액자3",
+      "npc_name_en": "누군가의 액자3",
       "maps": []
     },
     {
       "npc_code": 2121009,
       "npc_name": "누군가의 액자4",
+      "npc_name_en": "누군가의 액자4",
       "maps": []
     },
     {
       "npc_code": 2121010,
       "npc_name": "누군가의 액자5",
+      "npc_name_en": "누군가의 액자5",
       "maps": []
     },
     {
       "npc_code": 2121011,
       "npc_name": "소필리아의 액자",
+      "npc_name_en": "소필리아의 액자",
       "maps": []
     },
     {
       "npc_code": 2130000,
       "npc_name": "마요른",
+      "npc_name_en": "Mayorn",
       "maps": []
     },
     {
       "npc_code": 2131000,
       "npc_name": "헬레나",
+      "npc_name_en": "Helena",
       "maps": []
     },
     {
       "npc_code": 2131001,
       "npc_name": "페르젠",
+      "npc_name_en": "Pergen",
       "maps": []
     },
     {
       "npc_code": 2131002,
       "npc_name": "유리스",
+      "npc_name_en": "Euryth",
       "maps": []
     },
     {
       "npc_code": 2131003,
       "npc_name": "로하",
+      "npc_name_en": "Roha",
       "maps": []
     },
     {
       "npc_code": 2131004,
       "npc_name": "주먹쥐고 누워",
+      "npc_name_en": "Dances with Zakum",
       "maps": []
     },
     {
       "npc_code": 2131005,
       "npc_name": "시온",
+      "npc_name_en": "Sion",
       "maps": []
     },
     {
       "npc_code": 2131006,
       "npc_name": "두르",
+      "npc_name_en": "Durr",
       "maps": []
     },
     {
       "npc_code": 2131007,
       "npc_name": "테스",
+      "npc_name_en": "Tess",
       "maps": []
     },
     {
       "npc_code": 2132000,
       "npc_name": "칸데룬",
+      "npc_name_en": "Kanderun",
       "maps": []
     },
     {
       "npc_code": 2132001,
       "npc_name": "로드",
+      "npc_name_en": "Lord",
       "maps": []
     },
     {
       "npc_code": 2132002,
       "npc_name": "리어스",
+      "npc_name_en": "Rios",
       "maps": []
     },
     {
       "npc_code": 2132003,
       "npc_name": "샤드리언",
+      "npc_name_en": "Shadrian",
       "maps": []
     },
     {
       "npc_code": 9000000,
       "npc_name": "폴",
+      "npc_name_en": "Paul",
       "maps": [
         {
           "map_code": 261000000,
@@ -5807,6 +6948,7 @@
     {
       "npc_code": 9000001,
       "npc_name": "쟝",
+      "npc_name_en": "Jean",
       "maps": [
         {
           "map_code": 104000000,
@@ -5817,11 +6959,13 @@
     {
       "npc_code": 9000002,
       "npc_name": "피에트로",
+      "npc_name_en": "Pietro",
       "maps": []
     },
     {
       "npc_code": 9000003,
       "npc_name": "바이칸",
+      "npc_name_en": "Vikan",
       "maps": [
         {
           "map_code": 109010000,
@@ -5832,6 +6976,7 @@
     {
       "npc_code": 9000004,
       "npc_name": "바이콘",
+      "npc_name_en": "Vikon",
       "maps": [
         {
           "map_code": 109010100,
@@ -5842,6 +6987,7 @@
     {
       "npc_code": 9000005,
       "npc_name": "바이컨",
+      "npc_name_en": "Vikone",
       "maps": [
         {
           "map_code": 109010200,
@@ -5852,11 +6998,13 @@
     {
       "npc_code": 9000006,
       "npc_name": "바이쿤",
+      "npc_name_en": "Vikoon",
       "maps": []
     },
     {
       "npc_code": 9000007,
       "npc_name": "천지",
+      "npc_name_en": "Chun Ji",
       "maps": [
         {
           "map_code": 103010000,
@@ -5867,6 +7015,7 @@
     {
       "npc_code": 9000008,
       "npc_name": "몽땅따",
+      "npc_name_en": "Mr. Pickall",
       "maps": [
         {
           "map_code": 103000000,
@@ -5877,6 +7026,7 @@
     {
       "npc_code": 9000009,
       "npc_name": "바이킨",
+      "npc_name_en": "Vikin",
       "maps": [
         {
           "map_code": 104000000,
@@ -5887,11 +7037,13 @@
     {
       "npc_code": 9000010,
       "npc_name": "피에트라",
+      "npc_name_en": "Pietra",
       "maps": []
     },
     {
       "npc_code": 9000011,
       "npc_name": "마틴",
+      "npc_name_en": "Martin",
       "maps": [
         {
           "map_code": 200000000,
@@ -5902,6 +7054,7 @@
     {
       "npc_code": 9000012,
       "npc_name": "해리",
+      "npc_name_en": "Harry",
       "maps": [
         {
           "map_code": 109080000,
@@ -5924,6 +7077,7 @@
     {
       "npc_code": 9000013,
       "npc_name": "토니",
+      "npc_name_en": "Tony",
       "maps": [
         {
           "map_code": 220000000,
@@ -5934,6 +7088,7 @@
     {
       "npc_code": 9000014,
       "npc_name": "지니",
+      "npc_name_en": "Geanie",
       "maps": [
         {
           "map_code": 220000000,
@@ -5944,6 +7099,7 @@
     {
       "npc_code": 9000015,
       "npc_name": "타미스",
+      "npc_name_en": "Tamis",
       "maps": [
         {
           "map_code": 109010000,
@@ -5954,6 +7110,7 @@
     {
       "npc_code": 9000017,
       "npc_name": "코코",
+      "npc_name_en": "Coco",
       "maps": [
         {
           "map_code": 100000000,
@@ -5984,16 +7141,19 @@
     {
       "npc_code": 9000018,
       "npc_name": "마틸다",
+      "npc_name_en": "Matilda",
       "maps": []
     },
     {
       "npc_code": 9000019,
       "npc_name": "가위바위보 운영자",
+      "npc_name_en": "Rock, Paper, Scissor Admin",
       "maps": []
     },
     {
       "npc_code": 9000020,
       "npc_name": "스피넬",
+      "npc_name_en": "Spinel",
       "maps": [
         {
           "map_code": 100000000,
@@ -6048,6 +7208,7 @@
     {
       "npc_code": 9000021,
       "npc_name": "가가",
+      "npc_name_en": "Gaga",
       "maps": [
         {
           "map_code": 261000000,
@@ -6058,6 +7219,7 @@
     {
       "npc_code": 9000036,
       "npc_name": "요원 E",
+      "npc_name_en": "Agent E",
       "maps": [
         {
           "map_code": 261000000,
@@ -6068,6 +7230,7 @@
     {
       "npc_code": 9000040,
       "npc_name": "달리어",
+      "npc_name_en": "Dalair",
       "maps": [
         {
           "map_code": 261000000,
@@ -6078,6 +7241,7 @@
     {
       "npc_code": 9000041,
       "npc_name": "기부함",
+      "npc_name_en": "Donation Box",
       "maps": [
         {
           "map_code": 261000000,
@@ -6088,36 +7252,43 @@
     {
       "npc_code": 9001000,
       "npc_name": "코-크베어 운영자",
+      "npc_name_en": "코크베어 운영자",
       "maps": []
     },
     {
       "npc_code": 9001001,
       "npc_name": "북극곰 로로",
+      "npc_name_en": "로로",
       "maps": []
     },
     {
       "npc_code": 9001002,
       "npc_name": "북극곰 포치",
+      "npc_name_en": "북극곰 포치",
       "maps": []
     },
     {
       "npc_code": 9001003,
       "npc_name": "북극곰 넬",
+      "npc_name_en": "북극곰 넬",
       "maps": []
     },
     {
       "npc_code": 9001005,
       "npc_name": "북극곰 푸치",
+      "npc_name_en": "북극곰 푸치",
       "maps": []
     },
     {
       "npc_code": 9001006,
       "npc_name": "북극곰 푸치",
+      "npc_name_en": "북극곰 푸치",
       "maps": []
     },
     {
       "npc_code": 9001102,
       "npc_name": "아기 월묘",
+      "npc_name_en": "Baby Moon Bunny",
       "maps": [
         {
           "map_code": 261000000,
@@ -6128,6 +7299,7 @@
     {
       "npc_code": 9010000,
       "npc_name": "메이플 운영자",
+      "npc_name_en": "Maple Administrator",
       "maps": [
         {
           "map_code": 100000000,
@@ -6186,6 +7358,7 @@
     {
       "npc_code": 9010001,
       "npc_name": "티아",
+      "npc_name_en": "Tia",
       "maps": [
         {
           "map_code": 102000000,
@@ -6196,6 +7369,7 @@
     {
       "npc_code": 9010002,
       "npc_name": "로아",
+      "npc_name_en": "Mia",
       "maps": [
         {
           "map_code": 100000000,
@@ -6210,6 +7384,7 @@
     {
       "npc_code": 9010003,
       "npc_name": "리아",
+      "npc_name_en": "Ria",
       "maps": [
         {
           "map_code": 101000000,
@@ -6220,31 +7395,37 @@
     {
       "npc_code": 9010004,
       "npc_name": "미아",
+      "npc_name_en": "Mia",
       "maps": []
     },
     {
       "npc_code": 9010005,
       "npc_name": "다이앤",
+      "npc_name_en": "Diane",
       "maps": []
     },
     {
       "npc_code": 9010006,
       "npc_name": "샐리",
+      "npc_name_en": "Sally",
       "maps": []
     },
     {
       "npc_code": 9010007,
       "npc_name": "조시",
+      "npc_name_en": "Josh",
       "maps": []
     },
     {
       "npc_code": 9010008,
       "npc_name": "페티트",
+      "npc_name_en": "Pettite",
       "maps": []
     },
     {
       "npc_code": 9010009,
       "npc_name": "듀이",
+      "npc_name_en": "Duey",
       "maps": [
         {
           "map_code": 100000000,
@@ -6307,6 +7488,7 @@
     {
       "npc_code": 9010010,
       "npc_name": "카산드라",
+      "npc_name_en": "Cassandra",
       "maps": [
         {
           "map_code": 100000000,
@@ -6377,6 +7559,7 @@
     {
       "npc_code": 9010011,
       "npc_name": "주황버섯",
+      "npc_name_en": "Orange Mushroom",
       "maps": [
         {
           "map_code": 100010000,
@@ -6387,6 +7570,7 @@
     {
       "npc_code": 9010012,
       "npc_name": "스타픽시",
+      "npc_name_en": "Star Pixie",
       "maps": [
         {
           "map_code": 200010000,
@@ -6397,6 +7581,7 @@
     {
       "npc_code": 9010013,
       "npc_name": "헹키",
+      "npc_name_en": "Hengki",
       "maps": [
         {
           "map_code": 240010200,
@@ -6407,11 +7592,13 @@
     {
       "npc_code": 9010014,
       "npc_name": "아르미",
+      "npc_name_en": "Aramia",
       "maps": []
     },
     {
       "npc_code": 9010022,
       "npc_name": "차원의 거울",
+      "npc_name_en": "Dimensional Mirror",
       "maps": [
         {
           "map_code": 261000000,
@@ -6422,6 +7609,7 @@
     {
       "npc_code": 9020000,
       "npc_name": "라케리스",
+      "npc_name_en": "Lakelis",
       "maps": [
         {
           "map_code": 103000000,
@@ -6432,26 +7620,31 @@
     {
       "npc_code": 9020001,
       "npc_name": "클로토",
+      "npc_name_en": "Cloto",
       "maps": []
     },
     {
       "npc_code": 9020002,
       "npc_name": "네일리아",
+      "npc_name_en": "Nella",
       "maps": []
     },
     {
       "npc_code": 9030000,
       "npc_name": "프레드릭",
+      "npc_name_en": "Fredrick",
       "maps": []
     },
     {
       "npc_code": 9030100,
       "npc_name": "스크루지",
+      "npc_name_en": "Scrooge",
       "maps": []
     },
     {
       "npc_code": 9040000,
       "npc_name": "슈앵",
+      "npc_name_en": "Shuang",
       "maps": [
         {
           "map_code": 101030104,
@@ -6462,6 +7655,7 @@
     {
       "npc_code": 9040001,
       "npc_name": "누리스",
+      "npc_name_en": "Nuris",
       "maps": [
         {
           "map_code": 990001100,
@@ -6472,6 +7666,7 @@
     {
       "npc_code": 9040002,
       "npc_name": "샨",
+      "npc_name_en": "Shawn",
       "maps": [
         {
           "map_code": 101030104,
@@ -6482,11 +7677,13 @@
     {
       "npc_code": 9040003,
       "npc_name": "샤렌 3세의 영혼",
+      "npc_name_en": "Sharen III's Soul",
       "maps": []
     },
     {
       "npc_code": 9040004,
       "npc_name": "명예로운 바위",
+      "npc_name_en": "Honorable Rock",
       "maps": [
         {
           "map_code": 102000000,
@@ -6517,6 +7714,7 @@
     {
       "npc_code": 9040005,
       "npc_name": "귀환석",
+      "npc_name_en": "Returning Rock",
       "maps": [
         {
           "map_code": 990000100,
@@ -6559,6 +7757,7 @@
     {
       "npc_code": 9040006,
       "npc_name": "분수 조각상",
+      "npc_name_en": "Guard Statue",
       "maps": [
         {
           "map_code": 990000500,
@@ -6569,6 +7768,7 @@
     {
       "npc_code": 9040007,
       "npc_name": "샤렌 3세의 유언장",
+      "npc_name_en": "Sharen III's Will",
       "maps": [
         {
           "map_code": 990000600,
@@ -6579,6 +7779,7 @@
     {
       "npc_code": 9040008,
       "npc_name": "길드 랭킹 게시판",
+      "npc_name_en": "Guild Rank Board",
       "maps": [
         {
           "map_code": 101030104,
@@ -6589,6 +7790,7 @@
     {
       "npc_code": 9040009,
       "npc_name": "성문 문지기",
+      "npc_name_en": "Gatekeeper",
       "maps": [
         {
           "map_code": 990000300,
@@ -6599,6 +7801,7 @@
     {
       "npc_code": 9040010,
       "npc_name": "비호 석상",
+      "npc_name_en": "Tiger Statue",
       "maps": [
         {
           "map_code": 990000900,
@@ -6609,6 +7812,7 @@
     {
       "npc_code": 9040011,
       "npc_name": "게시판",
+      "npc_name_en": "Bulletin Board",
       "maps": [
         {
           "map_code": 101030104,
@@ -6623,6 +7827,7 @@
     {
       "npc_code": 9040012,
       "npc_name": "기사갑옷",
+      "npc_name_en": "Knight Armor",
       "maps": [
         {
           "map_code": 990000400,
@@ -6633,6 +7838,7 @@
     {
       "npc_code": 9060000,
       "npc_name": "켄타",
+      "npc_name_en": "Kenta",
       "maps": [
         {
           "map_code": 923010000,
@@ -6643,41 +7849,49 @@
     {
       "npc_code": 9090000,
       "npc_name": "묘묘",
+      "npc_name_en": "묘묘",
       "maps": []
     },
     {
       "npc_code": 9100000,
       "npc_name": "커닝시티 마네키네코",
+      "npc_name_en": "Kerning City Manekineko",
       "maps": []
     },
     {
       "npc_code": 9100001,
       "npc_name": "헤네시스 마네키네코",
+      "npc_name_en": "Henesys Manekineko",
       "maps": []
     },
     {
       "npc_code": 9100002,
       "npc_name": "엘리니아 마네키네코",
+      "npc_name_en": "Ellinia Manekineko",
       "maps": []
     },
     {
       "npc_code": 9100003,
       "npc_name": "페리온 마네키네코",
+      "npc_name_en": "Perion Manekineko",
       "maps": []
     },
     {
       "npc_code": 9100004,
       "npc_name": "슬리피우드 마네키네코",
+      "npc_name_en": "Sleepywood Manekineko",
       "maps": []
     },
     {
       "npc_code": 9100100,
       "npc_name": "가",
+      "npc_name_en": "Gachapon",
       "maps": []
     },
     {
       "npc_code": 9100101,
       "npc_name": "나",
+      "npc_name_en": "Gachapon",
       "maps": [
         {
           "map_code": 101000000,
@@ -6688,6 +7902,7 @@
     {
       "npc_code": 9100102,
       "npc_name": "다",
+      "npc_name_en": "Gachapon",
       "maps": [
         {
           "map_code": 102000000,
@@ -6698,6 +7913,7 @@
     {
       "npc_code": 9100103,
       "npc_name": "라",
+      "npc_name_en": "Gachapon",
       "maps": [
         {
           "map_code": 103000000,
@@ -6708,6 +7924,7 @@
     {
       "npc_code": 9100104,
       "npc_name": "마",
+      "npc_name_en": "Gachapon",
       "maps": [
         {
           "map_code": 105040300,
@@ -6718,6 +7935,7 @@
     {
       "npc_code": 9100105,
       "npc_name": "바",
+      "npc_name_en": "Gachapon",
       "maps": [
         {
           "map_code": 800000000,
@@ -6728,31 +7946,37 @@
     {
       "npc_code": 9100106,
       "npc_name": "사",
+      "npc_name_en": "Gachapon",
       "maps": []
     },
     {
       "npc_code": 9100107,
       "npc_name": "아",
+      "npc_name_en": "Gachapon",
       "maps": []
     },
     {
       "npc_code": 9100108,
       "npc_name": "자",
+      "npc_name_en": "Gachapon",
       "maps": []
     },
     {
       "npc_code": 9110000,
       "npc_name": "페리",
+      "npc_name_en": "Perry",
       "maps": []
     },
     {
       "npc_code": 9110001,
       "npc_name": "라이우 무사",
+      "npc_name_en": "Raimu the Warrior",
       "maps": []
     },
     {
       "npc_code": 9110002,
       "npc_name": "키노코노코",
+      "npc_name_en": "Kino Konoko",
       "maps": [
         {
           "map_code": 800000000,
@@ -6763,6 +7987,7 @@
     {
       "npc_code": 9110003,
       "npc_name": "쟈켄",
+      "npc_name_en": "Janken",
       "maps": [
         {
           "map_code": 800000000,
@@ -6773,6 +7998,7 @@
     {
       "npc_code": 9110004,
       "npc_name": "타루",
+      "npc_name_en": "Taru",
       "maps": [
         {
           "map_code": 800000000,
@@ -6783,6 +8009,7 @@
     {
       "npc_code": 9110005,
       "npc_name": "브론즈",
+      "npc_name_en": "Bronze",
       "maps": [
         {
           "map_code": 800000000,
@@ -6793,6 +8020,7 @@
     {
       "npc_code": 9110006,
       "npc_name": "진쟈",
+      "npc_name_en": "Jin Jia",
       "maps": [
         {
           "map_code": 800000000,
@@ -6803,6 +8031,7 @@
     {
       "npc_code": 9110007,
       "npc_name": "로보",
+      "npc_name_en": "Robo",
       "maps": [
         {
           "map_code": 800000000,
@@ -6813,21 +8042,25 @@
     {
       "npc_code": 9110008,
       "npc_name": "로보",
+      "npc_name_en": "Perry",
       "maps": []
     },
     {
       "npc_code": 9110009,
       "npc_name": "적선함",
+      "npc_name_en": "Gachapon Charity Box",
       "maps": []
     },
     {
       "npc_code": 9110010,
       "npc_name": "버섯석상",
+      "npc_name_en": "Gachapon Statue",
       "maps": []
     },
     {
       "npc_code": 9110100,
       "npc_name": "욧코라",
+      "npc_name_en": "Yokoda",
       "maps": [
         {
           "map_code": 800040000,
@@ -6838,6 +8071,7 @@
     {
       "npc_code": 9110101,
       "npc_name": "데얀데",
+      "npc_name_en": "Teyandei",
       "maps": [
         {
           "map_code": 800040000,
@@ -6848,6 +8082,7 @@
     {
       "npc_code": 9110103,
       "npc_name": "아오이",
+      "npc_name_en": "Aoi",
       "maps": [
         {
           "map_code": 800040000,
@@ -6858,6 +8093,7 @@
     {
       "npc_code": 9110104,
       "npc_name": "횻토코",
+      "npc_name_en": "Hyottoko",
       "maps": [
         {
           "map_code": 800040100,
@@ -6868,6 +8104,7 @@
     {
       "npc_code": 9110106,
       "npc_name": "안즈 공주",
+      "npc_name_en": "Anz",
       "maps": [
         {
           "map_code": 800040100,
@@ -6878,6 +8115,7 @@
     {
       "npc_code": 9110108,
       "npc_name": "매부리",
+      "npc_name_en": "Falcon Trainer",
       "maps": [
         {
           "map_code": 800040100,
@@ -6888,6 +8126,7 @@
     {
       "npc_code": 9110109,
       "npc_name": "Taekken",
+      "npc_name_en": "Taekken",
       "maps": [
         {
           "map_code": 800040100,
@@ -6898,6 +8137,7 @@
     {
       "npc_code": 9110110,
       "npc_name": "우스케",
+      "npc_name_en": "Uske",
       "maps": [
         {
           "map_code": 800040000,
@@ -6908,6 +8148,7 @@
     {
       "npc_code": 9110111,
       "npc_name": "사스케",
+      "npc_name_en": "Sasuke",
       "maps": [
         {
           "map_code": 800040000,
@@ -6918,6 +8159,7 @@
     {
       "npc_code": 9110112,
       "npc_name": "카메데야",
+      "npc_name_en": "Kamedeya",
       "maps": [
         {
           "map_code": 800040000,
@@ -6928,6 +8170,7 @@
     {
       "npc_code": 9110113,
       "npc_name": "퓽퓽",
+      "npc_name_en": "Shururu",
       "maps": [
         {
           "map_code": 800040000,
@@ -6938,6 +8181,7 @@
     {
       "npc_code": 9110114,
       "npc_name": "나가레",
+      "npc_name_en": "Nagare",
       "maps": [
         {
           "map_code": 800040100,
@@ -6948,6 +8192,7 @@
     {
       "npc_code": 9120000,
       "npc_name": "신타",
+      "npc_name_en": "Shinta",
       "maps": [
         {
           "map_code": 801000300,
@@ -6958,6 +8203,7 @@
     {
       "npc_code": 9120001,
       "npc_name": "하나코",
+      "npc_name_en": "Hanako",
       "maps": [
         {
           "map_code": 801000300,
@@ -6968,6 +8214,7 @@
     {
       "npc_code": 9120002,
       "npc_name": "도란",
+      "npc_name_en": "Doran",
       "maps": [
         {
           "map_code": 801000300,
@@ -6978,6 +8225,7 @@
     {
       "npc_code": 9120003,
       "npc_name": "히카리",
+      "npc_name_en": "Hikari",
       "maps": [
         {
           "map_code": 801000000,
@@ -6988,6 +8236,7 @@
     {
       "npc_code": 9120004,
       "npc_name": "모모요",
+      "npc_name_en": "Momoyo",
       "maps": [
         {
           "map_code": 801000100,
@@ -6998,6 +8247,7 @@
     {
       "npc_code": 9120005,
       "npc_name": "우미",
+      "npc_name_en": "Umi",
       "maps": [
         {
           "map_code": 801000300,
@@ -7008,6 +8258,7 @@
     {
       "npc_code": 9120006,
       "npc_name": "스카이",
+      "npc_name_en": "Skai",
       "maps": [
         {
           "map_code": 801000300,
@@ -7018,6 +8269,7 @@
     {
       "npc_code": 9120007,
       "npc_name": "후라노",
+      "npc_name_en": "Furano",
       "maps": [
         {
           "map_code": 801000300,
@@ -7028,6 +8280,7 @@
     {
       "npc_code": 9120008,
       "npc_name": "츠리",
+      "npc_name_en": "Tsuri",
       "maps": [
         {
           "map_code": 801000300,
@@ -7038,6 +8291,7 @@
     {
       "npc_code": 9120009,
       "npc_name": "창고지기 유씨",
+      "npc_name_en": "Yuse",
       "maps": [
         {
           "map_code": 801000000,
@@ -7048,6 +8302,7 @@
     {
       "npc_code": 9120010,
       "npc_name": "파이토",
+      "npc_name_en": "Faito",
       "maps": [
         {
           "map_code": 801000300,
@@ -7058,6 +8313,7 @@
     {
       "npc_code": 9120011,
       "npc_name": "사쿠라",
+      "npc_name_en": "Sakura",
       "maps": [
         {
           "map_code": 801000000,
@@ -7068,6 +8324,7 @@
     {
       "npc_code": 9120012,
       "npc_name": "상처투성이 고양이",
+      "npc_name_en": "Fraidy Cat",
       "maps": [
         {
           "map_code": 801000000,
@@ -7078,6 +8335,7 @@
     {
       "npc_code": 9120013,
       "npc_name": "두목 고양이",
+      "npc_name_en": "Boss Kitty",
       "maps": [
         {
           "map_code": 801000000,
@@ -7088,6 +8346,7 @@
     {
       "npc_code": 9120014,
       "npc_name": "피포파",
+      "npc_name_en": "Popo",
       "maps": [
         {
           "map_code": 801000000,
@@ -7098,6 +8357,7 @@
     {
       "npc_code": 9120015,
       "npc_name": "콘페이",
+      "npc_name_en": "Konpei",
       "maps": [
         {
           "map_code": 801000000,
@@ -7108,6 +8368,7 @@
     {
       "npc_code": 9120016,
       "npc_name": "마리와카",
+      "npc_name_en": "Mariwaka",
       "maps": [
         {
           "map_code": 801000300,
@@ -7118,6 +8379,7 @@
     {
       "npc_code": 9120017,
       "npc_name": "포니차이",
+      "npc_name_en": "Poni Chai",
       "maps": [
         {
           "map_code": 801000000,
@@ -7128,6 +8390,7 @@
     {
       "npc_code": 9120018,
       "npc_name": "구라코",
+      "npc_name_en": "Grako",
       "maps": [
         {
           "map_code": 801000000,
@@ -7138,6 +8401,7 @@
     {
       "npc_code": 9120019,
       "npc_name": "모모요",
+      "npc_name_en": "Momoyo",
       "maps": [
         {
           "map_code": 801000200,
@@ -7148,16 +8412,19 @@
     {
       "npc_code": 9120020,
       "npc_name": "쇼와NPC",
+      "npc_name_en": "Minstein",
       "maps": []
     },
     {
       "npc_code": 9120021,
       "npc_name": "쇼와NPC",
+      "npc_name_en": "Clamshell",
       "maps": []
     },
     {
       "npc_code": 9120023,
       "npc_name": "요코요코",
+      "npc_name_en": "Yokoyoko",
       "maps": [
         {
           "map_code": 801000300,
@@ -7168,11 +8435,13 @@
     {
       "npc_code": 9120024,
       "npc_name": "우에리바",
+      "npc_name_en": "Ueriba",
       "maps": []
     },
     {
       "npc_code": 9120025,
       "npc_name": "아시아",
+      "npc_name_en": "Asia",
       "maps": [
         {
           "map_code": 802000101,
@@ -7183,6 +8452,7 @@
     {
       "npc_code": 9120026,
       "npc_name": "크리스탈",
+      "npc_name_en": "Crystal",
       "maps": [
         {
           "map_code": 800040000,
@@ -7197,26 +8467,31 @@
     {
       "npc_code": 9120100,
       "npc_name": "쇼와NPC",
+      "npc_name_en": "Tepei",
       "maps": []
     },
     {
       "npc_code": 9120101,
       "npc_name": "쇼와NPC",
+      "npc_name_en": "Midori",
       "maps": []
     },
     {
       "npc_code": 9120102,
       "npc_name": "검은수염 선생",
+      "npc_name_en": "Hikekuro",
       "maps": []
     },
     {
       "npc_code": 9120103,
       "npc_name": "쇼와NPC",
+      "npc_name_en": "Saeko",
       "maps": []
     },
     {
       "npc_code": 9120200,
       "npc_name": "콘페이",
+      "npc_name_en": "Konpei",
       "maps": [
         {
           "map_code": 801040000,
@@ -7227,6 +8502,7 @@
     {
       "npc_code": 9120201,
       "npc_name": "콘페이",
+      "npc_name_en": "Konpei",
       "maps": [
         {
           "map_code": 801040004,
@@ -7237,6 +8513,7 @@
     {
       "npc_code": 9200001,
       "npc_name": "건방진 토끼",
+      "npc_name_en": "Mad Bunny",
       "maps": [
         {
           "map_code": 100000000,
@@ -7255,6 +8532,7 @@
     {
       "npc_code": 9201000,
       "npc_name": "알레그로",
+      "npc_name_en": "Moony",
       "maps": [
         {
           "map_code": 680000000,
@@ -7265,6 +8543,7 @@
     {
       "npc_code": 9201002,
       "npc_name": "르베르토4세",
+      "npc_name_en": "High Priest John",
       "maps": [
         {
           "map_code": 680000000,
@@ -7279,6 +8558,7 @@
     {
       "npc_code": 9201004,
       "npc_name": "문월하",
+      "npc_name_en": "Ames the Wise",
       "maps": [
         {
           "map_code": 680000000,
@@ -7289,6 +8569,7 @@
     {
       "npc_code": 9201005,
       "npc_name": "클라랜스 수녀님",
+      "npc_name_en": "Assistant Nicole",
       "maps": [
         {
           "map_code": 680000000,
@@ -7303,6 +8584,7 @@
     {
       "npc_code": 9201006,
       "npc_name": "발렌티나 수녀님",
+      "npc_name_en": "Assistant Debbie",
       "maps": [
         {
           "map_code": 680000200,
@@ -7317,6 +8599,7 @@
     {
       "npc_code": 9201007,
       "npc_name": "안나 수녀님",
+      "npc_name_en": "Assistant Nancy",
       "maps": [
         {
           "map_code": 680000210,
@@ -7327,6 +8610,7 @@
     {
       "npc_code": 9201013,
       "npc_name": "마가렛 수녀님",
+      "npc_name_en": "Victoria",
       "maps": [
         {
           "map_code": 680000000,
@@ -7337,6 +8621,7 @@
     {
       "npc_code": 9201014,
       "npc_name": "필라",
+      "npc_name_en": "Pila Present",
       "maps": [
         {
           "map_code": 680000000,
@@ -7351,11 +8636,13 @@
     {
       "npc_code": 9201020,
       "npc_name": "패리스",
+      "npc_name_en": "Vivian Boutique",
       "maps": []
     },
     {
       "npc_code": 9201021,
       "npc_name": "비비안",
+      "npc_name_en": "Robin The Huntress",
       "maps": [
         {
           "map_code": 680000300,
@@ -7374,6 +8661,7 @@
     {
       "npc_code": 9201022,
       "npc_name": "토마스",
+      "npc_name_en": "Thomas Swift",
       "maps": [
         {
           "map_code": 100000000,
@@ -7388,6 +8676,7 @@
     {
       "npc_code": 9201023,
       "npc_name": "헤라",
+      "npc_name_en": "Nana(K)",
       "maps": [
         {
           "map_code": 103000000,
@@ -7402,6 +8691,7 @@
     {
       "npc_code": 9201030,
       "npc_name": "산타고양이",
+      "npc_name_en": "Maple Claws",
       "maps": [
         {
           "map_code": 209000000,
@@ -7412,6 +8702,7 @@
     {
       "npc_code": 9201034,
       "npc_name": "벤",
+      "npc_name_en": "Ben",
       "maps": [
         {
           "map_code": 680000000,
@@ -7422,6 +8713,7 @@
     {
       "npc_code": 9201035,
       "npc_name": "제이콥",
+      "npc_name_en": "Jacob",
       "maps": [
         {
           "map_code": 680000000,
@@ -7432,6 +8724,7 @@
     {
       "npc_code": 9201036,
       "npc_name": "안젤리크",
+      "npc_name_en": "Angelique",
       "maps": [
         {
           "map_code": 680000000,
@@ -7442,6 +8735,7 @@
     {
       "npc_code": 9201037,
       "npc_name": "게리와 샤티마",
+      "npc_name_en": "Gary and Shatima",
       "maps": [
         {
           "map_code": 680000000,
@@ -7452,6 +8746,7 @@
     {
       "npc_code": 9270013,
       "npc_name": "쇼와 메이플 TV",
+      "npc_name_en": "Showa Maple TV",
       "maps": [
         {
           "map_code": 801000000,
@@ -7462,56 +8757,67 @@
     {
       "npc_code": 9300000,
       "npc_name": "삼장법사",
+      "npc_name_en": "Tang San Zang",
       "maps": []
     },
     {
       "npc_code": 9300001,
       "npc_name": "사장법사",
+      "npc_name_en": "Fa Hai",
       "maps": []
     },
     {
       "npc_code": 9300002,
       "npc_name": "오장법사",
+      "npc_name_en": "Di Zang Wang",
       "maps": []
     },
     {
       "npc_code": 9300003,
       "npc_name": "월하노인",
+      "npc_name_en": "Yue Lao",
       "maps": []
     },
     {
       "npc_code": 9300004,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Wu Yuan",
       "maps": []
     },
     {
       "npc_code": 9300005,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Hong Niang",
       "maps": []
     },
     {
       "npc_code": 9300006,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Banquet Master",
       "maps": []
     },
     {
       "npc_code": 9300007,
       "npc_name": "서문정 지하철 승무원",
+      "npc_name_en": "Tian Bing",
       "maps": []
     },
     {
       "npc_code": 9300008,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Tian Sha Gu Xing",
       "maps": []
     },
     {
       "npc_code": 9300009,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Mi Le",
       "maps": []
     },
     {
       "npc_code": 9300010,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Mr. Moneybags",
       "maps": [
         {
           "map_code": 100000000,
@@ -7522,66 +8828,79 @@
     {
       "npc_code": 9300011,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Cai Shen",
       "maps": []
     },
     {
       "npc_code": 9300012,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Guan Zhong",
       "maps": []
     },
     {
       "npc_code": 9300013,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Sima Qian",
       "maps": []
     },
     {
       "npc_code": 9300014,
       "npc_name": "스트링 없음",
+      "npc_name_en": "Zhang Liang",
       "maps": []
     },
     {
       "npc_code": 9310001,
       "npc_name": "이씨 아줌마",
+      "npc_name_en": "Lady Li",
       "maps": []
     },
     {
       "npc_code": 9310002,
       "npc_name": "장사장",
+      "npc_name_en": "Owner Jang",
       "maps": []
     },
     {
       "npc_code": 9310003,
       "npc_name": "진씨 아가씨",
+      "npc_name_en": "Lady Jin",
       "maps": []
     },
     {
       "npc_code": 9310008,
       "npc_name": "경찰처장 주씨",
+      "npc_name_en": "Chief Officer Chu",
       "maps": []
     },
     {
       "npc_code": 9310009,
       "npc_name": "조씨 아가씨",
+      "npc_name_en": "Ms. Jo",
       "maps": []
     },
     {
       "npc_code": 9310010,
       "npc_name": "양씨 아저씨",
+      "npc_name_en": "Mr. Yang",
       "maps": []
     },
     {
       "npc_code": 9310011,
       "npc_name": "노점상 주인 여씨",
+      "npc_name_en": "Owner Yeo",
       "maps": []
     },
     {
       "npc_code": 9310012,
       "npc_name": "사진기사 조씨",
+      "npc_name_en": "Cho the photographer",
       "maps": []
     },
     {
       "npc_code": 9900000,
       "npc_name": "즐",
+      "npc_name_en": "KIN",
       "maps": [
         {
           "map_code": 180000000,
@@ -7592,6 +8911,7 @@
     {
       "npc_code": 9900001,
       "npc_name": "님아즐",
+      "npc_name_en": "NimaKIN",
       "maps": [
         {
           "map_code": 180000000,

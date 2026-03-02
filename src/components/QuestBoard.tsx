@@ -11,6 +11,7 @@ import type { Database } from "@/types/database";
 import questJson from "@data/quests.json";
 import type { Quest, QuestData } from "@/types/quest";
 import monstersJson from "@data/monsters.json";
+import monsterSpawnsJson from "@data/monster-spawns.json";
 import dropIndexJson from "@data/drop-index.json";
 import itemDetailByJson from "@data/item-detail-by.json";
 import npcLocationsJson from "@data/npc-locations.json";
@@ -31,6 +32,15 @@ const dropIndexData = dropIndexJson as {
 };
 const itemDetailByData = itemDetailByJson as {
   itemsByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
+};
+const monsterSpawnsData = monsterSpawnsJson as {
+  rows?: Array<{
+    mob_code?: number;
+    mob_name?: string;
+    maps?: Array<{
+      map_name?: string;
+    }>;
+  }>;
 };
 const npcLocationsData = npcLocationsJson as {
   rows?: Array<{
@@ -152,6 +162,11 @@ function getWorldGroup(worldName?: string, npcName?: string) {
   return "기타";
 }
 
+function formatWorldGroupLabel(group: string) {
+  if (group === "빅토리아") return "빅토리아 아일랜드";
+  return group;
+}
+
 function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
   const mapNames = new Set<string>();
   const questAny = quest as Quest & {
@@ -198,37 +213,6 @@ function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
   return [...mapNames];
 }
 
-function collectNpcMapNames(
-  quest: Quest,
-  fallbackWorldName: string,
-  npcMapNamesByNpcId: Map<number, string[]>,
-) {
-  const mapNames = new Set<string>();
-  const questAny = quest as Quest & {
-    mapName?: string;
-    requirements?: Quest["requirements"] & {
-      start?: Quest["requirements"]["start"] & { mapName?: string };
-    };
-  };
-
-  const add = (raw?: string) => {
-    const text = toDisplayMapName(raw);
-    if (!text) return;
-    if (isUnreleasedArea(text)) return;
-    mapNames.add(text);
-  };
-
-  for (const mapName of npcMapNamesByNpcId.get(quest.npcId) ?? []) {
-    add(mapName);
-  }
-
-  add(questAny.mapName);
-  add(questAny.requirements?.start?.mapName);
-
-  if (mapNames.size === 0) add(fallbackWorldName);
-  return [...mapNames];
-}
-
 export function QuestBoard() {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
@@ -258,8 +242,9 @@ export function QuestBoard() {
         if (isUnreleasedArea(mapName)) continue;
         names.add(mapName);
       }
-      if (!names.size) continue;
-      map.set(npcId, [...names]);
+      if (names.size > 0) {
+        map.set(npcId, [...names]);
+      }
     }
     return map;
   }, []);
@@ -566,6 +551,36 @@ export function QuestBoard() {
         const mobName = String(mob.name ?? "").trim();
         const area = String(mob.area ?? "").trim();
         if (!mobName || !area) continue;
+        if (!map.has(mobName)) map.set(mobName, new Set());
+        map.get(mobName)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+  const mobSpawnAreasById = useMemo(() => {
+    const map = new Map<number, Set<string>>();
+    for (const row of monsterSpawnsData.rows ?? []) {
+      const mobId = Number(row?.mob_code ?? 0);
+      if (!Number.isFinite(mobId) || mobId <= 0) continue;
+      for (const spawn of row?.maps ?? []) {
+        const area = toDisplayMapName(spawn?.map_name);
+        if (!area) continue;
+        if (isUnreleasedArea(area)) continue;
+        if (!map.has(mobId)) map.set(mobId, new Set());
+        map.get(mobId)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+  const mobSpawnAreasByName = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const row of monsterSpawnsData.rows ?? []) {
+      const mobName = String(row?.mob_name ?? "").trim();
+      if (!mobName) continue;
+      for (const spawn of row?.maps ?? []) {
+        const area = toDisplayMapName(spawn?.map_name);
+        if (!area) continue;
+        if (isUnreleasedArea(area)) continue;
         if (!map.has(mobName)) map.set(mobName, new Set());
         map.get(mobName)?.add(area);
       }
@@ -890,10 +905,11 @@ export function QuestBoard() {
           const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
           const groupedWorld = getWorldGroup(worldName, npcName);
           const worldMapNames = collectQuestMapNames(quest, worldName);
-          const npcMapNames = collectNpcMapNames(quest, worldName, npcMapNamesByNpcId);
-          const npcInfoKey = `npc-${quest.id}-${quest.npcId}`;
-          const isNpcInfoOpen = openedMobInfoKey === npcInfoKey;
-
+          const npcMappedNames = npcMapNamesByNpcId.get(quest.npcId) ?? [];
+          const mapNamesForDisplayRaw = npcMappedNames.length > 0 ? npcMappedNames : worldMapNames;
+          const mapNamesForDisplay = mapNamesForDisplayRaw.filter(
+            (name) => normalizeQuery(name) !== normalizeQuery(formatWorldGroupLabel(groupedWorld)),
+          );
           const requiredItems = quest.requirements.complete?.items ?? [];
           const requiredMobs = quest.requirements.complete?.mobs ?? [];
           const rewardItems = quest.rewards.items ?? [];
@@ -934,29 +950,11 @@ export function QuestBoard() {
                     <div className="min-w-0">
                       <p className="break-words font-semibold text-slate-100 md:text-lg lg:text-xl">{quest.name}</p>
                       <div className="flex flex-wrap items-center gap-1 text-xs md:text-sm lg:text-base">
-                        <button
-                          type="button"
-                          onClick={() => handleToggleMobInfo(npcInfoKey)}
-                          className="break-words rounded px-0.5 text-cyan-200 underline decoration-dotted underline-offset-2 transition hover:text-cyan-100"
-                        >
-                          {npcName} 위치
-                        </button>
-                        <span className="text-slate-400">· Lv.{startLevel}+</span>
+                        <span className="break-words text-cyan-200">{npcName}</span>
+                        <span className="text-slate-400">· 시작 Lv.{startLevel}+</span>
                       </div>
                     </div>
                   </div>
-
-                  {isNpcInfoOpen ? (
-                    <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-lg border border-cyan-100/55 bg-slate-950/95 px-2.5 py-2 text-[11px] text-slate-100 shadow-[0_12px_24px_rgba(0,0,0,0.45)] md:text-xs">
-                      <p className="font-semibold text-cyan-100">{npcName} 위치</p>
-                      <div className="mt-1 space-y-0.5">
-                        {npcMapNames.map((location) => (
-                          <p key={`${npcInfoKey}-${location}`} className="break-words text-slate-200/95">• {location}</p>
-                        ))}
-                      </div>
-                      <p className="mt-1 text-[10px] text-slate-400/90">NPC를 다시 누르면 닫힙니다.</p>
-                    </div>
-                  ) : null}
                 </div>
 
                 <div className="mt-2 space-y-2">
@@ -1017,15 +1015,15 @@ export function QuestBoard() {
               </div>
 
               <div className="min-w-0 text-xs text-slate-200/90 md:text-sm lg:text-base">
-                <p className="break-words font-semibold">{worldMapNames[0] || "맵 정보 없음"}</p>
-                <p className="mt-0.5 break-words text-slate-300/85">{groupedWorld}</p>
-                {worldMapNames.length > 1 ? (
+                <p className="break-words font-semibold">{formatWorldGroupLabel(groupedWorld)}</p>
+                <p className="mt-0.5 break-words text-slate-300/85">{mapNamesForDisplay[0] || "맵 정보 없음"}</p>
+                {mapNamesForDisplay.length > 1 ? (
                   <div className="mt-0.5 space-y-0.5 text-[11px] text-slate-300/85 md:text-xs lg:text-sm">
-                    {worldMapNames.slice(1, 3).map((name) => (
+                    {mapNamesForDisplay.slice(1, 3).map((name) => (
                       <p key={`${quest.id}-map-${name}`} className="break-words">• {name}</p>
                     ))}
-                    {worldMapNames.length > 3 ? (
-                      <p className="text-slate-400">외 {worldMapNames.length - 3}곳</p>
+                    {mapNamesForDisplay.length > 3 ? (
+                      <p className="text-slate-400">외 {mapNamesForDisplay.length - 3}곳</p>
                     ) : null}
                   </div>
                 ) : null}
@@ -1050,6 +1048,8 @@ export function QuestBoard() {
                               mob.area,
                               ...(mobId > 0 ? Array.from(mobAreasById.get(mobId) ?? []) : []),
                               ...Array.from(mobAreasByName.get(mobName) ?? []),
+                              ...(mobId > 0 ? Array.from(mobSpawnAreasById.get(mobId) ?? []) : []),
+                              ...Array.from(mobSpawnAreasByName.get(mobName) ?? []),
                               mobFromCode?.map,
                               mobFromName?.map,
                             ]
@@ -1155,6 +1155,8 @@ export function QuestBoard() {
                                           [
                                             ...(mob.mobId > 0 ? Array.from(mobAreasById.get(mob.mobId) ?? []) : []),
                                             ...Array.from(mobAreasByName.get(mob.name) ?? []),
+                                            ...(mob.mobId > 0 ? Array.from(mobSpawnAreasById.get(mob.mobId) ?? []) : []),
+                                            ...Array.from(mobSpawnAreasByName.get(mob.name) ?? []),
                                           ]
                                             .map((v) => String(v ?? "").trim())
                                             .filter(Boolean),
