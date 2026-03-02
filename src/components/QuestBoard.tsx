@@ -13,6 +13,7 @@ import type { Quest, QuestData } from "@/types/quest";
 import monstersJson from "@data/monsters.json";
 import dropIndexJson from "@data/drop-index.json";
 import itemDetailByJson from "@data/item-detail-by.json";
+import npcLocationsJson from "@data/npc-locations.json";
 
 type RewardTypeFilter = "all" | "exp" | "meso" | "item";
 type RewardItemTypeFilter = "all" | "scroll" | "equip" | "etc";
@@ -30,6 +31,14 @@ const dropIndexData = dropIndexJson as {
 };
 const itemDetailByData = itemDetailByJson as {
   itemsByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
+};
+const npcLocationsData = npcLocationsJson as {
+  rows?: Array<{
+    npc_code?: number;
+    maps?: Array<{
+      map_name?: string;
+    }>;
+  }>;
 };
 
 type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
@@ -189,7 +198,11 @@ function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
   return [...mapNames];
 }
 
-function collectNpcMapNames(quest: Quest, fallbackWorldName: string) {
+function collectNpcMapNames(
+  quest: Quest,
+  fallbackWorldName: string,
+  npcMapNamesByNpcId: Map<number, string[]>,
+) {
   const mapNames = new Set<string>();
   const questAny = quest as Quest & {
     mapName?: string;
@@ -204,6 +217,10 @@ function collectNpcMapNames(quest: Quest, fallbackWorldName: string) {
     if (isUnreleasedArea(text)) return;
     mapNames.add(text);
   };
+
+  for (const mapName of npcMapNamesByNpcId.get(quest.npcId) ?? []) {
+    add(mapName);
+  }
 
   add(questAny.mapName);
   add(questAny.requirements?.start?.mapName);
@@ -229,6 +246,23 @@ export function QuestBoard() {
   const [openedMobInfoKey, setOpenedMobInfoKey] = useState<string | null>(null);
 
   const npcMap = useMemo(() => new Map(data.npcs.map((npc) => [npc.id, npc.name])), []);
+  const npcMapNamesByNpcId = useMemo(() => {
+    const map = new Map<number, string[]>();
+    for (const row of npcLocationsData.rows ?? []) {
+      const npcId = Number(row?.npc_code ?? 0);
+      if (!Number.isFinite(npcId) || npcId <= 0) continue;
+      const names = new Set<string>();
+      for (const mapRow of row?.maps ?? []) {
+        const mapName = toDisplayMapName(mapRow?.map_name);
+        if (!mapName) continue;
+        if (isUnreleasedArea(mapName)) continue;
+        names.add(mapName);
+      }
+      if (!names.size) continue;
+      map.set(npcId, [...names]);
+    }
+    return map;
+  }, []);
   const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), []);
   const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), []);
   const monsterInfoByMobCode = useMemo(() => {
@@ -856,7 +890,7 @@ export function QuestBoard() {
           const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
           const groupedWorld = getWorldGroup(worldName, npcName);
           const worldMapNames = collectQuestMapNames(quest, worldName);
-          const npcMapNames = collectNpcMapNames(quest, worldName);
+          const npcMapNames = collectNpcMapNames(quest, worldName, npcMapNamesByNpcId);
           const npcInfoKey = `npc-${quest.id}-${quest.npcId}`;
           const isNpcInfoOpen = openedMobInfoKey === npcInfoKey;
 
