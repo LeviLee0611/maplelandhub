@@ -13,6 +13,7 @@ const KMS_ITEM_VERSION = "284";
 const MONSTER_SOURCE = path.resolve("data/monsters.json");
 const OUTPUT_PATH = path.resolve("data/drop-index.json");
 const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
+const ITEM_DETAIL_BY_SOURCE = path.resolve("data/item-detail-by.json");
 const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
 
 const CONCURRENCY = 4;
@@ -152,6 +153,7 @@ async function main() {
   const dropsByMonsterId = {};
   const monstersByItemId = {};
   const itemIds = new Set();
+  let itemDetailByApplied = false;
 
   let dropTable = null;
   let itemTable = null;
@@ -210,6 +212,55 @@ async function main() {
     }
   }
 
+  // item_detail 페이지(BY 섹션) 기반 드랍 정보를 우선 반영
+  try {
+    const rawBy = await fs.readFile(ITEM_DETAIL_BY_SOURCE, "utf8");
+    const parsedBy = JSON.parse(rawBy);
+    const byItems = parsedBy?.itemsByItemId ?? {};
+
+    for (const [itemIdText, rows] of Object.entries(byItems)) {
+      const itemId = Number(itemIdText);
+      if (!Number.isFinite(itemId) || itemId <= 0) continue;
+      if (!Array.isArray(rows) || rows.length === 0) continue;
+
+      const normalizedRows = rows
+        .map((row) => {
+          const mobId = Number(row?.mobId ?? 0);
+          if (!Number.isFinite(mobId) || mobId <= 0) return null;
+          const probRaw = Number(row?.prob);
+          const prob = Number.isFinite(probRaw) && probRaw > 0 ? probRaw : undefined;
+          return { mobId, ...(typeof prob === "number" ? { prob } : {}) };
+        })
+        .filter(Boolean);
+
+      if (normalizedRows.length === 0) continue;
+
+      // item 기준: BY 데이터를 우선 사용(기존 값 덮어쓰기)
+      monstersByItemId[itemId] = normalizedRows.map((row) => ({
+        mobId: row.mobId,
+        prob: row.prob,
+      }));
+      itemIds.add(itemId);
+      itemDetailByApplied = true;
+
+      // mob 기준: 해당 item의 기존 엔트리를 지우고 BY 데이터로 재기록
+      for (const [mobId, rewards] of Object.entries(dropsByMonsterId)) {
+        dropsByMonsterId[mobId] = (rewards ?? []).filter((reward) => reward?.itemId !== itemId);
+      }
+      for (const row of normalizedRows) {
+        const mobId = String(row.mobId);
+        const bucket = dropsByMonsterId[mobId] ?? [];
+        bucket.push({
+          itemId,
+          prob: row.prob,
+        });
+        dropsByMonsterId[mobId] = bucket;
+      }
+    }
+  } catch {
+    // optional file
+  }
+
   const itemIdList = Array.from(itemIds);
   let itemProcessed = 0;
   const fallbackVersions = await getFallbackVersions(ITEM_REGION, ITEM_VERSION);
@@ -258,7 +309,9 @@ async function main() {
 
   const payload = {
     generatedAt: new Date().toISOString(),
-    source: dropTable ? "drops-parsed" : "monsterbook-reward",
+    source: itemDetailByApplied
+      ? `${dropTable ? "drops-parsed" : "monsterbook-reward"}+item-detail-by`
+      : (dropTable ? "drops-parsed" : "monsterbook-reward"),
     items: filteredItems,
     dropsByMonsterId,
     monstersByItemId,

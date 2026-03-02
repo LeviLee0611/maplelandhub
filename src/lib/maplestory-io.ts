@@ -15,11 +15,11 @@ const FALLBACK_VERSIONS = [
 type MapleIoImageType = "mob" | "item" | "map" | "npc" | "quest";
 
 export function getMobIconUrl(mobCode: number | string) {
-  return `${BASE_URL}/mob/${mobCode}/icon`;
+  return `https://maplestory.io/api/gms/100/mob/${mobCode}/icon`;
 }
 
 export function getMobAnimatedUrl(mobCode: number | string, action: "move" | "stand" = "move") {
-  return `${BASE_URL}/mob/animated/${mobCode}/${action}`;
+  return `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
 }
 
 export function getMobAnimatedFallbackUrl(mobCode: number | string, action: "stand" | "move" = "stand") {

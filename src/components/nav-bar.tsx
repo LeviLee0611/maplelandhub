@@ -23,10 +23,9 @@ export function NavBar() {
           <Link href="/drop-table" className="hover:opacity-80">
             드랍 테이블
           </Link>
-          <span className="inline-flex items-center gap-1 text-amber-100/90">
+          <Link href="/quests" className="hover:opacity-80">
             메랜 퀘스트
-            <span className="rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">Soon</span>
-          </span>
+          </Link>
           <span className="inline-flex items-center gap-1 text-amber-100/90">
             파티 매칭
             <span className="rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100">Soon</span>

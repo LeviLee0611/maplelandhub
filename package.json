@@ -7,7 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "import:quests": "node scripts/import-quests-from-turbopack.mjs"
+    "import:quests": "node scripts/import-quests-from-turbopack.mjs",
+    "build:monster-spawns": "node scripts/build-monster-spawns-from-html.mjs",
+    "build:item-detail-by": "node scripts/build-item-detail-by-from-html.mjs",
+    "build:drop-index": "node scripts/build-drop-index.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",
