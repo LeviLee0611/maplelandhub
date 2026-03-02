@@ -7,7 +7,6 @@ import { PartyCard } from "@/components/party-card";
 import type { Post } from "@/types/party";
 
 export default function PartiesPage() {
-  const isComingSoon = true;
   const [posts, setPosts] = useState<Post[]>([]);
   const [server, setServer] = useState("");
   const [purpose, setPurpose] = useState("");
@@ -16,7 +15,6 @@ export default function PartiesPage() {
   const [errorText, setErrorText] = useState("");
 
   useEffect(() => {
-    if (isComingSoon) return;
     const loadPosts = async () => {
       const supabase = getSupabaseBrowserClient();
       const { data, error } = await supabase
@@ -34,7 +32,7 @@ export default function PartiesPage() {
     };
 
     loadPosts();
-  }, [isComingSoon]);
+  }, []);
 
   const filteredPosts = useMemo(
     () =>
@@ -46,31 +44,6 @@ export default function PartiesPage() {
       }),
     [posts, server, purpose, minLevel, maxLevel],
   );
-
-  if (isComingSoon) {
-    return (
-      <section className="min-h-[calc(100vh-6rem)] space-y-4 py-6">
-        <div className="flex items-center justify-between gap-3">
-          <div>
-            <h1 className="text-2xl font-bold">파티 매칭</h1>
-            <p className="mt-1 text-sm text-slate-200/90">메이플랜드 파티 모집 글을 한 곳에서 빠르게 찾아보세요.</p>
-          </div>
-          <span className="rounded-full border border-white/15 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-400">
-            개발 중
-          </span>
-        </div>
-
-        <div className="glass-panel rounded-2xl p-6 text-center">
-          <div className="text-sm font-semibold text-amber-200">COMING SOON</div>
-          <p className="mt-2 text-sm text-slate-200/90">파티 매칭 기능은 현재 개발 중입니다. 조금만 기다려주세요.</p>
-          <p className="mt-2 text-xs text-slate-400">요청사항은 문의/요청에 남겨주시면 빠르게 반영하겠습니다.</p>
-          <Link href="/feedback" className="mt-4 inline-flex rounded-full border border-white/20 px-4 py-2 text-xs text-slate-100 hover:border-white/40">
-            문의/요청 남기기
-          </Link>
-        </div>
-      </section>
-    );
-  }
 
   return (
     <section className="min-h-[calc(100vh-6rem)] space-y-4 py-6">

@@ -79,10 +79,9 @@ const features = [
   },
   {
     title: "파티 매칭",
-    description: "곧 오픈됩니다",
+    description: "파티 모집 글을 찾고 바로 참여할 수 있습니다",
     href: "/party",
-    button: "Coming Soon",
-    comingSoon: true,
+    button: "파티 매칭 열기",
     accent: "from-amber-300/20 via-orange-300/10 to-transparent",
     ring: "border-amber-200/35 bg-amber-300/15",
     icon: (
