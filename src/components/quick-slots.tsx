@@ -46,13 +46,9 @@ export function QuickSlots<T>({
   });
 
   useEffect(() => {
+    if (slotsOverride) return;
     window.localStorage.setItem(storageKey, JSON.stringify(slots));
-  }, [storageKey, slots]);
-
-  useEffect(() => {
-    if (!slotsOverride) return;
-    setSlots(Array.from({ length: slotCount }, (_, index) => slotsOverride[index] ?? null));
-  }, [slotCount, slotsOverride]);
+  }, [storageKey, slots, slotsOverride]);
 
   useEffect(() => {
     const onPointerDown = (event: PointerEvent) => {
@@ -70,33 +66,49 @@ export function QuickSlots<T>({
     };
   }, []);
 
+  const effectiveSlots = useMemo(
+    () => (slotsOverride ? Array.from({ length: slotCount }, (_, index) => slotsOverride[index] ?? null) : slots),
+    [slotCount, slotsOverride, slots],
+  );
+
   const slotLabels = useMemo(
     () =>
-      slots.map((slot) => {
+      effectiveSlots.map((slot) => {
         if (!slot) return "비어 있음";
         if (preview) return preview(slot.data);
         return "저장됨";
       }),
-    [slots, preview],
+    [effectiveSlots, preview],
   );
 
   const saveToSlot = (index: number) => {
-    const next = [...slots];
-    next[index] = { data: getSnapshot() };
-    setSlots(next);
-    void onSaveSlot?.(index, next[index]?.data as T);
+    const snapshot = getSnapshot();
+    if (slotsOverride) {
+      void onSaveSlot?.(index, snapshot);
+      return;
+    }
+    setSlots((prev) => {
+      const next = [...prev];
+      next[index] = { data: snapshot };
+      return next;
+    });
+    void onSaveSlot?.(index, snapshot);
   };
 
   const loadFromSlot = (index: number) => {
-    const slot = slots[index];
+    const slot = effectiveSlots[index];
     if (!slot) return;
     applySnapshot(slot.data);
   };
 
   const clearSlot = (index: number) => {
-    const next = [...slots];
-    next[index] = null;
-    setSlots(next);
+    if (!slotsOverride) {
+      setSlots((prev) => {
+        const next = [...prev];
+        next[index] = null;
+        return next;
+      });
+    }
     void onDeleteSlot?.(index);
   };
 
@@ -111,7 +123,7 @@ export function QuickSlots<T>({
       </summary>
       <div className="absolute left-0 top-full z-30 mt-2 w-[340px] max-w-[85vw] rounded-[10px] border border-[var(--retro-border-strong)] bg-[linear-gradient(180deg,rgba(6,10,20,0.98),rgba(6,12,24,0.94))] p-2 shadow-[0_20px_40px_rgba(0,0,0,0.45)] backdrop-blur-sm">
         <div className="grid max-h-[60vh] gap-2 overflow-y-auto pr-1">
-          {slots.map((slot, index) => (
+          {effectiveSlots.map((slot, index) => (
             <div key={index} className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] p-2">
               <div className="mb-1 text-[11px] font-semibold text-[color:var(--retro-text)]">
                 {slotName ? slotName(index) : `슬롯 ${index + 1}`}

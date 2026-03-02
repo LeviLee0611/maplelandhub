@@ -34,11 +34,11 @@ async function main() {
   for (const modId of Object.keys(modules)) {
     const modFn = modules[modId];
     if (typeof modFn !== "function") continue;
-    const module = { exports: {} };
+    const moduleObj = { exports: {} };
     const requireStub = () => ({});
     try {
-      modFn(module, module.exports, requireStub);
-      if (looksLikeNameTable(module.exports)) {
+      modFn(moduleObj, moduleObj.exports, requireStub);
+      if (looksLikeNameTable(moduleObj.exports)) {
         hits.push(modId);
       }
     } catch {
@@ -49,11 +49,11 @@ async function main() {
   console.log("nameTableModules", hits);
   if (hits.length) {
     const modFn = modules[hits[0]];
-    const module = { exports: {} };
+    const moduleObj = { exports: {} };
     const requireStub = () => ({});
-    modFn(module, module.exports, requireStub);
-    const keys = Object.keys(module.exports);
-    console.log("sample", keys.slice(0, 10).map((k) => ({ id: k, name: module.exports[k]?.name })));
+    modFn(moduleObj, moduleObj.exports, requireStub);
+    const keys = Object.keys(moduleObj.exports);
+    console.log("sample", keys.slice(0, 10).map((k) => ({ id: k, name: moduleObj.exports[k]?.name })));
   }
 }
 

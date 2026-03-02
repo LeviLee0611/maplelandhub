@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { SkillPanel } from "@/components/SkillPanel";
 import { MonsterPanel } from "@/components/MonsterPanel";
@@ -359,7 +359,7 @@ export default function OneHitCalculatorPage() {
   type QuickSnapshot = typeof quickSnapshot;
   const [presetSlots, setPresetSlots] = useState<Array<QuickSlotRecord<QuickSnapshot>> | null>(null);
 
-  function applyQuickSnapshot(snapshot: typeof quickSnapshot) {
+  const applyQuickSnapshot = useCallback((snapshot: typeof quickSnapshot) => {
     if (!snapshot) return;
     if (typeof snapshot.nickname === "string") setNickname(snapshot.nickname);
     if (snapshot.jobGroup && jobGroups.includes(snapshot.jobGroup)) {
@@ -439,7 +439,7 @@ export default function OneHitCalculatorPage() {
     if (typeof snapshot.mapleHeroLevel === "number") setMapleHeroLevel(snapshot.mapleHeroLevel);
     if (typeof snapshot.meditationLevel === "number") setMeditationLevel(snapshot.meditationLevel);
     if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
-  }
+  }, []);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -504,7 +504,7 @@ export default function OneHitCalculatorPage() {
     } catch {
       // Ignore invalid local profile data
     }
-  }, []);
+  }, [mobParam]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -563,7 +563,7 @@ export default function OneHitCalculatorPage() {
     return () => {
       active = false;
     };
-  }, []);
+  }, [applyQuickSnapshot]);
 
   const handleQuickSlotSave = async (index: number, data: QuickSnapshot) => {
     try {
@@ -1095,7 +1095,6 @@ export default function OneHitCalculatorPage() {
     return { attack, magic, acc, primaryStat, secondaryStat };
   }, [
     stats,
-    level,
     jobProfile,
     mapleHeroLevel,
     isNightLordJob,

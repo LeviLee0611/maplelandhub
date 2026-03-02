@@ -34,7 +34,7 @@ export default function PartiesPage() {
     };
 
     loadPosts();
-  }, []);
+  }, [isComingSoon]);
 
   const filteredPosts = useMemo(
     () =>

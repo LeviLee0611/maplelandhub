@@ -43,7 +43,7 @@ export default function RootLayout({
 
   return (
     <html lang="ko" className={`${display.variable} ${body.variable}`}>
-      <body className="min-h-screen">
+      <body className="min-h-screen overflow-x-hidden">
         <WebVitalsReporter debug={perfDebugEnabled} />
         <div className="page-glow" aria-hidden="true" />
         <Suspense fallback={null}>

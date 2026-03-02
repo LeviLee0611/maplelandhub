@@ -133,6 +133,7 @@ function SidebarIcon({ name, size = 4 }: { name: string; size?: number }) {
 export function SidebarShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
+  const desktopSidebarWidth = collapsed ? "4rem" : "16rem";
 
   return (
     <div className="min-h-screen">
@@ -165,9 +166,10 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       />
 
       <aside
-        className={`fixed left-0 top-12 z-50 flex h-[calc(100vh-3rem)] flex-col gap-6 border-r border-white/10 bg-[var(--nav-bg)] px-4 py-6 shadow-lg transition-all lg:top-0 lg:h-screen lg:translate-x-0 ${
+        className={`fixed left-0 top-12 z-50 flex h-[calc(100vh-3rem)] flex-col gap-6 border-r border-white/10 bg-[rgb(17,23,38)] px-4 py-6 shadow-lg transition-all lg:top-0 lg:h-screen lg:translate-x-0 ${
           open ? "translate-x-0" : "-translate-x-full"
         } ${collapsed ? "w-16" : "w-64"} lg:fixed`}
+        style={{ width: desktopSidebarWidth }}
       >
         <div className="relative hidden items-center justify-between gap-3 lg:flex">
           <Link href="/" className={`flex items-center gap-3 ${collapsed ? "justify-center" : ""}`}>
@@ -262,15 +264,15 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       </aside>
 
       <div
-        className={`mx-auto flex w-full max-w-[1600px] flex-col px-4 pb-16 pt-6 transition-[padding] duration-200 md:px-6 xl:px-8 ${
-          collapsed ? "lg:pl-[4rem]" : "lg:pl-[16rem]"
-        }`}
+        className={`transition-[margin,width] duration-200 ${collapsed ? "lg:ml-16 lg:w-[calc(100%-4rem)]" : "lg:ml-64 lg:w-[calc(100%-16rem)]"}`}
       >
-        <div className="hidden w-full items-center justify-end gap-3 pb-4 lg:flex">
-          <AdminLink />
-          <AuthButton />
+        <div className="mx-auto flex w-full max-w-[1600px] flex-col px-4 pb-16 pt-6 md:px-6 xl:px-8">
+          <div className="hidden w-full items-center justify-end gap-3 pb-4 lg:flex">
+            <AdminLink />
+            <AuthButton />
+          </div>
+          <main className="w-full">{children}</main>
         </div>
-        <main className="w-full">{children}</main>
       </div>
     </div>
   );

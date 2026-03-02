@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { NumberField } from "@/components/NumberField";
 import { MonsterPanel } from "@/components/MonsterPanel";
@@ -67,16 +67,15 @@ export function TakenDamageCalculator() {
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>("전사");
   const [job, setJob] = useState<string>(jobOptionsByGroup.전사[0]);
   const [stats, setStats] = useState({ str: 500, dex: 120, int: 20, luk: 50, wdef: 450, mdef: 280 });
-  const [monsterName, setMonsterName] = useState(typedMonsters[0]?.name ?? "");
   const [magicElement, setMagicElement] = useState<(typeof MAGIC_ELEMENTS)[number]>("무");
-  const [mobParam] = useState<string | null>(() => {
+  const getMobParam = () => {
     if (typeof window === "undefined") return null;
     return new URLSearchParams(window.location.search).get("mob");
+  };
+  const [mobParam] = useState<string | null>(() => {
+    return getMobParam();
   });
-
-  useEffect(() => {
-    if (mobParam) setMonsterName(mobParam);
-  }, [mobParam]);
+  const [monsterName, setMonsterName] = useState(() => getMobParam() ?? typedMonsters[0]?.name ?? "");
 
   const [achillesLevel, setAchillesLevel] = useState(0);
   const [powerGuardLevel, setPowerGuardLevel] = useState(0);
@@ -227,9 +226,8 @@ export function TakenDamageCalculator() {
       invincible,
       jobGroup,
       mesoGuardLevel,
-      achillesReduce,
-      powerGuardReduce,
-      mesoGuardReduce,
+      resistancePercent,
+      physicalMultiplierPercent,
       selectedMonster?.level,
       monsterWatk,
       monsterMatk,
@@ -270,7 +268,7 @@ export function TakenDamageCalculator() {
       jobGroup,
       mesoGuardLevel,
       resistancePercent,
-      achillesReduce,
+      magicalMultiplierPercent,
       selectedMonster?.level,
       monsterWatk,
       monsterMatk,
@@ -284,26 +282,12 @@ export function TakenDamageCalculator() {
     return { min: hpMin, max: hpMax };
   }, [jobGroup, physicalRange.min, physicalRange.max, magicGuard]);
 
-  const magePhysicalMp = useMemo(() => {
-    if (jobGroup !== "마법사") return { min: 0, max: 0 };
-    const mpMin = Math.max(0, Math.floor(physicalRange.min * (magicGuard / 100)));
-    const mpMax = Math.max(0, Math.floor(physicalRange.max * (magicGuard / 100)));
-    return { min: mpMin, max: mpMax };
-  }, [jobGroup, physicalRange.min, physicalRange.max, magicGuard]);
-
   const mageMagicalHp = useMemo(() => {
     if (magicalRange.max <= 0) return { min: 0, max: 0 };
     if (jobGroup !== "마법사") return { min: magicalRange.min, max: magicalRange.max };
     const hpMin = Math.max(1, Math.floor(magicalRange.min * (1 - magicGuard / 100)));
     const hpMax = Math.max(1, Math.floor(magicalRange.max * (1 - magicGuard / 100)));
     return { min: hpMin, max: hpMax };
-  }, [jobGroup, magicalRange.min, magicalRange.max, magicGuard]);
-
-  const mageMagicalMp = useMemo(() => {
-    if (jobGroup !== "마법사" || magicalRange.max <= 0) return { min: 0, max: 0 };
-    const mpMin = Math.max(0, Math.floor(magicalRange.min * (magicGuard / 100)));
-    const mpMax = Math.max(0, Math.floor(magicalRange.max * (magicGuard / 100)));
-    return { min: mpMin, max: mpMax };
   }, [jobGroup, magicalRange.min, magicalRange.max, magicGuard]);
 
   const physicalOneShotChance = useMemo(() => {
