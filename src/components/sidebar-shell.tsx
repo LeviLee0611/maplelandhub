@@ -203,40 +203,23 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
         </button>
 
         <div className="flex flex-col gap-2">
-          {primaryLinks.map((link) =>
-            link.comingSoon ? (
-              <span
-                key={link.href}
-                title={collapsed ? `${link.label} (Coming Soon)` : undefined}
-                aria-disabled="true"
-                className={`flex cursor-not-allowed items-center justify-between rounded-xl border border-dashed border-amber-200/35 bg-amber-300/10 px-3 py-2 text-sm font-semibold text-amber-50/90 ${
-                  collapsed ? "justify-center" : "gap-3"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <SidebarIcon name={link.icon} />
-                  <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
-                </span>
-                <span className={collapsed ? "hidden" : "rounded-full border border-amber-200/40 px-1.5 py-0.5 text-[10px] uppercase text-amber-100"}>Soon</span>
+          {primaryLinks.map((link) => (
+            <Link
+              key={link.href}
+              href={link.href}
+              onClick={() => setOpen(false)}
+              title={collapsed ? link.label : undefined}
+              className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold ${
+                collapsed ? "justify-center" : "gap-3"
+              }`}
+            >
+              <span className="flex items-center gap-2">
+                <SidebarIcon name={link.icon} />
+                <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
               </span>
-            ) : (
-              <Link
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                title={collapsed ? link.label : undefined}
-                className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold ${
-                  collapsed ? "justify-center" : "gap-3"
-                }`}
-              >
-                <span className="flex items-center gap-2">
-                  <SidebarIcon name={link.icon} />
-                  <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
-                </span>
-                <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
-              </Link>
-            ),
-          )}
+              <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
+            </Link>
+          ))}
         </div>
 
         {!collapsed && (

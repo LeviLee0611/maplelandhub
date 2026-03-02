@@ -120,43 +120,23 @@ export default function HomePage() {
 
       <div className="grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) => (
-          feature.comingSoon ? (
-            <div
-              key={feature.title}
-              aria-disabled="true"
-              className="glass-panel glass-panel-strong relative overflow-hidden rounded-2xl border border-amber-200/35 bg-amber-300/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)]"
-            >
-              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
-              <div className="relative flex items-start gap-3">
-                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
-                <div className="min-w-0">
-                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
-                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
-                  <p className="mt-2 inline-flex items-center rounded-full border border-amber-200/40 px-2 py-0.5 text-[11px] font-semibold text-amber-100">
-                    Coming Soon
-                  </p>
-                </div>
+          <Link
+            href={feature.href}
+            key={feature.title}
+            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+          >
+            <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+            <div className="relative flex items-start gap-3">
+              <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+              <div className="min-w-0">
+                <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
+                  바로가기 →
+                </p>
               </div>
             </div>
-          ) : (
-            <Link
-              href={feature.href}
-              key={feature.title}
-              className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
-            >
-              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
-              <div className="relative flex items-start gap-3">
-                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
-                <div className="min-w-0">
-                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
-                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
-                  <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
-                    바로가기 →
-                  </p>
-                </div>
-              </div>
-            </Link>
-          )
+          </Link>
         ))}
       </div>
 
