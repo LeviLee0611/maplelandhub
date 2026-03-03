@@ -8,7 +8,6 @@ type NumberFieldProps = {
   min?: number;
   max?: number;
   step?: number;
-  placeholder?: string;
   suffix?: string;
   helper?: string;
 };
@@ -21,7 +20,6 @@ export function NumberField({
   min,
   max,
   step,
-  placeholder,
   suffix,
   helper,
 }: NumberFieldProps) {

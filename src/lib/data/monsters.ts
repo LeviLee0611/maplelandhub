@@ -1,5 +1,6 @@
 import monsters from "@data/monsters.json";
 import type { Monster } from "@/types/monster";
+import { filterReleasedMonsters } from "@/lib/release-filter";
 
 export type MonsterProvider = {
   list: () => Monster[];
@@ -16,5 +17,5 @@ export function setMonsterProvider(provider: MonsterProvider) {
 }
 
 export function getMonsters() {
-  return activeProvider.list();
+  return filterReleasedMonsters(activeProvider.list());
 }

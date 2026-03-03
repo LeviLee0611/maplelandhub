@@ -48,15 +48,15 @@ async function main() {
     const looksLikeItemTable = src.includes("typeInfo") && src.includes("overallCategory");
     if (!looksLikeDropTable && !looksLikeItemTable) continue;
 
-    const module = { exports: {} };
+    const moduleObj = { exports: {} };
     const requireStub = () => ({});
     try {
-      modFn(module, module.exports, requireStub);
-      if (!dropTable && isDropTable(module.exports)) {
-        dropTable = module.exports;
+      modFn(moduleObj, moduleObj.exports, requireStub);
+      if (!dropTable && isDropTable(moduleObj.exports)) {
+        dropTable = moduleObj.exports;
       }
-      if (!itemTable && isItemTable(module.exports)) {
-        itemTable = module.exports;
+      if (!itemTable && isItemTable(moduleObj.exports)) {
+        itemTable = moduleObj.exports;
       }
       if (dropTable && itemTable) break;
     } catch {

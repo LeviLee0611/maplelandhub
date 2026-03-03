@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
 import Image from "next/image";
 import { getMobAnimatedFallbackUrl, getMobIconUrl } from "@/lib/maplestory-io";
+import { filterReleasedMonsters } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
 
 type MonsterSelectProps = {
@@ -35,24 +36,25 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
   const [showAllOnOpen, setShowAllOnOpen] = useState(false);
   const rootRef = useRef<HTMLDivElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
+  const releasedMonsters = useMemo(() => filterReleasedMonsters(monsters), [monsters]);
 
   const filtered = useMemo(() => {
     if (showAllOnOpen) {
-      return monsters.slice(0, 60);
+      return releasedMonsters.slice(0, 60);
     }
     const keyword = normalizeMonsterQuery(value);
     const list = keyword
-      ? monsters.filter((monster) => {
+      ? releasedMonsters.filter((monster) => {
           const keys = getMonsterSearchKeys(monster.name);
           return keys.some((key) => key.includes(keyword));
         })
-      : monsters;
+      : releasedMonsters;
     return list.slice(0, 60);
-  }, [monsters, value]);
+  }, [releasedMonsters, showAllOnOpen, value]);
 
   const selectedMonster = useMemo(
-    () => monsters.find((monster) => monster.name === value),
-    [monsters, value],
+    () => releasedMonsters.find((monster) => monster.name === value),
+    [releasedMonsters, value],
   );
 
   useEffect(() => {

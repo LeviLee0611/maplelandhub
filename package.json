@@ -7,7 +7,12 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "import:quests": "node scripts/import-quests-from-turbopack.mjs"
+    "import:quests": "node scripts/import-quests-from-turbopack.mjs",
+    "build:monster-spawns": "node scripts/build-monster-spawns-from-html.mjs",
+    "build:monster-map-locations": "node scripts/build-monster-map-locations.mjs",
+    "build:item-detail-by": "node scripts/build-item-detail-by-from-html.mjs",
+    "build:drop-index": "node scripts/build-drop-index.mjs",
+    "build:npc-locations": "node scripts/build-npc-map-locations.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",

@@ -1,11 +1,14 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
 import { useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { getItemIconUrl, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
 import { getMonsters } from "@/lib/data/monsters";
+import { isReleasedMobCode } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
 import dropIndex from "@data/drop-index.json";
+import itemDetailByJson from "@data/item-detail-by.json";
 
 type DropIndexItem = {
   id: number;
@@ -45,8 +48,16 @@ type DropIndexData = {
   monstersByItemId: Record<string, MonsterDropEntry[]>;
 };
 
+type ItemDetailByData = {
+  itemsByItemId?: Record<string, MonsterDropEntry[]>;
+};
+
 const monsterList = getMonsters() as Monster[];
 const dropData = dropIndex as DropIndexData;
+const itemDetailByData = itemDetailByJson as ItemDetailByData;
+const INITIAL_SUGGESTION_COUNT = 10;
+const SEARCH_SUGGESTION_LIMIT = 60;
+const GROUP_ORDER = ["주문서", "장비", "물약", "기타템"];
 
 function normalizeQuery(text: string) {
   return text.toLowerCase().replace(/\s+/g, "");
@@ -88,7 +99,6 @@ export function DropTable() {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
-  const groupOrder = ["주문서", "장비", "물약", "기타템"];
   const getItemGroup = (item: DropIndexItem) => {
     const overall = item.typeInfo?.overallCategory ?? "";
     const category = item.typeInfo?.category ?? "";
@@ -117,47 +127,55 @@ export function DropTable() {
     return map;
   }, []);
 
+  const queryKeyword = useMemo(() => normalizeQuery(query), [query]);
+
   const filteredItems = useMemo(() => {
-    const keyword = normalizeQuery(query);
+    const keyword = queryKeyword;
     const sorted = [...dropData.items].sort((a, b) => {
       const groupA = getItemGroup(a);
       const groupB = getItemGroup(b);
-      if (groupA !== groupB) return groupOrder.indexOf(groupA) - groupOrder.indexOf(groupB);
+      if (groupA !== groupB) return GROUP_ORDER.indexOf(groupA) - GROUP_ORDER.indexOf(groupB);
       return a.name.localeCompare(b.name, "ko");
     });
-    if (!keyword) return sorted.slice(0, 60);
-    return sorted
-      .filter((item) => getSearchKeys(item.name).some((key) => key.includes(keyword)))
-      .slice(0, 60);
-  }, [query]);
+    if (!keyword) return sorted;
+    return sorted.filter((item) => getSearchKeys(item.name).some((key) => key.includes(keyword)));
+  }, [queryKeyword]);
 
   const filteredMonsters = useMemo(() => {
-    const keyword = normalizeQuery(query);
+    const keyword = queryKeyword;
     const sorted = [...monsterList]
       .filter((monster) => {
         if (selectedWorldMap === "all") return true;
         return getWorldMapGroup(monster.region) === selectedWorldMap;
       })
       .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
-    if (!keyword) return sorted.slice(0, 60);
-    return sorted
-      .filter((monster) => getSearchKeys(monster.name).some((key) => key.includes(keyword)))
-      .slice(0, 60);
-  }, [query, selectedWorldMap]);
+    if (!keyword) return sorted;
+    return sorted.filter((monster) => getSearchKeys(monster.name).some((key) => key.includes(keyword)));
+  }, [queryKeyword, selectedWorldMap]);
+
+  const displayedItems = useMemo(() => {
+    if (!queryKeyword) return filteredItems.slice(0, INITIAL_SUGGESTION_COUNT);
+    return filteredItems.slice(0, SEARCH_SUGGESTION_LIMIT);
+  }, [filteredItems, queryKeyword]);
+
+  const displayedMonsters = useMemo(() => {
+    if (!queryKeyword) return filteredMonsters.slice(0, INITIAL_SUGGESTION_COUNT);
+    return filteredMonsters.slice(0, SEARCH_SUGGESTION_LIMIT);
+  }, [filteredMonsters, queryKeyword]);
 
   const suggestionItems = useMemo(() => {
-    const items = filteredItems.map((item) => ({
+    const items = displayedItems.map((item) => ({
       type: "item" as const,
       id: item.id,
       label: item.name,
     }));
-    const monsters = filteredMonsters.map((monster) => ({
+    const monsters = displayedMonsters.map((monster) => ({
       type: "monster" as const,
       id: monster.mobCode,
       label: monster.name,
     }));
     return [...items, ...monsters];
-  }, [filteredItems, filteredMonsters]);
+  }, [displayedItems, displayedMonsters]);
 
   const monsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
@@ -166,9 +184,11 @@ export function DropTable() {
 
   const monstersForItem = useMemo(() => {
     if (!selectedItemId) return [];
-    const entries = dropData.monstersByItemId[String(selectedItemId)] ?? [];
+    const preferredEntries = itemDetailByData.itemsByItemId?.[String(selectedItemId)] ?? [];
+    const entries = preferredEntries.length ? preferredEntries : (dropData.monstersByItemId[String(selectedItemId)] ?? []);
     const monsterMap = new Map(monsterList.map((monster) => [monster.mobCode, monster]));
     return entries
+      .filter((entry) => isReleasedMobCode(entry.mobId))
       .map((entry) => ({
         entry,
         monster: monsterMap.get(entry.mobId),
@@ -292,7 +312,7 @@ export function DropTable() {
         </p>
         <div className="flex flex-wrap gap-2 text-sm text-slate-200/70">
           <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
-            데이터: {dropData.source === "drops-parsed" ? "드랍 테이블" : "MonsterBook reward"}
+            데이터: {String(dropData.source ?? "").startsWith("drops-parsed") ? "드랍 테이블" : "MonsterBook reward"}
           </span>
           <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">드랍 확률/수량: 제공</span>
         </div>
@@ -302,7 +322,11 @@ export function DropTable() {
         <Panel
           title="검색"
           tone="blue"
-          actions={<span className="text-xs text-[color:var(--retro-text-muted)]">몬스터 · 아이템</span>}
+          actions={
+            <span className="text-xs text-[color:var(--retro-text-muted)]">
+              표시 {displayedItems.length + displayedMonsters.length} / 결과 {filteredItems.length + filteredMonsters.length}
+            </span>
+          }
           className="shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           <div className="flex flex-col gap-4 text-sm text-[color:var(--retro-text)]">
@@ -360,15 +384,15 @@ export function DropTable() {
                 {query && showSuggestions ? (
                   <div className="absolute top-full z-20 mt-2 max-h-80 w-full overflow-auto rounded-[10px] border border-[var(--retro-border-strong)] bg-slate-950/95 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.55)] backdrop-blur">
                     <div className="space-y-4">
-                      {filteredItems.length === 0 && filteredMonsters.length === 0 ? (
+                      {displayedItems.length === 0 && displayedMonsters.length === 0 ? (
                         <div className="text-xs text-[color:var(--retro-text-muted)]">검색 결과 없음</div>
                       ) : null}
 
-                      {filteredItems.length > 0 ? (
+                      {displayedItems.length > 0 ? (
                         <div>
                           <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
                           <div className="mt-2 space-y-1">
-                            {filteredItems.map((item, index) => (
+                            {displayedItems.map((item, index) => (
                               <button
                                 key={item.id}
                                 type="button"
@@ -394,12 +418,12 @@ export function DropTable() {
                         </div>
                       ) : null}
 
-                      {filteredMonsters.length > 0 ? (
+                      {displayedMonsters.length > 0 ? (
                         <div>
                           <h3 className="text-xs font-semibold text-slate-100">몬스터</h3>
                           <div className="mt-2 space-y-1">
-                            {filteredMonsters.map((monster, index) => {
-                              const adjustedIndex = filteredItems.length + index;
+                            {displayedMonsters.map((monster, index) => {
+                              const adjustedIndex = displayedItems.length + index;
                               return (
                               <button
                                 key={monster.mobCode}
@@ -436,6 +460,11 @@ export function DropTable() {
                   </div>
                 ) : null}
               </div>
+              {!queryKeyword && filteredItems.length + filteredMonsters.length > displayedItems.length + displayedMonsters.length ? (
+                <p className="mt-2 text-xs text-cyan-100/90">
+                  검색어가 없을 때는 처음 {INITIAL_SUGGESTION_COUNT}개씩만 표시됩니다.
+                </p>
+              ) : null}
               <div>
                 <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">월드맵 필터</label>
                 <select

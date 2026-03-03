@@ -25,7 +25,9 @@ export default function AuthCallbackPage() {
 
       await upsertProfileFromUser();
       setMessage("로그인 완료. 이동합니다...");
-      router.replace("/parties");
+      const next = searchParams.get("next");
+      const safeNext = next && next.startsWith("/") && next !== "/" ? next : "/quests";
+      router.replace(safeNext);
     };
 
     run();

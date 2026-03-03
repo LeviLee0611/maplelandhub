@@ -1,12 +1,71 @@
 "use client";
+/* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import Link from "next/link";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
-import { getItemIconUrl, getNpcIconUrl } from "@/lib/maplestory-io";
+import { getItemIconUrl, getMobIconUrl, getNpcIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
+import { isReleasedMobCode } from "@/lib/release-filter";
+import { getSupabaseBrowserClient } from "@/lib/supabase/client";
+import type { Database } from "@/types/database";
 import questJson from "@data/quests.json";
-import type { QuestData } from "@/types/quest";
+import type { Quest, QuestData } from "@/types/quest";
+import monstersJson from "@data/monsters.json";
+import monsterSpawnsJson from "@data/monster-spawns.json";
+import dropIndexJson from "@data/drop-index.json";
+import itemDetailByJson from "@data/item-detail-by.json";
+import npcLocationsJson from "@data/npc-locations.json";
+
+type RewardTypeFilter = "all" | "exp" | "meso" | "item";
+type RewardItemTypeFilter = "all" | "scroll" | "equip" | "etc";
 
 const data = questJson as QuestData;
+const monsterData = monstersJson as Array<{
+  name: string;
+  mobCode: number;
+  region?: string;
+  map?: string;
+  exist?: boolean;
+}>;
+const dropIndexData = dropIndexJson as {
+  monstersByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
+};
+const itemDetailByData = itemDetailByJson as {
+  itemsByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
+};
+const monsterSpawnsData = monsterSpawnsJson as {
+  rows?: Array<{
+    mob_code?: number;
+    mob_name?: string;
+    maps?: Array<{
+      map_name?: string;
+    }>;
+  }>;
+};
+const npcLocationsData = npcLocationsJson as {
+  rows?: Array<{
+    npc_code?: number;
+    maps?: Array<{
+      map_name?: string;
+    }>;
+  }>;
+};
+
+type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
+type TrackerMapValue = Pick<QuestTrackerRow, "id" | "quest_id" | "is_completed">;
+const INITIAL_VISIBLE_COUNT = 10;
+const MANUAL_PRIORITY_QUEST_IDS = new Set<number>([
+  2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022, 2023,
+  2071, 2072, 2083, 2084, 2086, 2094, 2095, 2109, 2119, 2122,
+  2127, 3000, 3001, 3002, 3003, 3039, 3040, 3041, 3042, 3043,
+  3051, 3052, 3053, 3054, 3057, 3063, 3064, 3084, 3085, 3091,
+  3092, 3093, 3094, 3095, 3200, 3201, 3202, 3203, 3204, 3229,
+  3230, 3231, 3233, 3239, 3400, 3401, 3402, 3403, 3404, 3410,
+  3412, 3413, 3414, 3430, 3431, 3432, 3433, 3438, 3439, 3440,
+  3703, 3833, 4913, 8007, 8010, 8012, 8049, 8060, 8061, 8062,
+  8064, 8065, 8066, 8067, 8068, 8167, 8168, 8169, 8171, 8172,
+  81701, 81702, 81703, 81705, 81706, 9250,
+]);
 
 function normalizeQuery(text: string) {
   return text.toLowerCase().replace(/\s+/g, "");
@@ -26,6 +85,25 @@ function formatNumber(value: number) {
   return new Intl.NumberFormat("ko-KR").format(value);
 }
 
+function getRewardItemGroup(itemId: number, itemName: string) {
+  const name = String(itemName ?? "").toLowerCase();
+  if (name.includes("주문서") || name.includes("scroll")) return "scroll";
+  if (itemId >= 1_000_000 && itemId < 2_000_000) return "equip";
+  return "etc";
+}
+
+function isUnreleasedArea(text?: string) {
+  return String(text ?? "").includes("노틸러스");
+}
+
+function toDisplayMapName(raw?: string) {
+  const text = String(raw ?? "").trim();
+  if (!text) return "";
+  if (!text.includes(":")) return text;
+  const right = text.split(":").pop()?.trim();
+  return right || text;
+}
+
 function getWorldGroup(worldName?: string, npcName?: string) {
   const npc = String(npcName ?? "").trim();
   if (npc.includes("스피루나")) return "오르비스";
@@ -42,7 +120,6 @@ function getWorldGroup(worldName?: string, npcName?: string) {
     text.includes("커닝") ||
     text.includes("슬리피") ||
     text.includes("리스항구") ||
-    text.includes("노틸러스") ||
     text.includes("플로리나") ||
     text.includes("골렘의사원") ||
     text.includes("동쪽바위산") ||
@@ -97,50 +174,376 @@ function getWorldGroup(worldName?: string, npcName?: string) {
   return "기타";
 }
 
+function formatWorldGroupLabel(group: string) {
+  if (group === "빅토리아") return "빅토리아 아일랜드";
+  return group;
+}
+
+function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
+  const mapNames = new Set<string>();
+  const questAny = quest as Quest & {
+    mapName?: string;
+    requirements?: Quest["requirements"] & {
+      start?: Quest["requirements"]["start"] & { mapName?: string };
+      complete?: Quest["requirements"]["complete"] & { mapName?: string };
+    };
+  };
+
+  const add = (raw?: string) => {
+    const text = toDisplayMapName(raw);
+    if (!text) return;
+    if (isUnreleasedArea(text)) return;
+    mapNames.add(text);
+  };
+
+  // 실제 퀘스트 맵명 우선
+  add(questAny.requirements?.complete?.mapName);
+  add(questAny.mapName);
+  add(questAny.requirements?.start?.mapName);
+
+  for (const mob of quest.requirements.complete?.mobs ?? []) {
+    add(mob.area);
+  }
+
+  for (const item of quest.requirements.complete?.items ?? []) {
+    add(item.source);
+  }
+
+  const guideAreas = String(quest.guide?.recommendedAreas ?? "")
+    .split("/")
+    .map((item) => item.trim())
+    .filter(Boolean);
+  for (const area of guideAreas) {
+    add(area);
+  }
+
+  // 맵명을 못 찾았을 때만 월드명으로 fallback
+  if (mapNames.size === 0) {
+    add(fallbackWorldName);
+  }
+
+  return [...mapNames];
+}
+
+function isPriorityQuest(quest: Quest) {
+  if (MANUAL_PRIORITY_QUEST_IDS.has(quest.id)) return true;
+  const guideNotes = Array.isArray(quest.guide?.notes) ? quest.guide?.notes : [];
+  const text = [quest.name, quest.guide?.recommendedAreas ?? "", ...guideNotes].join(" ");
+  return /\[(?:필수|추천)\s*퀘스트\]|(?:필수|추천)\s*퀘스트|반드시\s*(진행|클리어|추천)/.test(text);
+}
+
 export function QuestBoard() {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
   const [maxLevel, setMaxLevel] = useState("");
+  const [rewardTypeFilter, setRewardTypeFilter] = useState<RewardTypeFilter>("all");
+  const [rewardItemTypeFilter, setRewardItemTypeFilter] = useState<RewardItemTypeFilter>("all");
+  const [showPriorityOnly, setShowPriorityOnly] = useState(false);
+  const [showTrackedOnly, setShowTrackedOnly] = useState(false);
+  const [highlightedQuestId, setHighlightedQuestId] = useState<number | null>(null);
+  const [bulkAddingPriority, setBulkAddingPriority] = useState(false);
+
+  const [userId, setUserId] = useState<string | null>(null);
+  const [trackerByQuestId, setTrackerByQuestId] = useState<Map<number, TrackerMapValue>>(new Map());
+  const [trackerLoading, setTrackerLoading] = useState(false);
+  const [pendingQuestIds, setPendingQuestIds] = useState<Record<number, boolean>>({});
+  const [syncError, setSyncError] = useState<string | null>(null);
+  const [openedMobInfoKey, setOpenedMobInfoKey] = useState<string | null>(null);
 
   const npcMap = useMemo(() => new Map(data.npcs.map((npc) => [npc.id, npc.name])), []);
+  const npcMapNamesByNpcId = useMemo(() => {
+    const map = new Map<number, string[]>();
+    for (const row of npcLocationsData.rows ?? []) {
+      const npcId = Number(row?.npc_code ?? 0);
+      if (!Number.isFinite(npcId) || npcId <= 0) continue;
+      const names = new Set<string>();
+      for (const mapRow of row?.maps ?? []) {
+        const mapName = toDisplayMapName(mapRow?.map_name);
+        if (!mapName) continue;
+        if (isUnreleasedArea(mapName)) continue;
+        names.add(mapName);
+      }
+      if (names.size > 0) {
+        map.set(npcId, [...names]);
+      }
+    }
+    return map;
+  }, []);
   const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), []);
+  const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), []);
+  const priorityQuestIds = useMemo(() => {
+    const set = new Set<number>();
+    for (const quest of data.quests) {
+      if (isPriorityQuest(quest)) set.add(quest.id);
+    }
+    return set;
+  }, []);
+  const priorityQuestCount = priorityQuestIds.size;
+  const monsterInfoByMobCode = useMemo(() => {
+    const map = new Map<number, { name: string; region?: string; map?: string; exist: boolean }>();
+    for (const monster of monsterData) {
+      const mobCode = Number(monster.mobCode);
+      if (!Number.isFinite(mobCode) || mobCode <= 0) continue;
+      map.set(mobCode, {
+        name: String(monster.name ?? "").trim(),
+        region: String(monster.region ?? "").trim() || undefined,
+        map: String(monster.map ?? "").trim() || undefined,
+        exist: monster.exist !== false,
+      });
+    }
+    return map;
+  }, []);
+  const monsterInfoByName = useMemo(() => {
+    const map = new Map<string, { name: string; mobCode: number; region?: string; map?: string }>();
+    for (const monster of monsterData) {
+      const name = String(monster.name ?? "").trim();
+      const mobCode = Number(monster.mobCode);
+      if (!name) continue;
+      map.set(name, {
+        name,
+        mobCode: Number.isFinite(mobCode) ? mobCode : 0,
+        region: String(monster.region ?? "").trim() || undefined,
+        map: String(monster.map ?? "").trim() || undefined,
+      });
+    }
+    return map;
+  }, []);
+  const itemDropMonstersByItemId = useMemo(() => {
+    const map = new Map<number, Array<{ mobId: number; name: string; region?: string; prob?: number }>>();
+    const resolveItemEntry = (
+      entries?: Array<{ mobId: number; prob?: number }>
+    ) => {
+      return (entries ?? [])
+        .map((entry) => {
+          const mobId = Number(entry?.mobId ?? 0);
+          if (!isReleasedMobCode(mobId)) return null;
+          const info = monsterInfoByMobCode.get(mobId);
+          if (!info?.name || info.exist === false) return null;
+          return {
+            mobId,
+            name: info.name,
+            region: info.region,
+            prob: typeof entry?.prob === "number" ? entry.prob : undefined,
+          };
+        })
+        .filter((v): v is NonNullable<typeof v> => Boolean(v));
+    };
+
+    // item_detail BY 데이터를 우선 반영
+    for (const [itemIdText, entries] of Object.entries(itemDetailByData.itemsByItemId ?? {})) {
+      const itemId = Number(itemIdText);
+      if (!Number.isFinite(itemId) || itemId <= 0) continue;
+      const resolved = resolveItemEntry(entries);
+      if (!resolved.length) continue;
+      map.set(itemId, resolved);
+    }
+
+    for (const [itemIdText, entries] of Object.entries(dropIndexData.monstersByItemId ?? {})) {
+      const itemId = Number(itemIdText);
+      if (!Number.isFinite(itemId) || itemId <= 0) continue;
+      if (map.has(itemId)) continue;
+
+      const resolved = resolveItemEntry(entries);
+
+      // 같은 몬스터가 중복 기록된 경우 확률이 큰 값 하나만 사용
+      const dedupedByMobId = new Map<number, { mobId: number; name: string; region?: string; prob?: number }>();
+      for (const row of resolved) {
+        const prev = dedupedByMobId.get(row.mobId);
+        if (!prev) {
+          dedupedByMobId.set(row.mobId, row);
+          continue;
+        }
+        if ((row.prob ?? 0) > (prev.prob ?? 0)) {
+          dedupedByMobId.set(row.mobId, row);
+        }
+      }
+
+      const unique = Array.from(dedupedByMobId.values())
+        .sort((a, b) => (b.prob ?? 0) - (a.prob ?? 0));
+
+      map.set(itemId, unique);
+    }
+
+    return map;
+  }, [monsterInfoByMobCode]);
+
   const maxLevelValue = useMemo(() => {
     const parsed = Number(maxLevel);
     return Number.isFinite(parsed) && parsed > 0 ? parsed : null;
   }, [maxLevel]);
 
+  const trackedQuestCount = trackerByQuestId.size;
+  const completedQuestCount = useMemo(() => {
+    let count = 0;
+    for (const tracked of trackerByQuestId.values()) {
+      if (tracked.is_completed) count += 1;
+    }
+    return count;
+  }, [trackerByQuestId]);
+
+  const setQuestPending = useCallback((questId: number, pending: boolean) => {
+    setPendingQuestIds((prev) => {
+      const next = { ...prev };
+      if (pending) next[questId] = true;
+      else delete next[questId];
+      return next;
+    });
+  }, []);
+
+  const loadTrackers = useCallback(async (uid: string) => {
+    setTrackerLoading(true);
+    setSyncError(null);
+
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { data: rows, error } = await supabase
+        .from("quest_trackers")
+        .select("id, quest_id, is_completed")
+        .eq("user_id", uid);
+
+      if (error) throw error;
+
+      const nextMap = new Map<number, TrackerMapValue>();
+      for (const row of rows ?? []) {
+        nextMap.set(Number(row.quest_id), {
+          id: row.id,
+          quest_id: Number(row.quest_id),
+          is_completed: Boolean(row.is_completed),
+        });
+      }
+      setTrackerByQuestId(nextMap);
+    } catch {
+      setSyncError("내 퀘스트 동기화에 실패했습니다. 잠시 후 다시 시도해주세요.");
+    } finally {
+      setTrackerLoading(false);
+    }
+  }, []);
+
+  useEffect(() => {
+    const supabase = getSupabaseBrowserClient();
+    let mounted = true;
+
+    const syncUserAndTrackers = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+
+      if (!mounted) return;
+      const nextUserId = user?.id ?? null;
+      setUserId(nextUserId);
+
+      if (!nextUserId) {
+        setTrackerByQuestId(new Map());
+        setTrackerLoading(false);
+        return;
+      }
+
+      void loadTrackers(nextUserId);
+    };
+
+    void syncUserAndTrackers();
+
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      const nextUserId = session?.user?.id ?? null;
+      setUserId(nextUserId);
+
+      if (!nextUserId) {
+        setTrackerByQuestId(new Map());
+        setTrackerLoading(false);
+        return;
+      }
+
+      void loadTrackers(nextUserId);
+    });
+
+    return () => {
+      mounted = false;
+      subscription.unsubscribe();
+    };
+  }, [loadTrackers]);
+
   const filteredQuests = useMemo(() => {
     const keyword = normalizeQuery(query);
+
     const rows = [...data.quests]
       .filter((quest) => {
         const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
         const npcName = npcMap.get(quest.npcId) ?? "";
+        if (isUnreleasedArea(worldName)) return false;
         if (selectedWorldGroup !== "all" && getWorldGroup(worldName, npcName) !== selectedWorldGroup) return false;
         if (maxLevelValue !== null && quest.levelMin > maxLevelValue) return false;
+        if (showPriorityOnly && !priorityQuestIds.has(quest.id)) return false;
+
+        const isTracked = trackerByQuestId.has(quest.id);
+        if (showTrackedOnly && !isTracked) return false;
+
+        const hasRewardExp = (quest.rewards.exp ?? 0) > 0;
+        const hasRewardMeso = (quest.rewards.meso ?? 0) > 0;
+        const hasRewardItems = (quest.rewards.items ?? []).length > 0;
+        const rewardItemGroups = (quest.rewards.items ?? []).map((item) => getRewardItemGroup(Number(item.id), item.name));
+
+        if (rewardTypeFilter === "exp" && !hasRewardExp) return false;
+        if (rewardTypeFilter === "meso" && !hasRewardMeso) return false;
+        if (rewardTypeFilter === "item" && !hasRewardItems) return false;
+
+        if (rewardTypeFilter === "item" && rewardItemTypeFilter !== "all") {
+          if (!rewardItemGroups.includes(rewardItemTypeFilter)) return false;
+        }
+
         if (!keyword) return true;
         const rewardNames = (quest.rewards.items ?? []).map((item) => item.name).join(" ");
         const keys = [
           ...getSearchKeys(quest.name),
           ...getSearchKeys(npcName),
           ...getSearchKeys(rewardNames),
+          ...getSearchKeys(String(quest.id)),
         ];
         return keys.some((key) => key.includes(keyword));
       })
       .sort((a, b) => {
+        const aTracked = trackerByQuestId.has(a.id) ? 0 : 1;
+        const bTracked = trackerByQuestId.has(b.id) ? 0 : 1;
+        if (aTracked !== bTracked) return aTracked - bTracked;
+
         if (a.levelMin !== b.levelMin) return a.levelMin - b.levelMin;
         return a.name.localeCompare(b.name, "ko");
       });
+
     return rows;
-  }, [maxLevelValue, npcMap, query, selectedWorldGroup, worldMap]);
+  }, [maxLevelValue, npcMap, priorityQuestIds, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showPriorityOnly, showTrackedOnly, trackerByQuestId, worldMap]);
+
+  const displayedQuests = useMemo(() => {
+    const hasKeyword = normalizeQuery(query).length > 0;
+    if (hasKeyword) return filteredQuests;
+    return filteredQuests.slice(0, INITIAL_VISIBLE_COUNT);
+  }, [filteredQuests, query]);
+  const filteredPriorityQuestIds = useMemo(() => {
+    if (!showPriorityOnly) return [];
+    return filteredQuests.map((quest) => quest.id);
+  }, [filteredQuests, showPriorityOnly]);
+  const missingFilteredPriorityCount = useMemo(() => {
+    let count = 0;
+    for (const questId of filteredPriorityQuestIds) {
+      if (!trackerByQuestId.has(questId)) count += 1;
+    }
+    return count;
+  }, [filteredPriorityQuestIds, trackerByQuestId]);
+  const isSearchMode = useMemo(() => normalizeQuery(query).length > 0, [query]);
 
   const worldGroupOptions = useMemo(() => {
     const counts = new Map<string, number>();
+
     for (const quest of data.quests) {
       const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
+      if (isUnreleasedArea(worldName)) continue;
+
       const npcName = npcMap.get(quest.npcId) ?? "";
       const group = getWorldGroup(worldName, npcName);
       counts.set(group, (counts.get(group) ?? 0) + 1);
     }
+
     const order = [
       "빅토리아",
       "오르비스",
@@ -162,39 +565,346 @@ export function QuestBoard() {
       "중국",
       "기타",
     ];
+
     return [...counts.entries()].sort((a, b) => {
       const ai = order.indexOf(a[0]);
       const bi = order.indexOf(b[0]);
       return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
     });
   }, [npcMap, worldMap]);
+  const mobAreasById = useMemo(() => {
+    const map = new Map<number, Set<string>>();
+    for (const quest of data.quests) {
+      for (const mob of quest.requirements.complete?.mobs ?? []) {
+        const mobId = Number(mob.id ?? 0);
+        const area = String(mob.area ?? "").trim();
+        if (!Number.isFinite(mobId) || mobId <= 0 || !area) continue;
+        if (!map.has(mobId)) map.set(mobId, new Set());
+        map.get(mobId)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+  const mobAreasByName = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const quest of data.quests) {
+      for (const mob of quest.requirements.complete?.mobs ?? []) {
+        const mobName = String(mob.name ?? "").trim();
+        const area = String(mob.area ?? "").trim();
+        if (!mobName || !area) continue;
+        if (!map.has(mobName)) map.set(mobName, new Set());
+        map.get(mobName)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+  const mobSpawnAreasById = useMemo(() => {
+    const map = new Map<number, Set<string>>();
+    for (const row of monsterSpawnsData.rows ?? []) {
+      const mobId = Number(row?.mob_code ?? 0);
+      if (!Number.isFinite(mobId) || mobId <= 0) continue;
+      for (const spawn of row?.maps ?? []) {
+        const area = toDisplayMapName(spawn?.map_name);
+        if (!area) continue;
+        if (isUnreleasedArea(area)) continue;
+        if (!map.has(mobId)) map.set(mobId, new Set());
+        map.get(mobId)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+  const mobSpawnAreasByName = useMemo(() => {
+    const map = new Map<string, Set<string>>();
+    for (const row of monsterSpawnsData.rows ?? []) {
+      const mobName = String(row?.mob_name ?? "").trim();
+      if (!mobName) continue;
+      for (const spawn of row?.maps ?? []) {
+        const area = toDisplayMapName(spawn?.map_name);
+        if (!area) continue;
+        if (isUnreleasedArea(area)) continue;
+        if (!map.has(mobName)) map.set(mobName, new Set());
+        map.get(mobName)?.add(area);
+      }
+    }
+    return map;
+  }, []);
+
+  const handleToggleTracked = useCallback(
+    async (questId: number) => {
+      if (!userId) {
+        window.location.href = "/login";
+        return;
+      }
+
+      setSyncError(null);
+      setQuestPending(questId, true);
+
+      const tracked = trackerByQuestId.get(questId);
+      const supabase = getSupabaseBrowserClient();
+
+      try {
+        if (tracked) {
+          const { error } = await supabase.from("quest_trackers").delete().eq("id", tracked.id);
+          if (error) throw error;
+
+          setTrackerByQuestId((prev) => {
+            const next = new Map(prev);
+            next.delete(questId);
+            return next;
+          });
+          return;
+        }
+
+        const { data: upserted, error } = await supabase
+          .from("quest_trackers")
+          .upsert(
+            {
+              user_id: userId,
+              quest_id: questId,
+              is_completed: false,
+            },
+            { onConflict: "user_id,quest_id" },
+          )
+          .select("id, quest_id, is_completed")
+          .single();
+
+        if (error) throw error;
+
+        setTrackerByQuestId((prev) => {
+          const next = new Map(prev);
+          next.set(questId, {
+            id: upserted.id,
+            quest_id: Number(upserted.quest_id),
+            is_completed: Boolean(upserted.is_completed),
+          });
+          return next;
+        });
+      } catch {
+        setSyncError("내 퀘스트 저장 중 오류가 발생했습니다.");
+      } finally {
+        setQuestPending(questId, false);
+      }
+    },
+    [trackerByQuestId, setQuestPending, userId],
+  );
+
+  const handleToggleCompleted = useCallback(
+    async (questId: number, nextChecked: boolean) => {
+      if (!userId) {
+        window.location.href = "/login?next=/quests";
+        return;
+      }
+
+      const tracked = trackerByQuestId.get(questId);
+      setSyncError(null);
+      setQuestPending(questId, true);
+
+      const supabase = getSupabaseBrowserClient();
+
+      try {
+        if (!tracked) {
+          if (!nextChecked) return;
+
+          const { data: upserted, error } = await supabase
+            .from("quest_trackers")
+            .upsert(
+              {
+                user_id: userId,
+                quest_id: questId,
+                is_completed: true,
+              },
+              { onConflict: "user_id,quest_id" },
+            )
+            .select("id, quest_id, is_completed")
+            .single();
+
+          if (error) throw error;
+
+          setTrackerByQuestId((prev) => {
+            const next = new Map(prev);
+            next.set(questId, {
+              id: upserted.id,
+              quest_id: Number(upserted.quest_id),
+              is_completed: Boolean(upserted.is_completed),
+            });
+            return next;
+          });
+          return;
+        }
+
+        const { error } = await supabase
+          .from("quest_trackers")
+          .update({ is_completed: nextChecked })
+          .eq("id", tracked.id);
+
+        if (error) throw error;
+
+        setTrackerByQuestId((prev) => {
+          const next = new Map(prev);
+          next.set(questId, {
+            ...tracked,
+            is_completed: nextChecked,
+          });
+          return next;
+        });
+      } catch {
+        setSyncError("완료 상태 저장 중 오류가 발생했습니다.");
+      } finally {
+        setQuestPending(questId, false);
+      }
+    },
+    [trackerByQuestId, setQuestPending, userId],
+  );
+
+  const handleJumpToQuest = useCallback(
+    (questId: number) => {
+      const targetName = questNameById.get(questId);
+      if (targetName && targetName !== "이전 퀘스트") {
+        setQuery(targetName);
+      } else {
+        setQuery(String(questId));
+      }
+      setSelectedWorldGroup("all");
+      setMaxLevel("");
+      setRewardTypeFilter("all");
+      setRewardItemTypeFilter("all");
+      setShowPriorityOnly(false);
+      setShowTrackedOnly(false);
+      setHighlightedQuestId(questId);
+    },
+    [questNameById],
+  );
+
+  const handleToggleMobInfo = useCallback((key: string) => {
+    setOpenedMobInfoKey((prev) => (prev === key ? null : key));
+  }, []);
+
+  const handleToggleTrackedOnly = useCallback(() => {
+    if (!showTrackedOnly && !userId) {
+      window.location.href = "/login?next=/quests";
+      return;
+    }
+    setShowTrackedOnly((prev) => !prev);
+  }, [showTrackedOnly, userId]);
+
+  const handleResetSearchFilters = useCallback(() => {
+    setQuery("");
+    setSelectedWorldGroup("all");
+    setMaxLevel("");
+    setRewardTypeFilter("all");
+    setRewardItemTypeFilter("all");
+    setShowPriorityOnly(false);
+    setShowTrackedOnly(false);
+  }, []);
+
+  const handleAddVisiblePriorityToTracked = useCallback(async () => {
+    if (!userId) {
+      window.location.href = "/login?next=/quests";
+      return;
+    }
+
+    if (!showPriorityOnly) return;
+
+    const missingQuestIds = filteredPriorityQuestIds.filter((questId) => !trackerByQuestId.has(questId));
+    if (missingQuestIds.length === 0) return;
+
+    setSyncError(null);
+    setBulkAddingPriority(true);
+
+    const supabase = getSupabaseBrowserClient();
+
+    try {
+      const { data: upserted, error } = await supabase
+        .from("quest_trackers")
+        .upsert(
+          missingQuestIds.map((questId) => ({
+            user_id: userId,
+            quest_id: questId,
+            is_completed: false,
+          })),
+          { onConflict: "user_id,quest_id" },
+        )
+        .select("id, quest_id, is_completed");
+
+      if (error) throw error;
+
+      setTrackerByQuestId((prev) => {
+        const next = new Map(prev);
+        for (const row of upserted ?? []) {
+          const questId = Number(row.quest_id);
+          if (!Number.isFinite(questId) || questId <= 0) continue;
+          next.set(questId, {
+            id: row.id,
+            quest_id: questId,
+            is_completed: Boolean(row.is_completed),
+          });
+        }
+        return next;
+      });
+    } catch {
+      setSyncError("현재 핵심 퀘스트 담기 중 오류가 발생했습니다.");
+    } finally {
+      setBulkAddingPriority(false);
+    }
+  }, [filteredPriorityQuestIds, showPriorityOnly, trackerByQuestId, userId]);
+
+  useEffect(() => {
+    if (!highlightedQuestId) return;
+    const element = document.getElementById(`quest-card-${highlightedQuestId}`);
+    if (!element) return;
+    element.scrollIntoView({ behavior: "smooth", block: "center" });
+    const timer = window.setTimeout(() => setHighlightedQuestId(null), 1800);
+    return () => window.clearTimeout(timer);
+  }, [filteredQuests, highlightedQuestId]);
+
+  useEffect(() => {
+    setOpenedMobInfoKey(null);
+  }, [query, selectedWorldGroup, maxLevel, rewardTypeFilter, rewardItemTypeFilter, showPriorityOnly, showTrackedOnly]);
+
+  useEffect(() => {
+    if (!userId && showTrackedOnly) setShowTrackedOnly(false);
+  }, [showTrackedOnly, userId]);
 
   return (
-    <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
-      <header className="glass-panel rounded-3xl px-6 py-6 text-left">
-        <h1 className="display text-4xl font-semibold md:text-5xl">메랜 퀘스트</h1>
-        <p className="mt-3 text-base text-slate-200/90 md:text-lg">
-          NPC 기준 퀘스트 목록과 조건/보상을 확인하고, 레벨 오름차순으로 탐색합니다.
+    <section className="retro-glass space-y-6 text-[color:var(--retro-text)] lg:space-y-7">
+      <header className="glass-panel rounded-3xl px-6 py-6 text-left lg:px-8 lg:py-8">
+        <h1 className="display text-4xl font-semibold md:text-5xl lg:text-6xl">메랜 퀘스트</h1>
+        <p className="mt-3 text-base text-slate-200/90 md:text-lg lg:text-xl">
+          NPC 기준 퀘스트 조건/보상을 확인하고, 내 퀘스트에 담아 완료 체크까지 관리할 수 있습니다.
         </p>
       </header>
 
       <Panel
         title="퀘스트 검색"
         tone="blue"
-        actions={<span className="text-xs text-[color:var(--retro-text-muted)]">결과 {filteredQuests.length} / {data.quests.length}</span>}
+        actions={
+          <span className="text-xs text-[color:var(--retro-text-muted)] md:text-sm">
+            표시 {displayedQuests.length} / 결과 {filteredQuests.length}
+          </span>
+        }
       >
-        <div className="space-y-3">
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="퀘스트명 / NPC명 / 보상 아이템"
-            className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
-          />
-          <div className="grid gap-2 md:grid-cols-[220px_180px]">
+        <div className="space-y-3 lg:space-y-4">
+          <div className="grid gap-2 md:grid-cols-[1fr_auto]">
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="퀘스트명 / NPC명 / 보상 아이템 / 퀘스트ID"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+            />
+            <button
+              type="button"
+              onClick={handleResetSearchFilters}
+              className="rounded-[10px] border border-slate-200/35 bg-slate-700/20 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-slate-100/70 hover:bg-slate-700/35 md:text-sm lg:px-4 lg:py-2.5 lg:text-base"
+            >
+              검색/필터 초기화
+            </button>
+          </div>
+
+          <div className="grid gap-2 md:grid-cols-4">
             <select
               value={selectedWorldGroup}
               onChange={(event) => setSelectedWorldGroup(event.target.value)}
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
             >
               <option value="all">전체 월드</option>
               {worldGroupOptions.map(([group, count]) => (
@@ -203,98 +913,510 @@ export function QuestBoard() {
                 </option>
               ))}
             </select>
+
             <input
               value={maxLevel}
               onChange={(event) => setMaxLevel(event.target.value)}
               inputMode="numeric"
               placeholder="최대 레벨 (예: 80)"
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
             />
+
+            <select
+              value={rewardTypeFilter}
+              onChange={(event) => {
+                const next = event.target.value as RewardTypeFilter;
+                setRewardTypeFilter(next);
+                if (next !== "item") setRewardItemTypeFilter("all");
+              }}
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+            >
+              <option value="all">보상 전체</option>
+              <option value="exp">경험치 보상</option>
+              <option value="meso">메소 보상</option>
+              <option value="item">아이템 보상</option>
+            </select>
+
+            <select
+              value={rewardItemTypeFilter}
+              onChange={(event) => setRewardItemTypeFilter(event.target.value as RewardItemTypeFilter)}
+              disabled={rewardTypeFilter !== "item"}
+              className={`w-full rounded-[10px] border px-3 py-2.5 text-sm focus:outline-none focus:ring-4 md:text-base lg:px-4 lg:py-3 lg:text-lg ${
+                rewardTypeFilter === "item"
+                  ? "border-cyan-200/30 bg-[var(--retro-bg)] text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:ring-cyan-200/20"
+                  : "cursor-not-allowed border-white/10 bg-slate-800/40 text-slate-400"
+              }`}
+            >
+              <option value="all">아이템 전체</option>
+              <option value="scroll">주문서</option>
+              <option value="equip">장비</option>
+              <option value="etc">기타템</option>
+            </select>
           </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowPriorityOnly((prev) => !prev)}
+              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                showPriorityOnly
+                  ? "border-amber-100/90 bg-amber-300/35 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.45)] hover:-translate-y-0.5"
+                  : "border-amber-100/70 bg-amber-200/25 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.35)] hover:-translate-y-0.5 hover:border-amber-50/95 hover:bg-amber-200/35"
+              }`}
+            >
+              {showPriorityOnly ? `핵심 퀘스트만 (${priorityQuestCount})` : `핵심 퀘스트 (${priorityQuestCount})`}
+            </button>
+
+            {showPriorityOnly ? (
+              <button
+                type="button"
+                onClick={() => void handleAddVisiblePriorityToTracked()}
+                disabled={bulkAddingPriority || missingFilteredPriorityCount === 0}
+                className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                  bulkAddingPriority || missingFilteredPriorityCount === 0
+                    ? "cursor-not-allowed border-emerald-100/35 bg-emerald-200/10 text-emerald-100/65"
+                    : "border-emerald-100/80 bg-emerald-300/25 text-emerald-50 shadow-[0_0_0_1px_rgba(110,231,183,0.35)] hover:-translate-y-0.5 hover:border-emerald-50/95 hover:bg-emerald-200/35"
+                }`}
+              >
+                {bulkAddingPriority
+                  ? "현재 핵심 담는 중..."
+                  : missingFilteredPriorityCount > 0
+                    ? `현재 핵심 결과 담기 (+${missingFilteredPriorityCount})`
+                    : "현재 핵심 결과 담기 완료"}
+              </button>
+            ) : null}
+
+            <button
+              type="button"
+              onClick={handleToggleTrackedOnly}
+              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                showTrackedOnly
+                  ? "border-cyan-100/90 bg-cyan-300/35 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.45)] hover:-translate-y-0.5"
+                  : "border-cyan-100/70 bg-cyan-200/25 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.32)] hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-cyan-200/35"
+              }`}
+            >
+              {showTrackedOnly ? "내 퀘스트만 보는 중" : "내 퀘스트만 보기"}
+            </button>
+
+            <span className="ml-auto rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-slate-200/90 md:text-xs lg:text-sm">
+              검색어 {query.trim() ? "ON" : "OFF"} · 핵심 {showPriorityOnly ? "ON" : "OFF"} · 내퀘 {showTrackedOnly ? "ON" : "OFF"}
+            </span>
+          </div>
+
+          <div className="rounded-xl border border-white/10 bg-slate-900/35 px-3 py-2 text-xs text-slate-200/85 md:text-sm lg:px-4 lg:py-3 lg:text-base">
+            {userId ? (
+              <div className="flex flex-wrap items-center gap-2">
+                <span>내 퀘스트 {trackedQuestCount}개</span>
+                <span className="text-slate-400">/</span>
+                <span>완료 {completedQuestCount}개</span>
+                {trackerLoading ? <span className="text-cyan-200/80">동기화 중...</span> : null}
+              </div>
+            ) : (
+              <p>
+                <Link href="/login" className="font-semibold text-cyan-200 hover:text-cyan-100">
+                  로그인
+                </Link>{" "}
+                후 퀘스트를 담고 완료 체크를 저장할 수 있습니다.
+              </p>
+            )}
+          </div>
+
+          {syncError ? (
+            <div className="rounded-lg border border-rose-300/35 bg-rose-400/10 px-3 py-2 text-xs text-rose-100 md:text-sm lg:text-base">
+              {syncError}
+            </div>
+          ) : null}
+
+          {!isSearchMode && filteredQuests.length > INITIAL_VISIBLE_COUNT ? (
+            <div className="rounded-lg border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs text-cyan-100 md:text-sm lg:text-base">
+              검색어가 없을 때는 처음 {INITIAL_VISIBLE_COUNT}개만 표시됩니다. 퀘스트명/NPC명/보상 아이템으로 검색해 주세요.
+            </div>
+          ) : null}
         </div>
       </Panel>
 
-      <section className="space-y-2">
-        <div className="grid gap-2 rounded-xl border border-cyan-200/35 bg-[var(--retro-bg)] px-3 py-2 text-xs text-slate-200 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1.2fr)]">
+      <section className="space-y-2 lg:space-y-3">
+        <div className="grid gap-2 rounded-xl border border-cyan-200/35 bg-[var(--retro-bg)] px-3 py-2 text-xs text-slate-200 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)] md:text-sm lg:px-4 lg:py-3 lg:text-base">
           <span>NPC / 퀘스트</span>
-          <span>월드 + 맵</span>
+          <span>월드맵</span>
           <span>조건</span>
           <span>보상</span>
         </div>
-        {filteredQuests.length === 0 ? (
-          <div className="glass-panel glass-panel-strong rounded-2xl border border-cyan-200/30 px-5 py-5 text-sm text-slate-200/80">
+
+        {displayedQuests.length === 0 ? (
+          <div className="glass-panel glass-panel-strong rounded-2xl border border-cyan-200/30 px-5 py-5 text-sm text-slate-200/80 md:text-base lg:text-lg">
             검색 결과가 없습니다.
           </div>
         ) : null}
-        {filteredQuests.map((quest) => {
+
+        {displayedQuests.map((quest) => {
           const npcName = npcMap.get(quest.npcId) ?? `NPC #${quest.npcId}`;
           const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
           const groupedWorld = getWorldGroup(worldName, npcName);
+          const worldMapNames = collectQuestMapNames(quest, worldName);
+          const npcMappedNames = npcMapNamesByNpcId.get(quest.npcId) ?? [];
+          const mapNamesForDisplayRaw = npcMappedNames.length > 0 ? npcMappedNames : worldMapNames;
+          const mapNamesForDisplay = mapNamesForDisplayRaw.filter(
+            (name) => normalizeQuery(name) !== normalizeQuery(formatWorldGroupLabel(groupedWorld)),
+          );
           const requiredItems = quest.requirements.complete?.items ?? [];
           const requiredMobs = quest.requirements.complete?.mobs ?? [];
           const rewardItems = quest.rewards.items ?? [];
           const startLevel = quest.requirements.start?.levelMin ?? quest.levelMin;
-          const prerequisiteNames = quest.prerequisites.map((item) => String(item.name ?? "").trim()).filter(Boolean);
+          const prerequisites = quest.prerequisites
+            .map((item) => ({
+              questId: Number(item.questId),
+              name: String(item.name ?? questNameById.get(Number(item.questId)) ?? `퀘스트 #${Number(item.questId)}`).trim(),
+            }))
+            .filter((item) => Number.isFinite(item.questId) && item.questId > 0 && item.name);
+          const visiblePrerequisites = prerequisites.slice(0, 3);
+          const hiddenPrerequisiteCount = Math.max(prerequisites.length - visiblePrerequisites.length, 0);
+
+          const tracked = trackerByQuestId.get(quest.id);
+          const isTracked = Boolean(tracked);
+          const isCompleted = Boolean(tracked?.is_completed);
+          const isPending = Boolean(pendingQuestIds[quest.id]);
+          const isPriority = priorityQuestIds.has(quest.id);
+
           return (
             <article
               key={quest.id}
-              className="grid gap-2 rounded-xl border border-cyan-200/35 bg-[var(--retro-cell)] px-3 py-2 text-sm shadow-[0_0_0_1px_rgba(34,211,238,0.08)] transition duration-150 hover:border-cyan-200/70 hover:bg-[var(--retro-cell-strong)] hover:shadow-[0_0_0_1px_rgba(34,211,238,0.2)] hover:ring-4 hover:ring-cyan-200/20 md:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)_minmax(0,1.6fr)_minmax(0,1.2fr)]"
+              id={`quest-card-${quest.id}`}
+              className={`grid gap-2 rounded-xl border border-cyan-100/55 bg-[color:color-mix(in_srgb,var(--retro-cell)_70%,#bae6fd_30%)] px-3 py-3 text-sm shadow-[0_0_0_1px_rgba(125,211,252,0.2)] transition duration-200 hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-[color:color-mix(in_srgb,var(--retro-cell-strong)_72%,#bae6fd_28%)] hover:shadow-[0_12px_22px_rgba(8,47,73,0.35)] hover:ring-4 hover:ring-cyan-200/20 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)] md:text-base lg:px-4 lg:py-4 lg:text-[17px] ${
+                highlightedQuestId === quest.id ? "ring-4 ring-amber-200/60 border-amber-200/80" : ""
+              }`}
             >
-              <div className="flex min-w-0 items-center gap-2">
-                <img
-                  src={getNpcIconUrl(quest.npcId)}
-                  alt={npcName}
-                  className="h-7 w-7 shrink-0 object-contain [image-rendering:pixelated]"
-                />
-                <div className="min-w-0">
-                  <p className="truncate font-semibold text-slate-100">{quest.name}</p>
-                  <p className="truncate text-xs text-slate-300/80">
-                    {npcName} <span className="text-slate-400">· Lv.{startLevel}+</span>
-                  </p>
+              <div className="min-w-0">
+                <div className="relative">
+                  <div className="flex min-w-0 items-center gap-2 text-left lg:gap-3">
+                    <img
+                      src={getNpcIconUrl(quest.npcId)}
+                      alt={npcName}
+                      data-maple-code={String(quest.npcId)}
+                      data-maple-retry="0"
+                      onError={(event) => handleMapleIoImageError(event, "npc")}
+                      className="h-8 w-8 shrink-0 object-contain [image-rendering:pixelated] md:h-9 md:w-9 lg:h-11 lg:w-11"
+                    />
+                    <div className="min-w-0">
+                      <p className="break-words font-semibold text-slate-100 md:text-lg lg:text-xl">{quest.name}</p>
+                      <div className="flex flex-wrap items-center gap-1 text-xs md:text-sm lg:text-base">
+                        <span className="break-words text-cyan-200">{npcName}</span>
+                        <span className="text-slate-400">· 시작 Lv.{startLevel}+</span>
+                        {isPriority ? (
+                          <span className="rounded-full border border-amber-100/80 bg-amber-300/25 px-1.5 py-0.5 text-[10px] font-semibold text-amber-50 md:text-xs">
+                            핵심 퀘스트
+                          </span>
+                        ) : null}
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-2 space-y-2">
+                  {prerequisites.length > 0 ? (
+                    <div className="flex flex-wrap items-center gap-1" title={prerequisites.map((item) => item.name).join(", ")}>
+                      <span className="text-[11px] text-indigo-100/90 md:text-xs lg:text-sm">선행퀘:</span>
+                      {visiblePrerequisites.map((item) => (
+                        <button
+                          key={`${quest.id}-${item.questId}`}
+                          type="button"
+                          onClick={() => handleJumpToQuest(item.questId)}
+                          className="rounded-full border border-indigo-200/35 bg-indigo-300/10 px-2 py-0.5 text-[11px] text-indigo-100 transition hover:border-indigo-100/70 hover:bg-indigo-300/20 md:text-xs lg:text-sm"
+                        >
+                          {item.name}
+                        </button>
+                      ))}
+                      {hiddenPrerequisiteCount > 0 ? (
+                        <span className="rounded-full border border-slate-300/30 bg-slate-700/30 px-2 py-0.5 text-[11px] text-slate-200 md:text-xs lg:text-sm">
+                          +{hiddenPrerequisiteCount}개
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
+
+                  <div className="flex flex-wrap items-center gap-2">
+                    <button
+                      type="button"
+                      disabled={isPending}
+                      onClick={() => void handleToggleTracked(quest.id)}
+                      className={`rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-1.5 lg:text-base ${
+                        isTracked
+                          ? "border-cyan-100/90 bg-cyan-300/35 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.45)] hover:-translate-y-0.5"
+                          : "border-cyan-100/75 bg-cyan-200/25 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.35)] hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-cyan-200/35"
+                      } ${isPending ? "cursor-not-allowed opacity-60" : ""}`}
+                    >
+                      {isPending ? "저장 중..." : isTracked ? "담기 해제" : "내 퀘스트 담기"}
+                    </button>
+
+                    <button
+                      type="button"
+                      disabled={isPending}
+                      onClick={() => void handleToggleCompleted(quest.id, !isCompleted)}
+                      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-1.5 lg:text-base ${
+                        isCompleted
+                          ? "border-emerald-100/90 bg-emerald-300/30 text-emerald-50 shadow-[0_0_0_1px_rgba(110,231,183,0.42)] hover:-translate-y-0.5"
+                          : "border-slate-200/45 bg-slate-700/25 text-slate-100 shadow-[0_0_0_1px_rgba(148,163,184,0.24)] hover:-translate-y-0.5 hover:bg-slate-700/35"
+                      } ${isPending ? "cursor-not-allowed opacity-60" : ""}`}
+                    >
+                      <span className={`inline-flex h-4 w-4 items-center justify-center rounded-full text-[10px] md:h-4.5 md:w-4.5 ${
+                        isCompleted ? "bg-emerald-50 text-emerald-700" : "bg-slate-900/40 text-slate-200"
+                      }`}>
+                        {isCompleted ? "✓" : "○"}
+                      </span>
+                      {isPending ? "저장 중..." : isCompleted ? "완료됨" : "완료하기"}
+                    </button>
+
+                  </div>
                 </div>
               </div>
 
-              <div className="min-w-0 text-xs text-slate-200/90">
-                <p className="truncate font-semibold">{groupedWorld}</p>
-                <p className="truncate text-slate-300/80">{worldName}</p>
+              <div className="min-w-0 text-xs text-slate-200/90 md:text-sm lg:text-base">
+                <p className="break-words font-semibold">{formatWorldGroupLabel(groupedWorld)}</p>
+                <p className="mt-0.5 break-words text-slate-300/85">{mapNamesForDisplay[0] || "맵 정보 없음"}</p>
+                {mapNamesForDisplay.length > 1 ? (
+                  <div className="mt-0.5 space-y-0.5 text-[11px] text-slate-300/85 md:text-xs lg:text-sm">
+                    {mapNamesForDisplay.slice(1, 3).map((name) => (
+                      <p key={`${quest.id}-map-${name}`} className="break-words">• {name}</p>
+                    ))}
+                    {mapNamesForDisplay.length > 3 ? (
+                      <p className="text-slate-400">외 {mapNamesForDisplay.length - 3}곳</p>
+                    ) : null}
+                  </div>
+                ) : null}
               </div>
 
-              <div className="min-w-0 space-y-1 text-xs text-slate-200/90">
-                {prerequisiteNames.length > 0 ? (
-                  <details className="rounded-md border border-white/10 bg-slate-900/30 px-2 py-1">
-                    <summary className="cursor-pointer list-none text-slate-300/90">
-                      선행 퀘스트 {prerequisiteNames.length}개
-                    </summary>
-                    <p className="mt-1 text-slate-300/85">
-                      {prerequisiteNames.join(", ")}
-                    </p>
-                  </details>
-                ) : (
-                  <p className="text-slate-400">선행: 없음</p>
-                )}
+              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm lg:text-base">
                 {requiredMobs.length > 0 ? (
-                  <p className="truncate text-slate-300/85">
-                    사냥:{" "}
-                    {requiredMobs
-                      .map((mob) => `${mob.name}${mob.quantity ? ` x${mob.quantity}` : ""}`)
-                      .join(", ")}
-                  </p>
+                  <div className="space-y-1.5">
+                    <span className="text-slate-300/85">사냥:</span>
+                    <div className="flex flex-wrap gap-1.5">
+                      {requiredMobs.map((mob, index) => {
+                        const mobId = Number(mob.id ?? 0);
+                        const mobName = String(mob.name ?? "").trim();
+                        const mobFromCode = Number.isFinite(mobId) && mobId > 0 ? monsterInfoByMobCode.get(mobId) : undefined;
+                        const mobFromName = mobFromCode ? undefined : monsterInfoByName.get(mobName);
+                        const iconMobCode = mobFromCode ? mobId : mobFromName?.mobCode ?? 0;
+                        const infoKey = `${quest.id}-${mobId || mobName}-${index}`;
+                        const isInfoOpen = openedMobInfoKey === infoKey;
+                        const exactLocations = Array.from(
+                          new Set(
+                            [
+                              mob.area,
+                              ...(mobId > 0 ? Array.from(mobAreasById.get(mobId) ?? []) : []),
+                              ...Array.from(mobAreasByName.get(mobName) ?? []),
+                              ...(mobId > 0 ? Array.from(mobSpawnAreasById.get(mobId) ?? []) : []),
+                              ...Array.from(mobSpawnAreasByName.get(mobName) ?? []),
+                              mobFromCode?.map,
+                              mobFromName?.map,
+                            ]
+                              .map((v) => String(v ?? "").trim())
+                              .filter(Boolean),
+                          ),
+                        );
+                        const regionHint = String(mobFromCode?.region ?? mobFromName?.region ?? "").trim() || null;
+
+                        return (
+                          <div key={infoKey} className="relative">
+                            <button
+                              type="button"
+                              onClick={() => handleToggleMobInfo(infoKey)}
+                              className="inline-flex items-center gap-1.5 rounded-full border border-sky-200/60 bg-sky-300/15 px-2 py-1 text-[11px] text-sky-100 transition hover:-translate-y-0.5 hover:border-sky-100/95 hover:bg-sky-300/25 md:text-xs lg:text-sm"
+                            >
+                              {iconMobCode > 0 ? (
+                                <img
+                                  src={getMobIconUrl(iconMobCode)}
+                                  alt={mobName}
+                                  data-maple-code={String(iconMobCode)}
+                                  data-maple-retry="0"
+                                  onError={(event) => handleMapleIoImageError(event, "mob")}
+                                  className="h-4 w-4 shrink-0 object-contain [image-rendering:pixelated] md:h-5 md:w-5"
+                                  loading="lazy"
+                                />
+                              ) : null}
+                              <span className="break-words">{mobName}{mob.quantity ? ` x${mob.quantity}` : ""}</span>
+                            </button>
+
+                            {isInfoOpen ? (
+                              <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-lg border border-sky-100/55 bg-slate-950/95 px-2.5 py-2 text-[11px] text-slate-100 shadow-[0_12px_24px_rgba(0,0,0,0.45)] md:text-xs">
+                                <p className="font-semibold text-sky-100">{mobName} 위치 안내</p>
+                                {exactLocations.length > 0 ? (
+                                  <div className="mt-1 space-y-0.5">
+                                    {exactLocations.map((location) => (
+                                      <p key={`${infoKey}-${location}`} className="break-words text-slate-200/95">• {location}</p>
+                                    ))}
+                                  </div>
+                                ) : (
+                                  <p className="mt-1 text-slate-300/85">퀘스트 데이터에 정확한 맵 정보가 없습니다.</p>
+                                )}
+                                {regionHint ? <p className="mt-1 text-[10px] text-slate-400/90">참고 지역: {regionHint}</p> : null}
+                                <p className="mt-1 text-[10px] text-slate-400/90">다시 누르면 닫힙니다.</p>
+                              </div>
+                            ) : null}
+                          </div>
+                        );
+                      })}
+                    </div>
+                  </div>
                 ) : null}
+
                 {requiredItems.length > 0 ? (
                   <div className="space-y-1.5">
                     <span className="text-slate-300/85">아이템:</span>
-                    {requiredItems.map((item) => (
+                    {requiredItems.map((item, itemIndex) => (
                       <div key={`${quest.id}-req-${item.id}`} className="rounded-lg border border-white/10 bg-slate-900/40 px-2 py-1.5">
-                        <div className="flex items-center gap-1.5">
+                        {(() => {
+                          const dropMonsters = (itemDropMonstersByItemId.get(item.id) ?? []).slice(0, 3);
+
+                          return (
+                            <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                              <div className="min-w-0 md:flex-1">
+                                <div className="flex items-center gap-1.5">
+                                  <img
+                                    src={getItemIconUrl(item.id)}
+                                    alt={item.name}
+                                    className="h-4 w-4 shrink-0 object-contain [image-rendering:pixelated] md:h-5 md:w-5"
+                                    loading="lazy"
+                                  />
+                                  <span className="break-words">{item.name} x{item.count}</span>
+                                </div>
+                                <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs lg:text-sm">
+                                  <a
+                                    href={`https://www.mapleland.gg/item/${item.id}`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-cyan-200 hover:text-cyan-100"
+                                  >
+                                    매랜지지
+                                  </a>
+                                  <a
+                                    href={`https://mapledb.kr/search.php?q=${item.id}&t=item`}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-emerald-200 hover:text-emerald-100"
+                                  >
+                                    매랜DB
+                                  </a>
+                                </div>
+                              </div>
+
+                              {dropMonsters.length > 0 ? (
+                                <div className="md:w-[46%] md:pl-2">
+                                  <p className="text-[11px] text-amber-100/90 md:text-xs">드랍 몬스터</p>
+                                  <div className="mt-1 flex flex-wrap gap-1.5">
+                                    {dropMonsters.map((mob) => {
+                                      const infoKey = `${quest.id}-item-${item.id}-${mob.mobId}-${itemIndex}`;
+                                      const isInfoOpen = openedMobInfoKey === infoKey;
+                                      const exactLocations = Array.from(
+                                        new Set(
+                                          [
+                                            ...(mob.mobId > 0 ? Array.from(mobAreasById.get(mob.mobId) ?? []) : []),
+                                            ...Array.from(mobAreasByName.get(mob.name) ?? []),
+                                            ...(mob.mobId > 0 ? Array.from(mobSpawnAreasById.get(mob.mobId) ?? []) : []),
+                                            ...Array.from(mobSpawnAreasByName.get(mob.name) ?? []),
+                                          ]
+                                            .map((v) => String(v ?? "").trim())
+                                            .filter(Boolean),
+                                        ),
+                                      );
+                                      const regionHint = String(mob.region ?? "").trim() || null;
+                                      const probText = typeof mob.prob === "number" && mob.prob > 0
+                                        ? `${(mob.prob * 100).toFixed(mob.prob * 100 >= 1 ? 1 : 2)}%`
+                                        : null;
+
+                                      return (
+                                        <div key={infoKey} className="relative">
+                                          <button
+                                            type="button"
+                                            onClick={() => handleToggleMobInfo(infoKey)}
+                                            className="inline-flex items-center gap-1.5 rounded-full border border-amber-200/60 bg-amber-300/15 px-2 py-1 text-[11px] text-amber-100 transition hover:-translate-y-0.5 hover:border-amber-100/95 hover:bg-amber-300/25 md:text-xs"
+                                          >
+                                            <img
+                                              src={getMobIconUrl(mob.mobId)}
+                                              alt={mob.name}
+                                              data-maple-code={String(mob.mobId)}
+                                              data-maple-retry="0"
+                                              onError={(event) => handleMapleIoImageError(event, "mob")}
+                                              className="h-4 w-4 shrink-0 object-contain [image-rendering:pixelated] md:h-5 md:w-5"
+                                              loading="lazy"
+                                            />
+                                            <span className="break-words">{mob.name}</span>
+                                            {probText ? <span className="text-[10px] text-amber-200/90">{probText}</span> : null}
+                                          </button>
+
+                                          {isInfoOpen ? (
+                                            <div className="absolute left-0 top-full z-20 mt-1 w-56 rounded-lg border border-amber-100/55 bg-slate-950/95 px-2.5 py-2 text-[11px] text-slate-100 shadow-[0_12px_24px_rgba(0,0,0,0.45)] md:text-xs">
+                                              <p className="font-semibold text-amber-100">{mob.name} 정보</p>
+                                              {exactLocations.length > 0 ? (
+                                                <div className="mt-1 space-y-0.5">
+                                                  {exactLocations.map((location) => (
+                                                    <p key={`${infoKey}-${location}`} className="break-words text-slate-200/95">• {location}</p>
+                                                  ))}
+                                                </div>
+                                              ) : (
+                                                <p className="mt-1 text-slate-300/85">퀘스트 데이터에 정확한 맵 정보가 없습니다.</p>
+                                              )}
+                                              {regionHint ? <p className="mt-1 text-[10px] text-slate-400/90">참고 지역: {regionHint}</p> : null}
+                                              <p className="mt-1 text-[10px] text-slate-400/90">다시 누르면 닫힙니다.</p>
+                                            </div>
+                                          ) : null}
+                                        </div>
+                                      );
+                                    })}
+                                  </div>
+                                </div>
+                              ) : null}
+                            </div>
+                          );
+                        })()}
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <p className="text-slate-400">아이템 조건: 없음</p>
+                )}
+              </div>
+
+              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm lg:text-base">
+                <div className="flex flex-wrap gap-1.5">
+                  {(quest.rewards.exp ?? 0) > 0 ? (
+                    <span className="rounded-full border border-sky-200/45 bg-sky-300/15 px-2 py-0.5 text-[11px] text-sky-100 md:text-xs lg:text-sm">경험치</span>
+                  ) : null}
+                  {(quest.rewards.meso ?? 0) > 0 ? (
+                    <span className="rounded-full border border-yellow-200/45 bg-yellow-300/15 px-2 py-0.5 text-[11px] text-yellow-100 md:text-xs lg:text-sm">메소</span>
+                  ) : null}
+                  {rewardItems.length > 0 ? (
+                    <span className="rounded-full border border-emerald-200/45 bg-emerald-300/15 px-2 py-0.5 text-[11px] text-emerald-100 md:text-xs lg:text-sm">아이템</span>
+                  ) : null}
+                </div>
+                {(quest.rewards.exp ?? 0) > 0 ? <p>EXP: {formatNumber(quest.rewards.exp ?? 0)}</p> : null}
+                {(quest.rewards.meso ?? 0) > 0 ? <p>메소: {formatNumber(quest.rewards.meso ?? 0)}</p> : null}
+                {rewardItems.length > 0 ? (
+                  <div className="space-y-1.5">
+                    <span className="text-slate-300/85">아이템:</span>
+                    {rewardItems.map((item) => (
+                      <div key={`${quest.id}-reward-${item.id}`} className="rounded-lg border border-white/10 bg-slate-900/40 px-2 py-1.5">
+                        <div className="flex min-w-0 items-center gap-1.5">
                           <img
                             src={getItemIconUrl(item.id)}
                             alt={item.name}
-                            className="h-4 w-4 shrink-0 object-contain [image-rendering:pixelated]"
+                            className="h-4 w-4 shrink-0 object-contain [image-rendering:pixelated] md:h-5 md:w-5"
                             loading="lazy"
                           />
-                          <span className="truncate">{item.name} x{item.count}</span>
+                          <span
+                            title={`${item.name} x${item.count}`}
+                            className="truncate whitespace-nowrap"
+                          >
+                            {item.name} x{item.count}
+                          </span>
+                          <span className="shrink-0 whitespace-nowrap rounded-full border border-white/20 bg-white/10 px-1.5 py-0.5 text-[10px] text-slate-200/90 md:text-[11px]">
+                            {getRewardItemGroup(Number(item.id), item.name) === "scroll"
+                              ? "주문서"
+                              : getRewardItemGroup(Number(item.id), item.name) === "equip"
+                                ? "장비"
+                                : "기타템"}
+                          </span>
                         </div>
-                        <div className="mt-1 flex items-center gap-2 text-[11px]">
+                        <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs lg:text-sm">
                           <a
                             href={`https://www.mapleland.gg/item/${item.id}`}
                             target="_blank"
@@ -315,18 +1437,6 @@ export function QuestBoard() {
                       </div>
                     ))}
                   </div>
-                ) : (
-                  <p className="text-slate-400">아이템 조건: 없음</p>
-                )}
-              </div>
-
-              <div className="min-w-0 space-y-1 text-xs text-slate-200/90">
-                <p>EXP: {formatNumber(quest.rewards.exp ?? 0)}</p>
-                <p>메소: {formatNumber(quest.rewards.meso ?? 0)}</p>
-                {rewardItems.length > 0 ? (
-                  <p className="truncate text-slate-300/85">
-                    아이템: {rewardItems.map((item) => `${item.name} x${item.count}`).join(", ")}
-                  </p>
                 ) : (
                   <p className="text-slate-400">아이템 보상: 없음</p>
                 )}

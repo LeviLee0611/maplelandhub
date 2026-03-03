@@ -12,6 +12,9 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
+    "data/raw/**",
+    // Generated/third-party style data bundles that are not app source.
+    "src/data/mapledb/**",
   ]),
 ]);
 

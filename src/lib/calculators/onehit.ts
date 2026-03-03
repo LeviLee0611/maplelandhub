@@ -95,7 +95,6 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
   const fallbackAvg = input.avgDamage ?? statsDamage?.avgDamage ?? 1;
   const baseMin = input.minDamage ?? statsDamage?.minDamage ?? fallbackAvg;
   const baseMax = input.maxDamage ?? statsDamage?.maxDamage ?? fallbackAvg;
-  const baseAvg = input.avgDamage ?? (baseMin + baseMax) / 2;
   const finalMultiplier = ensurePositive(input.finalDamageMultiplier ?? 1, 1);
   const skillMultiplier = ensurePositive(input.skillMultiplier ?? 1, 1);
   const isMagic = Boolean(input.isMagic);
