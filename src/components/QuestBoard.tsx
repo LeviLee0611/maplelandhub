@@ -2,7 +2,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import Link from "next/link";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { getItemIconUrl, getMobIconUrl, getNpcIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import { isReleasedMobCode } from "@/lib/release-filter";
@@ -53,7 +53,14 @@ const npcLocationsData = npcLocationsJson as {
 
 type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
 type TrackerMapValue = Pick<QuestTrackerRow, "id" | "quest_id" | "is_completed">;
-const INITIAL_VISIBLE_COUNT = 10;
+const INITIAL_VISIBLE_COUNT = 20;
+const LOAD_MORE_COUNT = 20;
+const PRIORITY_EXCLUDED_ROOT_QUEST_IDS = new Set<number>([
+  2019, // 비밀의 책의 단서
+  2122, // 만지와 비밀조직
+  3053, // 외로운 봉달이
+  3430, // 마티안의 촉수 모으기
+]);
 const MANUAL_PRIORITY_QUEST_IDS = new Set<number>([
   2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022, 2023,
   2071, 2072, 2083, 2084, 2086, 2094, 2095, 2109, 2119, 2122,
@@ -232,6 +239,32 @@ function isPriorityQuest(quest: Quest) {
   return /\[(?:필수|추천)\s*퀘스트\]|(?:필수|추천)\s*퀘스트|반드시\s*(진행|클리어|추천)/.test(text);
 }
 
+function collectLinkedQuestIds(rootQuestIds: Set<number>, quests: Quest[]) {
+  const nextQuestIdsByPrerequisite = new Map<number, number[]>();
+  for (const quest of quests) {
+    for (const item of quest.prerequisites ?? []) {
+      const prerequisiteId = Number(item.questId);
+      if (!Number.isFinite(prerequisiteId) || prerequisiteId <= 0) continue;
+      const list = nextQuestIdsByPrerequisite.get(prerequisiteId) ?? [];
+      list.push(quest.id);
+      nextQuestIdsByPrerequisite.set(prerequisiteId, list);
+    }
+  }
+
+  const excluded = new Set<number>();
+  const queue = [...rootQuestIds];
+  while (queue.length > 0) {
+    const currentId = queue.shift();
+    if (!currentId || excluded.has(currentId)) continue;
+    excluded.add(currentId);
+    for (const nextId of nextQuestIdsByPrerequisite.get(currentId) ?? []) {
+      if (!excluded.has(nextId)) queue.push(nextId);
+    }
+  }
+
+  return excluded;
+}
+
 export function QuestBoard() {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
@@ -247,6 +280,8 @@ export function QuestBoard() {
   const [trackerByQuestId, setTrackerByQuestId] = useState<Map<number, TrackerMapValue>>(new Map());
   const [trackerLoading, setTrackerLoading] = useState(false);
   const [pendingQuestIds, setPendingQuestIds] = useState<Record<number, boolean>>({});
+  const [visibleQuestCount, setVisibleQuestCount] = useState(INITIAL_VISIBLE_COUNT);
+  const loadMoreSentinelRef = useRef<HTMLDivElement | null>(null);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [openedMobInfoKey, setOpenedMobInfoKey] = useState<string | null>(null);
 
@@ -271,13 +306,18 @@ export function QuestBoard() {
   }, []);
   const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), []);
   const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), []);
+  const priorityExcludedQuestIds = useMemo(
+    () => collectLinkedQuestIds(PRIORITY_EXCLUDED_ROOT_QUEST_IDS, data.quests),
+    [],
+  );
   const priorityQuestIds = useMemo(() => {
     const set = new Set<number>();
     for (const quest of data.quests) {
+      if (priorityExcludedQuestIds.has(quest.id)) continue;
       if (isPriorityQuest(quest)) set.add(quest.id);
     }
     return set;
-  }, []);
+  }, [priorityExcludedQuestIds]);
   const priorityQuestCount = priorityQuestIds.size;
   const monsterInfoByMobCode = useMemo(() => {
     const map = new Map<number, { name: string; region?: string; map?: string; exist: boolean }>();
@@ -515,10 +555,9 @@ export function QuestBoard() {
   }, [maxLevelValue, npcMap, priorityQuestIds, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showPriorityOnly, showTrackedOnly, trackerByQuestId, worldMap]);
 
   const displayedQuests = useMemo(() => {
-    const hasKeyword = normalizeQuery(query).length > 0;
-    if (hasKeyword) return filteredQuests;
-    return filteredQuests.slice(0, INITIAL_VISIBLE_COUNT);
-  }, [filteredQuests, query]);
+    return filteredQuests.slice(0, visibleQuestCount);
+  }, [filteredQuests, visibleQuestCount]);
+  const hasMoreQuests = displayedQuests.length < filteredQuests.length;
   const filteredPriorityQuestIds = useMemo(() => {
     if (!showPriorityOnly) return [];
     return filteredQuests.map((quest) => quest.id);
@@ -530,7 +569,9 @@ export function QuestBoard() {
     }
     return count;
   }, [filteredPriorityQuestIds, trackerByQuestId]);
-  const isSearchMode = useMemo(() => normalizeQuery(query).length > 0, [query]);
+  const loadMoreQuests = useCallback(() => {
+    setVisibleQuestCount((prev) => Math.min(prev + LOAD_MORE_COUNT, filteredQuests.length));
+  }, [filteredQuests.length]);
 
   const worldGroupOptions = useMemo(() => {
     const counts = new Map<string, number>();
@@ -859,17 +900,36 @@ export function QuestBoard() {
 
   useEffect(() => {
     setOpenedMobInfoKey(null);
+    setVisibleQuestCount(INITIAL_VISIBLE_COUNT);
   }, [query, selectedWorldGroup, maxLevel, rewardTypeFilter, rewardItemTypeFilter, showPriorityOnly, showTrackedOnly]);
 
   useEffect(() => {
     if (!userId && showTrackedOnly) setShowTrackedOnly(false);
   }, [showTrackedOnly, userId]);
 
+  useEffect(() => {
+    if (!hasMoreQuests) return;
+    const target = loadMoreSentinelRef.current;
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) {
+          loadMoreQuests();
+        }
+      },
+      { root: null, rootMargin: "320px 0px", threshold: 0 },
+    );
+
+    observer.observe(target);
+    return () => observer.disconnect();
+  }, [hasMoreQuests, loadMoreQuests]);
+
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)] lg:space-y-7">
       <header className="glass-panel rounded-3xl px-6 py-6 text-left lg:px-8 lg:py-8">
-        <h1 className="display text-4xl font-semibold md:text-5xl lg:text-6xl">메랜 퀘스트</h1>
-        <p className="mt-3 text-base text-slate-200/90 md:text-lg lg:text-xl">
+        <h1 className="text-2xl font-bold text-slate-100">메랜 퀘스트</h1>
+        <p className="mt-2 text-sm text-slate-200/90">
           NPC 기준 퀘스트 조건/보상을 확인하고, 내 퀘스트에 담아 완료 체크까지 관리할 수 있습니다.
         </p>
       </header>
@@ -878,7 +938,7 @@ export function QuestBoard() {
         title="퀘스트 검색"
         tone="blue"
         actions={
-          <span className="text-xs text-[color:var(--retro-text-muted)] md:text-sm">
+          <span className="text-xs text-[color:var(--retro-text-muted)]">
             표시 {displayedQuests.length} / 결과 {filteredQuests.length}
           </span>
         }
@@ -889,12 +949,12 @@ export function QuestBoard() {
               value={query}
               onChange={(event) => setQuery(event.target.value)}
               placeholder="퀘스트명 / NPC명 / 보상 아이템 / 퀘스트ID"
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
             />
             <button
               type="button"
               onClick={handleResetSearchFilters}
-              className="rounded-[10px] border border-slate-200/35 bg-slate-700/20 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-slate-100/70 hover:bg-slate-700/35 md:text-sm lg:px-4 lg:py-2.5 lg:text-base"
+              className="rounded-[10px] border border-slate-200/35 bg-slate-700/20 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-slate-100/70 hover:bg-slate-700/35"
             >
               검색/필터 초기화
             </button>
@@ -904,7 +964,7 @@ export function QuestBoard() {
             <select
               value={selectedWorldGroup}
               onChange={(event) => setSelectedWorldGroup(event.target.value)}
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
             >
               <option value="all">전체 월드</option>
               {worldGroupOptions.map(([group, count]) => (
@@ -919,7 +979,7 @@ export function QuestBoard() {
               onChange={(event) => setMaxLevel(event.target.value)}
               inputMode="numeric"
               placeholder="최대 레벨 (예: 80)"
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
             />
 
             <select
@@ -929,7 +989,7 @@ export function QuestBoard() {
                 setRewardTypeFilter(next);
                 if (next !== "item") setRewardItemTypeFilter("all");
               }}
-              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
             >
               <option value="all">보상 전체</option>
               <option value="exp">경험치 보상</option>
@@ -941,7 +1001,7 @@ export function QuestBoard() {
               value={rewardItemTypeFilter}
               onChange={(event) => setRewardItemTypeFilter(event.target.value as RewardItemTypeFilter)}
               disabled={rewardTypeFilter !== "item"}
-              className={`w-full rounded-[10px] border px-3 py-2.5 text-sm focus:outline-none focus:ring-4 md:text-base lg:px-4 lg:py-3 lg:text-lg ${
+              className={`w-full rounded-[10px] border px-3 py-2.5 text-sm focus:outline-none focus:ring-4 ${
                 rewardTypeFilter === "item"
                   ? "border-cyan-200/30 bg-[var(--retro-bg)] text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:ring-cyan-200/20"
                   : "cursor-not-allowed border-white/10 bg-slate-800/40 text-slate-400"
@@ -958,7 +1018,7 @@ export function QuestBoard() {
             <button
               type="button"
               onClick={() => setShowPriorityOnly((prev) => !prev)}
-              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition ${
                 showPriorityOnly
                   ? "border-amber-100/90 bg-amber-300/35 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.45)] hover:-translate-y-0.5"
                   : "border-amber-100/70 bg-amber-200/25 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.35)] hover:-translate-y-0.5 hover:border-amber-50/95 hover:bg-amber-200/35"
@@ -972,7 +1032,7 @@ export function QuestBoard() {
                 type="button"
                 onClick={() => void handleAddVisiblePriorityToTracked()}
                 disabled={bulkAddingPriority || missingFilteredPriorityCount === 0}
-                className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition ${
                   bulkAddingPriority || missingFilteredPriorityCount === 0
                     ? "cursor-not-allowed border-emerald-100/35 bg-emerald-200/10 text-emerald-100/65"
                     : "border-emerald-100/80 bg-emerald-300/25 text-emerald-50 shadow-[0_0_0_1px_rgba(110,231,183,0.35)] hover:-translate-y-0.5 hover:border-emerald-50/95 hover:bg-emerald-200/35"
@@ -989,7 +1049,7 @@ export function QuestBoard() {
             <button
               type="button"
               onClick={handleToggleTrackedOnly}
-              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition ${
                 showTrackedOnly
                   ? "border-cyan-100/90 bg-cyan-300/35 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.45)] hover:-translate-y-0.5"
                   : "border-cyan-100/70 bg-cyan-200/25 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.32)] hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-cyan-200/35"
@@ -998,12 +1058,12 @@ export function QuestBoard() {
               {showTrackedOnly ? "내 퀘스트만 보는 중" : "내 퀘스트만 보기"}
             </button>
 
-            <span className="ml-auto rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-slate-200/90 md:text-xs lg:text-sm">
+            <span className="ml-auto rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-slate-200/90">
               검색어 {query.trim() ? "ON" : "OFF"} · 핵심 {showPriorityOnly ? "ON" : "OFF"} · 내퀘 {showTrackedOnly ? "ON" : "OFF"}
             </span>
           </div>
 
-          <div className="rounded-xl border border-white/10 bg-slate-900/35 px-3 py-2 text-xs text-slate-200/85 md:text-sm lg:px-4 lg:py-3 lg:text-base">
+          <div className="rounded-xl border border-white/10 bg-slate-900/35 px-3 py-2 text-xs text-slate-200/85">
             {userId ? (
               <div className="flex flex-wrap items-center gap-2">
                 <span>내 퀘스트 {trackedQuestCount}개</span>
@@ -1022,21 +1082,21 @@ export function QuestBoard() {
           </div>
 
           {syncError ? (
-            <div className="rounded-lg border border-rose-300/35 bg-rose-400/10 px-3 py-2 text-xs text-rose-100 md:text-sm lg:text-base">
+            <div className="rounded-lg border border-rose-300/35 bg-rose-400/10 px-3 py-2 text-xs text-rose-100">
               {syncError}
             </div>
           ) : null}
 
-          {!isSearchMode && filteredQuests.length > INITIAL_VISIBLE_COUNT ? (
-            <div className="rounded-lg border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs text-cyan-100 md:text-sm lg:text-base">
-              검색어가 없을 때는 처음 {INITIAL_VISIBLE_COUNT}개만 표시됩니다. 퀘스트명/NPC명/보상 아이템으로 검색해 주세요.
+          {hasMoreQuests ? (
+            <div className="rounded-lg border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs text-cyan-100">
+              목록 하단으로 내리면 퀘스트를 자동으로 더 불러옵니다.
             </div>
           ) : null}
         </div>
       </Panel>
 
       <section className="space-y-2 lg:space-y-3">
-        <div className="grid gap-2 rounded-xl border border-cyan-200/35 bg-[var(--retro-bg)] px-3 py-2 text-xs text-slate-200 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)] md:text-sm lg:px-4 lg:py-3 lg:text-base">
+        <div className="grid gap-2 rounded-xl border border-cyan-200/35 bg-[var(--retro-bg)] px-3 py-2 text-xs text-slate-200 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)]">
           <span>NPC / 퀘스트</span>
           <span>월드맵</span>
           <span>조건</span>
@@ -1044,7 +1104,7 @@ export function QuestBoard() {
         </div>
 
         {displayedQuests.length === 0 ? (
-          <div className="glass-panel glass-panel-strong rounded-2xl border border-cyan-200/30 px-5 py-5 text-sm text-slate-200/80 md:text-base lg:text-lg">
+          <div className="glass-panel glass-panel-strong rounded-2xl border border-cyan-200/30 px-5 py-5 text-sm text-slate-200/80">
             검색 결과가 없습니다.
           </div>
         ) : null}
@@ -1069,8 +1129,6 @@ export function QuestBoard() {
               name: String(item.name ?? questNameById.get(Number(item.questId)) ?? `퀘스트 #${Number(item.questId)}`).trim(),
             }))
             .filter((item) => Number.isFinite(item.questId) && item.questId > 0 && item.name);
-          const visiblePrerequisites = prerequisites.slice(0, 3);
-          const hiddenPrerequisiteCount = Math.max(prerequisites.length - visiblePrerequisites.length, 0);
 
           const tracked = trackerByQuestId.get(quest.id);
           const isTracked = Boolean(tracked);
@@ -1082,7 +1140,7 @@ export function QuestBoard() {
             <article
               key={quest.id}
               id={`quest-card-${quest.id}`}
-              className={`grid gap-2 rounded-xl border border-cyan-100/55 bg-[color:color-mix(in_srgb,var(--retro-cell)_70%,#bae6fd_30%)] px-3 py-3 text-sm shadow-[0_0_0_1px_rgba(125,211,252,0.2)] transition duration-200 hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-[color:color-mix(in_srgb,var(--retro-cell-strong)_72%,#bae6fd_28%)] hover:shadow-[0_12px_22px_rgba(8,47,73,0.35)] hover:ring-4 hover:ring-cyan-200/20 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)] md:text-base lg:px-4 lg:py-4 lg:text-[17px] ${
+              className={`grid gap-2 rounded-xl border border-cyan-100/55 bg-[color:color-mix(in_srgb,var(--retro-cell)_70%,#bae6fd_30%)] px-3 py-3 text-sm shadow-[0_0_0_1px_rgba(125,211,252,0.2)] transition duration-200 hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-[color:color-mix(in_srgb,var(--retro-cell-strong)_72%,#bae6fd_28%)] hover:shadow-[0_12px_22px_rgba(8,47,73,0.35)] hover:ring-4 hover:ring-cyan-200/20 md:grid-cols-[minmax(0,1.75fr)_minmax(0,0.85fr)_minmax(0,1.25fr)_minmax(0,0.95fr)] lg:px-4 lg:py-4 ${
                 highlightedQuestId === quest.id ? "ring-4 ring-amber-200/60 border-amber-200/80" : ""
               }`}
             >
@@ -1098,8 +1156,8 @@ export function QuestBoard() {
                       className="h-8 w-8 shrink-0 object-contain [image-rendering:pixelated] md:h-9 md:w-9 lg:h-11 lg:w-11"
                     />
                     <div className="min-w-0">
-                      <p className="break-words font-semibold text-slate-100 md:text-lg lg:text-xl">{quest.name}</p>
-                      <div className="flex flex-wrap items-center gap-1 text-xs md:text-sm lg:text-base">
+                      <p className="break-words text-base font-semibold text-slate-100">{quest.name}</p>
+                      <div className="flex flex-wrap items-center gap-1 text-xs">
                         <span className="break-words text-cyan-200">{npcName}</span>
                         <span className="text-slate-400">· 시작 Lv.{startLevel}+</span>
                         {isPriority ? (
@@ -1115,22 +1173,17 @@ export function QuestBoard() {
                 <div className="mt-2 space-y-2">
                   {prerequisites.length > 0 ? (
                     <div className="flex flex-wrap items-center gap-1" title={prerequisites.map((item) => item.name).join(", ")}>
-                      <span className="text-[11px] text-indigo-100/90 md:text-xs lg:text-sm">선행퀘:</span>
-                      {visiblePrerequisites.map((item) => (
+                      <span className="text-[11px] text-indigo-100/90 md:text-xs">선행퀘:</span>
+                      {prerequisites.map((item) => (
                         <button
                           key={`${quest.id}-${item.questId}`}
                           type="button"
                           onClick={() => handleJumpToQuest(item.questId)}
-                          className="rounded-full border border-indigo-200/35 bg-indigo-300/10 px-2 py-0.5 text-[11px] text-indigo-100 transition hover:border-indigo-100/70 hover:bg-indigo-300/20 md:text-xs lg:text-sm"
+                          className="rounded-full border border-indigo-200/35 bg-indigo-300/10 px-2 py-0.5 text-[11px] text-indigo-100 transition hover:border-indigo-100/70 hover:bg-indigo-300/20 md:text-xs"
                         >
                           {item.name}
                         </button>
                       ))}
-                      {hiddenPrerequisiteCount > 0 ? (
-                        <span className="rounded-full border border-slate-300/30 bg-slate-700/30 px-2 py-0.5 text-[11px] text-slate-200 md:text-xs lg:text-sm">
-                          +{hiddenPrerequisiteCount}개
-                        </span>
-                      ) : null}
                     </div>
                   ) : null}
 
@@ -1139,7 +1192,7 @@ export function QuestBoard() {
                       type="button"
                       disabled={isPending}
                       onClick={() => void handleToggleTracked(quest.id)}
-                      className={`rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-1.5 lg:text-base ${
+                      className={`rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm ${
                         isTracked
                           ? "border-cyan-100/90 bg-cyan-300/35 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.45)] hover:-translate-y-0.5"
                           : "border-cyan-100/75 bg-cyan-200/25 text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.35)] hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-cyan-200/35"
@@ -1152,7 +1205,7 @@ export function QuestBoard() {
                       type="button"
                       disabled={isPending}
                       onClick={() => void handleToggleCompleted(quest.id, !isCompleted)}
-                      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-1.5 lg:text-base ${
+                      className={`inline-flex items-center gap-1 rounded-full border px-2.5 py-1 text-xs font-semibold transition md:text-sm ${
                         isCompleted
                           ? "border-emerald-100/90 bg-emerald-300/30 text-emerald-50 shadow-[0_0_0_1px_rgba(110,231,183,0.42)] hover:-translate-y-0.5"
                           : "border-slate-200/45 bg-slate-700/25 text-slate-100 shadow-[0_0_0_1px_rgba(148,163,184,0.24)] hover:-translate-y-0.5 hover:bg-slate-700/35"
@@ -1170,11 +1223,11 @@ export function QuestBoard() {
                 </div>
               </div>
 
-              <div className="min-w-0 text-xs text-slate-200/90 md:text-sm lg:text-base">
+              <div className="min-w-0 text-xs text-slate-200/90 md:text-sm">
                 <p className="break-words font-semibold">{formatWorldGroupLabel(groupedWorld)}</p>
                 <p className="mt-0.5 break-words text-slate-300/85">{mapNamesForDisplay[0] || "맵 정보 없음"}</p>
                 {mapNamesForDisplay.length > 1 ? (
-                  <div className="mt-0.5 space-y-0.5 text-[11px] text-slate-300/85 md:text-xs lg:text-sm">
+                  <div className="mt-0.5 space-y-0.5 text-[11px] text-slate-300/85 md:text-xs">
                     {mapNamesForDisplay.slice(1, 3).map((name) => (
                       <p key={`${quest.id}-map-${name}`} className="break-words">• {name}</p>
                     ))}
@@ -1185,7 +1238,7 @@ export function QuestBoard() {
                 ) : null}
               </div>
 
-              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm lg:text-base">
+              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm">
                 {requiredMobs.length > 0 ? (
                   <div className="space-y-1.5">
                     <span className="text-slate-300/85">사냥:</span>
@@ -1220,7 +1273,7 @@ export function QuestBoard() {
                             <button
                               type="button"
                               onClick={() => handleToggleMobInfo(infoKey)}
-                              className="inline-flex items-center gap-1.5 rounded-full border border-sky-200/60 bg-sky-300/15 px-2 py-1 text-[11px] text-sky-100 transition hover:-translate-y-0.5 hover:border-sky-100/95 hover:bg-sky-300/25 md:text-xs lg:text-sm"
+                              className="inline-flex items-center gap-1.5 rounded-full border border-sky-200/60 bg-sky-300/15 px-2 py-1 text-[11px] text-sky-100 transition hover:-translate-y-0.5 hover:border-sky-100/95 hover:bg-sky-300/25 md:text-xs"
                             >
                               {iconMobCode > 0 ? (
                                 <img
@@ -1279,7 +1332,7 @@ export function QuestBoard() {
                                   />
                                   <span className="break-words">{item.name} x{item.count}</span>
                                 </div>
-                                <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs lg:text-sm">
+                                <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs">
                                   <a
                                     href={`https://www.mapleland.gg/item/${item.id}`}
                                     target="_blank"
@@ -1376,16 +1429,16 @@ export function QuestBoard() {
                 )}
               </div>
 
-              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm lg:text-base">
+              <div className="min-w-0 space-y-1 text-xs text-slate-200/90 md:text-sm">
                 <div className="flex flex-wrap gap-1.5">
                   {(quest.rewards.exp ?? 0) > 0 ? (
-                    <span className="rounded-full border border-sky-200/45 bg-sky-300/15 px-2 py-0.5 text-[11px] text-sky-100 md:text-xs lg:text-sm">경험치</span>
+                    <span className="rounded-full border border-sky-200/45 bg-sky-300/15 px-2 py-0.5 text-[11px] text-sky-100 md:text-xs">경험치</span>
                   ) : null}
                   {(quest.rewards.meso ?? 0) > 0 ? (
-                    <span className="rounded-full border border-yellow-200/45 bg-yellow-300/15 px-2 py-0.5 text-[11px] text-yellow-100 md:text-xs lg:text-sm">메소</span>
+                    <span className="rounded-full border border-yellow-200/45 bg-yellow-300/15 px-2 py-0.5 text-[11px] text-yellow-100 md:text-xs">메소</span>
                   ) : null}
                   {rewardItems.length > 0 ? (
-                    <span className="rounded-full border border-emerald-200/45 bg-emerald-300/15 px-2 py-0.5 text-[11px] text-emerald-100 md:text-xs lg:text-sm">아이템</span>
+                    <span className="rounded-full border border-emerald-200/45 bg-emerald-300/15 px-2 py-0.5 text-[11px] text-emerald-100 md:text-xs">아이템</span>
                   ) : null}
                 </div>
                 {(quest.rewards.exp ?? 0) > 0 ? <p>EXP: {formatNumber(quest.rewards.exp ?? 0)}</p> : null}
@@ -1416,7 +1469,7 @@ export function QuestBoard() {
                                 : "기타템"}
                           </span>
                         </div>
-                        <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs lg:text-sm">
+                        <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs">
                           <a
                             href={`https://www.mapleland.gg/item/${item.id}`}
                             target="_blank"
@@ -1444,6 +1497,21 @@ export function QuestBoard() {
             </article>
           );
         })}
+
+        {hasMoreQuests ? (
+          <>
+            <div ref={loadMoreSentinelRef} className="h-1 w-full" aria-hidden />
+            <div className="flex justify-center pt-1">
+              <button
+                type="button"
+                onClick={loadMoreQuests}
+                className="rounded-[10px] border border-cyan-100/70 bg-cyan-200/25 px-3 py-2 text-xs font-semibold text-cyan-50 shadow-[0_0_0_1px_rgba(125,211,252,0.32)] transition hover:-translate-y-0.5 hover:border-cyan-50/95 hover:bg-cyan-200/35"
+              >
+                퀘스트 더 보기 (+{Math.min(LOAD_MORE_COUNT, filteredQuests.length - displayedQuests.length)})
+              </button>
+            </div>
+          </>
+        ) : null}
       </section>
     </section>
   );
