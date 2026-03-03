@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
   title: "메랜Hub - 메이플랜드 도구들",
@@ -18,7 +19,18 @@ export const metadata: Metadata = {
   },
 };
 
-const features = [
+type Feature = {
+  title: string;
+  description: string;
+  href: string;
+  button: string;
+  accent: string;
+  ring: string;
+  icon: ReactNode;
+  comingSoon?: boolean;
+};
+
+const features: Feature[] = [
   {
     title: "N방컷 계산기",
     description: "몬스터를 몇 방에 잡는지 빠르게 계산합니다",
@@ -81,7 +93,8 @@ const features = [
     title: "파티 매칭",
     description: "파티 모집 글을 찾고 바로 참여할 수 있습니다",
     href: "/party",
-    button: "파티 매칭 열기",
+    button: "Coming Soon",
+    comingSoon: true,
     accent: "from-amber-300/20 via-orange-300/10 to-transparent",
     ring: "border-amber-200/35 bg-amber-300/15",
     icon: (
@@ -119,25 +132,42 @@ export default function HomePage() {
       </div>
 
       <div className="grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
-        {features.map((feature) => (
-          <Link
-            href={feature.href}
-            key={feature.title}
-            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
-          >
-            <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
-            <div className="relative flex items-start gap-3">
-              <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
-              <div className="min-w-0">
-                <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
-                <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
-                <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
-                  바로가기 →
-                </p>
+        {features.map((feature) =>
+          feature.comingSoon ? (
+            <div
+              key={feature.title}
+              className="glass-panel glass-panel-strong relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left opacity-80"
+            >
+              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+              <div className="relative flex items-start gap-3">
+                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                  <p className="mt-2 text-xs font-semibold text-amber-100/90">Coming Soon</p>
+                </div>
               </div>
             </div>
-          </Link>
-        ))}
+          ) : (
+            <Link
+              href={feature.href}
+              key={feature.title}
+              className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+            >
+              <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
+              <div className="relative flex items-start gap-3">
+                <div className={`mt-0.5 flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border ${feature.ring}`}>{feature.icon}</div>
+                <div className="min-w-0">
+                  <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
+                  <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
+                  <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
+                    바로가기 →
+                  </p>
+                </div>
+              </div>
+            </Link>
+          ),
+        )}
       </div>
 
       <section className="flex w-full max-w-6xl flex-col gap-4">
