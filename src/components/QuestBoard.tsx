@@ -54,6 +54,18 @@ const npcLocationsData = npcLocationsJson as {
 type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
 type TrackerMapValue = Pick<QuestTrackerRow, "id" | "quest_id" | "is_completed">;
 const INITIAL_VISIBLE_COUNT = 10;
+const MANUAL_PRIORITY_QUEST_IDS = new Set<number>([
+  2009, 2010, 2011, 2012, 2013, 2019, 2020, 2021, 2022, 2023,
+  2071, 2072, 2083, 2084, 2086, 2094, 2095, 2109, 2119, 2122,
+  2127, 3000, 3001, 3002, 3003, 3039, 3040, 3041, 3042, 3043,
+  3051, 3052, 3053, 3054, 3057, 3063, 3064, 3084, 3085, 3091,
+  3092, 3093, 3094, 3095, 3200, 3201, 3202, 3203, 3204, 3229,
+  3230, 3231, 3233, 3239, 3400, 3401, 3402, 3403, 3404, 3410,
+  3412, 3413, 3414, 3430, 3431, 3432, 3433, 3438, 3439, 3440,
+  3703, 3833, 4913, 8007, 8010, 8012, 8049, 8060, 8061, 8062,
+  8064, 8065, 8066, 8067, 8068, 8167, 8168, 8169, 8171, 8172,
+  81701, 81702, 81703, 81705, 81706, 9250,
+]);
 
 function normalizeQuery(text: string) {
   return text.toLowerCase().replace(/\s+/g, "");
@@ -213,14 +225,23 @@ function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
   return [...mapNames];
 }
 
+function isPriorityQuest(quest: Quest) {
+  if (MANUAL_PRIORITY_QUEST_IDS.has(quest.id)) return true;
+  const guideNotes = Array.isArray(quest.guide?.notes) ? quest.guide?.notes : [];
+  const text = [quest.name, quest.guide?.recommendedAreas ?? "", ...guideNotes].join(" ");
+  return /\[(?:필수|추천)\s*퀘스트\]|(?:필수|추천)\s*퀘스트|반드시\s*(진행|클리어|추천)/.test(text);
+}
+
 export function QuestBoard() {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
   const [maxLevel, setMaxLevel] = useState("");
   const [rewardTypeFilter, setRewardTypeFilter] = useState<RewardTypeFilter>("all");
   const [rewardItemTypeFilter, setRewardItemTypeFilter] = useState<RewardItemTypeFilter>("all");
+  const [showPriorityOnly, setShowPriorityOnly] = useState(false);
   const [showTrackedOnly, setShowTrackedOnly] = useState(false);
   const [highlightedQuestId, setHighlightedQuestId] = useState<number | null>(null);
+  const [bulkAddingPriority, setBulkAddingPriority] = useState(false);
 
   const [userId, setUserId] = useState<string | null>(null);
   const [trackerByQuestId, setTrackerByQuestId] = useState<Map<number, TrackerMapValue>>(new Map());
@@ -250,6 +271,14 @@ export function QuestBoard() {
   }, []);
   const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), []);
   const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), []);
+  const priorityQuestIds = useMemo(() => {
+    const set = new Set<number>();
+    for (const quest of data.quests) {
+      if (isPriorityQuest(quest)) set.add(quest.id);
+    }
+    return set;
+  }, []);
+  const priorityQuestCount = priorityQuestIds.size;
   const monsterInfoByMobCode = useMemo(() => {
     const map = new Map<number, { name: string; region?: string; map?: string; exist: boolean }>();
     for (const monster of monsterData) {
@@ -445,6 +474,7 @@ export function QuestBoard() {
         if (isUnreleasedArea(worldName)) return false;
         if (selectedWorldGroup !== "all" && getWorldGroup(worldName, npcName) !== selectedWorldGroup) return false;
         if (maxLevelValue !== null && quest.levelMin > maxLevelValue) return false;
+        if (showPriorityOnly && !priorityQuestIds.has(quest.id)) return false;
 
         const isTracked = trackerByQuestId.has(quest.id);
         if (showTrackedOnly && !isTracked) return false;
@@ -482,13 +512,24 @@ export function QuestBoard() {
       });
 
     return rows;
-  }, [maxLevelValue, npcMap, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showTrackedOnly, trackerByQuestId, worldMap]);
+  }, [maxLevelValue, npcMap, priorityQuestIds, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showPriorityOnly, showTrackedOnly, trackerByQuestId, worldMap]);
 
   const displayedQuests = useMemo(() => {
     const hasKeyword = normalizeQuery(query).length > 0;
     if (hasKeyword) return filteredQuests;
     return filteredQuests.slice(0, INITIAL_VISIBLE_COUNT);
   }, [filteredQuests, query]);
+  const filteredPriorityQuestIds = useMemo(() => {
+    if (!showPriorityOnly) return [];
+    return filteredQuests.map((quest) => quest.id);
+  }, [filteredQuests, showPriorityOnly]);
+  const missingFilteredPriorityCount = useMemo(() => {
+    let count = 0;
+    for (const questId of filteredPriorityQuestIds) {
+      if (!trackerByQuestId.has(questId)) count += 1;
+    }
+    return count;
+  }, [filteredPriorityQuestIds, trackerByQuestId]);
   const isSearchMode = useMemo(() => normalizeQuery(query).length > 0, [query]);
 
   const worldGroupOptions = useMemo(() => {
@@ -727,6 +768,7 @@ export function QuestBoard() {
       setMaxLevel("");
       setRewardTypeFilter("all");
       setRewardItemTypeFilter("all");
+      setShowPriorityOnly(false);
       setShowTrackedOnly(false);
       setHighlightedQuestId(questId);
     },
@@ -745,6 +787,67 @@ export function QuestBoard() {
     setShowTrackedOnly((prev) => !prev);
   }, [showTrackedOnly, userId]);
 
+  const handleResetSearchFilters = useCallback(() => {
+    setQuery("");
+    setSelectedWorldGroup("all");
+    setMaxLevel("");
+    setRewardTypeFilter("all");
+    setRewardItemTypeFilter("all");
+    setShowPriorityOnly(false);
+    setShowTrackedOnly(false);
+  }, []);
+
+  const handleAddVisiblePriorityToTracked = useCallback(async () => {
+    if (!userId) {
+      window.location.href = "/login?next=/quests";
+      return;
+    }
+
+    if (!showPriorityOnly) return;
+
+    const missingQuestIds = filteredPriorityQuestIds.filter((questId) => !trackerByQuestId.has(questId));
+    if (missingQuestIds.length === 0) return;
+
+    setSyncError(null);
+    setBulkAddingPriority(true);
+
+    const supabase = getSupabaseBrowserClient();
+
+    try {
+      const { data: upserted, error } = await supabase
+        .from("quest_trackers")
+        .upsert(
+          missingQuestIds.map((questId) => ({
+            user_id: userId,
+            quest_id: questId,
+            is_completed: false,
+          })),
+          { onConflict: "user_id,quest_id" },
+        )
+        .select("id, quest_id, is_completed");
+
+      if (error) throw error;
+
+      setTrackerByQuestId((prev) => {
+        const next = new Map(prev);
+        for (const row of upserted ?? []) {
+          const questId = Number(row.quest_id);
+          if (!Number.isFinite(questId) || questId <= 0) continue;
+          next.set(questId, {
+            id: row.id,
+            quest_id: questId,
+            is_completed: Boolean(row.is_completed),
+          });
+        }
+        return next;
+      });
+    } catch {
+      setSyncError("현재 핵심 퀘스트 담기 중 오류가 발생했습니다.");
+    } finally {
+      setBulkAddingPriority(false);
+    }
+  }, [filteredPriorityQuestIds, showPriorityOnly, trackerByQuestId, userId]);
+
   useEffect(() => {
     if (!highlightedQuestId) return;
     const element = document.getElementById(`quest-card-${highlightedQuestId}`);
@@ -756,7 +859,7 @@ export function QuestBoard() {
 
   useEffect(() => {
     setOpenedMobInfoKey(null);
-  }, [query, selectedWorldGroup, maxLevel, rewardTypeFilter, rewardItemTypeFilter, showTrackedOnly]);
+  }, [query, selectedWorldGroup, maxLevel, rewardTypeFilter, rewardItemTypeFilter, showPriorityOnly, showTrackedOnly]);
 
   useEffect(() => {
     if (!userId && showTrackedOnly) setShowTrackedOnly(false);
@@ -781,14 +884,23 @@ export function QuestBoard() {
         }
       >
         <div className="space-y-3 lg:space-y-4">
-          <input
-            value={query}
-            onChange={(event) => setQuery(event.target.value)}
-            placeholder="퀘스트명 / NPC명 / 보상 아이템"
-            className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
-          />
+          <div className="grid gap-2 md:grid-cols-[1fr_auto]">
+            <input
+              value={query}
+              onChange={(event) => setQuery(event.target.value)}
+              placeholder="퀘스트명 / NPC명 / 보상 아이템 / 퀘스트ID"
+              className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20 md:text-base lg:px-4 lg:py-3 lg:text-lg"
+            />
+            <button
+              type="button"
+              onClick={handleResetSearchFilters}
+              className="rounded-[10px] border border-slate-200/35 bg-slate-700/20 px-3 py-2 text-xs font-semibold text-slate-100 transition hover:-translate-y-0.5 hover:border-slate-100/70 hover:bg-slate-700/35 md:text-sm lg:px-4 lg:py-2.5 lg:text-base"
+            >
+              검색/필터 초기화
+            </button>
+          </div>
 
-          <div className="grid gap-2 md:grid-cols-[220px_170px_170px_170px_auto]">
+          <div className="grid gap-2 md:grid-cols-4">
             <select
               value={selectedWorldGroup}
               onChange={(event) => setSelectedWorldGroup(event.target.value)}
@@ -840,6 +952,39 @@ export function QuestBoard() {
               <option value="equip">장비</option>
               <option value="etc">기타템</option>
             </select>
+          </div>
+
+          <div className="flex flex-wrap items-center gap-2">
+            <button
+              type="button"
+              onClick={() => setShowPriorityOnly((prev) => !prev)}
+              className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                showPriorityOnly
+                  ? "border-amber-100/90 bg-amber-300/35 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.45)] hover:-translate-y-0.5"
+                  : "border-amber-100/70 bg-amber-200/25 text-amber-50 shadow-[0_0_0_1px_rgba(252,211,77,0.35)] hover:-translate-y-0.5 hover:border-amber-50/95 hover:bg-amber-200/35"
+              }`}
+            >
+              {showPriorityOnly ? `핵심 퀘스트만 (${priorityQuestCount})` : `핵심 퀘스트 (${priorityQuestCount})`}
+            </button>
+
+            {showPriorityOnly ? (
+              <button
+                type="button"
+                onClick={() => void handleAddVisiblePriorityToTracked()}
+                disabled={bulkAddingPriority || missingFilteredPriorityCount === 0}
+                className={`rounded-[10px] border px-2.5 py-2 text-xs font-semibold transition md:text-sm lg:px-3 lg:py-2.5 lg:text-base ${
+                  bulkAddingPriority || missingFilteredPriorityCount === 0
+                    ? "cursor-not-allowed border-emerald-100/35 bg-emerald-200/10 text-emerald-100/65"
+                    : "border-emerald-100/80 bg-emerald-300/25 text-emerald-50 shadow-[0_0_0_1px_rgba(110,231,183,0.35)] hover:-translate-y-0.5 hover:border-emerald-50/95 hover:bg-emerald-200/35"
+                }`}
+              >
+                {bulkAddingPriority
+                  ? "현재 핵심 담는 중..."
+                  : missingFilteredPriorityCount > 0
+                    ? `현재 핵심 결과 담기 (+${missingFilteredPriorityCount})`
+                    : "현재 핵심 결과 담기 완료"}
+              </button>
+            ) : null}
 
             <button
               type="button"
@@ -852,6 +997,10 @@ export function QuestBoard() {
             >
               {showTrackedOnly ? "내 퀘스트만 보는 중" : "내 퀘스트만 보기"}
             </button>
+
+            <span className="ml-auto rounded-full border border-white/20 bg-white/10 px-2.5 py-1 text-[11px] text-slate-200/90 md:text-xs lg:text-sm">
+              검색어 {query.trim() ? "ON" : "OFF"} · 핵심 {showPriorityOnly ? "ON" : "OFF"} · 내퀘 {showTrackedOnly ? "ON" : "OFF"}
+            </span>
           </div>
 
           <div className="rounded-xl border border-white/10 bg-slate-900/35 px-3 py-2 text-xs text-slate-200/85 md:text-sm lg:px-4 lg:py-3 lg:text-base">
@@ -927,6 +1076,7 @@ export function QuestBoard() {
           const isTracked = Boolean(tracked);
           const isCompleted = Boolean(tracked?.is_completed);
           const isPending = Boolean(pendingQuestIds[quest.id]);
+          const isPriority = priorityQuestIds.has(quest.id);
 
           return (
             <article
@@ -952,6 +1102,11 @@ export function QuestBoard() {
                       <div className="flex flex-wrap items-center gap-1 text-xs md:text-sm lg:text-base">
                         <span className="break-words text-cyan-200">{npcName}</span>
                         <span className="text-slate-400">· 시작 Lv.{startLevel}+</span>
+                        {isPriority ? (
+                          <span className="rounded-full border border-amber-100/80 bg-amber-300/25 px-1.5 py-0.5 text-[10px] font-semibold text-amber-50 md:text-xs">
+                            핵심 퀘스트
+                          </span>
+                        ) : null}
                       </div>
                     </div>
                   </div>
@@ -1010,6 +1165,7 @@ export function QuestBoard() {
                       </span>
                       {isPending ? "저장 중..." : isCompleted ? "완료됨" : "완료하기"}
                     </button>
+
                   </div>
                 </div>
               </div>
