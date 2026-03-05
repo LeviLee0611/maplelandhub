@@ -132,13 +132,15 @@ export function DropTable() {
       const rootRes = await fetch(rootUrl);
       if (!rootRes.ok) throw new Error(`Failed to load rewards for ${mobCode}`);
       const rootJson = await rootRes.json();
-      const children = Array.isArray(rootJson?.children) ? rootJson.children : [];
+      const children: string[] = Array.isArray(rootJson?.children)
+        ? rootJson.children.map((child: unknown) => String(child))
+        : [];
       if (children.length === 0) {
         setFallbackDropsByMobCode((prev) => ({ ...prev, [mobCode]: [] }));
         return;
       }
       const results = await Promise.all(
-        children.map(async (child) => {
+        children.map(async (child: string) => {
           const childRes = await fetch(`${rootUrl}/${child}`);
           if (!childRes.ok) return null;
           const childJson = await childRes.json();
