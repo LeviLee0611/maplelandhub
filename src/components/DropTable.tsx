@@ -95,7 +95,10 @@ export function DropTable() {
   const [query, setQuery] = useState("");
   const [selectedWorldMap, setSelectedWorldMap] = useState("all");
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
-  const [selectedMonsterName, setSelectedMonsterName] = useState<string | null>(null);
+  const [selectedMonsterMobCode, setSelectedMonsterMobCode] = useState<number | null>(null);
+  const [characterLevel, setCharacterLevel] = useState(1);
+  const [fallbackDropsByMobCode, setFallbackDropsByMobCode] = useState<Record<number, DropEntry[]>>({});
+  const [fallbackLoadingMobCode, setFallbackLoadingMobCode] = useState<number | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -115,9 +118,45 @@ export function DropTable() {
   };
 
   const selectedMonster = useMemo(
-    () => monsterList.find((monster) => monster.name === selectedMonsterName),
-    [selectedMonsterName]
+    () => monsterList.find((monster) => monster.mobCode === selectedMonsterMobCode),
+    [selectedMonsterMobCode]
   );
+
+  const hasLocalDrops = (mobCode: number) => (dropData.dropsByMonsterId[String(mobCode)] ?? []).length > 0;
+
+  const ensureFallbackDrops = async (mobCode: number) => {
+    if (!mobCode || hasLocalDrops(mobCode) || fallbackDropsByMobCode[mobCode]) return;
+    setFallbackLoadingMobCode(mobCode);
+    const rootUrl = `https://maplestory.io/api/wz/KMS/389/String/MonsterBook.img/${mobCode}/reward`;
+    try {
+      const rootRes = await fetch(rootUrl);
+      if (!rootRes.ok) throw new Error(`Failed to load rewards for ${mobCode}`);
+      const rootJson = await rootRes.json();
+      const children = Array.isArray(rootJson?.children) ? rootJson.children : [];
+      if (children.length === 0) {
+        setFallbackDropsByMobCode((prev) => ({ ...prev, [mobCode]: [] }));
+        return;
+      }
+      const results = await Promise.all(
+        children.map(async (child) => {
+          const childRes = await fetch(`${rootUrl}/${child}`);
+          if (!childRes.ok) return null;
+          const childJson = await childRes.json();
+          const value = Number(childJson?.value);
+          return Number.isFinite(value) && value > 0 ? value : null;
+        })
+      );
+      const uniqueItemIds = Array.from(new Set(results.filter((value): value is number => Boolean(value))));
+      setFallbackDropsByMobCode((prev) => ({
+        ...prev,
+        [mobCode]: uniqueItemIds.map((itemId) => ({ itemId })),
+      }));
+    } catch {
+      setFallbackDropsByMobCode((prev) => ({ ...prev, [mobCode]: [] }));
+    } finally {
+      setFallbackLoadingMobCode((prev) => (prev === mobCode ? null : prev));
+    }
+  };
 
   const itemsById = useMemo(() => {
     const map = new Map<number, DropIndexItem>();
@@ -177,10 +216,16 @@ export function DropTable() {
     return [...items, ...monsters];
   }, [displayedItems, displayedMonsters]);
 
-  const monsterDrops = useMemo(() => {
+  const localMonsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
     return dropData.dropsByMonsterId[String(selectedMonster.mobCode)] ?? [];
   }, [selectedMonster]);
+
+  const monsterDrops = useMemo(() => {
+    if (!selectedMonster?.mobCode) return [];
+    if (localMonsterDrops.length > 0) return localMonsterDrops;
+    return fallbackDropsByMobCode[selectedMonster.mobCode] ?? [];
+  }, [selectedMonster, localMonsterDrops, fallbackDropsByMobCode]);
 
   const monstersForItem = useMemo(() => {
     if (!selectedItemId) return [];
@@ -292,6 +337,14 @@ export function DropTable() {
     return `수량 ${amount}`;
   };
 
+  const getRequiredAcc = (monster: Monster | undefined, level: number) => {
+    if (!monster) return 0;
+    const eva = monster.eva ?? 0;
+    const monsterLevel = monster.level ?? 0;
+    const diffLevel = Math.max(0, monsterLevel - Math.max(1, level));
+    return Math.max(0, Math.ceil(((55 + diffLevel * 2) * eva) / 15));
+  };
+
   const handleMobImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>, mobCode: number) => {
     const target = event.currentTarget;
     if (target.dataset.fallback === "animated") {
@@ -340,7 +393,7 @@ export function DropTable() {
                   onChange={(event) => {
                     setQuery(event.target.value);
                     setSelectedItemId(null);
-                    setSelectedMonsterName(null);
+                    setSelectedMonsterMobCode(null);
                     setShowSuggestions(true);
                     setActiveIndex(-1);
                   }}
@@ -364,11 +417,14 @@ export function DropTable() {
                       const picked = suggestionItems[activeIndex];
                       if (picked.type === "item") {
                         setSelectedItemId(picked.id);
-                        setSelectedMonsterName(null);
+                        setSelectedMonsterMobCode(null);
                         setQuery(picked.label);
                       } else {
                         setSelectedItemId(null);
-                        setSelectedMonsterName(picked.label);
+                        setSelectedMonsterMobCode(picked.id);
+                        const selected = monsterList.find((monster) => monster.mobCode === picked.id);
+                        setCharacterLevel(Math.max(1, selected?.level ?? 1));
+                        void ensureFallbackDrops(picked.id);
                         setQuery(picked.label);
                       }
                       setShowSuggestions(false);
@@ -403,7 +459,7 @@ export function DropTable() {
                                 }`}
                                 onClick={() => {
                                   setSelectedItemId(item.id);
-                                  setSelectedMonsterName(null);
+                                  setSelectedMonsterMobCode(null);
                                   setQuery(item.name);
                                   setShowSuggestions(false);
                                 }}
@@ -435,7 +491,9 @@ export function DropTable() {
                                 }`}
                                 onClick={() => {
                                   setSelectedItemId(null);
-                                  setSelectedMonsterName(monster.name);
+                                  setSelectedMonsterMobCode(monster.mobCode);
+                                  setCharacterLevel(Math.max(1, monster.level ?? 1));
+                                  void ensureFallbackDrops(monster.mobCode);
                                   setQuery(monster.name);
                                   setShowSuggestions(false);
                                 }}
@@ -541,6 +599,22 @@ export function DropTable() {
                     <div>마공 {selectedMonster.matk ?? "-"}</div>
                     <div>물방 {selectedMonster.def ?? "-"}</div>
                     <div>마방 {selectedMonster.mDef ?? "-"}</div>
+                    <div>회피 {selectedMonster.eva ?? "-"}</div>
+                    <div>필요 명중치 {getRequiredAcc(selectedMonster, characterLevel)}</div>
+                  </div>
+                  <div className="mt-3">
+                    <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">캐릭터 레벨</label>
+                    <input
+                      type="number"
+                      min={1}
+                      max={250}
+                      value={characterLevel}
+                      onChange={(event) => {
+                        const parsed = Number(event.target.value);
+                        setCharacterLevel(Number.isFinite(parsed) ? Math.min(250, Math.max(1, Math.floor(parsed))) : 1);
+                      }}
+                      className="w-full rounded-[8px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-2 focus:ring-cyan-200/20"
+                    />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
@@ -579,7 +653,11 @@ export function DropTable() {
           {selectedMonster && !selectedItemId ? (
             <div className="grid gap-4 sm:grid-cols-2">
                 {monsterDrops.length === 0 ? (
-                  <p className="text-sm text-[color:var(--retro-text-muted)]">드랍 정보가 없습니다.</p>
+                  <p className="text-sm text-[color:var(--retro-text-muted)]">
+                    {fallbackLoadingMobCode === selectedMonster.mobCode
+                      ? "몬스터북 보상 데이터를 불러오는 중입니다..."
+                      : `드랍 정보가 없습니다. (Mob ID: ${selectedMonster.mobCode}, 로컬/몬스터북 소스 미수록 가능)`}
+                  </p>
                 ) : (
                   monsterDrops.map((entry) => {
                     const item = itemsById.get(entry.itemId);
@@ -590,7 +668,7 @@ export function DropTable() {
                         className="retro-subsection flex items-center gap-4 rounded-[12px] border border-cyan-200/25 bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-cyan-200/60 hover:bg-[var(--retro-cell-strong)]"
                         onClick={() => {
                           setSelectedItemId(entry.itemId);
-                          setSelectedMonsterName(null);
+                          setSelectedMonsterMobCode(null);
                           const name = itemsById.get(entry.itemId)?.name;
                           if (name) setQuery(name);
                         }}
@@ -635,7 +713,9 @@ export function DropTable() {
                     className="retro-subsection flex items-center gap-4 rounded-[14px] border border-emerald-200/25 bg-[var(--retro-cell)] px-5 py-4 text-sm shadow-[0_10px_20px_rgba(6,78,59,0.3)] transition hover:border-emerald-200/60 hover:bg-[var(--retro-cell-strong)]"
                     onClick={() => {
                       setSelectedItemId(null);
-                      setSelectedMonsterName(monster.name);
+                      setSelectedMonsterMobCode(monster.mobCode);
+                      setCharacterLevel(Math.max(1, monster.level ?? 1));
+                      void ensureFallbackDrops(monster.mobCode);
                       setQuery(monster.name);
                     }}
                   >
