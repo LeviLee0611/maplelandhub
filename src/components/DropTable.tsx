@@ -58,19 +58,56 @@ const itemDetailByData = itemDetailByJson as ItemDetailByData;
 const INITIAL_SUGGESTION_COUNT = 10;
 const SEARCH_SUGGESTION_LIMIT = 60;
 const GROUP_ORDER = ["주문서", "장비", "물약", "기타템"];
+const KOREAN_INITIALS = ["ㄱ", "ㄲ", "ㄴ", "ㄷ", "ㄸ", "ㄹ", "ㅁ", "ㅂ", "ㅃ", "ㅅ", "ㅆ", "ㅇ", "ㅈ", "ㅉ", "ㅊ", "ㅋ", "ㅌ", "ㅍ", "ㅎ"];
 
 function normalizeQuery(text: string) {
-  return text.toLowerCase().replace(/\s+/g, "");
+  return text.toLowerCase().replace(/[^0-9a-z가-힣ㄱ-ㅎ]+/gi, "");
+}
+
+function toKoreanInitials(text: string) {
+  let result = "";
+  for (const char of text) {
+    const code = char.charCodeAt(0);
+    if (code >= 0xac00 && code <= 0xd7a3) {
+      const syllableIndex = code - 0xac00;
+      const initialIndex = Math.floor(syllableIndex / 588);
+      result += KOREAN_INITIALS[initialIndex] ?? "";
+      continue;
+    }
+    result += char;
+  }
+  return result;
 }
 
 function getSearchKeys(raw: string) {
   const base = String(raw ?? "").trim();
   if (!base) return [];
+  const noParen = base.replace(/\([^)]*\)/g, " ").trim();
   const normalized = normalizeQuery(base);
   const tokens = base.split(/\s+/).filter(Boolean);
   const initials = tokens.map((token) => token[0]).join("");
   const firstTwoChars = tokens.map((token) => token.slice(0, 2)).join("");
-  return Array.from(new Set([normalized, normalizeQuery(initials), normalizeQuery(firstTwoChars)]));
+  const hangulInitials = normalizeQuery(toKoreanInitials(base));
+  const hangulInitialsNoParen = normalizeQuery(toKoreanInitials(noParen));
+  return Array.from(
+    new Set([
+      normalized,
+      normalizeQuery(noParen),
+      normalizeQuery(initials),
+      normalizeQuery(firstTwoChars),
+      hangulInitials,
+      hangulInitialsNoParen,
+    ])
+  ).filter(Boolean);
+}
+
+function getMatchScore(name: string, keyword: string) {
+  if (!keyword) return 0;
+  const keys = getSearchKeys(name);
+  if (keys.some((key) => key === keyword)) return 4;
+  if (keys.some((key) => key.startsWith(keyword) || keyword.startsWith(key))) return 3;
+  if (keys.some((key) => key.includes(keyword) || keyword.includes(key))) return 2;
+  return -1;
 }
 
 function getWorldMapGroup(region?: string) {
@@ -173,13 +210,17 @@ export function DropTable() {
   const filteredItems = useMemo(() => {
     const keyword = queryKeyword;
     const sorted = [...dropData.items].sort((a, b) => {
+      if (keyword) {
+        const scoreDiff = getMatchScore(b.name, keyword) - getMatchScore(a.name, keyword);
+        if (scoreDiff !== 0) return scoreDiff;
+      }
       const groupA = getItemGroup(a);
       const groupB = getItemGroup(b);
       if (groupA !== groupB) return GROUP_ORDER.indexOf(groupA) - GROUP_ORDER.indexOf(groupB);
       return a.name.localeCompare(b.name, "ko");
     });
     if (!keyword) return sorted;
-    return sorted.filter((item) => getSearchKeys(item.name).some((key) => key.includes(keyword)));
+    return sorted.filter((item) => getMatchScore(item.name, keyword) >= 0);
   }, [queryKeyword]);
 
   const filteredMonsters = useMemo(() => {
@@ -189,9 +230,15 @@ export function DropTable() {
         if (selectedWorldMap === "all") return true;
         return getWorldMapGroup(monster.region) === selectedWorldMap;
       })
-      .sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
+      .sort((a, b) => {
+        if (keyword) {
+          const scoreDiff = getMatchScore(b.name, keyword) - getMatchScore(a.name, keyword);
+          if (scoreDiff !== 0) return scoreDiff;
+        }
+        return (a.level ?? 0) - (b.level ?? 0);
+      });
     if (!keyword) return sorted;
-    return sorted.filter((monster) => getSearchKeys(monster.name).some((key) => key.includes(keyword)));
+    return sorted.filter((monster) => getMatchScore(monster.name, keyword) >= 0);
   }, [queryKeyword, selectedWorldMap]);
 
   const displayedItems = useMemo(() => {
@@ -205,17 +252,17 @@ export function DropTable() {
   }, [filteredMonsters, queryKeyword]);
 
   const suggestionItems = useMemo(() => {
-    const items = displayedItems.map((item) => ({
-      type: "item" as const,
-      id: item.id,
-      label: item.name,
-    }));
     const monsters = displayedMonsters.map((monster) => ({
       type: "monster" as const,
       id: monster.mobCode,
       label: monster.name,
     }));
-    return [...items, ...monsters];
+    const items = displayedItems.map((item) => ({
+      type: "item" as const,
+      id: item.id,
+      label: item.name,
+    }));
+    return [...monsters, ...items];
   }, [displayedItems, displayedMonsters]);
 
   const localMonsterDrops = useMemo(() => {
@@ -235,6 +282,11 @@ export function DropTable() {
     const entries = preferredEntries.length ? preferredEntries : (dropData.monstersByItemId[String(selectedItemId)] ?? []);
     const monsterMap = new Map(monsterList.map((monster) => [monster.mobCode, monster]));
     return entries
+      .map((entry) => ({
+        ...entry,
+        mobId: Number(entry.mobId),
+      }))
+      .filter((entry) => Number.isFinite(entry.mobId) && entry.mobId > 0)
       .filter((entry) => isReleasedMobCode(entry.mobId))
       .map((entry) => ({
         entry,
@@ -446,48 +498,16 @@ export function DropTable() {
                         <div className="text-xs text-[color:var(--retro-text-muted)]">검색 결과 없음</div>
                       ) : null}
 
-                      {displayedItems.length > 0 ? (
-                        <div>
-                          <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
-                          <div className="mt-2 space-y-1">
-                            {displayedItems.map((item, index) => (
-                              <button
-                                key={item.id}
-                                type="button"
-                                className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
-                                  activeIndex === index
-                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
-                                    : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
-                                }`}
-                                onClick={() => {
-                                  setSelectedItemId(item.id);
-                                  setSelectedMonsterMobCode(null);
-                                  setQuery(item.name);
-                                  setShowSuggestions(false);
-                                }}
-                              >
-                                <img src={getItemIconUrl(item.id)} alt={item.name} className="h-6 w-6" loading="lazy" />
-                                <span className="flex-1 truncate">{item.name}</span>
-                                <span className="text-[11px] text-[color:var(--retro-text-muted)]">{getItemGroup(item)}</span>
-                                <span className="text-[11px] text-[color:var(--retro-text-muted)]">#{item.id}</span>
-                              </button>
-                            ))}
-                          </div>
-                        </div>
-                      ) : null}
-
                       {displayedMonsters.length > 0 ? (
                         <div>
                           <h3 className="text-xs font-semibold text-slate-100">몬스터</h3>
                           <div className="mt-2 space-y-1">
-                            {displayedMonsters.map((monster, index) => {
-                              const adjustedIndex = displayedItems.length + index;
-                              return (
+                            {displayedMonsters.map((monster, index) => (
                               <button
                                 key={monster.mobCode}
                                 type="button"
                                 className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
-                                  activeIndex === adjustedIndex
+                                  activeIndex === index
                                     ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
                                     : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
                                 }`}
@@ -510,6 +530,38 @@ export function DropTable() {
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">
                                   Lv.{monster.level ?? "-"}
                                 </span>
+                              </button>
+                            ))}
+                          </div>
+                        </div>
+                      ) : null}
+
+                      {displayedItems.length > 0 ? (
+                        <div>
+                          <h3 className="text-xs font-semibold text-slate-100">아이템</h3>
+                          <div className="mt-2 space-y-1">
+                            {displayedItems.map((item, index) => {
+                              const adjustedIndex = displayedMonsters.length + index;
+                              return (
+                              <button
+                                key={item.id}
+                                type="button"
+                                className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
+                                  activeIndex === adjustedIndex
+                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
+                                    : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
+                                }`}
+                                onClick={() => {
+                                  setSelectedItemId(item.id);
+                                  setSelectedMonsterMobCode(null);
+                                  setQuery(item.name);
+                                  setShowSuggestions(false);
+                                }}
+                              >
+                                <img src={getItemIconUrl(item.id)} alt={item.name} className="h-6 w-6" loading="lazy" />
+                                <span className="flex-1 truncate">{item.name}</span>
+                                <span className="text-[11px] text-[color:var(--retro-text-muted)]">{getItemGroup(item)}</span>
+                                <span className="text-[11px] text-[color:var(--retro-text-muted)]">#{item.id}</span>
                               </button>
                             );
                             })}
@@ -662,20 +714,23 @@ export function DropTable() {
                   </p>
                 ) : (
                   monsterDrops.map((entry) => {
-                    const item = itemsById.get(entry.itemId);
+                    const normalizedItemId = Number(entry.itemId);
+                    const itemId = Number.isFinite(normalizedItemId) ? normalizedItemId : entry.itemId;
+                    const item = Number.isFinite(normalizedItemId) ? itemsById.get(normalizedItemId) : undefined;
                     const amountLabel = formatAmountLabel(entry.min, entry.max);
                     return (
                       <div
-                        key={`${entry.itemId}`}
+                        key={String(itemId)}
                         className="retro-subsection flex items-center gap-4 rounded-[12px] border border-cyan-200/25 bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-cyan-200/60 hover:bg-[var(--retro-cell-strong)]"
                         onClick={() => {
-                          setSelectedItemId(entry.itemId);
+                          if (!Number.isFinite(normalizedItemId)) return;
+                          setSelectedItemId(normalizedItemId);
                           setSelectedMonsterMobCode(null);
-                          const name = itemsById.get(entry.itemId)?.name;
+                          const name = itemsById.get(normalizedItemId)?.name;
                           if (name) setQuery(name);
                         }}
                       >
-                        <img src={getItemIconUrl(entry.itemId)} alt={item?.name ?? String(entry.itemId)} className="h-12 w-12" />
+                        <img src={getItemIconUrl(Number(itemId))} alt={item?.name ?? String(itemId)} className="h-12 w-12" />
                         <div className="flex-1">
                         <div className="flex items-start justify-between gap-3">
                           <div>
