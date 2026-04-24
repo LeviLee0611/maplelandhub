@@ -23,6 +23,7 @@ type DropIndexItem = {
     equip?: {
       reqLevel?: number;
     };
+    synthetic?: boolean;
   };
 };
 
@@ -99,6 +100,35 @@ function getSearchKeys(raw: string) {
       hangulInitialsNoParen,
     ])
   ).filter(Boolean);
+}
+
+function isSyntheticItem(item?: DropIndexItem | null) {
+  return Boolean(item?.meta?.synthetic || (typeof item?.id === "number" && item.id < 0));
+}
+
+function ItemIcon({ item, sizeClass }: { item?: DropIndexItem; sizeClass: string }) {
+  const [failed, setFailed] = useState(false);
+
+  if (failed || isSyntheticItem(item)) {
+    return (
+      <div
+        className={`${sizeClass} flex items-center justify-center rounded-md border border-dashed border-white/20 bg-white/5 text-[10px] font-semibold text-[color:var(--retro-text-muted)]`}
+        aria-label={item?.name ?? "가상 아이템"}
+      >
+        ?
+      </div>
+    );
+  }
+
+  return (
+    <img
+      src={getItemIconUrl(item?.id ?? 0)}
+      alt={item?.name ?? "아이템"}
+      className={sizeClass}
+      loading="lazy"
+      onError={() => setFailed(true)}
+    />
+  );
 }
 
 function getMatchScore(name: string, keyword: string) {
@@ -337,8 +367,11 @@ export function DropTable() {
   }, []);
 
   const formatProb = (prob?: number) => {
-    if (typeof prob !== "number" || prob <= 0) {
+    if (typeof prob !== "number" || prob < 0) {
       return { percent: "정보 없음", fraction: null as { num: number; den: number } | null };
+    }
+    if (prob === 0) {
+      return { percent: "0.00%", fraction: null as { num: number; den: number } | null };
     }
     const percent = prob * 100;
     const decimals =
@@ -558,7 +591,7 @@ export function DropTable() {
                                   setShowSuggestions(false);
                                 }}
                               >
-                                <img src={getItemIconUrl(item.id)} alt={item.name} className="h-6 w-6" loading="lazy" />
+                                <ItemIcon item={item} sizeClass="h-6 w-6" />
                                 <span className="flex-1 truncate">{item.name}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">{getItemGroup(item)}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">#{item.id}</span>
@@ -597,26 +630,26 @@ export function DropTable() {
             {selectedItemId ? (
               <div className="rounded-[10px] border border-cyan-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
                 <div className="flex items-center gap-2">
-                  <img
-                    src={getItemIconUrl(selectedItemId)}
-                    alt={itemsById.get(selectedItemId)?.name ?? "아이템"}
-                    className="h-12 w-12"
-                  />
+                  <ItemIcon item={itemsById.get(selectedItemId)} sizeClass="h-12 w-12" />
                   <div className="flex-1">
                     <div className="text-base font-semibold">{itemsById.get(selectedItemId)?.name ?? "아이템"}</div>
-                    <div className="text-xs text-[color:var(--retro-text-muted)]">아이템 선택됨</div>
+                    <div className="text-xs text-[color:var(--retro-text-muted)]">
+                      {isSyntheticItem(itemsById.get(selectedItemId)) ? "아이템 선택됨 · 아이콘 없음" : "아이템 선택됨"}
+                    </div>
                   </div>
                 </div>
-                <div className="mt-2 border-t border-white/10 pt-2">
-                  <a
-                    href={`https://www.mapleland.gg/item/${selectedItemId}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-xs font-semibold text-cyan-100 hover:border-cyan-200/60 hover:bg-cyan-200/20"
-                  >
-                    메랜지지 바로가기
-                  </a>
-                </div>
+                {!isSyntheticItem(itemsById.get(selectedItemId)) ? (
+                  <div className="mt-2 border-t border-white/10 pt-2">
+                    <a
+                      href={`https://www.mapleland.gg/item/${selectedItemId}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-xs font-semibold text-cyan-100 hover:border-cyan-200/60 hover:bg-cyan-200/20"
+                    >
+                      메랜지지 바로가기
+                    </a>
+                  </div>
+                ) : null}
               </div>
             ) : selectedMonster ? (
               <div className="rounded-[10px] border border-emerald-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(6,78,59,0.35)]">
@@ -730,7 +763,7 @@ export function DropTable() {
                           if (name) setQuery(name);
                         }}
                       >
-                        <img src={getItemIconUrl(Number(itemId))} alt={item?.name ?? String(itemId)} className="h-12 w-12" />
+                        <ItemIcon item={item} sizeClass="h-12 w-12" />
                         <div className="flex-1">
                         <div className="flex items-start justify-between gap-3">
                           <div>

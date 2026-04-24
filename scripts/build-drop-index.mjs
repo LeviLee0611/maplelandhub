@@ -157,14 +157,17 @@ async function main() {
 
   let dropTable = null;
   let itemTable = null;
+  let dropTableSourceName = null;
   try {
     const dropRaw = await fs.readFile(DROP_TABLE_SOURCE, "utf8");
     const parsed = JSON.parse(dropRaw);
     dropTable = parsed?.mobs ?? parsed;
     itemTable = parsed?.items ?? null;
+    dropTableSourceName = typeof parsed?.source === "string" ? parsed.source : null;
   } catch {
     dropTable = null;
     itemTable = null;
+    dropTableSourceName = null;
   }
 
   if (dropTable) {
@@ -263,21 +266,34 @@ async function main() {
 
   const itemIdList = Array.from(itemIds);
   let itemProcessed = 0;
-  const fallbackVersions = await getFallbackVersions(ITEM_REGION, ITEM_VERSION);
-  const kmsFallbackVersions = await getFallbackVersions(KMS_ITEM_REGION, KMS_ITEM_VERSION);
+  let fallbackVersionsPromise = null;
+  let kmsFallbackVersionsPromise = null;
   const items = await asyncPool(ITEM_CONCURRENCY, itemIdList, async (itemId) => {
+    const meta = itemTable?.[String(itemId)];
     const nameFromMapleDb = mapledbNames.get(itemId);
+    const nameFromDropTable = typeof meta?.name === "string" ? meta.name.trim() : "";
     const result =
       nameFromMapleDb
         ? { id: itemId, name: nameFromMapleDb }
-        : (await fetchItemNameFromRegion(itemId, KMS_ITEM_REGION, KMS_ITEM_VERSION, kmsFallbackVersions)) ??
-          (await fetchItemNameFromRegion(itemId, ITEM_REGION, ITEM_VERSION, fallbackVersions));
+        : nameFromDropTable
+          ? { id: itemId, name: nameFromDropTable }
+          : (await fetchItemNameFromRegion(
+              itemId,
+              KMS_ITEM_REGION,
+              KMS_ITEM_VERSION,
+              await (kmsFallbackVersionsPromise ??= getFallbackVersions(KMS_ITEM_REGION, KMS_ITEM_VERSION))
+            )) ??
+            (await fetchItemNameFromRegion(
+              itemId,
+              ITEM_REGION,
+              ITEM_VERSION,
+              await (fallbackVersionsPromise ??= getFallbackVersions(ITEM_REGION, ITEM_VERSION))
+            ));
     itemProcessed += 1;
     if (itemProcessed % 100 === 0 || itemProcessed === itemIdList.length) {
       console.log(`Fetched items: ${itemProcessed}/${itemIdList.length}`);
     }
     if (!result) return null;
-    const meta = itemTable?.[String(itemId)];
     return {
       ...result,
       typeInfo: meta?.typeInfo,
@@ -310,8 +326,8 @@ async function main() {
   const payload = {
     generatedAt: new Date().toISOString(),
     source: itemDetailByApplied
-      ? `${dropTable ? "drops-parsed" : "monsterbook-reward"}+item-detail-by`
-      : (dropTable ? "drops-parsed" : "monsterbook-reward"),
+      ? `${dropTableSourceName ?? (dropTable ? "drops-parsed" : "monsterbook-reward")}+item-detail-by`
+      : (dropTableSourceName ?? (dropTable ? "drops-parsed" : "monsterbook-reward")),
     items: filteredItems,
     dropsByMonsterId,
     monstersByItemId,
