@@ -40,6 +40,17 @@ export function getItemIconUrl(itemId: number | string, resize = 2) {
   return `${ITEM_BASE_URL}/item/${itemId}/icon${suffix}`;
 }
 
+export function getItemIconCandidateUrls(itemId: number | string, resize = 2) {
+  const suffix = resize ? `?resize=${resize}` : "";
+  return [
+    `${ITEM_BASE_URL}/item/${itemId}/icon${suffix}`,
+    `https://maplestory.io/api/KMS/284/item/${itemId}/icon${suffix}`,
+    `https://maplestory.io/api/GMS/92/item/${itemId}/icon${suffix}`,
+    `https://maplestory.io/api/GMS/255/item/${itemId}/icon${suffix}`,
+    `https://maplestory.io/api/JMS/419/item/${itemId}/icon${suffix}`,
+  ];
+}
+
 export function getSkillIconUrl(skillId: number | string) {
   return `${BASE_URL}/skill/${skillId}/icon`;
 }

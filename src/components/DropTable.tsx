@@ -3,7 +3,7 @@
 
 import { useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
-import { getItemIconUrl, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
+import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
 import { getMonsters } from "@/lib/data/monsters";
 import { isReleasedMobCode } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
@@ -106,27 +106,70 @@ function isSyntheticItem(item?: DropIndexItem | null) {
   return Boolean(item?.meta?.synthetic || (typeof item?.id === "number" && item.id < 0));
 }
 
-function ItemIcon({ item, sizeClass }: { item?: DropIndexItem; sizeClass: string }) {
-  const [failed, setFailed] = useState(false);
+function normalizeItemName(text: string) {
+  return String(text ?? "")
+    .replace(/민첩성/g, "민첩")
+    .replace(/지력성/g, "지력")
+    .replace(/명중률/g, "명중")
+    .replace(/회피율/g, "회피")
+    .replace(/[’‘`]/g, "'")
+    .replace(/[(){}\[\]'"~!@#$^&*_+=|\\/:;,.?-]/g, "")
+    .replace(/\s+/g, "")
+    .toLowerCase();
+}
 
-  if (failed || isSyntheticItem(item)) {
+function getSyntheticTileLabel(name: string) {
+  const raw = String(name ?? "").trim();
+  if (!raw) return "?";
+  if (raw.includes("마스터리북")) return "MB";
+  if (raw.includes("주문서")) return "SC";
+  if (raw.includes("카드")) return "CD";
+  if (raw.includes("조각")) return "PK";
+  if (raw.includes("촉진제")) return "UP";
+  const compact = raw.replace(/\[[^\]]*\]/g, "").replace(/\([^)]*\)/g, "").replace(/\s+/g, "");
+  return compact.slice(0, 2) || raw.slice(0, 2) || "?";
+}
+
+function ItemIcon({
+  item,
+  sizeClass,
+  iconItemId,
+}: {
+  item?: DropIndexItem;
+  sizeClass: string;
+  iconItemId?: number | null;
+}) {
+  const [failed, setFailed] = useState(false);
+  const [iconIndex, setIconIndex] = useState(0);
+  const candidateUrls = useMemo(() => {
+    if (!iconItemId || iconItemId <= 0) return [];
+    return getItemIconCandidateUrls(iconItemId);
+  }, [iconItemId]);
+
+  if (failed || candidateUrls.length === 0) {
     return (
       <div
-        className={`${sizeClass} flex items-center justify-center rounded-md border border-dashed border-white/20 bg-white/5 text-[10px] font-semibold text-[color:var(--retro-text-muted)]`}
+        className={`${sizeClass} flex items-center justify-center rounded-md border border-dashed border-white/20 bg-[linear-gradient(135deg,rgba(34,197,94,0.08),rgba(59,130,246,0.12))] text-[10px] font-semibold text-[color:var(--retro-text-muted)]`}
         aria-label={item?.name ?? "가상 아이템"}
       >
-        ?
+        {getSyntheticTileLabel(item?.name ?? "")}
       </div>
     );
   }
 
   return (
     <img
-      src={getItemIconUrl(item?.id ?? 0)}
+      src={candidateUrls[Math.min(iconIndex, candidateUrls.length - 1)]}
       alt={item?.name ?? "아이템"}
       className={sizeClass}
       loading="lazy"
-      onError={() => setFailed(true)}
+      onError={() => {
+        if (iconIndex < candidateUrls.length - 1) {
+          setIconIndex((prev) => prev + 1);
+          return;
+        }
+        setFailed(true);
+      }}
     />
   );
 }
@@ -234,6 +277,56 @@ export function DropTable() {
     }
     return map;
   }, []);
+
+  const normalizedRealItemIds = useMemo(() => {
+    const map = new Map<string, number>();
+    for (const item of dropData.items) {
+      if (!item || typeof item.id !== "number" || item.id <= 0) continue;
+      const normalized = normalizeItemName(item.name);
+      if (normalized && !map.has(normalized)) {
+        map.set(normalized, item.id);
+      }
+    }
+    return map;
+  }, []);
+
+  const representativeIconIds = useMemo(() => {
+    const findFirst = (predicate: (item: DropIndexItem) => boolean) =>
+      dropData.items.find((item) => item.id > 0 && predicate(item))?.id ?? null;
+    return {
+      masteryBook: findFirst((item) => item.name.includes("[마스터리북]")),
+      scroll60: findFirst((item) => item.name.includes("주문서") && item.name.includes("60%")),
+      scroll10: findFirst((item) => item.name.includes("주문서") && item.name.includes("10%")),
+      scroll30: findFirst((item) => item.name.includes("주문서") && item.name.includes("30%")),
+      scroll70: findFirst((item) => item.name.includes("주문서") && item.name.includes("70%")),
+      card: findFirst((item) => item.name.includes("카드")),
+    };
+  }, []);
+
+  const getResolvedIconItemId = (item?: DropIndexItem | null) => {
+    if (!item) return null;
+    if (!isSyntheticItem(item)) return item.id;
+
+    const normalized = normalizeItemName(item.name);
+    const exact = normalizedRealItemIds.get(normalized);
+    if (exact) return exact;
+
+    if (item.name.includes("[마스터리북]")) {
+      return representativeIconIds.masteryBook;
+    }
+    if (item.name.includes("카드")) {
+      return representativeIconIds.card;
+    }
+    if (item.name.includes("주문서")) {
+      if (item.name.includes("10%")) return representativeIconIds.scroll10 ?? representativeIconIds.scroll60;
+      if (item.name.includes("30%")) return representativeIconIds.scroll30 ?? representativeIconIds.scroll60;
+      if (item.name.includes("70%")) return representativeIconIds.scroll70 ?? representativeIconIds.scroll60;
+      if (item.name.includes("60%")) return representativeIconIds.scroll60;
+      return representativeIconIds.scroll60;
+    }
+
+    return null;
+  };
 
   const queryKeyword = useMemo(() => normalizeQuery(query), [query]);
 
@@ -591,7 +684,7 @@ export function DropTable() {
                                   setShowSuggestions(false);
                                 }}
                               >
-                                <ItemIcon item={item} sizeClass="h-6 w-6" />
+                                <ItemIcon item={item} sizeClass="h-6 w-6" iconItemId={getResolvedIconItemId(item)} />
                                 <span className="flex-1 truncate">{item.name}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">{getItemGroup(item)}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">#{item.id}</span>
@@ -630,7 +723,11 @@ export function DropTable() {
             {selectedItemId ? (
               <div className="rounded-[10px] border border-cyan-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
                 <div className="flex items-center gap-2">
-                  <ItemIcon item={itemsById.get(selectedItemId)} sizeClass="h-12 w-12" />
+                  <ItemIcon
+                    item={itemsById.get(selectedItemId)}
+                    sizeClass="h-12 w-12"
+                    iconItemId={getResolvedIconItemId(itemsById.get(selectedItemId))}
+                  />
                   <div className="flex-1">
                     <div className="text-base font-semibold">{itemsById.get(selectedItemId)?.name ?? "아이템"}</div>
                     <div className="text-xs text-[color:var(--retro-text-muted)]">
@@ -763,7 +860,7 @@ export function DropTable() {
                           if (name) setQuery(name);
                         }}
                       >
-                        <ItemIcon item={item} sizeClass="h-12 w-12" />
+                        <ItemIcon item={item} sizeClass="h-12 w-12" iconItemId={getResolvedIconItemId(item)} />
                         <div className="flex-1">
                         <div className="flex items-start justify-between gap-3">
                           <div>
