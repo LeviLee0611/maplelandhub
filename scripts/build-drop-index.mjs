@@ -19,8 +19,62 @@ const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
 const CONCURRENCY = 4;
 const ITEM_CONCURRENCY = 6;
 const MAX_MOBS = process.env.DROP_MOB_LIMIT ? Number(process.env.DROP_MOB_LIMIT) : null;
+const EXCLUDED_DROP_ITEM_IDS = new Set([
+  2022157, // 카니발 포인트 1
+  2022158, // 카니발 포인트 2
+  2022159, // 카니발 포인트 3
+  2022160, // 파티 마나엘릭서
+  2022161, // 파티 엘릭서
+  2022162, // 파티 파워엘릭서
+  2022163, // 파티 만병통치약
+  2022164, // 작은 어둠의 큐브
+  2022165, // 어둠의 큐브
+  2022166, // 기절의 구슬
+  4001129, // 메이플 코인
+  -1634778098, // 마법의 가루(파랑)
+  -733023682, // 마법의 가루(빨강)
+  -156272759, // 태엽벌레
+]);
+const EXCLUDED_DROP_ITEM_NAME_PATTERNS = [
+  /카니발\s*포인트/i,
+  /carnival\s*point/i,
+  /파티\s*마나\s*엘릭서/i,
+  /파티\s*마나엘릭서/i,
+  /파티\s*엘릭서/i,
+  /파티\s*파워\s*엘릭서/i,
+  /파티\s*파워엘릭서/i,
+  /파티\s*만병\s*통치약/i,
+  /파티\s*만병통치약/i,
+  /마법의\s*가루\s*\(\s*파랑\s*\)/i,
+  /마법의\s*가루\s*\(\s*빨강\s*\)/i,
+  /작은\s*어둠의\s*큐브/i,
+  /^어둠의\s*큐브$/i,
+  /기절의\s*구슬/i,
+  /^메이플\s*코인$/i,
+  /^태엽벌레$/i,
+  /^두손둔기\s*명중(?:률)?\s*주문서\s*\d+%$/i,
+  /^방패\s*힘\s*주문서\s*\d+%$/i,
+  /^하의\s*점프(?:력)?\s*주문서\s*\d+%$/i,
+];
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+function isExcludedDropItem(itemId, itemName = "") {
+  if (EXCLUDED_DROP_ITEM_IDS.has(Number(itemId))) return true;
+  return EXCLUDED_DROP_ITEM_NAME_PATTERNS.some((pattern) => pattern.test(String(itemName ?? "")));
+}
+
+function normalizeItemNameForLookup(text) {
+  return String(text ?? "")
+    .replace(/[’‘`]/g, "'")
+    .replace(/민첩성/g, "민첩")
+    .replace(/지력성/g, "지력")
+    .replace(/명중률/g, "명중")
+    .replace(/회피율/g, "회피")
+    .replace(/[(){}\[\]'"~!@#$^&*_+=|\\/:;,.?-]/g, "")
+    .replace(/\s+/g, "")
+    .toLowerCase();
+}
 
 async function fetchJson(url, retries = 3) {
   for (let attempt = 0; attempt <= retries; attempt += 1) {
@@ -141,6 +195,17 @@ async function loadMapleDbItemNames() {
 
 async function main() {
   const mapledbNames = await loadMapleDbItemNames();
+  const mapledbItemIdsByName = new Map();
+  for (const [itemId, name] of mapledbNames.entries()) {
+    const rawName = String(name ?? "").trim();
+    if (!rawName) continue;
+    if (!mapledbItemIdsByName.has(rawName)) mapledbItemIdsByName.set(rawName, itemId);
+    const normalizedName = normalizeItemNameForLookup(rawName);
+    if (normalizedName && !mapledbItemIdsByName.has(normalizedName)) {
+      mapledbItemIdsByName.set(normalizedName, itemId);
+    }
+  }
+
   const raw = await fs.readFile(MONSTER_SOURCE, "utf8");
   const monsters = JSON.parse(raw);
   let mobIds = Array.from(
@@ -171,13 +236,22 @@ async function main() {
   }
 
   if (dropTable) {
+    const resolveDropItemId = (itemId) => {
+      if (typeof itemId !== "number" || itemId > 0) return itemId;
+      const name = itemTable?.[String(itemId)]?.name;
+      const rawName = String(name ?? "").trim();
+      if (!rawName) return itemId;
+      return mapledbItemIdsByName.get(rawName) ?? mapledbItemIdsByName.get(normalizeItemNameForLookup(rawName)) ?? itemId;
+    };
+
     for (const [mobId, entry] of Object.entries(dropTable)) {
       const rewards = entry?.rewards ?? [];
       if (!Array.isArray(rewards) || rewards.length === 0) continue;
       const mapped = rewards
         .filter((reward) => reward && typeof reward.itemID === "number")
+        .filter((reward) => !isExcludedDropItem(reward.itemID, itemTable?.[String(reward.itemID)]?.name))
         .map((reward) => ({
-          itemId: reward.itemID,
+          itemId: resolveDropItemId(reward.itemID),
           prob: typeof reward.prob === "number" ? reward.prob : undefined,
           min: typeof reward.min === "number" ? reward.min : undefined,
           max: typeof reward.max === "number" ? reward.max : undefined,
@@ -205,8 +279,10 @@ async function main() {
     for (const { mobId, ids } of rewardLists) {
       if (!ids || ids.length === 0) continue;
       const uniqueIds = Array.from(new Set(ids));
-      dropsByMonsterId[mobId] = uniqueIds.map((itemId) => ({ itemId }));
-      for (const itemId of uniqueIds) {
+      const filteredIds = uniqueIds.filter((itemId) => !isExcludedDropItem(itemId));
+      if (filteredIds.length === 0) continue;
+      dropsByMonsterId[mobId] = filteredIds.map((itemId) => ({ itemId }));
+      for (const itemId of filteredIds) {
         itemIds.add(itemId);
         const bucket = monstersByItemId[itemId] ?? [];
         bucket.push({ mobId });
@@ -224,6 +300,7 @@ async function main() {
     for (const [itemIdText, rows] of Object.entries(byItems)) {
       const itemId = Number(itemIdText);
       if (!Number.isFinite(itemId) || itemId <= 0) continue;
+      if (isExcludedDropItem(itemId)) continue;
       if (!Array.isArray(rows) || rows.length === 0) continue;
 
       const normalizedRows = rows
@@ -293,10 +370,10 @@ async function main() {
     if (itemProcessed % 100 === 0 || itemProcessed === itemIdList.length) {
       console.log(`Fetched items: ${itemProcessed}/${itemIdList.length}`);
     }
-    if (!result) return null;
+    if (!result || isExcludedDropItem(itemId, result.name)) return null;
     return {
       ...result,
-      typeInfo: meta?.typeInfo,
+      typeInfo: meta?.typeInfo ?? (itemId >= 1_000_000 && itemId < 2_000_000 ? { overallCategory: "Equip" } : undefined),
       equipGroup: meta?.equipGroup,
       meta: meta?.meta,
     };

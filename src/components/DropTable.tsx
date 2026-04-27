@@ -183,6 +183,10 @@ function getMatchScore(name: string, keyword: string) {
   return -1;
 }
 
+function getProbSortValue(prob?: number) {
+  return typeof prob === "number" && Number.isFinite(prob) ? prob : -1;
+}
+
 function getWorldMapGroup(region?: string) {
   const text = String(region ?? "").trim();
   if (!text) return "기타";
@@ -395,8 +399,12 @@ export function DropTable() {
 
   const monsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
-    if (localMonsterDrops.length > 0) return localMonsterDrops;
-    return fallbackDropsByMobCode[selectedMonster.mobCode] ?? [];
+    const entries = localMonsterDrops.length > 0 ? localMonsterDrops : (fallbackDropsByMobCode[selectedMonster.mobCode] ?? []);
+    return [...entries].sort((a, b) => {
+      const probDiff = getProbSortValue(b.prob) - getProbSortValue(a.prob);
+      if (probDiff !== 0) return probDiff;
+      return a.itemId - b.itemId;
+    });
   }, [selectedMonster, localMonsterDrops, fallbackDropsByMobCode]);
 
   const monstersForItem = useMemo(() => {
@@ -419,6 +427,11 @@ export function DropTable() {
       .filter((row) => {
         if (selectedWorldMap === "all") return true;
         return getWorldMapGroup(row.monster.region) === selectedWorldMap;
+      })
+      .sort((a, b) => {
+        const probDiff = getProbSortValue(b.entry.prob) - getProbSortValue(a.entry.prob);
+        if (probDiff !== 0) return probDiff;
+        return (a.monster.level ?? 0) - (b.monster.level ?? 0);
       });
   }, [selectedItemId, selectedWorldMap]);
 

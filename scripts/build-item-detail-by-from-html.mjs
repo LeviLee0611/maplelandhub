@@ -22,7 +22,7 @@ function parseItemId(html) {
 
 function parseByRows(html) {
   const rows = [];
-  const re = /href="[^"]*monster_detail\/(\d+)"[\s\S]*?<div class="drop-rate-box">([\d.]+)<\/div>/g;
+  const re = /href="[^"]*monster_detail\/(\d+)"[\s\S]*?<div class="drop-rate-box">\s*([\d.]+)%?\s*<\/div>/g;
   let m;
   while ((m = re.exec(html)) !== null) {
     const mobId = Number(m[1]);

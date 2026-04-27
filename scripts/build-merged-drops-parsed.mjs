@@ -109,16 +109,19 @@ function mergeRewardLists(preferredRewards = [], legacyRewards = []) {
       prob: reward.prob,
       min: reward.min,
       max: reward.max,
+      source: "legacy-mapledb",
     });
   }
 
   for (const reward of preferredRewards) {
     if (!reward || typeof reward.itemID !== "number") continue;
+    const legacy = byItemId.get(reward.itemID);
     byItemId.set(reward.itemID, {
       itemID: reward.itemID,
-      prob: reward.prob,
-      min: reward.min,
-      max: reward.max,
+      prob: legacy?.prob ?? reward.prob,
+      min: legacy?.min ?? reward.min,
+      max: legacy?.max ?? reward.max,
+      source: legacy?.source ?? "dropchance-html",
     });
   }
 
