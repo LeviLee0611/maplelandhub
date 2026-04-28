@@ -12,6 +12,15 @@ const MONSTER_ALIAS_MAP = {
   피아누스: ["피아누스(좌)", "피아누스(우)"],
   "폐쇄된 연구실의 호문": ["호문"],
 };
+const EXCLUDED_ITEM_NAME_PATTERNS = [
+  /마법의\s*가루\s*\([^)]*\)/i,
+  /^.+\s+카드$/i,
+  /^악의\s*기운$/i,
+  /^첫\s*번째\s*작은\s*조각$/i,
+  /^메이플\s+(?!고서|코인).+/i,
+  /^하의\s*점프(?:력)?\s*주문서\s*\d+%$/i,
+  /^하의\s*민첩(?:성)?\s*주문서\s*\d+%$/i,
+];
 
 function createSyntheticItemId(name) {
   let hash = 2166136261;
@@ -63,6 +72,11 @@ function parseProb(text) {
   const value = Number(String(text ?? "").replace(/[%\s,]/g, ""));
   if (!Number.isFinite(value) || value < 0) return undefined;
   return value / 100;
+}
+
+function isExcludedItemName(itemName) {
+  const text = String(itemName ?? "").trim();
+  return EXCLUDED_ITEM_NAME_PATTERNS.some((pattern) => pattern.test(text));
 }
 
 function buildLookup(rows, keyField) {
@@ -202,14 +216,17 @@ function buildDrops(rows, monsters, items) {
       continue;
     }
 
-    const monsterPick = pickMonsterMatches(monsterLookup, row.mobName);
-    if (monsterPick.matches.length === 0) {
-      unmatchedMonsters.push({ ...row, reason: monsterPick.reason });
+    if (!String(row.itemName ?? "").trim()) {
+      skippedRows.push({ ...row, reason: "blank-item" });
+      continue;
+    }
+    if (isExcludedItemName(row.itemName)) {
       continue;
     }
 
-    if (!String(row.itemName ?? "").trim()) {
-      skippedRows.push({ ...row, reason: "blank-item" });
+    const monsterPick = pickMonsterMatches(monsterLookup, row.mobName);
+    if (monsterPick.matches.length === 0) {
+      unmatchedMonsters.push({ ...row, reason: monsterPick.reason });
       continue;
     }
 

@@ -1,142 +1,16 @@
 {
-  "generatedAt": "2026-04-24T23:04:24.562Z",
+  "generatedAt": "2026-04-28T20:01:28.377Z",
   "source": "dropchance-html",
   "inputPath": "data/dropchance",
   "totalRows": 15884,
-  "matchedRows": 10667,
+  "matchedRows": 9845,
   "matchedMobCount": 369,
-  "matchedItemCount": 2612,
-  "syntheticItemCount": 5,
-  "unmatchedMonsterCount": 2532,
-  "unmatchedItemCount": 23,
-  "skippedRowCount": 663,
+  "matchedItemCount": 2288,
+  "syntheticItemCount": 18,
+  "unmatchedMonsterCount": 2230,
+  "unmatchedItemCount": 175,
+  "skippedRowCount": 935,
   "unmatchedMonsters": [
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
     {
       "mobName": "혼테일",
       "itemName": "순록의 우유",
@@ -595,12 +469,6 @@
     },
     {
       "mobName": "혼테일",
-      "itemName": "하의 민첩성 주문서 60%",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "혼테일",
       "itemName": "백의 주문서 1%",
       "probText": "15.12%",
       "reason": "missing"
@@ -612,18 +480,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "혼테일",
-      "itemName": "혼테일 카드",
-      "probText": "32.80%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파 픽시",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "파파 픽시",
       "itemName": "하얀 포션",
       "probText": "32.80%",
@@ -672,18 +528,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "파파 픽시",
-      "itemName": "파파 픽시 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "데비존",
       "itemName": "하얀 포션",
       "probText": "32.80%",
@@ -728,18 +572,6 @@
     {
       "mobName": "데비존",
       "itemName": "과일생크림 케이크",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "황금돼지",
-      "itemName": "",
       "probText": "100.00%",
       "reason": "missing"
     },
@@ -756,12 +588,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "웨딩캔들",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "여신 탑의 로얄 네펜데스",
       "itemName": "투명 아이템",
       "probText": "100.00%",
@@ -770,36 +596,6 @@
     {
       "mobName": "파파픽시",
       "itemName": "더 이상한 씨앗",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "",
       "probText": "100.00%",
       "reason": "missing"
     },
@@ -1200,12 +996,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "데비존의 사나운 게비알",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "데비존의 사나운 크루",
       "itemName": "인삼 농축액",
       "probText": "7.46%",
@@ -1215,12 +1005,6 @@
       "mobName": "데비존의 사나운 크루",
       "itemName": "중급 해적의 증표",
       "probText": "51.24%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존의 사나운 크루",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -1506,12 +1290,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "데비존",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "데비존의 사나운 캡틴",
       "itemName": "인삼 농축액",
       "probText": "7.46%",
@@ -1521,12 +1299,6 @@
       "mobName": "데비존의 사나운 캡틴",
       "itemName": "고참 해적의 증표",
       "probText": "51.24%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존의 사나운 캡틴",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -1548,12 +1320,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "데비존의 더 사나운 캡틴",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "데비존의 더 사나운 게비알",
       "itemName": "인삼 농축액",
       "probText": "7.46%",
@@ -1563,12 +1329,6 @@
       "mobName": "데비존의 더 사나운 게비알",
       "itemName": "오래된 쇠열쇠",
       "probText": "23.62%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존의 더 사나운 게비알",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -1584,21 +1344,9 @@
       "reason": "missing"
     },
     {
-      "mobName": "데비존의 더 사나운 크루",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "데비존의 사나운 삼단지",
       "itemName": "오래된 쇠열쇠",
       "probText": "23.62%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존의 사나운 삼단지",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -1635,12 +1383,6 @@
       "mobName": "엿보는 데비존",
       "itemName": "신발 민첩성 주문서 10%",
       "probText": "42.58%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "엿보는 데비존",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -1908,12 +1650,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "분노한 데비존",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "화난 데비존",
       "itemName": "데비존의 상자열쇠",
       "probText": "26.08%",
@@ -2178,42 +1914,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "화난 데비존",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "꼬마 눈사람",
       "itemName": "눈사람의 나뭇가지",
       "probText": "1.22%",
@@ -2247,12 +1947,6 @@
       "mobName": "꼬마 눈사람",
       "itemName": "스노우 조각케이크",
       "probText": "73.42%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "13.46%",
       "reason": "missing"
     },
     {
@@ -3324,132 +3018,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크빈",
-      "itemName": "핑크빈 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초강화형 포이즌 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초강화형 포이즌 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초강화형 포이즌 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초강화형 포이즌 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초강화형 포이즌 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "초강화형 포이즌 골렘",
       "itemName": "골렘의 독구슬",
       "probText": "1.22%",
@@ -3703,36 +3271,6 @@
     },
     {
       "mobName": "무공",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
       "itemName": "물리 공격력 상승",
       "probText": "73.42%",
       "reason": "missing"
@@ -3999,12 +3537,6 @@
       "mobName": "무공",
       "itemName": "MaxMP 상승",
       "probText": "73.42%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "무공",
-      "itemName": "무공 카드",
-      "probText": "13.46%",
       "reason": "missing"
     },
     {
@@ -4017,12 +3549,6 @@
       "mobName": "박",
       "itemName": "금은보화",
       "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "모래 두더쥐",
-      "itemName": "",
-      "probText": "92.34%",
       "reason": "missing"
     },
     {
@@ -4137,114 +3663,6 @@
       "mobName": "모래 두더쥐",
       "itemName": "한손둔기 명중률 주문서 10%",
       "probText": "0.38%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "모래 두더쥐",
-      "itemName": "모래 두더지 카드",
-      "probText": "4.78%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오버로드",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "92.34%",
       "reason": "missing"
     },
     {
@@ -4590,12 +4008,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "자쿰",
-      "itemName": "자쿰 카드",
-      "probText": "32.80%",
-      "reason": "missing"
-    },
-    {
       "mobName": "파이렛옥토",
       "itemName": "강력한 힘의 결정",
       "probText": "80.00%",
@@ -4617,24 +4029,6 @@
       "mobName": "리?",
       "itemName": "「??카드",
       "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "포장마차",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "포장마차",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "포장마차",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -4687,228 +4081,6 @@
     },
     {
       "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
       "itemName": "케이크",
       "probText": "100.00%",
       "reason": "missing"
@@ -4935,12 +4107,6 @@
       "mobName": "거대 눈사람",
       "itemName": "스노우 조각케이크",
       "probText": "83.80%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크 달팽이",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -4969,12 +4135,6 @@
     },
     {
       "mobName": "코-크 씰",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크 씰",
       "itemName": "하얀 포션",
       "probText": "7.46%",
       "reason": "missing"
@@ -4989,12 +4149,6 @@
       "mobName": "코-크 씰",
       "itemName": "코카-콜라 큐브",
       "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "플레이 씰",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -5017,12 +4171,6 @@
     },
     {
       "mobName": "예티와 코-크텀프",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "예티와 코-크텀프",
       "itemName": "마나 엘릭서",
       "probText": "7.46%",
       "reason": "missing"
@@ -5031,18 +4179,6 @@
       "mobName": "예티와 코-크텀프",
       "itemName": "하얀 포션",
       "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "예티와 코-크텀프",
-      "itemName": "코카-콜라 카드",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "이글루 터틀",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -5065,12 +4201,6 @@
     },
     {
       "mobName": "코-크 골렘",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크 골렘",
       "itemName": "하얀 포션",
       "probText": "7.46%",
       "reason": "missing"
@@ -5085,12 +4215,6 @@
       "mobName": "코-크 골렘",
       "itemName": "코-크아이스 블록",
       "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "아이스 골렘",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -5118,12 +4242,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "코-크 슬라임",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "코-크텀프 라이트",
       "itemName": "두손도끼 공격력 주문서 60%",
       "probText": "0.28%",
@@ -5148,12 +4266,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "코-크 버섯",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "코-크텀프 라이트",
       "itemName": "파란 포션",
       "probText": "7.46%",
@@ -5169,12 +4281,6 @@
       "mobName": "코-크 버섯",
       "itemName": "코-크 병뚜껑",
       "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크텀프",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -5197,12 +4303,6 @@
     },
     {
       "mobName": "코-크텀프 라이트",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크텀프 라이트",
       "itemName": "실버 윈드슈즈",
       "probText": "0.38%",
       "reason": "missing"
@@ -5217,12 +4317,6 @@
       "mobName": "코-크텀프 라이트",
       "itemName": "코카-콜라 라이트 캔",
       "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "코-크 돼지",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -5697,12 +4791,6 @@
       "mobName": "코-크텀프 라이트",
       "itemName": "에메랄드의 원석",
       "probText": "2.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "자쿰",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -7004,12 +6092,6 @@
     {
       "mobName": "아이 마네킹",
       "itemName": "발터2000",
-      "probText": "0.30%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "아이 마네킹",
-      "itemName": "",
       "probText": "0.30%",
       "reason": "missing"
     },
@@ -8364,84 +7446,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "체리맛 버블티",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "망고맛 버블티",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "멜론맛 버블티",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "블루 퍼퓸",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "옐로우 퍼퓸",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "핑크 퍼퓸",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "아이 마네킹",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "여자 마네킹",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "남자 마네킹",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "최신곡 CD",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "흘러간 가요 CD",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "싸구려 앰프",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "고급 앰프",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "파란 도깨비",
       "itemName": "태양의 불꽃",
       "probText": "3.44%",
@@ -8540,48 +7544,6 @@
     {
       "mobName": "흰털 어미 원숭이",
       "itemName": "흰털 어미 원숭이의 가슴털",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파란 도깨비",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "빨간 도깨비",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "힘센 돌 도깨비",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "사나운 원숭이",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "어미 원숭이",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "흰털 아기 원숭이",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "흰털 어미 원숭이",
-      "itemName": "",
       "probText": "100.00%",
       "reason": "missing"
     },
@@ -10254,24 +9216,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "예티인형 뽑기 기계",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "주니어페페인형 뽑기 기계",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "변신 인형뽑기 기계",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "라바나",
       "itemName": "라바나 투구",
       "probText": "100.00%",
@@ -10370,18 +9314,6 @@
     {
       "mobName": "고급 앰프",
       "itemName": "고급 앰프전선",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "싸구려 앰프",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "고급 앰프",
-      "itemName": "",
       "probText": "100.00%",
       "reason": "missing"
     },
@@ -10650,12 +9582,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "드래곤 라이더",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "카오스 자쿰",
       "itemName": "카오스 자쿰의 투구",
       "probText": "66.48%",
@@ -10665,12 +9591,6 @@
       "mobName": "카오스 자쿰",
       "itemName": "카오스 자쿰의 투구",
       "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "황금돼지",
-      "itemName": "",
-      "probText": "66.48%",
       "reason": "missing"
     },
     {
@@ -10854,12 +9774,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "변절자 스포아",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "독버섯",
       "itemName": "버섯의 독포자",
       "probText": "100.00%",
@@ -10959,30 +9873,6 @@
       "mobName": "독버섯",
       "itemName": "파란 포션",
       "probText": "0.38%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "독버섯",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "독버섯",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "독버섯",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "독버섯",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -11091,18 +9981,6 @@
       "mobName": "중독된 돼지",
       "itemName": "활전용 화살",
       "probText": "0.38%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "중독된 돼지",
-      "itemName": "",
-      "probText": "0.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "중독된 돼지",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -11235,18 +10113,6 @@
       "mobName": "투구 페페",
       "itemName": "활전용 화살",
       "probText": "0.38%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "투구 페페",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "친위대 페페",
-      "itemName": "",
-      "probText": "100.00%",
       "reason": "missing"
     },
     {
@@ -12385,36 +11251,6 @@
     },
     {
       "mobName": "화이트예티와 페페킹",
-      "itemName": "",
-      "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화이트예티와 페페킹",
-      "itemName": "",
-      "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화이트예티와 페페킹",
-      "itemName": "",
-      "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화이트예티와 페페킹",
-      "itemName": "",
-      "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화이트예티와 페페킹",
-      "itemName": "",
-      "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화이트예티와 페페킹",
       "itemName": "결혼식장 열쇠",
       "probText": "100.00%",
       "reason": "missing"
@@ -12846,54 +11682,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "저빌",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "골든 저빌",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "스코피",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "골든 스코피",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "페넥",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "골든 페넥",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "맘무트",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "골든 맘무트",
-      "itemName": "",
-      "probText": "98.18%",
-      "reason": "missing"
-    },
-    {
       "mobName": "크세르크세스",
       "itemName": "크세르크세스의 목걸이",
       "probText": "100.00%",
@@ -12921,12 +11709,6 @@
       "mobName": "크세르크세스",
       "itemName": "크세르크세스의 해적 웨폰박스",
       "probText": "51.24%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "크세르크세스",
-      "itemName": "",
-      "probText": "92.34%",
       "reason": "missing"
     },
     {
@@ -12997,31 +11779,13 @@
     },
     {
       "mobName": "도둑 까마귀",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "도둑 까마귀",
       "itemName": "까마귀의 푸른 깃털",
       "probText": "92.34%",
       "reason": "missing"
     },
     {
       "mobName": "캇파",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "캇파",
       "itemName": "캇파의 독주머니",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "그림자 닌자",
-      "itemName": "",
       "probText": "92.34%",
       "reason": "missing"
     },
@@ -13035,66 +11799,6 @@
       "mobName": "두꺼비 요괴",
       "itemName": "두꺼비 요괴의 동전주머니",
       "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "황금돼지",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화난 데비존",
-      "itemName": "데비존 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "분노한 데비존",
-      "itemName": "데비존 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "엿보는 데비존",
-      "itemName": "데비존 카드",
-      "probText": "13.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Extra A",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Extra B",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Extra C",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Extra D",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Leader A",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Leader B",
-      "itemName": "",
-      "probText": "92.34%",
       "reason": "missing"
     },
     {
@@ -13130,30 +11834,6 @@
     {
       "mobName": "Leader B",
       "itemName": "간부 B의 왁스",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Bodyguard A",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Bodyguard A",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Bodyguard B",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Bodyguard B",
-      "itemName": "",
       "probText": "92.34%",
       "reason": "missing"
     },
@@ -13239,12 +11919,6 @@
       "mobName": "The Boss",
       "itemName": "골드 에메랄드 이어링",
       "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "The Boss",
-      "itemName": "",
-      "probText": "6.46%",
       "reason": "missing"
     },
     {
@@ -13345,12 +12019,6 @@
     },
     {
       "mobName": "Female Boss",
-      "itemName": "",
-      "probText": "4.14%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "Female Boss",
       "itemName": "전신 갑옷 방어력 주문서 70%",
       "probText": "2.20%",
       "reason": "missing"
@@ -13416,20 +12084,8 @@
       "reason": "missing"
     },
     {
-      "mobName": "레드 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "실버 슬라임",
       "itemName": "실버슬라임의 액체",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "실버 슬라임",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -13440,12 +12096,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "골드 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "레드 슬라임",
       "itemName": "구겨진 스케치북 낱장",
       "probText": "28.42%",
@@ -13465,18 +12115,6 @@
     },
     {
       "mobName": "오버로드A",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오버로드B",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오버로드A",
       "itemName": "대피소 열쇠",
       "probText": "11.66%",
       "reason": "missing"
@@ -13485,12 +12123,6 @@
       "mobName": "오버로드B",
       "itemName": "대피소 열쇠",
       "probText": "11.66%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "로비",
-      "itemName": "",
-      "probText": "80.00%",
       "reason": "missing"
     },
     {
@@ -13500,50 +12132,8 @@
       "reason": "missing"
     },
     {
-      "mobName": "이루워터",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "애프터로드",
       "itemName": "애프터로드의 체인타이어",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "애프터로드",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "프로토타입로드",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "암슈트A",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "암슈트S",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "암슈트D",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "암슈트D",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -13812,32 +12402,14 @@
       "reason": "missing"
     },
     {
-      "mobName": "문지기 크로키",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "레인디어",
       "itemName": "레인디어의 창",
       "probText": "80.00%",
       "reason": "missing"
     },
     {
-      "mobName": "레인디어",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "블러드 레인디어",
       "itemName": "레인디어의 창",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "블러드 레인디어",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -13848,32 +12420,14 @@
       "reason": "missing"
     },
     {
-      "mobName": "베어울프",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "그레이 벌쳐",
       "itemName": "벌쳐의 어깨장식",
       "probText": "80.00%",
       "reason": "missing"
     },
     {
-      "mobName": "그레이 벌쳐",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "캐슬 골렘",
       "itemName": "캐슬골렘의 벽돌",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "캐슬 골렘",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -14053,12 +12607,6 @@
     },
     {
       "mobName": "돌리온",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "돌리온",
       "itemName": "입장 티켓",
       "probText": "32.80%",
       "reason": "missing"
@@ -14066,12 +12614,6 @@
     {
       "mobName": "돌리온",
       "itemName": "돌리온의 머플러",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "큘라",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -14148,66 +12690,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "코코넛 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "초록조개 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "보라조개 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "갈매기 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "빨간 튜브 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파란 튜브 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "새우 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "날치 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "불가사리 문어 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "소라문어 슬라임",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "야자수 슬라임",
       "itemName": "장난감 공",
       "probText": "32.80%",
@@ -14275,19 +12757,7 @@
     },
     {
       "mobName": "유령",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "유령",
       "itemName": "큘라의 신사 모자",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "마몬",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -14299,19 +12769,7 @@
     },
     {
       "mobName": "롤링 돌리온",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "롤링 돌리온",
       "itemName": "나무통",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "밸리베어",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -14323,31 +12781,13 @@
     },
     {
       "mobName": "플라잉 리오",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "플라잉 리오",
       "itemName": "장난감 비행기",
       "probText": "80.00%",
       "reason": "missing"
     },
     {
       "mobName": "판스",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "판스",
       "itemName": "판스의 타이어",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "바이킹베어",
-      "itemName": "",
       "probText": "80.00%",
       "reason": "missing"
     },
@@ -14497,12 +12937,6 @@
     },
     {
       "mobName": "애프터로드",
-      "itemName": "",
-      "probText": "0.18%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "애프터로드",
       "itemName": "우트가르드 가즈",
       "probText": "0.18%",
       "reason": "missing"
@@ -14511,12 +12945,6 @@
       "mobName": "애프터로드",
       "itemName": "우트가르드 스피어",
       "probText": "0.16%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "애프터로드",
-      "itemName": "",
-      "probText": "0.14%",
       "reason": "missing"
     },
     {
@@ -14641,38 +13069,8 @@
     },
     {
       "mobName": "오버로드",
-      "itemName": "",
-      "probText": "0.16%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오버로드",
       "itemName": "[마스터리북]스피릿 자벨린 20",
       "probText": "0.16%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "애프터로드",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "베르가모트",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "파파픽시",
-      "itemName": "파파 픽시 카드",
-      "probText": "21.00%",
       "reason": "missing"
     },
     {
@@ -14748,78 +13146,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "맨티스",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "블러드 맨티스",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "포이즌 맨티스",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "플로라",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "다크 플로라",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "호넷",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "포이즌 호넷",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "제너럴 호넷",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오염된 나무의 정령",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타락한 나무의 정령",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "오염된 돌의 정령",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타락한 돌의 정령",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
       "mobName": "플로라",
       "itemName": "기름 촉촉한 씨앗",
       "probText": "32.80%",
@@ -14841,120 +13167,6 @@
       "mobName": "포이즌 호넷",
       "itemName": "커다란 독샘",
       "probText": "32.80%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타란튤로스",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타란튤로스",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타란튤로스",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "타란튤로스",
-      "itemName": "",
-      "probText": "100.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화난 데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "분노한 데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "엿보는 데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "데비존",
-      "itemName": "데비존 카드",
-      "probText": "7.46%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "불량 루돌프",
-      "itemName": "루돌프 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "길잃은 루돌프",
-      "itemName": "루돌프 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "화난 눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "거대 눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "21.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "꼬마 눈사람",
-      "itemName": "꼬마 눈사람 카드",
-      "probText": "21.00%",
       "reason": "missing"
     },
     {
@@ -15079,12 +13291,6 @@
     },
     {
       "mobName": "프로토타입 로드",
-      "itemName": "",
-      "probText": "80.00%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "프로토타입 로드",
       "itemName": "나노 플랜트(γ)",
       "probText": "1.70%",
       "reason": "missing"
@@ -15104,12 +13310,6 @@
     {
       "mobName": "프로토타입 로드",
       "itemName": "다이아몬드의 원석",
-      "probText": "0.38%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "프로토타입 로드",
-      "itemName": "",
       "probText": "0.38%",
       "reason": "missing"
     },
@@ -15180,18 +13380,6 @@
       "reason": "missing"
     },
     {
-      "mobName": "샤이닝 페어리",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
-      "mobName": "에이션트 페어리",
-      "itemName": "",
-      "probText": "92.34%",
-      "reason": "missing"
-    },
-    {
       "mobName": "Leader A",
       "itemName": "마리와카와 가방",
       "probText": "7.46%",
@@ -15207,229 +13395,1749 @@
   "unmatchedItems": [
     {
       "mobName": "데스테니",
-      "itemName": "상의 힘 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -1171740974,
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
         7130010
       ],
       "reason": "missing"
     },
     {
-      "mobName": "블러드 하프",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "버피",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
-        8140002
+        6130200
       ],
       "reason": "missing"
     },
     {
-      "mobName": "스켈레톤 지휘관",
-      "itemName": "상의 힘 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -1171740974,
+      "mobName": "폐쇄된 연구실의 호문",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
       "mobCodes": [
-        7130103
+        6110300
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "라이칸스로프",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
+      "mobCodes": [
+        8140000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "예티와 페페",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
+      "mobCodes": [
+        7130102
       ],
       "reason": "missing"
     },
     {
       "mobName": "바이킹",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
         8141000
       ],
       "reason": "missing"
     },
     {
+      "mobName": "바이킹",
+      "itemName": "방패 힘 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1835452215,
+      "mobCodes": [
+        8141000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스크피쉬",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
+      "mobCodes": [
+        3230104
+      ],
+      "reason": "missing"
+    },
+    {
       "mobName": "팬텀워치",
-      "itemName": "상의 행운 주문서",
-      "probText": "0.00%",
-      "syntheticItemId": -1640204260,
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
         8142000
       ],
       "reason": "missing"
     },
     {
-      "mobName": "아이스 드레이크",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "mobName": "화이트팽",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
       "mobCodes": [
-        6230600
+        5140000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "듀얼 파이렛",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        7160000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "미요캐츠",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
+      "mobCodes": [
+        2100108
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "갈색 모래토끼",
+      "itemName": "두손둔기 명중률 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1604552204,
+      "mobCodes": [
+        2100101
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "그린 트릭스터",
+      "itemName": "방패 힘 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1835452215,
+      "mobCodes": [
+        2230104
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "클라크",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        8140200
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크림슨 발록",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "6.98%",
+      "syntheticItemId": -1766261707,
+      "mobCodes": [
+        8150000
       ],
       "reason": "missing"
     },
     {
       "mobName": "기간틱 바이킹",
-      "itemName": "상의 힘 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -1171740974,
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
         8141100
       ],
       "reason": "missing"
     },
     {
-      "mobName": "스켈레곤",
-      "itemName": "전신 갑옷 힘 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1073157708,
+      "mobName": "게이트키퍼",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
-        8190003
+        8160000
       ],
       "reason": "missing"
     },
     {
-      "mobName": "레이스",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "브라운테니",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
       "mobCodes": [
-        4230102
+        3000005
       ],
       "reason": "missing"
     },
     {
-      "mobName": "초록 왕도깨비",
-      "itemName": "전신 갑옷 힘 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1073157708,
+      "mobName": "브라운테니",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
       "mobCodes": [
-        7130402
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "브라운테니",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        3000005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레츠",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        3210208
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "블록퍼스",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        3230302
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "장난감 목마",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        3230305
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "로보토이",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        4230111
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "카니발 포인트 1",
+      "probText": "11.66%",
+      "syntheticItemId": -1887702521,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "카니발 포인트 2",
+      "probText": "9.68%",
+      "syntheticItemId": -1938035378,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "카니발 포인트 3",
+      "probText": "7.46%",
+      "syntheticItemId": -1921257759,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "파티 마나엘릭서",
+      "probText": "26.08%",
+      "syntheticItemId": -1880148163,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "파티 엘릭서",
+      "probText": "21.00%",
+      "syntheticItemId": -237814331,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "파티 파워엘릭서",
+      "probText": "13.46%",
+      "syntheticItemId": -1745385627,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "파티 만병통치약",
+      "probText": "30.66%",
+      "syntheticItemId": -1771368975,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "작은 어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -44906413,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "어둠의 큐브",
+      "probText": "0.00%",
+      "syntheticItemId": -953554128,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "기절의 구슬",
+      "probText": "0.00%",
+      "syntheticItemId": -275422824,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "롬바드",
+      "itemName": "메이플 코인",
+      "probText": "16.70%",
+      "syntheticItemId": -572260608,
+      "mobCodes": [
+        4130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "폐쇄된 연구실의 호문",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
+      "mobCodes": [
+        6110300
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "버푼",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        6300100
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "스켈로스",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
+      "mobCodes": [
+        8190004
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "스켈독",
+      "itemName": "방패 힘 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1835452215,
+      "mobCodes": [
+        4230125
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "울트라 그레이",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        4230118
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "틱톡",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        4230113
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 크로노스",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
+      "mobCodes": [
+        4230115
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "플래툰 크로노스",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        4230114
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "킹 블록골렘",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        4230110
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "루나픽시",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -1515268356,
+      "mobCodes": [
+        4230106
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "타나토스",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        8170000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "다크코니언",
+      "itemName": "두손둔기 명중률 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1604552204,
+      "mobCodes": [
+        8150201
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "콜드샤크",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        8150101
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "티키",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        3210207
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "다크 클라크",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        8140300
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "파이렛",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        7140000
       ],
       "reason": "missing"
     },
     {
       "mobName": "릴리노흐",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "6.98%",
+      "syntheticItemId": -1058099238,
       "mobCodes": [
         8220005
       ],
       "reason": "missing"
     },
     {
-      "mobName": "스노우맨",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "레비아탄",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "1.08%",
+      "syntheticItemId": -1766261707,
       "mobCodes": [
-        8220001
+        8220003
       ],
       "reason": "missing"
     },
     {
-      "mobName": "강화된 미스릴 뮤테",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "mobName": "키메라",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "1.70%",
+      "syntheticItemId": -1058099238,
       "mobCodes": [
-        5110300
+        8220002
       ],
       "reason": "missing"
     },
     {
-      "mobName": "천록",
-      "itemName": "전신 갑옷 힘 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1073157708,
+      "mobName": "엘리쟈",
+      "itemName": "두손둔기 명중률 주문서 10%",
+      "probText": "1.70%",
+      "syntheticItemId": -1515268356,
       "mobCodes": [
-        5120505
+        8220000
       ],
       "reason": "missing"
     },
     {
-      "mobName": "비급",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "mobName": "샐리온",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
       "mobCodes": [
-        5120506
+        5120001
       ],
       "reason": "missing"
     },
     {
-      "mobName": "훈련용 짚인형",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "샐리온",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
       "mobCodes": [
-        5120503
+        5120001
       ],
       "reason": "missing"
     },
     {
-      "mobName": "쿨리 좀비",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "라이오너",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
       "mobCodes": [
-        5130107
+        5120002
       ],
       "reason": "missing"
     },
     {
-      "mobName": "다크 주니어 예티",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "mobName": "루모",
+      "itemName": "두손둔기 명중률 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1604552204,
       "mobCodes": [
-        5130105
+        3110302
       ],
       "reason": "missing"
     },
     {
-      "mobName": "후회의 신관",
-      "itemName": "귀 장식 민첩 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -222203560,
+      "mobName": "훈련용 나무인형",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
       "mobCodes": [
-        8200006
+        5120504
       ],
       "reason": "missing"
     },
     {
-      "mobName": "D.로이",
-      "itemName": "투구 지력 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1998209787,
+      "mobName": "주니어 스톤볼",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
       "mobCodes": [
-        7110300
+        5200000
       ],
       "reason": "missing"
     },
     {
-      "mobName": "마노",
-      "itemName": "상의 힘 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -1171740974,
+      "mobName": "소울테니",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
-        2220000
+        6230400
       ],
       "reason": "missing"
     },
     {
-      "mobName": "페페",
-      "itemName": "상의 힘 주문서 60%",
-      "probText": "0.00%",
-      "syntheticItemId": -1171740974,
+      "mobName": "호문쿨루",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
       "mobCodes": [
-        6130102
+        7110301
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로코",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
+      "mobCodes": [
+        5130103
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "후회의 사제",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        8200005
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "추억의 신관",
+      "itemName": "두손둔기 명중률 주문서 60%",
+      "probText": "0.30%",
+      "syntheticItemId": -1766261707,
+      "mobCodes": [
+        8200002
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "타이머",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "1.70%",
+      "syntheticItemId": -671942377,
+      "mobCodes": [
+        5220003
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "파우스트",
+      "itemName": "방패 힘 주문서 60%",
+      "probText": "1.70%",
+      "syntheticItemId": -1058099238,
+      "mobCodes": [
+        5220002
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "구미호",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "1.70%",
+      "syntheticItemId": -671942377,
+      "mobCodes": [
+        7220001
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 데스테니",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        7130300
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "크로노스",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        3230306
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "처프",
+      "itemName": "방패 힘 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1835452215,
+      "mobCodes": [
+        3230307
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "마스터 소울테니",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        6230500
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "레이지 버피",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        6230300
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "다크 엑스텀프",
+      "itemName": "두손둔기 명중률 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1604552204,
+      "mobCodes": [
+        2130100
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "본피쉬",
+      "itemName": "방패 힘 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1835452215,
+      "mobCodes": [
+        8140600
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "G.팬텀워치",
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
+      "mobCodes": [
+        8143000
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "라츠",
+      "itemName": "두손둔기 명중률 주문서 100%",
+      "probText": "0.30%",
+      "syntheticItemId": -1604552204,
+      "mobCodes": [
+        3110102
+      ],
+      "reason": "missing"
+    },
+    {
+      "mobName": "주니어 예티",
+      "itemName": "방패 힘 주문서 10%",
+      "probText": "0.30%",
+      "syntheticItemId": -671942377,
+      "mobCodes": [
+        5100000
       ],
       "reason": "missing"
     },
     {
       "mobName": "딥 버푼",
-      "itemName": "전신 갑옷 힘 주문서 10%",
-      "probText": "0.00%",
-      "syntheticItemId": -1073157708,
+      "itemName": "태엽벌레",
+      "probText": "15.12%",
+      "syntheticItemId": -156272759,
       "mobCodes": [
         6400100
       ],
@@ -15852,6 +15560,132 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "혼테일",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "아이스 드레이크",
       "itemName": "",
       "probText": "100.00%",
@@ -15930,6 +15764,12 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "파파 픽시",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "귀마개 프릴드",
       "itemName": "",
       "probText": "92.34%",
@@ -15961,6 +15801,12 @@
     },
     {
       "mobName": "마뇽",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16035,6 +15881,12 @@
       "mobName": "주니어 카투스",
       "itemName": "",
       "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "황금돼지",
+      "itemName": "",
+      "probText": "100.00%",
       "reason": "blank-item"
     },
     {
@@ -16284,7 +16136,43 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "웨딩캔들",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "좀비 머쉬맘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파파픽시",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파파픽시",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파파픽시",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파파픽시",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파파픽시",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16380,6 +16268,36 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "데비존의 사나운 게비알",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 사나운 크루",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 사나운 캡틴",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 더 사나운 캡틴",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "데비존의 게비알",
       "itemName": "",
       "probText": "100.00%",
@@ -16387,6 +16305,24 @@
     },
     {
       "mobName": "게이트키퍼",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 더 사나운 게비알",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 더 사나운 크루",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "데비존의 사나운 삼단지",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16404,7 +16340,55 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "엿보는 데비존",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "분노한 데비존",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화난 데비존",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "데비존의 늙은 도라지",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "꼬마 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "꼬마 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "꼬마 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "꼬마 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "꼬마 눈사람",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16470,6 +16454,96 @@
       "reason": "invalid-prob"
     },
     {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크빈",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "스퀴드",
       "itemName": "",
       "probText": "100.00%",
@@ -16513,6 +16587,36 @@
     },
     {
       "mobName": "폐쇄된 연구실의 호문",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초강화형 포이즌 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초강화형 포이즌 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초강화형 포이즌 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초강화형 포이즌 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초강화형 포이즌 골렘",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16573,6 +16677,36 @@
     },
     {
       "mobName": "스켈레톤 사병",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "무공",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "무공",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "무공",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "무공",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "무공",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -16989,6 +17123,12 @@
       "mobName": "마뇽",
       "itemName": "",
       "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "모래 두더쥐",
+      "itemName": "",
+      "probText": "92.34%",
       "reason": "blank-item"
     },
     {
@@ -17760,6 +17900,12 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "오버로드",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "레이스",
       "itemName": "",
       "probText": "100.00%",
@@ -18039,6 +18185,102 @@
       "mobName": "원시멧돼지",
       "itemName": "",
       "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "92.34%",
       "reason": "blank-item"
     },
     {
@@ -19014,6 +19256,24 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "포장마차",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "포장마차",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "포장마차",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "레드 와이번",
       "itemName": "",
       "probText": "100.00%",
@@ -19170,7 +19430,301 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "거대 눈사람",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 달팽이",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 씰",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "플레이 씰",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "호문",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "예티와 코-크텀프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "이글루 터틀",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "아이스 골렘",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 슬라임",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 버섯",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크텀프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크텀프 라이트",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "코-크 돼지",
       "itemName": "",
       "probText": "100.00%",
       "reason": "blank-item"
@@ -19338,10 +19892,334 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "자쿰",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "아이 마네킹",
+      "itemName": "",
+      "probText": "0.30%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "체리맛 버블티",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "망고맛 버블티",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "멜론맛 버블티",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "블루 퍼퓸",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "옐로우 퍼퓸",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "핑크 퍼퓸",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "아이 마네킹",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "여자 마네킹",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "남자 마네킹",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "최신곡 CD",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "흘러간 가요 CD",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "싸구려 앰프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "고급 앰프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파란 도깨비",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "빨간 도깨비",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "힘센 돌 도깨비",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "사나운 원숭이",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "어미 원숭이",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "흰털 아기 원숭이",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "흰털 어미 원숭이",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "예티인형 뽑기 기계",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "주니어페페인형 뽑기 기계",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "변신 인형뽑기 기계",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "싸구려 앰프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "고급 앰프",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "드래곤 라이더",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "황금돼지",
+      "itemName": "",
+      "probText": "66.48%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "변절자 스포아",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "독버섯",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "독버섯",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "독버섯",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "독버섯",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "중독된 돼지",
+      "itemName": "",
+      "probText": "0.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "중독된 돼지",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "투구 페페",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "친위대 페페",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화이트예티와 페페킹",
+      "itemName": "",
+      "probText": "11.66%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화이트예티와 페페킹",
+      "itemName": "",
+      "probText": "11.66%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화이트예티와 페페킹",
+      "itemName": "",
+      "probText": "11.66%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화이트예티와 페페킹",
+      "itemName": "",
+      "probText": "11.66%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "화이트예티와 페페킹",
+      "itemName": "",
+      "probText": "11.66%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "총리대신",
       "itemName": "라이?",
       "probText": "?.0000%",
       "reason": "invalid-prob"
+    },
+    {
+      "mobName": "저빌",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "골든 저빌",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "스코피",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "골든 스코피",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "페넥",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "골든 페넥",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "맘무트",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "골든 맘무트",
+      "itemName": "",
+      "probText": "98.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "크세르크세스",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "도둑 까마귀",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "캇파",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
     },
     {
       "mobName": "하급닌자",
@@ -19362,9 +20240,111 @@
       "reason": "blank-item"
     },
     {
+      "mobName": "그림자 닌자",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "갑주무사",
       "itemName": "",
       "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "황금돼지",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Extra A",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Extra B",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Extra C",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Extra D",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Leader A",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Leader B",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Bodyguard A",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Bodyguard A",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Bodyguard B",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Bodyguard B",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "The Boss",
+      "itemName": "",
+      "probText": "6.46%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "Female Boss",
+      "itemName": "",
+      "probText": "4.14%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "레드 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "실버 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "골드 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
       "reason": "blank-item"
     },
     {
@@ -19380,10 +20360,34 @@
       "reason": "invalid-prob"
     },
     {
+      "mobName": "오버로드A",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "오버로드B",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "로비",
       "itemName": "로비의 전자유도장?",
       "probText": "?0.0000%",
       "reason": "invalid-prob"
+    },
+    {
+      "mobName": "로비",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "이루워터",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
     },
     {
       "mobName": "듀나스",
@@ -19392,10 +20396,22 @@
       "reason": "invalid-prob"
     },
     {
+      "mobName": "애프터로드",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "프로토타입로드",
       "itemName": "프로토타입로드의 추진장?",
       "probText": "?0.0000%",
       "reason": "invalid-prob"
+    },
+    {
+      "mobName": "프로토타입로드",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
     },
     {
       "mobName": "아우프헤벤",
@@ -19404,16 +20420,340 @@
       "reason": "invalid-prob"
     },
     {
+      "mobName": "암슈트A",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "암슈트S",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "암슈트D",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "암슈트D",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "오베론",
       "itemName": "오베론의 시간모?",
       "probText": "?00.0000%",
       "reason": "invalid-prob"
     },
     {
+      "mobName": "문지기 크로키",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "레인디어",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "블러드 레인디어",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "베어울프",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "그레이 벌쳐",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "캐슬 골렘",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "돌리온",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "큘라",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
       "mobName": "날치 슬라임",
       "itemName": "날?",
       "probText": "?0.0000%",
       "reason": "invalid-prob"
+    },
+    {
+      "mobName": "코코넛 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "초록조개 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "보라조개 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "갈매기 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "빨간 튜브 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "파란 튜브 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "새우 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "날치 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "불가사리 문어 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "소라문어 슬라임",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "유령",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "마몬",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "롤링 돌리온",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "밸리베어",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "플라잉 리오",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "판스",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "바이킹베어",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "애프터로드",
+      "itemName": "",
+      "probText": "0.18%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "애프터로드",
+      "itemName": "",
+      "probText": "0.14%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "오버로드",
+      "itemName": "",
+      "probText": "0.16%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "애프터로드",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "베르가모트",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "맨티스",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "블러드 맨티스",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "포이즌 맨티스",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "플로라",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "다크 플로라",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "호넷",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "포이즌 호넷",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "제너럴 호넷",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "오염된 나무의 정령",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타락한 나무의 정령",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "오염된 돌의 정령",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타락한 돌의 정령",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타란튤로스",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타란튤로스",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타란튤로스",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "타란튤로스",
+      "itemName": "",
+      "probText": "100.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "프로토타입 로드",
+      "itemName": "",
+      "probText": "80.00%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "프로토타입 로드",
+      "itemName": "",
+      "probText": "0.38%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "샤이닝 페어리",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
+    },
+    {
+      "mobName": "에이션트 페어리",
+      "itemName": "",
+      "probText": "92.34%",
+      "reason": "blank-item"
     }
   ]
 }

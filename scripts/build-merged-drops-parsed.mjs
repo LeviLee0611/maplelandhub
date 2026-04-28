@@ -6,6 +6,20 @@ const PREFERRED_PATH = path.resolve("data/drops-parsed.json");
 const LEGACY_JS_PATH = path.resolve("src/data/mapledb/drops.js");
 const OUTPUT_PATH = path.resolve("data/drops-parsed.json");
 const REPORT_PATH = path.resolve("data/drops-merge-report.json");
+const EXCLUDED_ITEM_NAME_PATTERNS = [
+  /마법의\s*가루\s*\([^)]*\)/i,
+  /^.+\s+카드$/i,
+  /^악의\s*기운$/i,
+  /^첫\s*번째\s*작은\s*조각$/i,
+  /^메이플\s+(?!고서|코인).+/i,
+  /^하의\s*점프(?:력)?\s*주문서\s*\d+%$/i,
+  /^하의\s*민첩(?:성)?\s*주문서\s*\d+%$/i,
+];
+
+function isExcludedItemName(itemName) {
+  const text = String(itemName ?? "").trim();
+  return EXCLUDED_ITEM_NAME_PATTERNS.some((pattern) => pattern.test(text));
+}
 
 function isDropTable(value) {
   if (!value || typeof value !== "object") return false;
@@ -141,23 +155,6 @@ async function main() {
   const mobIds = Array.from(new Set([...Object.keys(legacy.mobs), ...Object.keys(preferred.mobs ?? {})])).sort(
     (a, b) => Number(a) - Number(b)
   );
-
-  const mergedMobs = {};
-  let legacyOnlyRewardCount = 0;
-  let preferredRewardCount = 0;
-
-  for (const mobId of mobIds) {
-    const preferredRewards = preferred.mobs?.[mobId]?.rewards ?? [];
-    const legacyRewards = legacy.mobs?.[mobId]?.rewards ?? [];
-    const mergedRewards = mergeRewardLists(preferredRewards, legacyRewards);
-    if (mergedRewards.length === 0) continue;
-    mergedMobs[mobId] = { rewards: mergedRewards };
-    preferredRewardCount += preferredRewards.length;
-    legacyOnlyRewardCount += mergedRewards.filter(
-      (reward) => !preferredRewards.some((preferredReward) => preferredReward.itemID === reward.itemID)
-    ).length;
-  }
-
   const mergedItems = { ...(legacy.items ?? {}) };
   for (const [itemId, item] of Object.entries(preferred.items ?? {})) {
     mergedItems[itemId] = {
@@ -168,6 +165,31 @@ async function main() {
         ...(item?.meta ?? {}),
       },
     };
+  }
+
+  const mergedMobs = {};
+  let legacyOnlyRewardCount = 0;
+  let preferredRewardCount = 0;
+
+  for (const mobId of mobIds) {
+    const preferredRewards = preferred.mobs?.[mobId]?.rewards ?? [];
+    const legacyRewards = legacy.mobs?.[mobId]?.rewards ?? [];
+    const mergedRewards = mergeRewardLists(preferredRewards, legacyRewards).filter((reward) => {
+      const itemName = mergedItems[String(reward.itemID)]?.name;
+      return !isExcludedItemName(itemName);
+    });
+    if (mergedRewards.length === 0) continue;
+    mergedMobs[mobId] = { rewards: mergedRewards };
+    preferredRewardCount += preferredRewards.length;
+    legacyOnlyRewardCount += mergedRewards.filter(
+      (reward) => !preferredRewards.some((preferredReward) => preferredReward.itemID === reward.itemID)
+    ).length;
+  }
+
+  for (const [itemId, item] of Object.entries(mergedItems)) {
+    if (isExcludedItemName(item?.name)) {
+      delete mergedItems[itemId];
+    }
   }
 
   const payload = {

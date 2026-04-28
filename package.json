@@ -9,7 +9,7 @@
     "lint": "eslint",
     "build:drops-from-dropchance": "node scripts/build-drops-parsed-from-dropchance-html.mjs",
     "build:drops-merged": "node scripts/build-merged-drops-parsed.mjs",
-    "build:drop-table-from-dropchance": "node scripts/build-drops-parsed-from-dropchance-html.mjs && node scripts/build-drop-index.mjs",
+    "build:drop-table-from-dropchance": "node scripts/build-drops-parsed-from-dropchance-html.mjs && node scripts/build-merged-drops-parsed.mjs && node scripts/build-drop-index.mjs",
     "import:quests": "node scripts/import-quests-from-turbopack.mjs",
     "build:monster-spawns": "node scripts/build-monster-spawns-from-html.mjs",
     "build:monster-map-locations": "node scripts/build-monster-map-locations.mjs",

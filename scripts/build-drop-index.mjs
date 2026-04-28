@@ -45,8 +45,11 @@ const EXCLUDED_DROP_ITEM_NAME_PATTERNS = [
   /파티\s*파워엘릭서/i,
   /파티\s*만병\s*통치약/i,
   /파티\s*만병통치약/i,
-  /마법의\s*가루\s*\(\s*파랑\s*\)/i,
-  /마법의\s*가루\s*\(\s*빨강\s*\)/i,
+  /마법의\s*가루\s*\([^)]*\)/i,
+  /^.+\s+카드$/i,
+  /^악의\s*기운$/i,
+  /^첫\s*번째\s*작은\s*조각$/i,
+  /^메이플\s+(?!고서|코인).+/i,
   /작은\s*어둠의\s*큐브/i,
   /^어둠의\s*큐브$/i,
   /기절의\s*구슬/i,
@@ -55,13 +58,31 @@ const EXCLUDED_DROP_ITEM_NAME_PATTERNS = [
   /^두손둔기\s*명중(?:률)?\s*주문서\s*\d+%$/i,
   /^방패\s*힘\s*주문서\s*\d+%$/i,
   /^하의\s*점프(?:력)?\s*주문서\s*\d+%$/i,
+  /^하의\s*민첩(?:성)?\s*주문서\s*\d+%$/i,
 ];
+const DROP_PROBABILITY_OVERRIDES = new Map([
+  ["8141300:-1932128472", 0.008], // 스퀴드 - 신발 민첩성 주문서 60%
+  ["8510000:1041123", 0.16079999999999997], // 피아누스(좌) - 블루 루이마리
+  ["8510000:1060110", 0.16079999999999997], // 피아누스(좌) - 그린 카날 후드
+  ["8510000:1051106", 0.16079999999999997], // 피아누스(좌) - 다크 아네스
+  ["8510000:1061122", 0.16079999999999997], // 피아누스(좌) - 다크 아네스 바지
+  ["8520000:1041123", 0.16079999999999997], // 피아누스(우) - 블루 루이마리
+  ["8520000:1060110", 0.16079999999999997], // 피아누스(우) - 그린 카날 후드
+  ["8520000:1051106", 0.16079999999999997], // 피아누스(우) - 다크 아네스
+  ["8520000:1061122", 0.16079999999999997], // 피아누스(우) - 다크 아네스 바지
+]);
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 function isExcludedDropItem(itemId, itemName = "") {
   if (EXCLUDED_DROP_ITEM_IDS.has(Number(itemId))) return true;
   return EXCLUDED_DROP_ITEM_NAME_PATTERNS.some((pattern) => pattern.test(String(itemName ?? "")));
+}
+
+function getDropProbability(mobId, itemId, fallback) {
+  const override = DROP_PROBABILITY_OVERRIDES.get(`${mobId}:${itemId}`);
+  if (typeof override === "number") return override;
+  return typeof fallback === "number" ? fallback : undefined;
 }
 
 function normalizeItemNameForLookup(text) {
@@ -226,6 +247,11 @@ async function main() {
   try {
     const dropRaw = await fs.readFile(DROP_TABLE_SOURCE, "utf8");
     const parsed = JSON.parse(dropRaw);
+    if (parsed?.source === "dropchance-html" && process.env.ALLOW_UNMERGED_DROP_TABLE !== "1") {
+      throw new Error(
+        "data/drops-parsed.json is unmerged dropchance-html data. Run npm run build:drops-merged before build:drop-index."
+      );
+    }
     dropTable = parsed?.mobs ?? parsed;
     itemTable = parsed?.items ?? null;
     dropTableSourceName = typeof parsed?.source === "string" ? parsed.source : null;
@@ -250,12 +276,15 @@ async function main() {
       const mapped = rewards
         .filter((reward) => reward && typeof reward.itemID === "number")
         .filter((reward) => !isExcludedDropItem(reward.itemID, itemTable?.[String(reward.itemID)]?.name))
-        .map((reward) => ({
-          itemId: resolveDropItemId(reward.itemID),
-          prob: typeof reward.prob === "number" ? reward.prob : undefined,
-          min: typeof reward.min === "number" ? reward.min : undefined,
-          max: typeof reward.max === "number" ? reward.max : undefined,
-        }));
+        .map((reward) => {
+          const itemId = resolveDropItemId(reward.itemID);
+          return {
+            itemId,
+            prob: getDropProbability(mobId, itemId, reward.prob),
+            min: typeof reward.min === "number" ? reward.min : undefined,
+            max: typeof reward.max === "number" ? reward.max : undefined,
+          };
+        });
       if (mapped.length === 0) continue;
       dropsByMonsterId[mobId] = mapped;
       for (const reward of mapped) {
