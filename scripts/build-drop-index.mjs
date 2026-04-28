@@ -55,13 +55,18 @@ const EXCLUDED_DROP_ITEM_NAME_PATTERNS = [
   /기절의\s*구슬/i,
   /^메이플\s*코인$/i,
   /^태엽벌레$/i,
+  /^혼돈의\s*주문서\s*\d+%$/i,
   /^두손둔기\s*명중(?:률)?\s*주문서\s*\d+%$/i,
   /^방패\s*힘\s*주문서\s*\d+%$/i,
   /^하의\s*점프(?:력)?\s*주문서\s*\d+%$/i,
   /^하의\s*민첩(?:성)?\s*주문서\s*\d+%$/i,
 ];
 const DROP_PROBABILITY_OVERRIDES = new Map([
-  ["8141300:-1932128472", 0.008], // 스퀴드 - 신발 민첩성 주문서 60%
+  ["6130101:-149548911", 0.00008], // 머쉬맘 - 한손둔기 명중률 주문서 60%
+  ["6130101:-1932128472", 0.00008], // 머쉬맘 - 신발 민첩성 주문서 60%
+  ["6130101:-1331107882", 0.00008], // 머쉬맘 - 망토 물리 방어력 주문서 60%
+  ["6130101:-377653517", 0.00008], // 머쉬맘 - 망토 마법 방어력 주문서 60%
+  ["8141300:-1932128472", 0.00008], // 스퀴드 - 신발 민첩성 주문서 60%
   ["8510000:1041123", 0.16079999999999997], // 피아누스(좌) - 블루 루이마리
   ["8510000:1060110", 0.16079999999999997], // 피아누스(좌) - 그린 카날 후드
   ["8510000:1051106", 0.16079999999999997], // 피아누스(좌) - 다크 아네스
@@ -71,6 +76,47 @@ const DROP_PROBABILITY_OVERRIDES = new Map([
   ["8520000:1051106", 0.16079999999999997], // 피아누스(우) - 다크 아네스
   ["8520000:1061122", 0.16079999999999997], // 피아누스(우) - 다크 아네스 바지
 ]);
+const BOSS_SCROLL_PROBABILITY_MOB_IDS = new Set([
+  2220000, // 마노
+  3220000, // 스텀피
+  3220001, // 데우
+  4130103, // 차원의 롬바드
+  4220000, // 세르프
+  5120100, // 머신 MT-09
+  5220000, // 킹크랑
+  5220002, // 파우스트
+  5220003, // 타이머
+  6130101, // 머쉬맘
+  6220000, // 다일
+  6220001, // 제노
+  6300005, // 좀비 머쉬맘
+  7130401, // 파란 왕도깨비
+  7130402, // 초록 왕도깨비
+  7220000, // 태륜
+  7220001, // 구미호
+  7220002, // 요괴선사
+  8130100, // 주니어 발록
+  8150000, // 크림슨 발록
+  8180000, // 마뇽
+  8180001, // 그리프
+  8220000, // 엘리쟈
+  8220001, // 스노우맨
+  8220002, // 키메라
+  8220004, // 도도
+  8220005, // 릴리노흐
+  8220006, // 라이카
+  8500002, // 파풀라투스
+  8510000, // 피아누스(우)
+  8520000, // 피아누스(좌)
+  8800000, // 자쿰
+  8810003, // 혼테일
+  9400014, // 천구
+  9400114,
+  9400121,
+  9400205, // 블루머쉬맘
+]);
+const REGULAR_SCROLL_ANOMALY_PROBABILITY_MIN = 0.001; // 0.1%
+const REGULAR_SCROLL_DEFAULT_PROBABILITY = 0.00008; // 0.008%
 
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -83,6 +129,25 @@ function getDropProbability(mobId, itemId, fallback) {
   const override = DROP_PROBABILITY_OVERRIDES.get(`${mobId}:${itemId}`);
   if (typeof override === "number") return override;
   return typeof fallback === "number" ? fallback : undefined;
+}
+
+function isScrollItemName(itemName) {
+  return String(itemName ?? "").includes("주문서");
+}
+
+function normalizeDropProbability(mobId, itemName, fallback) {
+  if (typeof fallback !== "number" || !isScrollItemName(itemName)) return fallback;
+  const numericMobId = Number(mobId);
+  if (numericMobId === 8180000) {
+    return /\b10%$/.test(itemName) ? 0.007 : 0.008;
+  }
+  if (numericMobId === 8500002) {
+    return 0.006;
+  }
+  if (!BOSS_SCROLL_PROBABILITY_MOB_IDS.has(numericMobId) && fallback >= REGULAR_SCROLL_ANOMALY_PROBABILITY_MIN) {
+    return REGULAR_SCROLL_DEFAULT_PROBABILITY;
+  }
+  return fallback;
 }
 
 function normalizeItemNameForLookup(text) {
@@ -409,9 +474,19 @@ async function main() {
   });
   const filteredItems = items.filter(Boolean).sort((a, b) => a.name.localeCompare(b.name, "ko"));
   const validItemIds = new Set(filteredItems.map((item) => item.id));
+  const itemNamesById = new Map(filteredItems.map((item) => [item.id, item.name]));
 
   for (const [mobId, rewards] of Object.entries(dropsByMonsterId)) {
-    const filteredRewards = rewards.filter((reward) => validItemIds.has(reward.itemId));
+    const filteredRewards = rewards
+      .filter((reward) => validItemIds.has(reward.itemId))
+      .map((reward) => {
+        const itemName = itemNamesById.get(reward.itemId) ?? "";
+        const prob = normalizeDropProbability(mobId, itemName, reward.prob);
+        return {
+          ...reward,
+          ...(typeof prob === "number" ? { prob } : {}),
+        };
+      });
     if (filteredRewards.length === 0) {
       delete dropsByMonsterId[mobId];
     } else {
@@ -419,13 +494,14 @@ async function main() {
     }
   }
 
-  for (const [itemId, mobs] of Object.entries(monstersByItemId)) {
-    if (!validItemIds.has(Number(itemId))) {
-      delete monstersByItemId[itemId];
-      continue;
-    }
-    if (!Array.isArray(mobs) || mobs.length === 0) {
-      delete monstersByItemId[itemId];
+  for (const itemId of Object.keys(monstersByItemId)) {
+    delete monstersByItemId[itemId];
+  }
+  for (const [mobId, rewards] of Object.entries(dropsByMonsterId)) {
+    for (const reward of rewards ?? []) {
+      const bucket = monstersByItemId[reward.itemId] ?? [];
+      bucket.push({ mobId: Number(mobId), prob: reward.prob, min: reward.min, max: reward.max });
+      monstersByItemId[reward.itemId] = bucket;
     }
   }
 
