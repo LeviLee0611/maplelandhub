@@ -10,7 +10,7 @@ export function StatRow({ label, value, highlight }: StatRowProps) {
       <span className="text-[color:var(--retro-text-muted)]">{label}</span>
       <span
         className={`font-medium ${
-          highlight ? "text-[color:var(--retro-text)]" : "text-[color:var(--retro-text)]"
+          highlight ? "text-[color:var(--retro-header-yellow)]" : "text-[color:var(--retro-text)]"
         }`}
       >
         {value}

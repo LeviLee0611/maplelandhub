@@ -7,9 +7,6 @@ import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, get
 import { getMonsters } from "@/lib/data/monsters";
 import { isReleasedMobCode } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
-import dropIndex from "@data/drop-index.json";
-import itemDetailByJson from "@data/item-detail-by.json";
-
 type DropIndexItem = {
   id: number;
   name: string;
@@ -41,7 +38,7 @@ type MonsterDropEntry = {
   max?: number;
 };
 
-type DropIndexData = {
+export type DropIndexData = {
   generatedAt: string;
   source?: string;
   items: DropIndexItem[];
@@ -49,13 +46,11 @@ type DropIndexData = {
   monstersByItemId: Record<string, MonsterDropEntry[]>;
 };
 
-type ItemDetailByData = {
+export type ItemDetailByData = {
   itemsByItemId?: Record<string, MonsterDropEntry[]>;
 };
 
 const monsterList = getMonsters() as Monster[];
-const dropData = dropIndex as DropIndexData;
-const itemDetailByData = itemDetailByJson as ItemDetailByData;
 const INITIAL_SUGGESTION_COUNT = 10;
 const SEARCH_SUGGESTION_LIMIT = 60;
 const GROUP_ORDER = ["주문서", "장비", "물약", "기타템"];
@@ -205,7 +200,22 @@ function getWorldMapGroup(region?: string) {
   return text;
 }
 
-export function DropTable() {
+function getItemGroup(item: DropIndexItem) {
+  const overall = item.typeInfo?.overallCategory ?? "";
+  const category = item.typeInfo?.category ?? "";
+  const lower = `${overall} ${category}`.toLowerCase();
+  if (lower.includes("scroll")) return "주문서";
+  if (overall === "Equip") return "장비";
+  if (lower.includes("potion") || lower.includes("food") || lower.includes("drink")) return "물약";
+  return "기타템";
+}
+
+function getItemLevel(item?: DropIndexItem) {
+  const level = item?.meta?.equip?.reqLevel;
+  return typeof level === "number" ? level : null;
+}
+
+export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexData; itemDetailByData: ItemDetailByData }) {
   const [query, setQuery] = useState("");
   const [selectedWorldMap, setSelectedWorldMap] = useState("all");
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -215,21 +225,6 @@ export function DropTable() {
   const [fallbackLoadingMobCode, setFallbackLoadingMobCode] = useState<number | null>(null);
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
-
-  const getItemGroup = (item: DropIndexItem) => {
-    const overall = item.typeInfo?.overallCategory ?? "";
-    const category = item.typeInfo?.category ?? "";
-    const lower = `${overall} ${category}`.toLowerCase();
-    if (lower.includes("scroll")) return "주문서";
-    if (overall === "Equip") return "장비";
-    if (lower.includes("potion") || lower.includes("food") || lower.includes("drink")) return "물약";
-    return "기타템";
-  };
-
-  const getItemLevel = (item?: DropIndexItem) => {
-    const level = item?.meta?.equip?.reqLevel;
-    return typeof level === "number" ? level : null;
-  };
 
   const selectedMonster = useMemo(
     () => monsterList.find((monster) => monster.mobCode === selectedMonsterMobCode),
@@ -280,7 +275,7 @@ export function DropTable() {
       map.set(item.id, item);
     }
     return map;
-  }, []);
+  }, [dropData.items]);
 
   const normalizedRealItemIds = useMemo(() => {
     const map = new Map<string, number>();
@@ -292,7 +287,7 @@ export function DropTable() {
       }
     }
     return map;
-  }, []);
+  }, [dropData.items]);
 
   const representativeIconIds = useMemo(() => {
     const findFirst = (predicate: (item: DropIndexItem) => boolean) =>
@@ -305,7 +300,7 @@ export function DropTable() {
       scroll70: findFirst((item) => item.name.includes("주문서") && item.name.includes("70%")),
       card: findFirst((item) => item.name.includes("카드")),
     };
-  }, []);
+  }, [dropData.items]);
 
   const getResolvedIconItemId = (item?: DropIndexItem | null) => {
     if (!item) return null;
@@ -348,7 +343,7 @@ export function DropTable() {
     });
     if (!keyword) return sorted;
     return sorted.filter((item) => getMatchScore(item.name, keyword) >= 0);
-  }, [queryKeyword]);
+  }, [queryKeyword, dropData.items]);
 
   const filteredMonsters = useMemo(() => {
     const keyword = queryKeyword;
@@ -389,13 +384,13 @@ export function DropTable() {
       id: item.id,
       label: item.name,
     }));
-    return [...monsters, ...items];
+    return [...items, ...monsters];
   }, [displayedItems, displayedMonsters]);
 
   const localMonsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
     return dropData.dropsByMonsterId[String(selectedMonster.mobCode)] ?? [];
-  }, [selectedMonster]);
+  }, [selectedMonster, dropData.dropsByMonsterId]);
 
   const monsterDrops = useMemo(() => {
     if (!selectedMonster?.mobCode) return [];
@@ -433,7 +428,7 @@ export function DropTable() {
         if (probDiff !== 0) return probDiff;
         return (a.monster.level ?? 0) - (b.monster.level ?? 0);
       });
-  }, [selectedItemId, selectedWorldMap]);
+  }, [selectedItemId, selectedWorldMap, dropData.monstersByItemId, itemDetailByData.itemsByItemId]);
 
   const worldMapOptions = useMemo(() => {
     const priority = [

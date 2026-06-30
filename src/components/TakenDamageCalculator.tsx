@@ -536,7 +536,6 @@ export function TakenDamageCalculator() {
                   <summary className="cursor-pointer text-[11px] font-semibold">상세 계산 보기</summary>
                   <div className="mt-2 space-y-1 text-[11px] text-[color:var(--retro-text-muted)]">
                     <p>몬스터 물공/마공: {monsterWatk} / {monsterMatk}</p>
-                    <p>몬스터 물공/마공: {monsterWatk} / {monsterMatk}</p>
                     <p>기준 PDD: {getStandardPDD(jobClass, level)}</p>
                     <p>랜덤 범위: 물리 0.8~0.85 / 마법 0.75~0.8</p>
                     {jobGroup === "마법사" && magicGuard > 0 ? (

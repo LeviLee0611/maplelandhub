@@ -22,9 +22,11 @@ function truncate(text: string, max: number) {
 
 export async function POST(req: Request) {
   try {
-    const webhookUrl = process.env.DISCORD_FEEDBACK_WEBHOOK_URL;
-    if (!webhookUrl) {
-      return NextResponse.json({ ok: true, skipped: "missing_webhook_url" });
+    const apiKey = process.env.RESEND_API_KEY;
+    const adminEmail = process.env.ADMIN_EMAIL;
+    if (!apiKey || !adminEmail) {
+      console.error("[feedback/notify] 환경변수 누락: RESEND_API_KEY 또는 ADMIN_EMAIL 미설정으로 알림 전송 생략");
+      return NextResponse.json({ ok: true, skipped: "missing_config" });
     }
 
     const raw = (await req.json()) as NotifyPayload;
@@ -38,25 +40,33 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "invalid_payload" }, { status: 400 });
     }
 
-    const contentLines = [
-      "새 문의가 접수되었습니다.",
+    const bodyLines = [
       `유형: ${TYPE_LABEL[type]}`,
       `제목: ${truncate(title, 200)}`,
-      `내용: ${truncate(message.replace(/\s+/g, " "), 800)}`,
+      "",
+      `내용:`,
+      truncate(message, 2000),
+      "",
       `연락처: ${contact || "-"}`,
       `유저ID: ${userId || "-"}`,
     ];
 
-    const discordRes = await fetch(webhookUrl, {
+    const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify({
-        content: contentLines.join("\n"),
+        from: "메랜Hub <onboarding@resend.dev>",
+        to: [adminEmail],
+        subject: `[메랜Hub] 새 문의: ${truncate(title, 60)} (${TYPE_LABEL[type]})`,
+        text: bodyLines.join("\n"),
       }),
     });
 
-    if (!discordRes.ok) {
-      return NextResponse.json({ ok: false, error: "discord_failed" }, { status: 502 });
+    if (!res.ok) {
+      return NextResponse.json({ ok: false, error: "email_failed" }, { status: 502 });
     }
 
     return NextResponse.json({ ok: true });

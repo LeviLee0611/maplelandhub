@@ -70,14 +70,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/party`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/parties`,
-      lastModified: new Date(),
-    },
-    {
       url: `${baseUrl}/login`,
       lastModified: new Date(),
     },

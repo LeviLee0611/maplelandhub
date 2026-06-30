@@ -25,7 +25,6 @@ const primaryLinks = [
   { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
   { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
   { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
-  { label: "파티 매칭", href: "/party", icon: "users" },
   { label: "문의/요청", href: "/feedback", icon: "mail" },
 ];
 
@@ -72,15 +71,6 @@ function SidebarIcon({ name, size = 4 }: { name: string; size?: number }) {
       return (
         <svg aria-hidden="true" viewBox="0 0 24 24" className={className}>
           <path fill="currentColor" d="M12 2 3 6v12l9 4 9-4V6l-9-4Zm0 2.3L18.5 7 12 9.7 5.5 7 12 4.3ZM5 9l6 2.7v7.2L5 16V9Zm14 0v7l-6 2.9v-7.2L19 9Z" />
-        </svg>
-      );
-    case "users":
-      return (
-        <svg aria-hidden="true" viewBox="0 0 24 24" className={className}>
-          <path
-            fill="currentColor"
-            d="M7 11a3 3 0 1 1 3-3 3 3 0 0 1-3 3Zm10 0a3 3 0 1 1 3-3 3 3 0 0 1-3 3ZM4 20v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H4Zm10 0v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10Z"
-          />
         </svg>
       );
     case "quest":

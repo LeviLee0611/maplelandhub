@@ -25,7 +25,7 @@ function parseProb(raw) {
 
 function parseByRows(html) {
   const rows = [];
-  const re = /href="[^"]*monster_detail\/(\d+)"[\s\S]*?<div class="drop-rate-box">\s*([\d.]+)%?\s*<\/div>/g;
+  const re = /href="[^"]*monster_detail\/(\d+)"[\s\S]*?<div class="drop-rate-box"[^>]*>\s*([\d.]+)%?\s*<\/div>/g;
   let match;
 
   while ((match = re.exec(html)) !== null) {

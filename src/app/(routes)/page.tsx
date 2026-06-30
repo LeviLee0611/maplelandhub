@@ -89,23 +89,6 @@ const features: Feature[] = [
       </svg>
     ),
   },
-  {
-    title: "파티 매칭",
-    description: "파티 모집 글을 찾고 바로 참여할 수 있습니다",
-    href: "/party",
-    button: "Coming Soon",
-    comingSoon: true,
-    accent: "from-amber-300/20 via-orange-300/10 to-transparent",
-    ring: "border-amber-200/35 bg-amber-300/15",
-    icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-amber-300">
-        <path
-          fill="currentColor"
-          d="M7 11a3 3 0 1 1 3-3 3 3 0 0 1-3 3Zm10 0a3 3 0 1 1 3-3 3 3 0 0 1-3 3ZM4 20v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1H4Zm10 0v-1a5 5 0 0 1 5-5h0a5 5 0 0 1 5 5v1h-10Z"
-        />
-      </svg>
-    ),
-  },
 ];
 
 export default function HomePage() {

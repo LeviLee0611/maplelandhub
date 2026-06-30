@@ -8,47 +8,50 @@ import { getItemIconUrl, getMobIconUrl, getNpcIconUrl, handleMapleIoImageError }
 import { isReleasedMobCode } from "@/lib/release-filter";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Database } from "@/types/database";
-import questJson from "@data/quests.json";
 import type { Quest, QuestData } from "@/types/quest";
-import monstersJson from "@data/monsters.json";
-import monsterSpawnsJson from "@data/monster-spawns.json";
-import dropIndexJson from "@data/drop-index.json";
-import itemDetailByJson from "@data/item-detail-by.json";
-import npcLocationsJson from "@data/npc-locations.json";
+import { formatNumber } from "@/lib/utils";
 
 type RewardTypeFilter = "all" | "exp" | "meso" | "item";
 type RewardItemTypeFilter = "all" | "scroll" | "equip" | "etc";
 
-const data = questJson as QuestData;
-const monsterData = monstersJson as Array<{
+type QuestMonsterRecord = {
   name: string;
   mobCode: number;
   region?: string;
   map?: string;
   exist?: boolean;
-}>;
-const dropIndexData = dropIndexJson as {
+};
+
+type QuestDropIndexData = {
   monstersByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
 };
-const itemDetailByData = itemDetailByJson as {
+
+type QuestItemDetailByData = {
   itemsByItemId?: Record<string, Array<{ mobId: number; prob?: number }>>;
 };
-const monsterSpawnsData = monsterSpawnsJson as {
+
+type QuestMonsterSpawnsData = {
   rows?: Array<{
     mob_code?: number;
     mob_name?: string;
-    maps?: Array<{
-      map_name?: string;
-    }>;
+    maps?: Array<{ map_name?: string }>;
   }>;
 };
-const npcLocationsData = npcLocationsJson as {
+
+type QuestNpcLocationsData = {
   rows?: Array<{
     npc_code?: number;
-    maps?: Array<{
-      map_name?: string;
-    }>;
+    maps?: Array<{ map_name?: string }>;
   }>;
+};
+
+export type QuestBoardProps = {
+  data: QuestData;
+  monsterData: QuestMonsterRecord[];
+  dropIndexData: QuestDropIndexData;
+  itemDetailByData: QuestItemDetailByData;
+  monsterSpawnsData: QuestMonsterSpawnsData;
+  npcLocationsData: QuestNpcLocationsData;
 };
 
 type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
@@ -88,9 +91,6 @@ function getSearchKeys(raw: string) {
   return Array.from(new Set([normalized, normalizeQuery(initials), normalizeQuery(firstTwoChars)]));
 }
 
-function formatNumber(value: number) {
-  return new Intl.NumberFormat("ko-KR").format(value);
-}
 
 function getRewardItemGroup(itemId: number, itemName: string) {
   const name = String(itemName ?? "").toLowerCase();
@@ -99,9 +99,6 @@ function getRewardItemGroup(itemId: number, itemName: string) {
   return "etc";
 }
 
-function isUnreleasedArea(text?: string) {
-  return String(text ?? "").includes("노틸러스");
-}
 
 function toDisplayMapName(raw?: string) {
   const text = String(raw ?? "").trim();
@@ -119,6 +116,7 @@ function getWorldGroup(worldName?: string, npcName?: string) {
 
   const text = String(worldName ?? "").trim();
   if (!text) return "기타";
+  if (text.includes("노틸러스")) return "노틸러스";
   if (
     text.includes("빅토리아") ||
     text.includes("헤네시스") ||
@@ -199,7 +197,6 @@ function collectQuestMapNames(quest: Quest, fallbackWorldName: string) {
   const add = (raw?: string) => {
     const text = toDisplayMapName(raw);
     if (!text) return;
-    if (isUnreleasedArea(text)) return;
     mapNames.add(text);
   };
 
@@ -265,7 +262,14 @@ function collectLinkedQuestIds(rootQuestIds: Set<number>, quests: Quest[]) {
   return excluded;
 }
 
-export function QuestBoard() {
+export function QuestBoard({
+  data,
+  monsterData,
+  dropIndexData,
+  itemDetailByData,
+  monsterSpawnsData,
+  npcLocationsData,
+}: QuestBoardProps) {
   const [query, setQuery] = useState("");
   const [selectedWorldGroup, setSelectedWorldGroup] = useState("all");
   const [maxLevel, setMaxLevel] = useState("");
@@ -285,7 +289,7 @@ export function QuestBoard() {
   const [syncError, setSyncError] = useState<string | null>(null);
   const [openedMobInfoKey, setOpenedMobInfoKey] = useState<string | null>(null);
 
-  const npcMap = useMemo(() => new Map(data.npcs.map((npc) => [npc.id, npc.name])), []);
+  const npcMap = useMemo(() => new Map(data.npcs.map((npc) => [npc.id, npc.name])), [data.npcs]);
   const npcMapNamesByNpcId = useMemo(() => {
     const map = new Map<number, string[]>();
     for (const row of npcLocationsData.rows ?? []) {
@@ -295,7 +299,6 @@ export function QuestBoard() {
       for (const mapRow of row?.maps ?? []) {
         const mapName = toDisplayMapName(mapRow?.map_name);
         if (!mapName) continue;
-        if (isUnreleasedArea(mapName)) continue;
         names.add(mapName);
       }
       if (names.size > 0) {
@@ -303,12 +306,12 @@ export function QuestBoard() {
       }
     }
     return map;
-  }, []);
-  const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), []);
-  const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), []);
+  }, [npcLocationsData]);
+  const worldMap = useMemo(() => new Map(data.worlds.map((world) => [world.id, world.name])), [data.worlds]);
+  const questNameById = useMemo(() => new Map(data.quests.map((quest) => [quest.id, quest.name])), [data.quests]);
   const priorityExcludedQuestIds = useMemo(
     () => collectLinkedQuestIds(PRIORITY_EXCLUDED_ROOT_QUEST_IDS, data.quests),
-    [],
+    [data.quests],
   );
   const priorityQuestIds = useMemo(() => {
     const set = new Set<number>();
@@ -317,7 +320,7 @@ export function QuestBoard() {
       if (isPriorityQuest(quest)) set.add(quest.id);
     }
     return set;
-  }, [priorityExcludedQuestIds]);
+  }, [priorityExcludedQuestIds, data.quests]);
   const priorityQuestCount = priorityQuestIds.size;
   const monsterInfoByMobCode = useMemo(() => {
     const map = new Map<number, { name: string; region?: string; map?: string; exist: boolean }>();
@@ -332,7 +335,7 @@ export function QuestBoard() {
       });
     }
     return map;
-  }, []);
+  }, [monsterData]);
   const monsterInfoByName = useMemo(() => {
     const map = new Map<string, { name: string; mobCode: number; region?: string; map?: string }>();
     for (const monster of monsterData) {
@@ -347,7 +350,7 @@ export function QuestBoard() {
       });
     }
     return map;
-  }, []);
+  }, [monsterData]);
   const itemDropMonstersByItemId = useMemo(() => {
     const map = new Map<number, Array<{ mobId: number; name: string; region?: string; prob?: number }>>();
     const resolveItemEntry = (
@@ -405,7 +408,7 @@ export function QuestBoard() {
     }
 
     return map;
-  }, [monsterInfoByMobCode]);
+  }, [monsterInfoByMobCode, dropIndexData, itemDetailByData]);
 
   const maxLevelValue = useMemo(() => {
     const parsed = Number(maxLevel);
@@ -511,7 +514,6 @@ export function QuestBoard() {
       .filter((quest) => {
         const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
         const npcName = npcMap.get(quest.npcId) ?? "";
-        if (isUnreleasedArea(worldName)) return false;
         if (selectedWorldGroup !== "all" && getWorldGroup(worldName, npcName) !== selectedWorldGroup) return false;
         if (maxLevelValue !== null && quest.levelMin > maxLevelValue) return false;
         if (showPriorityOnly && !priorityQuestIds.has(quest.id)) return false;
@@ -552,7 +554,7 @@ export function QuestBoard() {
       });
 
     return rows;
-  }, [maxLevelValue, npcMap, priorityQuestIds, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showPriorityOnly, showTrackedOnly, trackerByQuestId, worldMap]);
+  }, [maxLevelValue, npcMap, priorityQuestIds, query, rewardItemTypeFilter, rewardTypeFilter, selectedWorldGroup, showPriorityOnly, showTrackedOnly, trackerByQuestId, worldMap, data.quests]);
 
   const displayedQuests = useMemo(() => {
     return filteredQuests.slice(0, visibleQuestCount);
@@ -578,8 +580,6 @@ export function QuestBoard() {
 
     for (const quest of data.quests) {
       const worldName = worldMap.get(quest.worldId) ?? quest.worldId;
-      if (isUnreleasedArea(worldName)) continue;
-
       const npcName = npcMap.get(quest.npcId) ?? "";
       const group = getWorldGroup(worldName, npcName);
       counts.set(group, (counts.get(group) ?? 0) + 1);
@@ -587,6 +587,7 @@ export function QuestBoard() {
 
     const order = [
       "빅토리아",
+      "노틸러스",
       "오르비스",
       "루디브리움",
       "리프레",
@@ -612,7 +613,7 @@ export function QuestBoard() {
       const bi = order.indexOf(b[0]);
       return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
     });
-  }, [npcMap, worldMap]);
+  }, [npcMap, worldMap, data.quests]);
   const mobAreasById = useMemo(() => {
     const map = new Map<number, Set<string>>();
     for (const quest of data.quests) {
@@ -625,7 +626,7 @@ export function QuestBoard() {
       }
     }
     return map;
-  }, []);
+  }, [data.quests]);
   const mobAreasByName = useMemo(() => {
     const map = new Map<string, Set<string>>();
     for (const quest of data.quests) {
@@ -638,7 +639,7 @@ export function QuestBoard() {
       }
     }
     return map;
-  }, []);
+  }, [data.quests]);
   const mobSpawnAreasById = useMemo(() => {
     const map = new Map<number, Set<string>>();
     for (const row of monsterSpawnsData.rows ?? []) {
@@ -647,13 +648,12 @@ export function QuestBoard() {
       for (const spawn of row?.maps ?? []) {
         const area = toDisplayMapName(spawn?.map_name);
         if (!area) continue;
-        if (isUnreleasedArea(area)) continue;
         if (!map.has(mobId)) map.set(mobId, new Set());
         map.get(mobId)?.add(area);
       }
     }
     return map;
-  }, []);
+  }, [monsterSpawnsData]);
   const mobSpawnAreasByName = useMemo(() => {
     const map = new Map<string, Set<string>>();
     for (const row of monsterSpawnsData.rows ?? []) {
@@ -662,13 +662,12 @@ export function QuestBoard() {
       for (const spawn of row?.maps ?? []) {
         const area = toDisplayMapName(spawn?.map_name);
         if (!area) continue;
-        if (isUnreleasedArea(area)) continue;
         if (!map.has(mobName)) map.set(mobName, new Set());
         map.get(mobName)?.add(area);
       }
     }
     return map;
-  }, []);
+  }, [monsterSpawnsData]);
 
   const handleToggleTracked = useCallback(
     async (questId: number) => {

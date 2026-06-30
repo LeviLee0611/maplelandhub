@@ -26,7 +26,7 @@ import meditation from "@data/skills/meditation.json";
 import rage from "@data/skills/rage.json";
 
 const typedMonsters = getMonsters() as Monster[];
-const jobGroups = ["전사", "마법사", "궁수", "도적", "해적"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스"] as const;
 const SPEARMAN_SKILLS = [
   "파워 스트라이크",
   "슬래시 블래스트",
@@ -140,6 +140,7 @@ const jobOptionsByGroup = {
   궁수: ["헌터/레인저/보우마스터", "사수/저격수/신궁"],
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
   해적: ["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"],
+  시그너스: ["소울마스터", "플레임위자드", "윈드브레이커", "나이트워커", "스트라이커"],
 } as const;
 
 const QUICK_SLOT_COUNT = 6;
@@ -711,6 +712,11 @@ export default function OneHitCalculatorPage() {
       "시프/시프마스터/섀도어": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "인파이터/버커니어/바이퍼": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "건슬링거/발키리/캡틴": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
+      "소울마스터": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "플레임위자드": { primary: "int", secondary: "luk", multiplier: 1.0, mastery: 0.6 },
+      "윈드브레이커": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
+      "나이트워커": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "스트라이커": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
     } as const;
     return (
       profiles[job as keyof typeof profiles] ??
@@ -724,10 +730,10 @@ export default function OneHitCalculatorPage() {
   }, [jobGroup]);
 
   useEffect(() => {
-    if (jobGroup === "마법사" && passiveMasteryBonus !== 0) {
+    if ((jobGroup === "마법사" || job === "플레임위자드") && passiveMasteryBonus !== 0) {
       setPassiveMasteryBonus(0);
     }
-  }, [jobGroup, passiveMasteryBonus]);
+  }, [jobGroup, job, passiveMasteryBonus]);
 
   const skillKey = useMemo(() => {
     if (
@@ -755,6 +761,13 @@ export default function OneHitCalculatorPage() {
   const isHeroJob = job === "파이터/크루세이더/히어로";
   const isPagePaladinJob = job === "페이지/나이트/팔라딘";
   const isSpearmanJob = job === "스피어맨/드래곤나이트/다크나이트";
+  const isCygnusJob = jobGroup === "시그너스";
+  const isSoulMasterJob = job === "소울마스터";
+  const isFlameWizardJob = job === "플레임위자드";
+  const isWindBreakerJob = job === "윈드브레이커";
+  const isNightWalkerJob = job === "나이트워커";
+  const isStrikerJob = job === "스트라이커";
+  const isArcherOrWindBreaker = isArcherJob || isWindBreakerJob;
   const statLabelMap = { str: "STR", dex: "DEX", int: "INT", luk: "LUK" } as const;
   const weaponTypesByGroup = useMemo(() => {
     if (jobGroup === "전사") {
@@ -772,18 +785,37 @@ export default function OneHitCalculatorPage() {
     if (jobGroup === "궁수") return ["활", "석궁"];
     if (jobGroup === "도적") return ["단검", "아대"];
     if (jobGroup === "해적") return ["너클", "건"];
+    if (jobGroup === "시그너스") {
+      if (isSoulMasterJob) return ["한손검", "두손검"];
+      if (isFlameWizardJob) return [];
+      if (isWindBreakerJob) return ["활"];
+      if (isNightWalkerJob) return ["아대"];
+      if (isStrikerJob) return ["너클"];
+      return [];
+    }
     return [];
-  }, [jobGroup]);
+  }, [jobGroup, isSoulMasterJob, isFlameWizardJob, isWindBreakerJob, isNightWalkerJob, isStrikerJob]);
 
   useEffect(() => {
     if (job === "어쌔신/허밋/나이트로드") {
       setWeaponType("아대");
     } else if (job === "시프/시프마스터/섀도어") {
       setWeaponType("단검");
+    } else if (job === "나이트워커") {
+      setWeaponType("아대");
+    } else if (job === "스트라이커") {
+      setWeaponType("너클");
+    } else if (job === "윈드브레이커") {
+      setWeaponType("활");
     }
   }, [job]);
 
-  const isWeaponLocked = job === "어쌔신/허밋/나이트로드" || job === "시프/시프마스터/섀도어";
+  const isWeaponLocked =
+    job === "어쌔신/허밋/나이트로드" ||
+    job === "시프/시프마스터/섀도어" ||
+    job === "나이트워커" ||
+    job === "스트라이커" ||
+    job === "윈드브레이커";
 
   const weaponNeedsMotion = useMemo(
     () => ["한손도끼", "두손도끼", "한손둔기", "두손둔기", "폴암", "창"].includes(weaponType),
@@ -796,7 +828,7 @@ export default function OneHitCalculatorPage() {
   }, [weaponNeedsMotion]);
 
   const arrowAttackBonus = useMemo(() => {
-    if (!isArcherJob) return 0;
+    if (!isArcherOrWindBreaker) return 0;
     switch (arrowType) {
       case "일반화살":
         return 0;
@@ -810,10 +842,10 @@ export default function OneHitCalculatorPage() {
       default:
         return 0;
     }
-  }, [arrowType, isArcherJob]);
+  }, [arrowType, isArcherOrWindBreaker]);
 
   const starAttackBonus = useMemo(() => {
-    if (!isNightLordJob) return 0;
+    if (!isNightLordJob && !isNightWalkerJob) return 0;
     switch (starType) {
       case "수비표창":
         return 15;
@@ -839,7 +871,7 @@ export default function OneHitCalculatorPage() {
       default:
         return 0;
     }
-  }, [starType, isNightLordJob]);
+  }, [starType, isNightLordJob, isNightWalkerJob]);
 
   const skillOptions = useMemo(() => {
     if (
@@ -866,19 +898,6 @@ export default function OneHitCalculatorPage() {
   useEffect(() => {
     setSkillName(skillOptions[0] ?? "기본 공격");
   }, [skillOptions]);
-
-  useEffect(() => {
-    console.log(
-      "job:",
-      job,
-      "skillKey:",
-      skillKey,
-      "skillCount:",
-      skillOptions.length,
-      "skills:",
-      skillOptions.join(", "),
-    );
-  }, [job, skillKey, skillOptions]);
 
   const skillLevelMax = useMemo(() => {
     const set20 = new Set(range20 as string[]);
@@ -950,8 +969,8 @@ export default function OneHitCalculatorPage() {
 
   const criticalPassiveEffect = useMemo(() => {
     const byCrit = criticalThrowMapping as Record<string, Record<string, { damage?: number; rate?: number }>>;
-    const skill = isNightLordJob ? "크리티컬 스로우" : isArcherJob ? "크리티컬 샷" : null;
-    const level = isNightLordJob ? criticalThrowLevel : isArcherJob ? criticalShotLevel : 0;
+    const skill = (isNightLordJob || isNightWalkerJob) ? "크리티컬 스로우" : isArcherJob ? "크리티컬 샷" : null;
+    const level = (isNightLordJob || isNightWalkerJob) ? criticalThrowLevel : isArcherJob ? criticalShotLevel : 0;
     if (!skill) return { multiplier: 1, rate: 0, damage: 0 };
 
     const levelKey = String(Math.min(Math.max(level, 0), 30));
@@ -962,7 +981,7 @@ export default function OneHitCalculatorPage() {
     const rate = rateRaw <= 1 ? rateRaw : rateRaw / 100;
     const damage = (entry.damage ?? 100) / 100;
     return { multiplier: 1 + rate * (damage - 1), rate, damage };
-  }, [isArcherJob, isNightLordJob, criticalShotLevel, criticalThrowLevel]);
+  }, [isArcherJob, isNightLordJob, isNightWalkerJob, criticalShotLevel, criticalThrowLevel]);
 
   const criticalRate = useMemo(() => {
     return Math.min(1, criticalPassiveEffect.rate + sharpEyesEffect.rate);
@@ -1084,12 +1103,15 @@ export default function OneHitCalculatorPage() {
       if (jobGroup === "궁수" || jobGroup === "도적" || job === "건슬링거/발키리/캡틴") {
         return dex * 0.6 + luk * 0.3;
       }
+      if (job === "소울마스터" || job === "플레임위자드") return dex * 0.8 + luk * 0.5;
+      if (job === "윈드브레이커" || job === "나이트워커") return dex * 0.6 + luk * 0.3;
+      if (job === "스트라이커") return dex * 0.9 + luk * 0.3;
       return dex * 0.8 + luk * 0.5;
     })();
     const acc = Math.floor(accuracyBase + characterAccuracy);
     const primaryBase = jobProfile.primary === "str" ? main : jobProfile.primary === "dex" ? dex : jobProfile.primary === "int" ? intel : luk;
     const secondaryBase = jobProfile.secondary === "str" ? main : jobProfile.secondary === "dex" ? dex : luk;
-    const thiefExtraSecondary = isNightLordJob || isShadowerJob ? main : 0;
+    const thiefExtraSecondary = isNightLordJob || isShadowerJob || isNightWalkerJob ? main : 0;
     const primaryStat = primaryBase * heroValue;
     const secondaryStat = (secondaryBase + thiefExtraSecondary) * heroValue;
     return { attack, magic, acc, primaryStat, secondaryStat };
@@ -1099,6 +1121,7 @@ export default function OneHitCalculatorPage() {
     mapleHeroLevel,
     isNightLordJob,
     isShadowerJob,
+    isNightWalkerJob,
     jobGroup,
     job,
     characterAccuracy,
@@ -1218,7 +1241,7 @@ export default function OneHitCalculatorPage() {
     };
   }, [weaponNeedsMotion, weaponConstants, weaponMotion, weaponMotionConstants]);
 
-  const passiveMasteryRate = jobGroup === "마법사" ? 0 : passiveMasteryBonus / 100;
+  const passiveMasteryRate = (jobGroup === "마법사" || isFlameWizardJob) ? 0 : passiveMasteryBonus / 100;
   const effectiveMastery = jobProfile.primary === "int"
     ? Math.min(1, mastery)
     : Math.min(1, (passiveMasteryBonus > 0 ? mastery : 0.1) + passiveMasteryRate);
@@ -1593,7 +1616,7 @@ export default function OneHitCalculatorPage() {
                           ))}
                         </select>
                       </label>
-                      {jobGroup !== "마법사" ? (
+                      {jobGroup !== "마법사" && weaponTypesByGroup.length > 0 ? (
                         <label className="space-y-1">
                           <span className="retro-chip">무기 타입</span>
                           <select
@@ -1713,7 +1736,7 @@ export default function OneHitCalculatorPage() {
                             }
                           />
                         </div>
-                        {isArcherJob ? (
+                        {isArcherOrWindBreaker ? (
                           <label className="space-y-1">
                             <span className="retro-chip">화살</span>
                             <select
@@ -1731,7 +1754,7 @@ export default function OneHitCalculatorPage() {
                             </select>
                           </label>
                         ) : null}
-                        {isNightLordJob ? (
+                        {isNightLordJob || isNightWalkerJob ? (
                           <label className="space-y-1">
                             <span className="retro-chip">표창</span>
                             <select
@@ -1759,7 +1782,7 @@ export default function OneHitCalculatorPage() {
                         ) : null}
                       </>
                     )}
-                    {isNightLordJob || isShadowerJob ? (
+                    {isNightLordJob || isShadowerJob || isNightWalkerJob ? (
                       <NumberField
                         id="thief-str"
                         label="보조 부스탯 (STR)"
@@ -1859,7 +1882,7 @@ export default function OneHitCalculatorPage() {
                   <span className="retro-section-hint">레벨 입력 기반 자동 환산</span>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
-                  {isNightLordJob ? (
+                  {isNightLordJob || isNightWalkerJob ? (
                     <div className="space-y-1">
                       <span className="retro-chip">
                         크리티컬 스로우
