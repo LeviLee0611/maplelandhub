@@ -169,9 +169,8 @@ function ItemIcon({
   );
 }
 
-function getMatchScore(name: string, keyword: string) {
+function getMatchScoreFromKeys(keys: string[], keyword: string) {
   if (!keyword) return 0;
-  const keys = getSearchKeys(name);
   if (keys.some((key) => key === keyword)) return 4;
   if (keys.some((key) => key.startsWith(keyword) || keyword.startsWith(key))) return 3;
   if (keys.some((key) => key.includes(keyword) || keyword.includes(key))) return 2;
@@ -329,39 +328,67 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
 
   const queryKeyword = useMemo(() => normalizeQuery(query), [query]);
 
+  const itemSearchKeysById = useMemo(() => {
+    const map = new Map<number, string[]>();
+    for (const item of dropData.items) {
+      map.set(item.id, getSearchKeys(item.name));
+    }
+    return map;
+  }, [dropData.items]);
+
+  const monsterSearchKeysByMobCode = useMemo(() => {
+    const map = new Map<number, string[]>();
+    for (const monster of monsterList) {
+      map.set(monster.mobCode, getSearchKeys(monster.name));
+    }
+    return map;
+  }, []);
+
   const filteredItems = useMemo(() => {
     const keyword = queryKeyword;
-    const sorted = [...dropData.items].sort((a, b) => {
-      if (keyword) {
-        const scoreDiff = getMatchScore(b.name, keyword) - getMatchScore(a.name, keyword);
-        if (scoreDiff !== 0) return scoreDiff;
-      }
-      const groupA = getItemGroup(a);
-      const groupB = getItemGroup(b);
+    if (!keyword) {
+      return [...dropData.items].sort((a, b) => {
+        const groupA = getItemGroup(a);
+        const groupB = getItemGroup(b);
+        if (groupA !== groupB) return GROUP_ORDER.indexOf(groupA) - GROUP_ORDER.indexOf(groupB);
+        return a.name.localeCompare(b.name, "ko");
+      });
+    }
+    const scored: { item: DropIndexItem; score: number }[] = [];
+    for (const item of dropData.items) {
+      const score = getMatchScoreFromKeys(itemSearchKeysById.get(item.id) ?? [], keyword);
+      if (score >= 0) scored.push({ item, score });
+    }
+    scored.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      const groupA = getItemGroup(a.item);
+      const groupB = getItemGroup(b.item);
       if (groupA !== groupB) return GROUP_ORDER.indexOf(groupA) - GROUP_ORDER.indexOf(groupB);
-      return a.name.localeCompare(b.name, "ko");
+      return a.item.name.localeCompare(b.item.name, "ko");
     });
-    if (!keyword) return sorted;
-    return sorted.filter((item) => getMatchScore(item.name, keyword) >= 0);
-  }, [queryKeyword, dropData.items]);
+    return scored.map((entry) => entry.item);
+  }, [queryKeyword, dropData.items, itemSearchKeysById]);
 
   const filteredMonsters = useMemo(() => {
     const keyword = queryKeyword;
-    const sorted = [...monsterList]
-      .filter((monster) => {
-        if (selectedWorldMap === "all") return true;
-        return getWorldMapGroup(monster.region) === selectedWorldMap;
-      })
-      .sort((a, b) => {
-        if (keyword) {
-          const scoreDiff = getMatchScore(b.name, keyword) - getMatchScore(a.name, keyword);
-          if (scoreDiff !== 0) return scoreDiff;
-        }
-        return (a.level ?? 0) - (b.level ?? 0);
-      });
-    if (!keyword) return sorted;
-    return sorted.filter((monster) => getMatchScore(monster.name, keyword) >= 0);
-  }, [queryKeyword, selectedWorldMap]);
+    const worldFiltered = monsterList.filter((monster) => {
+      if (selectedWorldMap === "all") return true;
+      return getWorldMapGroup(monster.region) === selectedWorldMap;
+    });
+    if (!keyword) {
+      return [...worldFiltered].sort((a, b) => (a.level ?? 0) - (b.level ?? 0));
+    }
+    const scored: { monster: Monster; score: number }[] = [];
+    for (const monster of worldFiltered) {
+      const score = getMatchScoreFromKeys(monsterSearchKeysByMobCode.get(monster.mobCode) ?? [], keyword);
+      if (score >= 0) scored.push({ monster, score });
+    }
+    scored.sort((a, b) => {
+      if (b.score !== a.score) return b.score - a.score;
+      return (a.monster.level ?? 0) - (b.monster.level ?? 0);
+    });
+    return scored.map((entry) => entry.monster);
+  }, [queryKeyword, selectedWorldMap, monsterSearchKeysByMobCode]);
 
   const displayedItems = useMemo(() => {
     if (!queryKeyword) return filteredItems.slice(0, INITIAL_SUGGESTION_COUNT);
@@ -384,7 +411,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
       id: item.id,
       label: item.name,
     }));
-    return [...items, ...monsters];
+    return [...monsters, ...items];
   }, [displayedItems, displayedMonsters]);
 
   const localMonsterDrops = useMemo(() => {

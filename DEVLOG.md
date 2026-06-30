@@ -89,4 +89,29 @@
 
 ---
 
+### 드랍 테이블 검색 성능 최적화 + 자동완성 선택 버그 수정
+
+**문제**: `/drop-table` 페이지에서 아이템/몬스터 검색 시 타이핑할 때 체감 딜레이 발생.
+
+**원인** (`src/components/DropTable.tsx`):
+- `filteredItems`/`filteredMonsters`가 키 입력마다 아이템 2,687개·몬스터 653개 전체를 `sort()`로 정렬
+- 정렬 비교 함수(comparator) 안에서 `getMatchScore` → `getSearchKeys`(정규식 다수 + 한글 초성 변환)를 이름마다 매 비교 시점에 재계산
+- 정렬 특성상 같은 항목의 검색 키가 비교당 여러 번 중복 계산되어, 키 입력 1번에 검색 키 계산이 수만 번 발생
+
+**수정**:
+- `itemSearchKeysById`, `monsterSearchKeysByMobCode`: 아이템/몬스터별 검색 키를 `useMemo`로 1회만 계산해 `Map`에 캐싱 (의존성은 `dropData.items` / 빈 배열 — 마운트 후 재계산 안 됨)
+- `getMatchScore(name, keyword)` → `getMatchScoreFromKeys(keys, keyword)`로 변경, 캐싱된 키 배열을 직접 사용
+- 정렬 비교 함수에서 점수를 매번 재계산하던 방식 → 키워드가 있을 때 점수를 단일 패스(O(n))로 먼저 계산한 뒤, 가벼운 숫자 비교로만 정렬
+
+**검증**:
+- 브라우저 실측(`next dev`, 비압축 빌드 기준): "주문서" 입력 시 키 입력당 처리 시간 4.7ms → 41.4ms(첫 글자, JIT 워밍업) → 12.5ms → 9.9ms로 프레임 예산(16ms) 안쪽 안정화
+- `npx tsc --noEmit`, `npx eslint src/` 통과
+
+**추가로 발견한 버그 수정**:
+- `suggestionItems` 배열 순서가 `[...items, ...monsters]`(아이템 우선)였는데, 실제 렌더링 순서는 몬스터 → 아이템이라 키보드 `ArrowDown`/`Enter` 선택 시 화면 하이라이트와 실제 선택 항목이 어긋나는 버그 존재
+- `[...monsters, ...items]`로 순서를 렌더링과 일치시켜 수정
+- 브라우저에서 ArrowDown → 하이라이트된 몬스터 → Enter → 동일 몬스터 선택까지 직접 확인
+
+---
+
 <!-- 새 작업은 여기 위에 날짜 역순으로 추가 -->
