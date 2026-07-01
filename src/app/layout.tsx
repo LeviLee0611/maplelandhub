@@ -43,6 +43,11 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     images: ["/favicon.ico"],
   },
+  verification: {
+    other: {
+      "naver-site-verification": "10263c5dc3754ad9d65f56f36ff28dc0f370f7ba",
+    },
+  },
 };
 
 export default function RootLayout({
