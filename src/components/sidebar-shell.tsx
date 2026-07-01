@@ -21,7 +21,7 @@ const AuthButton = dynamic(() => import("@/components/auth-button").then((mod) =
 
 const primaryLinks = [
   { label: "공지/업데이트", href: "/announcements", icon: "megaphone" },
-  { label: "N방컷 계산기", href: "/calculators/onehit", icon: "target" },
+  { label: "한방컷 계산기", href: "/calculators/onehit", icon: "target" },
   { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
   { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
   { label: "메랜 퀘스트", href: "/quests", icon: "quest" },

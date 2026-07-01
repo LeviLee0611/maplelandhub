@@ -1525,7 +1525,7 @@ export default function OneHitCalculatorPage() {
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
         <header className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
           <div className="space-y-2">
-            <h1 className="text-2xl font-bold text-slate-100">N방컷 계산기</h1>
+            <h1 className="text-2xl font-bold text-slate-100">메랜/매랜 한방컷 계산기 (N방컷 계산기)</h1>
             <p className="text-sm text-slate-300">
               캐릭터, 스킬, 몬스터 정보를 입력하면 한방컷 확률과 예상 N방컷을 계산합니다.
             </p>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 
-const title = "메랜Hub - N방컷 계산기 설명 | 메이플랜드 계산기";
-const description = "N방컷 계산기의 계산 방식과 사용 대상, 활용 시나리오를 안내합니다.";
+const title = "메랜Hub - 한방컷 계산기 설명 | 메이플랜드(메랜/매랜) 계산기";
+const description = "메랜/매랜 한방컷 계산기(N방컷 계산기)의 계산 방식과 사용 대상, 활용 시나리오를 안내합니다.";
 
 export const metadata: Metadata = {
   title,
   description,
+  keywords: ["메랜", "매랜", "한방컷계산기", "한방컷 계산기", "N방컷 계산기", "메이플랜드 계산기"],
   alternates: {
     canonical: "/services/onehit",
   },
@@ -25,9 +26,9 @@ export default function OneHitInfoPage() {
     <section className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-4 py-10">
       <div className="glass-panel rounded-3xl px-6 py-8">
         <p className="text-xs uppercase tracking-[0.3em] text-slate-200/60">계산기 설명</p>
-        <h1 className="mt-2 text-2xl font-semibold text-slate-100 md:text-3xl">N방컷 계산기</h1>
+        <h1 className="mt-2 text-2xl font-semibold text-slate-100 md:text-3xl">메랜/매랜 한방컷 계산기 (N방컷 계산기)</h1>
         <p className="mt-3 text-sm text-slate-200/90 md:text-base">
-          몬스터를 몇 번 공격해야 처치할 수 있는지(N방컷)를 계산해주는 도구입니다.
+          메랜/매랜(메이플랜드)에서 몬스터를 몇 번 공격해야 처치할 수 있는지(한방컷/N방컷)를 계산해주는 도구입니다.
         </p>
       </div>
 
@@ -62,7 +63,7 @@ export default function OneHitInfoPage() {
         <h2 className="text-base font-semibold text-slate-100">계산기 바로가기</h2>
         <p className="mt-2 text-sm text-slate-200/90">실제 수치 입력은 계산기에서 진행합니다.</p>
         <Link href="/calculators/onehit" className="btn-ghost mt-4 inline-flex rounded-full px-4 py-2 text-xs font-semibold">
-          N방컷 계산기 열기
+          한방컷 계산기 열기
         </Link>
       </div>
     </section>

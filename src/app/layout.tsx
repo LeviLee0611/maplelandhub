@@ -19,9 +19,20 @@ const body = Noto_Sans_KR({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL((process.env.NEXT_PUBLIC_APP_URL ?? "https://maplelandhub.pages.dev").trim().replace(/\/$/, "")),
-  title: "메랜Hub - 메이플랜드 도구들",
-  description: "메이플랜드 유저를 위한 올인원 유틸리티 허브",
+  metadataBase: new URL((process.env.NEXT_PUBLIC_APP_URL ?? "https://maplelandhub.com").trim().replace(/\/$/, "")),
+  title: "메랜Hub - 메이플랜드(메랜/매랜) 계산기 모음",
+  description: "메랜, 매랜(메이플랜드) 유저를 위한 한방컷 계산기, 데미지 계산기, 드랍테이블, 퀘스트 정보 올인원 유틸리티 허브",
+  keywords: [
+    "메랜",
+    "매랜",
+    "메랜 계산기",
+    "매랜 계산기",
+    "메이플랜드",
+    "메이플랜드 계산기",
+    "메랜 한방컷계산기",
+    "매랜 한방컷계산기",
+    "메랜허브",
+  ],
   openGraph: {
     type: "website",
     siteName: "메랜Hub",
