@@ -25,6 +25,29 @@
   --nav-bg: rgba(17, 23, 38, 0.6);
   --nav-border: rgba(255, 255, 255, 0.1);
   --nav-text: #e2e8f0;
+
+  /* 서버 브랜드 강조색 — 기본값은 메이플랜드(cyan/emerald). [data-server="planet"]에서 앰버/오렌지 톤으로 교체됨. */
+  --brand-accent: #38bdf8;
+  --brand-accent-soft: rgba(56, 189, 248, 0.16);
+  --brand-accent-border: rgba(125, 211, 252, 0.4);
+  --brand-accent-text: #7dd3fc;
+
+  --brand-accent-2: #22c55e;
+  --brand-accent-2-soft: rgba(34, 197, 94, 0.16);
+  --brand-accent-2-border: rgba(110, 231, 183, 0.4);
+  --brand-accent-2-text: #6ee7b7;
+}
+
+[data-server="planet"] {
+  --brand-accent: #f59e0b;
+  --brand-accent-soft: rgba(245, 158, 11, 0.16);
+  --brand-accent-border: rgba(252, 211, 77, 0.45);
+  --brand-accent-text: #fbbf24;
+
+  --brand-accent-2: #fb923c;
+  --brand-accent-2-soft: rgba(251, 146, 60, 0.16);
+  --brand-accent-2-border: rgba(253, 186, 116, 0.45);
+  --brand-accent-2-text: #fdba74;
 }
 
 html[data-theme="dark"] {
@@ -163,6 +186,11 @@ h3,
   --retro-header-blue: rgba(56, 189, 248, 0.18);
 }
 
+/* 플래닛 모드에서는 "창"(PanelHeader) 파랑 톤도 앰버로 통일 */
+[data-server="planet"] .retro-glass {
+  --retro-header-blue: var(--brand-accent-soft);
+}
+
 .retro-chip {
   display: inline-flex;
   align-items: center;
@@ -295,6 +323,22 @@ h3,
 
 .retro-glass .retro-panel-header.retro-panel-header-tone-green .retro-panel-title::before {
   color: #86efac;
+}
+
+/* 플래닛 모드에서는 Panel.tsx의 "blue" 톤(기본 강조색)도 앰버로 통일 */
+[data-server="planet"] .retro-glass .retro-panel.retro-panel-tone-blue {
+  border-color: var(--brand-accent-border);
+  box-shadow:
+    0 14px 26px rgba(15, 23, 42, 0.24),
+    inset 0 0 0 1px var(--brand-accent-soft);
+}
+
+[data-server="planet"] .retro-glass .retro-panel-header.retro-panel-header-tone-blue {
+  background: linear-gradient(180deg, var(--brand-accent-soft), rgba(30, 41, 59, 0.82));
+}
+
+[data-server="planet"] .retro-glass .retro-panel-header.retro-panel-header-tone-blue .retro-panel-title::before {
+  color: var(--brand-accent-text);
 }
 
 .retro-panel-title {
@@ -508,8 +552,8 @@ html[data-theme="light"] .spinner-input .h-\[30px\].w-6 {
 }
 
 .btn-ghost:hover {
-  border-color: rgba(148, 163, 184, 0.5);
-  background: rgba(148, 163, 184, 0.1);
+  border-color: var(--brand-accent-border);
+  background: var(--brand-accent-soft);
 }
 
 .btn-login {

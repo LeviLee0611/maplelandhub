@@ -1,6 +1,6 @@
 # 메랜Hub — 데이터베이스 구조
 
-> 마지막 업데이트: 2026-06-30
+> 마지막 업데이트: 2026-07-07
 
 ---
 
@@ -128,10 +128,14 @@ announcements (독립 테이블 — 어드민이 작성)
 | id | UUID PK | |
 | user_id | UUID FK→auth.users | ON DELETE CASCADE |
 | calculator | TEXT | 'onehit' \| 'taken-damage' |
+| server | TEXT DEFAULT 'mapleland' | 'mapleland' \| 'planet' |
 | name | TEXT | 프리셋 이름 |
 | data | JSONB | 계산기 입력값 전체 |
 | created_at | TIMESTAMPTZ | |
 | updated_at | TIMESTAMPTZ | |
+
+- **UNIQUE**: (user_id, calculator, server, name)
+- **인덱스**: `idx_character_presets_user_calc_server` (user_id, calculator, server)
 
 ---
 
@@ -181,3 +185,4 @@ announcements (독립 테이블 — 어드민이 작성)
 | `20260225_add_announcements.sql` | announcements 테이블 추가 |
 | `20260225_add_profiles_admin_policy.sql` | 어드민의 profiles 전체 조회 정책 추가 |
 | `20260301_add_quest_trackers.sql` | quest_trackers 테이블 추가 |
+| `20260707_add_server_to_character_presets.sql` | character_presets에 server 컬럼 추가 (mapleland/planet), unique 제약·인덱스 갱신 |

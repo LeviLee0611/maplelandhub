@@ -4,7 +4,6 @@
 import { useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
-import { getMonsters } from "@/lib/data/monsters";
 import { isReleasedMobCode } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
 type DropIndexItem = {
@@ -50,7 +49,6 @@ export type ItemDetailByData = {
   itemsByItemId?: Record<string, MonsterDropEntry[]>;
 };
 
-const monsterList = getMonsters() as Monster[];
 const INITIAL_SUGGESTION_COUNT = 10;
 const SEARCH_SUGGESTION_LIMIT = 60;
 const GROUP_ORDER = ["주문서", "장비", "물약", "기타템"];
@@ -214,7 +212,19 @@ function getItemLevel(item?: DropIndexItem) {
   return typeof level === "number" ? level : null;
 }
 
-export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexData; itemDetailByData: ItemDetailByData }) {
+export function DropTable({
+  dropData,
+  itemDetailByData,
+  monsters: monsterList,
+  itemLinkBase,
+  calculatorBasePath = "",
+}: {
+  dropData: DropIndexData;
+  itemDetailByData: ItemDetailByData;
+  monsters: Monster[];
+  itemLinkBase?: string;
+  calculatorBasePath?: string;
+}) {
   const [query, setQuery] = useState("");
   const [selectedWorldMap, setSelectedWorldMap] = useState("all");
   const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
@@ -227,7 +237,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
 
   const selectedMonster = useMemo(
     () => monsterList.find((monster) => monster.mobCode === selectedMonsterMobCode),
-    [selectedMonsterMobCode]
+    [selectedMonsterMobCode, monsterList]
   );
 
   const hasLocalDrops = (mobCode: number) => (dropData.dropsByMonsterId[String(mobCode)] ?? []).length > 0;
@@ -342,7 +352,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
       map.set(monster.mobCode, getSearchKeys(monster.name));
     }
     return map;
-  }, []);
+  }, [monsterList]);
 
   const filteredItems = useMemo(() => {
     const keyword = queryKeyword;
@@ -388,7 +398,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
       return (a.monster.level ?? 0) - (b.monster.level ?? 0);
     });
     return scored.map((entry) => entry.monster);
-  }, [queryKeyword, selectedWorldMap, monsterSearchKeysByMobCode]);
+  }, [queryKeyword, selectedWorldMap, monsterSearchKeysByMobCode, monsterList]);
 
   const displayedItems = useMemo(() => {
     if (!queryKeyword) return filteredItems.slice(0, INITIAL_SUGGESTION_COUNT);
@@ -455,7 +465,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
         if (probDiff !== 0) return probDiff;
         return (a.monster.level ?? 0) - (b.monster.level ?? 0);
       });
-  }, [selectedItemId, selectedWorldMap, dropData.monstersByItemId, itemDetailByData.itemsByItemId]);
+  }, [selectedItemId, selectedWorldMap, dropData.monstersByItemId, itemDetailByData.itemsByItemId, monsterList]);
 
   const worldMapOptions = useMemo(() => {
     const priority = [
@@ -492,7 +502,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
       label,
       count: counts.get(label) ?? 0,
     }));
-  }, []);
+  }, [monsterList]);
 
   const formatProb = (prob?: number) => {
     if (typeof prob !== "number" || prob < 0) {
@@ -600,7 +610,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
           <div className="flex flex-col gap-4 text-sm text-[color:var(--retro-text)]">
             <div className="space-y-2">
               <div className="relative">
-                <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[16px] text-cyan-100/80">
+                <div className="pointer-events-none absolute inset-y-0 left-3 flex items-center text-[16px] text-[color:var(--brand-accent-text)]">
                   ⌕
                 </div>
                 <input
@@ -650,7 +660,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                     }
                   }}
                   placeholder="몬스터 또는 아이템 이름을 입력하세요"
-                  className="w-full rounded-[12px] border border-cyan-200/30 bg-[var(--retro-bg)] px-10 py-3.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] shadow-[0_0_0_1px_rgba(34,211,238,0.15),0_10px_30px_rgba(0,0,0,0.35)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
+                  className="w-full rounded-[12px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-10 py-3.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] shadow-[0_10px_30px_rgba(0,0,0,0.35)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-4 focus:ring-[var(--brand-accent-soft)]"
                 />
                 {query && showSuggestions ? (
                   <div className="absolute top-full z-20 mt-2 max-h-80 w-full overflow-auto rounded-[10px] border border-[var(--retro-border-strong)] bg-slate-950/95 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.55)] backdrop-blur">
@@ -669,7 +679,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                                 type="button"
                                 className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
                                   activeIndex === index
-                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
+                                    ? "border-[var(--brand-accent)] bg-[var(--retro-cell-strong)]"
                                     : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
                                 }`}
                                 onClick={() => {
@@ -709,7 +719,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                                 type="button"
                                 className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-2 text-left text-sm text-[color:var(--retro-text)] ${
                                   activeIndex === adjustedIndex
-                                    ? "border-cyan-200/70 bg-[var(--retro-cell-strong)]"
+                                    ? "border-[var(--brand-accent)] bg-[var(--retro-cell-strong)]"
                                     : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
                                 }`}
                                 onClick={() => {
@@ -734,7 +744,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                 ) : null}
               </div>
               {!queryKeyword && filteredItems.length + filteredMonsters.length > displayedItems.length + displayedMonsters.length ? (
-                <p className="mt-2 text-xs text-cyan-100/90">
+                <p className="mt-2 text-xs text-[color:var(--brand-accent-text)]">
                   검색어가 없을 때는 처음 {INITIAL_SUGGESTION_COUNT}개씩만 표시됩니다.
                 </p>
               ) : null}
@@ -743,7 +753,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                 <select
                   value={selectedWorldMap}
                   onChange={(event) => setSelectedWorldMap(event.target.value)}
-                  className="w-full rounded-[10px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-4 focus:ring-cyan-200/20"
+                  className="w-full rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-4 focus:ring-[var(--brand-accent-soft)]"
                 >
                   <option value="all">전체 지역</option>
                   {worldMapOptions.map((option) => (
@@ -756,7 +766,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
             </div>
 
             {selectedItemId ? (
-              <div className="rounded-[10px] border border-cyan-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
+              <div className="rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
                 <div className="flex items-center gap-2">
                   <ItemIcon
                     item={itemsById.get(selectedItemId)}
@@ -770,13 +780,13 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                     </div>
                   </div>
                 </div>
-                {!isSyntheticItem(itemsById.get(selectedItemId)) ? (
+                {!isSyntheticItem(itemsById.get(selectedItemId)) && itemLinkBase ? (
                   <div className="mt-2 border-t border-white/10 pt-2">
                     <a
-                      href={`https://www.mapleland.gg/item/${selectedItemId}`}
+                      href={`${itemLinkBase}/item/${selectedItemId}`}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-xs font-semibold text-cyan-100 hover:border-cyan-200/60 hover:bg-cyan-200/20"
+                      className="inline-flex items-center gap-2 rounded-full border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-1 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                     >
                       메랜지지 바로가기
                     </a>
@@ -784,7 +794,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                 ) : null}
               </div>
             ) : selectedMonster ? (
-              <div className="rounded-[10px] border border-emerald-200/30 bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(6,78,59,0.35)]">
+              <div className="rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(6,78,59,0.35)]">
                 <div className="flex items-center gap-2">
                   <img
                     src={getMobIconUrl(selectedMonster.mobCode)}
@@ -832,20 +842,20 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                         const parsed = Number(event.target.value);
                         setCharacterLevel(Number.isFinite(parsed) ? Math.min(250, Math.max(1, Math.floor(parsed))) : 1);
                       }}
-                      className="w-full rounded-[8px] border border-cyan-200/30 bg-[var(--retro-bg)] px-3 py-2 text-sm text-[color:var(--retro-text)] focus:border-cyan-200/70 focus:outline-none focus:ring-2 focus:ring-cyan-200/20"
+                      className="w-full rounded-[8px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-3 py-2 text-sm text-[color:var(--retro-text)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-accent-soft)]"
                     />
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
                   <a
-                    href={`/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
-                    className="inline-flex items-center justify-center rounded-[10px] border border-sky-200/30 bg-sky-200/10 px-3 py-2 text-xs font-semibold text-sky-100 hover:border-sky-200/60 hover:bg-sky-200/20"
+                    href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                   >
                     N방컷 계산하기
                   </a>
                   <a
-                    href={`/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}`}
-                    className="inline-flex items-center justify-center rounded-[10px] border border-emerald-200/30 bg-emerald-200/10 px-3 py-2 text-xs font-semibold text-emerald-100 hover:border-emerald-200/60 hover:bg-emerald-200/20"
+                    href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)] hover:border-[var(--brand-accent-2)] hover:bg-[var(--brand-accent-2-soft)]"
                   >
                     피격뎀 계산하기
                   </a>
@@ -867,7 +877,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                   : "결과 없음"}
             </span>
           }
-          className="glass-panel-strong border-cyan-200/25 shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
+          className="glass-panel-strong border-[var(--brand-accent-border)] shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           {selectedMonster && !selectedItemId ? (
             <div className="grid gap-4 sm:grid-cols-2">
@@ -886,7 +896,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                     return (
                       <div
                         key={String(itemId)}
-                        className="retro-subsection flex items-center gap-4 rounded-[12px] border border-cyan-200/25 bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-cyan-200/60 hover:bg-[var(--retro-cell-strong)]"
+                        className="retro-subsection flex items-center gap-4 rounded-[12px] border border-[var(--brand-accent-border)] bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-[var(--brand-accent)] hover:bg-[var(--retro-cell-strong)]"
                         onClick={() => {
                           if (!Number.isFinite(normalizedItemId)) return;
                           setSelectedItemId(normalizedItemId);
@@ -911,7 +921,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                           {(() => {
                             const prob = formatProb(entry.prob);
                             return (
-                          <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-cyan-200/30 bg-cyan-300/10 px-3 py-2 text-xs font-semibold text-cyan-100">
+                          <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)]">
                               <div className="text-sm">{prob.percent}</div>
                               {prob.fraction ? <div className="mt-1">{renderFraction(prob.fraction)}</div> : null}
                           </div>
@@ -932,7 +942,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                 {monstersForItem.map(({ monster, entry }) => (
                   <div
                     key={monster?.mobCode}
-                    className="retro-subsection flex items-center gap-4 rounded-[14px] border border-emerald-200/25 bg-[var(--retro-cell)] px-5 py-4 text-sm shadow-[0_10px_20px_rgba(6,78,59,0.3)] transition hover:border-emerald-200/60 hover:bg-[var(--retro-cell-strong)]"
+                    className="retro-subsection flex items-center gap-4 rounded-[14px] border border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-5 py-4 text-sm shadow-[0_10px_20px_rgba(6,78,59,0.3)] transition hover:border-[var(--brand-accent-2)] hover:bg-[var(--retro-cell-strong)]"
                     onClick={() => {
                       setSelectedItemId(null);
                       setSelectedMonsterMobCode(monster.mobCode);
@@ -964,7 +974,7 @@ export function DropTable({ dropData, itemDetailByData }: { dropData: DropIndexD
                         {(() => {
                           const prob = formatProb(entry.prob);
                           return (
-                            <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-emerald-200/30 bg-emerald-300/10 px-3 py-2 text-xs font-semibold text-emerald-100">
+                            <div className="flex min-w-[84px] flex-col items-center justify-center rounded-2xl border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)]">
                               <div className="text-sm">{prob.percent}</div>
                               {prob.fraction ? <div className="mt-1">{renderFraction(prob.fraction)}</div> : null}
                             </div>

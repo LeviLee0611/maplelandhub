@@ -20,6 +20,15 @@ function truncate(text: string, max: number) {
   return text.length <= max ? text : `${text.slice(0, max - 3)}...`;
 }
 
+function escapeHtml(text: string) {
+  return text
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;")
+    .replace(/'/g, "&#39;");
+}
+
 export async function POST(req: Request) {
   try {
     const apiKey = process.env.RESEND_API_KEY;
@@ -40,16 +49,33 @@ export async function POST(req: Request) {
       return NextResponse.json({ ok: false, error: "invalid_payload" }, { status: 400 });
     }
 
+    const truncatedTitle = truncate(title, 200);
+    const truncatedMessage = truncate(message, 2000);
+
     const bodyLines = [
       `유형: ${TYPE_LABEL[type]}`,
-      `제목: ${truncate(title, 200)}`,
+      `제목: ${truncatedTitle}`,
       "",
       `내용:`,
-      truncate(message, 2000),
+      truncatedMessage,
       "",
       `연락처: ${contact || "-"}`,
       `유저ID: ${userId || "-"}`,
     ];
+
+    // 일부 메일 클라이언트가 text-only 메일의 charset을 잘못 추측해 한글이 깨지는 문제가 있어
+    // charset을 명시한 HTML 본문을 함께 보낸다 (text는 폴백용으로 유지).
+    const htmlBody = `<!doctype html>
+<html>
+  <head><meta charset="utf-8" /></head>
+  <body style="font-family: sans-serif; white-space: pre-wrap;">
+    <p>유형: ${escapeHtml(TYPE_LABEL[type])}</p>
+    <p>제목: ${escapeHtml(truncatedTitle)}</p>
+    <p>내용:<br />${escapeHtml(truncatedMessage).replace(/\n/g, "<br />")}</p>
+    <p>연락처: ${escapeHtml(contact || "-")}</p>
+    <p>유저ID: ${escapeHtml(userId || "-")}</p>
+  </body>
+</html>`;
 
     const res = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -62,6 +88,7 @@ export async function POST(req: Request) {
         to: [adminEmail],
         subject: `[메랜Hub] 새 문의: ${truncate(title, 60)} (${TYPE_LABEL[type]})`,
         text: bodyLines.join("\n"),
+        html: htmlBody,
       }),
     });
 

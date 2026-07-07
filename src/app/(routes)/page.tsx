@@ -114,6 +114,28 @@ export default function HomePage() {
         </p>
       </div>
 
+      <div className="w-full max-w-4xl">
+        <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400/80">서버를 선택하세요</p>
+        <div className="grid gap-4 sm:grid-cols-2">
+          <div className="glass-panel-strong relative overflow-hidden rounded-3xl border-2 border-cyan-300/60 px-6 py-8 text-center shadow-[0_0_28px_rgba(56,189,248,0.22)]">
+            <div className="text-4xl">🌲</div>
+            <h2 className="mt-3 text-xl font-bold text-cyan-100">메이플랜드</h2>
+            <p className="mt-2 text-sm text-slate-200/80">지금 보고 계신 버전이에요</p>
+          </div>
+          <Link
+            href="/planet"
+            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-3xl border-2 border-white/10 px-6 py-8 text-center transition duration-300 hover:-translate-y-0.5 hover:border-amber-300/60 hover:shadow-[0_0_28px_rgba(245,158,11,0.22)]"
+          >
+            <div className="text-4xl">🪐</div>
+            <h2 className="mt-3 text-xl font-bold text-slate-100 transition group-hover:text-amber-200">메이플 플래닛</h2>
+            <p className="mt-2 text-sm text-slate-200/80">드랍 테이블 · 계산기 · 큐브 시뮬레이터</p>
+            <p className="mt-3 text-xs font-semibold text-amber-200/90 transition group-hover:text-amber-100">
+              바로가기 →
+            </p>
+          </Link>
+        </div>
+      </div>
+
       <div className="grid w-full max-w-6xl gap-4 md:grid-cols-2 xl:grid-cols-3">
         {features.map((feature) =>
           feature.comingSoon ? (

@@ -73,5 +73,25 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/login`,
       lastModified: new Date(),
     },
+    {
+      url: `${baseUrl}/planet`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/planet/drop-table`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/planet/calculator/damage`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/planet/calculators/onehit`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/planet/cube-simulator`,
+      lastModified: new Date(),
+    },
   ];
 }

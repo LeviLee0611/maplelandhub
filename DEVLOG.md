@@ -4,6 +4,68 @@
 
 ---
 
+## 2026-07-07
+
+### 메이플 플래닛(Planet) 서버 지원 추가
+
+**배경**: 메이플랜드 외에 최근 흥행 중인 신규 사설서버 "메이플 플래닛"(넥슨 MapleStory Worlds 플랫폼, 빅뱅 직전 KMS 1.2.95~98 기반 — 메이플랜드와 동일 버전)의 유저층을 흡수하기 위해 드랍테이블/계산기부터 플래닛 버전 제공. 이미 플래닛 전용 커뮤니티 사이트가 여럿(planet-helper.com, 플래닛고, 조아요, mapleplanet.gg) 있어 정면 대결보다 "메랜Hub가 잘하는 기능부터" 전략으로 진행.
+
+**라우트 구조**: 기존 메랜 URL(`/`, `/drop-table`, `/calculator/damage`, `/calculators/onehit`)은 그대로 두고 `/planet` 이하에 미러링 — SEO 자산 보존 + 서버별 URL 분리.
+- `/planet` — 랜딩 페이지 (기능 카드 그리드)
+- `/planet/drop-table`, `/planet/calculator/damage`, `/planet/calculators/onehit`
+- `/planet/cube-simulator` — 플래닛 전용 신규 기능(아래 참고, 메랜엔 큐브/잠재능력 시스템 자체가 없음)
+
+**컴포넌트 재사용 전략**: `DropTable`/`TakenDamageCalculator`/`OneHitCalculatorClient`(구 onehit page.tsx에서 분리)는 메랜과 플래닛이 공유. 몬스터 데이터/서버 구분은 전부 **prop으로 주입**(`monsters`, `server`, `calculatorBasePath`, `itemLinkBase`) — 기존에 있던 `setMonsterProvider`(전역 mutable 싱글턴) 패턴은 동시 요청 환경에서 안전하지 않아 사용하지 않음.
+
+**사이드바/홈페이지**: 서버 전환 pill을 큰 카드형 버튼(🌲메이플랜드/🪐메이플 플래닛)으로 확장, 홈페이지에도 "서버를 선택하세요" 2카드 섹션 추가. 메랜Hub 로고 옆에 항상 MAPLELAND/PLANET 배지 표시 (기존엔 플래닛일 때만 표시했었음 — 대칭으로 수정).
+
+---
+
+### 플래닛 색상 테마 분리 (cyan ↔ amber)
+
+`--brand-accent`, `--brand-accent-2` 등 CSS 커스텀 프로퍼티를 도입, `[data-server="planet"]` 선택자로 앰버/오렌지 톤으로 전환되게 함(메랜은 기존 cyan/emerald 유지). `DropTable`/`TakenDamageCalculator`/`onehit-calculator-client`의 하드코딩된 cyan/sky/emerald 클래스를 CSS 변수 참조로 교체. `PanelHeader.tsx`(드랍테이블류)와 `Panel.tsx`(계산기류)가 서로 다른 톤 시스템을 쓰고 있어서 둘 다 따로 `[data-server="planet"]` 오버라이드 필요했음 — 처음에 `PanelHeader`만 고치고 `Panel`을 놓쳐서 계산기 페이지 창 헤더가 여전히 파란색이던 버그를 나중에 발견해 수정.
+
+**Turbopack 트러블슈팅**: `globals.css` 증분 수정이 dev 서버에 반영 안 되는 현상이 세션 내내 반복됨 — `.next` 캐시 삭제 후 서버 재시작으로만 해결됨. CSS만 고쳤는데 브라우저에 반영이 안 되면 우선 의심할 것.
+
+---
+
+### 플래닛 데이터 파이프라인
+
+Planet은 메랜과 동일 KMS 버전이라 **메랜 원본 데이터를 베이스로 재사용 + 배율/보강 데이터만 얹는 방식**으로 구축(`scripts/build-planet-data.mjs`, 상세는 `data.md` 참고).
+
+- **드랍률 4배** 배율을 `drop-index.json`/`item-detail-by.json`의 `prob`에 직접 반영 (커뮤니티 사이트 패치노트로 배율 로직 검증함: 듀얼 버크의 일비 표창 0.008%→0.032% 정확히 일치)
+- **몬스터 속성(불/얼음/전기/독/성 약점·반감·면역)**: 외부 영문 데이터셋을 mobCode로 매칭해 자동 보강 (464종 매칭, 기존 데이터와 충돌 0건 — 항상 상위집합이라 안전하게 덮어씀)
+- **신규 몬스터 124종 추가**: 메랜 원본에 없는 몬스터(파풀라투스, 피아누스, 도도, 오베론 등 포함)를 외부 카탈로그 데이터에서 자동 추가. 기존에 있는 mobCode는 스탯 차이가 있어도 검증 없이 덮어쓰지 않음(556종 보류 중)
+- **출현 맵(`map` 필드) 보강**: maplestory.io 공개 API 기반 데이터로 451종 몬스터의 구체적 스폰 맵 채움 (기존엔 전 몬스터 공백이었음)
+- **데이터 정확도 검증**: 조아요(chowayo.com) 등과 스팟체크 — 자쿰 3페이즈/기본 달팽이는 완전 일치, 빨간 달팽이(레벨/EXP 뒤바뀜)·핑크빈(EXP 큰 차이) 등 불일치 발견해 `divergence-overrides.json`에 수정 반영(단일 출처만 확인한 잠정치)
+
+**소스 파일 위치 정리**: 손수 관리/외부 출처 데이터(`divergence-overrides.json`, `monster-attribute-data.js`, `monster-catalog-data.js`, `map-catalog-data.js`, `cube-data.js`)는 `data/*.json`이 "빌드 산출물 전용, 직접 편집 금지"라는 프로젝트 규칙과 충돌해서 `data/planet/` → **`scripts/sources/planet/`**로 이동. `data/planet/`엔 이제 산출물만 남음.
+
+**중요 발견**: 세션 도중 받은 데이터 파일 중 `app.js`가 실제로는 경쟁 사이트(플래닛고)의 **웹앱 소스코드 + 라이브 Firebase 자격증명**이었음을 발견 — 삭제 처리. 나머지 데이터 파일들은 출처가 명시돼 있어(공식 mapleplanet.co.kr, maplestory.io 공개 API, KMS 데이터마이닝 팩) 사용 가능하다고 판단.
+
+---
+
+### 큐브 시뮬레이터 (신규 기능, `/planet/cube-simulator`)
+
+공식 mapleplanet.co.kr/Cube에 공개된 수상한 큐브(185개)/미라클 큐브(132개) 옵션 확률 풀 기반. 옵션 종류는 공식 가중치(weight)로 뽑고, 옵션 내 수치 등급(1~20단계)은 균등분포로 단순화 — 페이지에 이 한계를 명시. 메랜엔 큐브/잠재능력 시스템 자체가 없어 사이드바에 플래닛 모드에서만 노출.
+
+---
+
+### 계산기 프리셋 서버 분리 + 로컬 상태 버그 수정
+
+`character_presets` 테이블에 `server` 컬럼 추가 마이그레이션(`20260707_add_server_to_character_presets.sql`, unique 제약을 `(user_id, calculator, server, name)`으로 확장) — 운영 Supabase에 적용 완료 확인함(익명 키로 스키마 조회해 컬럼 존재 검증).
+
+외부 코드 리뷰(codex) 피드백으로 발견된 문제 수정:
+- 한방컷 계산기의 로컬 프로필 저장 키, 피격뎀 계산기의 QuickSlots 저장 키가 서버 구분 없이 공통이라 메랜↔플래닛 전환 시 몬스터/스탯 상태가 서로 덮이는 문제 — `server`별로 키 분리(단, **기존 메랜 유저 저장분 유실처럼 보이지 않게 메랜은 기존 키 유지, 플래닛만 새 키** 사용)
+
+---
+
+### SEO — 플래닛 검색 노출
+
+`sitemap.ts`에 플래닛 라우트 5개 전부 추가(기존엔 메랜만 있었음), 루트 레이아웃과 플래닛 각 페이지에 "메이플 플래닛/메이플플래닛/플래닛" 등 keywords 메타 추가, 한방컷·큐브 시뮬레이터 페이지엔 JSON-LD 구조화 데이터도 추가(기존 메랜 한방컷 계산기 SEO 커밋 패턴 재사용).
+
+---
+
 ## 2026-06-30
 
 ### 드롭테이블 신규 아이템 추가 (시그너스 업데이트)

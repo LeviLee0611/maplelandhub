@@ -1,0 +1,81 @@
+{
+  "_comment": [
+    "메이플 플래닛(Planet) vs 메이플랜드(Mapleland) 밸런스 차이 설정 파일.",
+    "이 파일은 scripts/build-planet-data.mjs가 실행될 때마다 읽어서 적용하지만,",
+    "자동으로 재생성되지 않는 손수 관리 파일 — 새 차이점이 발견되면 직접 수정할 것.",
+    "메랜Hub 관점: Planet은 Mapleland와 동일한 pre-빅뱅 KMS 1.2.95~98 기반이라",
+    "몬스터/드롭 원본 데이터는 그대로 재사용하고, 여기 정의된 배율/오버라이드만 얹는다."
+  ],
+
+  "rateMultipliers": {
+    "_comment": "서버 전체 배율. exp/meso는 현재 어떤 data/*.json 필드에도 직접 반영되지 않음 — 아래 참고.",
+    "exp": 4,
+    "dropRate": 4,
+    "meso": 2,
+    "_expNote": "EXP 4배 (기존 대비 +300%). monsters.json의 exp 필드는 '몬스터 고유 스탯'이라 스크립트가 굽지 않음 — 향후 EXP 계산기(Zone B)가 이 배율을 직접 곱해서 사용해야 함.",
+    "_dropRateNote": "아이템 드롭률 4배 (+300%). data/planet/drop-index.json, data/planet/item-detail-by.json의 prob 필드에 build-planet-data.mjs가 직접 곱해서 반영함 (1.0 초과 시 100%로 clamp).",
+    "_mesoNote": "메소 획득 2배 (+100%). 몬스터별 기본 메소 드랍량 필드가 현재 어떤 data/*.json에도 존재하지 않아 굽지 못함 — 메소 계산 로직이 생기면 이 배율을 곱해서 사용."
+  },
+
+  "dropRateLevelException": {
+    "_comment": "Planet 측 라이브 밸런스 패치: 킬러 레벨이 몬스터 레벨보다 30 이상 높고, 몬스터 레벨이 95 미만이면 메소/드롭 보너스가 붙지 않음. drop-index 데이터는 정적(static)이라 이 조건을 실행 시점에 계산할 방법이 없으므로, 여기서는 지식만 기록하고 스크립트는 이 값을 적용하지 않음 — 런타임 계산 로직(예: 사냥 효율 계산기)이 생기면 이 값들을 참조할 것.",
+    "enabled": false,
+    "monsterMaxLevel": 95,
+    "minKillerLevelGap": 30
+  },
+
+  "mesoHalvedMonsterCodes": [],
+  "_mesoHalvedMonsterCodesTodo": [
+    "TODO: 버섯의 성/커닝 스퀘어/아리안트/마가티아/네오시티 지역의 특정 몬스터들(예: 시니컬한 주황버섯, 우는 파란버섯, 히죽대는 고스텀프, 짜증내는 좀비버섯, 겁먹은 와일드보어)은 메소 배율은 적용받지만 기본 메소 드랍량이 절반인 예외 케이스.",
+    "TODO: data/monsters.json (Mapleland 원본, 689마리) 안에서 위 이름들과 정확히 일치하는 몬스터를 찾지 못함 — 아리안트/마가티아 지역 몬스터는 존재하나 버섯/와일드보어 계열이 아니고, 버섯의 성/커닝 스퀘어/네오시티 지역 자체가 아직 Mapleland 데이터셋에 없음 (release-filters로 미출시 처리됐거나 아예 수집 전 상태로 추정).",
+    "TODO: 해당 몬스터들이 향후 data/monsters.json에 추가되면 이 배열(mesoHalvedMonsterCodes)에 mobCode(number)를 채워 넣을 것. 지금은 빈 배열로 둠."
+  ],
+
+  "monsterOverrides": {
+    "_comment": "mobCode(number, string key) -> Monster 타입의 일부 필드 오버라이드. 조아요(chowayo.com) 검색 결과와 대조해 발견한 차이를 반영 — 2026-07-07 기준 단일 출처(조아요)만 확인, 추가 교차검증 전까지 잠정치.",
+    "130101": {
+      "_source": "chowayo.com 검색 결과 — 빨간 달팽이 Lv4·HP40·EXP8 (메랜 원본 데이터는 Lv8·HP40·EXP4, HP는 일치하나 레벨/EXP가 서로 뒤바뀐 것처럼 다름)",
+      "level": 4,
+      "exp": 8
+    },
+    "8820001": {
+      "_source": "chowayo.com 검색 결과 — 핑크빈 본체 Lv180·HP2,100,000,000·EXP50,000,000 (메랜 원본은 EXP 6,290,000, HP는 일치). 조아요는 핑크빈 관련 몬스터를 5종(무적 페이즈 HP=1, 소환 몹 3종 포함) 보유하나 메랜 원본엔 본체 1종만 있어 서브 페이즈 몬스터 자체가 우리 데이터에 없음 — 별도 mobCode 확보 전까지 추가 불가.",
+      "exp": 50000000
+    }
+  },
+
+  "itemOverrides": {
+    "_comment": "itemId(number, string key) -> item 필드 일부 오버라이드. 현재 알려진 차이 없음 — 비워둠."
+  },
+
+  "newMonsters": [
+    {
+      "_comment": [
+        "메랜 원본(data/monsters.json)에 아예 존재하지 않는 Planet 전용 신규 몬스터를 여기에 추가한다.",
+        "예: 카오스 자쿰, 핑크빈 서브페이즈(무적 페이즈/소환 몹) 등 — 빅뱅 이후 콘텐츠라 메랜 데이터셋에 원래 없음.",
+        "필수 필드: name, level, hp, exp, acc, eva, needAcc, def, mDef, ele(배열), mobCode. region/map/watk/matk/exist는 선택.",
+        "mobCode는 실제 게임의 진짜 몬스터 ID를 쓸 것 — 지어내면 안 됨. 실제 ID를 모르면 일단 넣지 말고 확인 후 추가.",
+        "주의: mobCode가 9,000,000 이상이면 release-filter의 blockedMobCodeMin(9,000,000) 기본값에 걸려 화면에 안 보일 수 있음 — 그런 경우 알려주면 release-filters.json 쪽을 같이 조정함.",
+        "아래는 형식 예시(실제 데이터 아님) — 실제 항목 추가 시 이 예시는 지우고 진짜 값으로 교체할 것."
+      ],
+      "_example": true,
+      "name": "예시몬스터 (실제 값으로 교체)",
+      "level": 0,
+      "hp": 0,
+      "exp": 0,
+      "acc": 0,
+      "eva": 0,
+      "needAcc": 0,
+      "def": 0,
+      "mDef": 0,
+      "ele": ["무속성"],
+      "mobCode": 0
+    }
+  ],
+
+  "_todoGeneral": [
+    "TODO: Cygnus Knights '여제의 축복' 스택 방식 등 Planet만의 밸런스 패치가 몇 개 더 있는 것으로 추정되나 세부 수치 미확인.",
+    "TODO: 발견되는 대로 monsterOverrides/itemOverrides 또는 새 키를 추가해 이 파일에 기록할 것.",
+    "TODO: planet-helper.com / planetgo.kr / chowayo.com / mapleplanet.gg 등 커뮤니티 사이트로 수치 스팟체크 필요 (data.md 참고)."
+  ]
+}

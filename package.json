@@ -16,7 +16,8 @@
     "build:item-detail-by": "node scripts/build-item-detail-by-from-html.mjs",
     "fetch:item-detail-by": "node scripts/fetch-item-detail-by.mjs",
     "build:drop-index": "node scripts/build-drop-index.mjs",
-    "build:npc-locations": "node scripts/build-npc-map-locations.mjs"
+    "build:npc-locations": "node scripts/build-npc-map-locations.mjs",
+    "build:planet-data": "node scripts/build-planet-data.mjs"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.97.0",

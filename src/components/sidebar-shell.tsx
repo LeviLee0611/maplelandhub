@@ -4,6 +4,7 @@ import dynamic from "next/dynamic";
 import { useState } from "react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 
 const AdminLink = dynamic(() => import("@/components/admin-link").then((mod) => mod.AdminLink), {
   ssr: false,
@@ -19,14 +20,34 @@ const AuthButton = dynamic(() => import("@/components/auth-button").then((mod) =
   ),
 });
 
-const primaryLinks = [
-  { label: "공지/업데이트", href: "/announcements", icon: "megaphone" },
-  { label: "한방컷 계산기", href: "/calculators/onehit", icon: "target" },
-  { label: "피격뎀 계산기", href: "/calculator/damage", icon: "shield" },
-  { label: "드랍 테이블", href: "/drop-table", icon: "cube" },
-  { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
-  { label: "문의/요청", href: "/feedback", icon: "mail" },
-];
+// 플래닛 버전이 있는 기능만 접두사를 붙인다. 나머지(공지/퀘스트/문의)는 아직 메랜 전용.
+function getPrimaryLinks(isPlanet: boolean) {
+  const planetPrefix = isPlanet ? "/planet" : "";
+  return [
+    { label: "공지/업데이트", href: "/announcements", icon: "megaphone" },
+    { label: "한방컷 계산기", href: `${planetPrefix}/calculators/onehit`, icon: "target" },
+    { label: "피격뎀 계산기", href: `${planetPrefix}/calculator/damage`, icon: "shield" },
+    { label: "드랍 테이블", href: `${planetPrefix}/drop-table`, icon: "cube" },
+    // 큐브/잠재능력은 메이플랜드엔 없는 플래닛 전용 시스템이라 플래닛 모드에서만 노출
+    ...(isPlanet ? [{ label: "큐브 시뮬레이터", href: "/planet/cube-simulator", icon: "star" }] : []),
+    { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
+    { label: "문의/요청", href: "/feedback", icon: "mail" },
+  ];
+}
+
+// 같은 기능을 유지한 채 메랜 ↔ 플래닛 페이지로 전환하기 위한 경로 매핑.
+const PLANET_MIRRORED_PATHS = ["/drop-table", "/calculator/damage", "/calculators/onehit"];
+
+function getServerSwitchHref(pathname: string, targetServer: "mapleland" | "planet") {
+  if (targetServer === "planet") {
+    if (pathname === "/") return "/planet";
+    const mirrored = PLANET_MIRRORED_PATHS.find((path) => pathname === path);
+    return mirrored ? `/planet${mirrored}` : "/planet";
+  }
+  if (pathname === "/planet") return "/";
+  const mirrored = PLANET_MIRRORED_PATHS.find((path) => pathname === `/planet${path}`);
+  return mirrored ?? "/";
+}
 
 const guideLinks = [
   { label: "사이트 소개", href: "/about", icon: "info" },
@@ -124,14 +145,22 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const desktopSidebarWidth = collapsed ? "4rem" : "16rem";
+  const pathname = usePathname() ?? "/";
+  const isPlanet = pathname === "/planet" || pathname.startsWith("/planet/");
+  const primaryLinks = getPrimaryLinks(isPlanet);
 
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen" data-server={isPlanet ? "planet" : "mapleland"}>
       <div className="sticky top-0 z-40 flex items-center justify-between border-b border-white/10 bg-[var(--nav-bg)] px-4 py-3 lg:hidden">
         <Link href="/" className="flex items-center gap-2">
           <Image src="/favicon.ico" alt="메랜Hub" width={40} height={40} className="h-10 w-10 rounded" />
           <div>
-            <div className="text-sm font-semibold text-slate-100">메랜Hub</div>
+            <div className="flex items-center gap-1.5 text-sm font-semibold text-slate-100">
+              메랜Hub
+              <span className="rounded-full border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-[color:var(--brand-accent-text)]">
+                {isPlanet ? "PLANET" : "MAPLELAND"}
+              </span>
+            </div>
             <div className="text-[10px] text-slate-300/70">v1.0</div>
           </div>
         </Link>
@@ -172,7 +201,14 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
             />
             {!collapsed && (
               <div>
-                <div className="text-base font-semibold text-slate-100">메랜Hub</div>
+                <div className="flex items-center gap-1.5 text-base font-semibold text-slate-100">
+                  메랜Hub
+                  {isPlanet && (
+                    <span className="rounded-full border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-1.5 py-0.5 text-[9px] font-bold tracking-wide text-[color:var(--brand-accent-text)]">
+                      PLANET
+                    </span>
+                  )}
+                </div>
                 <div className="text-[11px] text-slate-300/70">v1.0</div>
               </div>
             )}
@@ -181,7 +217,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
         <button
           type="button"
           onClick={() => setCollapsed((prev) => !prev)}
-          className="absolute right-0 top-6 hidden h-11 w-6 translate-x-full items-center justify-center rounded-r-lg border border-l-0 border-white/15 bg-[linear-gradient(145deg,rgba(10,18,30,0.95),rgba(18,30,52,0.9))] text-cyan-100 shadow-[0_10px_20px_-12px_rgba(0,0,0,0.85)] lg:inline-flex"
+          className="absolute right-0 top-6 hidden h-11 w-6 translate-x-full items-center justify-center rounded-r-lg border border-l-0 border-white/15 bg-[linear-gradient(145deg,rgba(10,18,30,0.95),rgba(18,30,52,0.9))] text-[color:var(--brand-accent-text)] shadow-[0_10px_20px_-12px_rgba(0,0,0,0.85)] lg:inline-flex"
           aria-label="사이드바 접기"
         >
           <svg aria-hidden="true" viewBox="0 0 24 24" className="h-3 w-3">
@@ -192,24 +228,61 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
           </svg>
         </button>
 
-        <div className="flex flex-col gap-2">
-          {primaryLinks.map((link) => (
+        <div className={collapsed ? "hidden" : ""}>
+          <div className="mb-1.5 px-1 text-[10px] font-semibold tracking-[0.08em] text-slate-400/70">서버 선택</div>
+          <div className="grid grid-cols-2 gap-2">
             <Link
-              key={link.href}
-              href={link.href}
+              href={getServerSwitchHref(pathname, "mapleland")}
               onClick={() => setOpen(false)}
-              title={collapsed ? link.label : undefined}
-              className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold ${
-                collapsed ? "justify-center" : "gap-3"
+              className={`flex flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-center transition ${
+                !isPlanet
+                  ? "border-cyan-300/70 bg-cyan-300/15 shadow-[0_0_16px_rgba(56,189,248,0.25)]"
+                  : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10"
               }`}
             >
-              <span className="flex items-center gap-2">
-                <SidebarIcon name={link.icon} />
-                <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
-              </span>
-              <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
+              <span className="text-xl">🌲</span>
+              <span className={`text-xs font-bold ${!isPlanet ? "text-cyan-100" : "text-slate-300/80"}`}>메이플랜드</span>
             </Link>
-          ))}
+            <Link
+              href={getServerSwitchHref(pathname, "planet")}
+              onClick={() => setOpen(false)}
+              className={`flex flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-center transition ${
+                isPlanet
+                  ? "border-amber-300/70 bg-amber-300/15 shadow-[0_0_16px_rgba(245,158,11,0.25)]"
+                  : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10"
+              }`}
+            >
+              <span className="text-xl">🪐</span>
+              <span className={`text-xs font-bold ${isPlanet ? "text-amber-200" : "text-slate-300/80"}`}>메이플 플래닛</span>
+            </Link>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2">
+          {primaryLinks.map((link) => {
+            const isActive = pathname === link.href;
+            return (
+              <Link
+                key={link.href}
+                href={link.href}
+                onClick={() => setOpen(false)}
+                title={collapsed ? link.label : undefined}
+                className={`btn-ghost flex items-center justify-between rounded-xl px-3 py-2 text-sm font-semibold transition ${
+                  collapsed ? "justify-center" : "gap-3"
+                } ${
+                  isActive
+                    ? "border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] text-[color:var(--brand-accent-text)]"
+                    : ""
+                }`}
+              >
+                <span className="flex items-center gap-2">
+                  <SidebarIcon name={link.icon} />
+                  <span className={collapsed ? "sr-only" : undefined}>{link.label}</span>
+                </span>
+                <span className={collapsed ? "hidden" : "text-xs text-slate-200/60"}>›</span>
+              </Link>
+            );
+          })}
         </div>
 
         {!collapsed && (

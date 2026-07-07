@@ -1,6 +1,6 @@
 # 메랜Hub — 데이터 파이프라인
 
-> 마지막 업데이트: 2026-06-30
+> 마지막 업데이트: 2026-07-07
 
 ---
 
@@ -83,6 +83,7 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 | `scripts/normalize-monsters.mjs` | 몬스터 데이터 정규화 |
 | `scripts/normalize-skills.mjs` | 스킬 데이터 정규화 |
 | `scripts/parse-drops-js.mjs` | JS 형식 드롭 파싱 |
+| `scripts/build-planet-data.mjs` | 메이플 플래닛 데이터셋 생성 (아래 "메이플 플래닛 데이터 파이프라인" 참고) |
 
 ---
 
@@ -141,3 +142,83 @@ Next.js 내부에서 직접 import되는 JS 파일. 대형 데이터는 이쪽�
 - drop-index.json (3.8MB), drops-parsed.json (3.7MB)은 서버 컴포넌트에서만 import
 - 클라이언트 컴포넌트에서 대용량 JSON 직접 import 금지
 - 필요 시 API Route를 통해 서버 사이드에서 필터링 후 전달
+
+---
+
+## 메이플 플래닛(Planet) 데이터 파이프라인
+
+메랜Hub는 메이플랜드 외에 두 번째 사설서버 "메이플 플래닛"도 지원한다. Planet은 메이플랜드와
+**동일한 pre-빅뱅 KMS 1.2.95~98 기반**이므로, 처음부터 새로 스크래핑하지 않고 이미 빌드된
+메이플랜드 데이터를 기반으로 배율/오버라이드/보강 데이터를 얹어서 Planet 데이터셋을 만든다.
+
+### 소스 vs 산출물 — 디렉터리 분리
+
+`data/`는 "스크립트 산출물 전용, 손으로 편집 금지"가 프로젝트 규칙이라(위 황금 규칙 참고),
+Planet 쪽에서 손으로 관리하거나 외부에서 받아온 원천 파일은 `data/planet/`이 아니라
+**`scripts/sources/planet/`**에 둔다. `data/planet/`에는 빌드 스크립트가 생성한 산출물만 있다.
+
+| 위치 | 파일 | 성격 |
+|---|---|---|
+| `scripts/sources/planet/` | `divergence-overrides.json` | 손수 관리 설정 파일 (배율/오버라이드/신규 몬스터, 아래 참고) |
+| `scripts/sources/planet/` | `monster-attribute-data.js` | 외부 출처(영문) 몬스터 속성(불/얼음/전기/독/성 약점·반감·면역) 데이터 |
+| `scripts/sources/planet/` | `monster-catalog-data.js` | 외부 출처 몬스터 스탯 카탈로그(680종) — 메랜에 없는 몬스터 신규 추가에 사용 |
+| `scripts/sources/planet/` | `map-catalog-data.js` | 출처: maplestory.io — 맵별 몬스터 스폰 정보, 몬스터 `map` 필드 보강에 사용 |
+| `scripts/sources/planet/` | `cube-data.js` | 출처: 공식 mapleplanet.co.kr/Cube — 수상한/미라클 큐브 옵션 확률 풀 |
+| `scripts/sources/planet/` | `pack-source-data.js` | NPC 상점 판매처 데이터 — 현재 미사용(대응 기능 없음), 참고용으로만 보관 |
+| `data/planet/` | `monsters.json` | 산출물. 형태(`Monster` 타입)는 메이플랜드와 동일 |
+| `data/planet/` | `drop-index.json` | 산출물. 드롭률 배율 적용본 |
+| `data/planet/` | `item-detail-by.json` | 산출물. 드롭률 배율 적용본 |
+| `data/planet/` | `release-filters.json` | 메이플랜드 원본을 최초 1회 복사한 시작값. **TODO: Planet 실제 미출시 콘텐츠 경계는 다를 수 있음 — 수동 검토 필요** |
+| `data/planet/` | `cube-index.json` | 산출물. `cube-data.js`를 정리한 큐브 시뮬레이터용 데이터 |
+
+### 빌드 스크립트
+
+```bash
+npm run build:planet-data              # data/planet/*.json 생성/갱신
+npm run build:planet-data -- --force   # release-filters.json도 Mapleland 원본으로 덮어쓰기
+```
+
+`scripts/build-planet-data.mjs`가 순서대로 하는 일:
+1. `data/monsters.json`, `data/drop-index.json`, `data/item-detail-by.json`, `scripts/sources/planet/divergence-overrides.json`을 읽음
+2. **속성(ele) 보강** — `monster-attribute-data.js`가 있으면 mobCode로 매칭해 몬스터의 `ele` 필드를 채움 (영문 코드 `F/I/L/S/H` + `1/2/3` → 불/얼음/전기/독/성 + 면역/반감/약점으로 디코딩)
+3. **신규 몬스터 추가** — `monster-catalog-data.js`가 있으면, 메랜 원본에 없는 mobCode만 골라 신규 몬스터로 추가 (이미 있는 mobCode는 건드리지 않음 — 스탯 차이가 있어도 검증 없이 덮어쓰지 않기 위함)
+4. **출현 맵(map) 보강** — `map-catalog-data.js`가 있으면 몬스터별 최다 스폰 맵을 `map` 필드에 채움
+5. `divergence-overrides.json`의 `rateMultipliers.dropRate`(기본 4배)를 `drop-index.json`/`item-detail-by.json`의 `prob` 필드에 곱해서 반영 (1.0 초과 시 100%로 clamp)
+6. `monsterOverrides`(mobCode → 필드 오버라이드), `itemOverrides`(itemId → 필드 오버라이드), `newMonsters`(수기 추가 신규 몬스터)를 적용
+7. `cube-data.js`가 있으면 정리해서 `cube-index.json`으로 저장
+8. `data/planet/*.json`에 결과 저장. `release-filters.json`은 최초 1회만 복사 (`--force`로 강제 덮어쓰기 가능)
+
+위 2~4번 단계는 해당 소스 파일이 없으면 조용히 건너뛴다 — 전부 선택적 보강이며 필수 아님.
+
+### `divergence-overrides.json` — 손수 관리 설정 파일
+
+자동 재생성되지 않음. 새로운 Planet-Mapleland 차이가 발견되면 직접 수정.
+
+```jsonc
+{
+  "rateMultipliers": { "exp": 4, "dropRate": 4, "meso": 2 },
+  "dropRateLevelException": { /* 95레벨 미만 + 킬러 레벨차 30↑ 시 보너스 미적용 — config 노브만, 미적용 */ },
+  "mesoHalvedMonsterCodes": [],   // 버섯의성/커닝스퀘어/아리안트/마가티아/네오시티 특정 몬스터 메소 절반 예외 — TODO(아래 참고)
+  "monsterOverrides": {},          // mobCode -> Monster 필드 일부 오버라이드 (기존 몬스터 수정)
+  "itemOverrides": {},             // itemId -> item 필드 일부 오버라이드
+  "newMonsters": []                // 메랜 원본에 아예 없는 Planet 전용 신규 몬스터 (mobCode는 실제 게임 ID여야 함)
+}
+```
+
+**적용 범위 관련 결정 사항**:
+- `dropRate` 배율만 정적 JSON(`drop-index.json`, `item-detail-by.json`)의 `prob` 필드에 직접 반영됨.
+- `exp` 배율은 `monsters.json`의 `exp` 필드(몬스터 고유 스탯)에 굽지 않음 — 향후 EXP 계산기가 이 배율을 직접 곱해서 써야 함. 단, `monster-catalog-data.js`로 신규 추가된 몬스터의 `exp`는 소스 자체가 이미 Planet 4배 반영된 값으로 보임(자체 검증 완료, 자쿰/빨간달팽이 등으로 대조).
+- `meso` 배율은 애초에 몬스터별 기본 메소 필드가 `data/*.json`에 존재하지 않아 config 값으로만 기록됨.
+- `mesoHalvedMonsterCodes`는 현재 빈 배열: 언급된 몬스터명(시니컬한 주황버섯, 우는 파란버섯, 히죽대는 고스텀프,
+  짜증내는 좀비버섯, 겁먹은 와일드보어)이 메이플랜드 `data/monsters.json`(689마리) 안에 정확히 일치하는 항목이
+  없고, 버섯의 성/커닝 스퀘어/네오시티 지역 자체도 아직 데이터셋에 없음 — 파일 내 TODO 주석 참고.
+- Cygnus Knights "여제의 축복" 스택 방식 등 세부 미확인 밸런스 차이가 더 있을 수 있음 — 발견되는 대로
+  `monsterOverrides`/`itemOverrides`/`newMonsters`에 기록.
+- `monster-catalog-data.js`와 매칭되지만 스탯이 다른 기존 몬스터(556종)는 자동 반영하지 않음 — 검증 없이 대량
+  교체하면 오히려 부정확해질 수 있어, 개별 확인 후 `monsterOverrides`로 반영 권장.
+
+### 검증 방법
+
+`planet-helper.com`, `planetgo.kr`, `chowayo.com`, `mapleplanet.gg` 등 커뮤니티 사이트로 수치를
+**스팟 체크(spot-check)만** 한다. 이 사이트들에서 데이터를 통째로 스크래핑하거나 복사하지 않음 —
+어디까지나 배율/오버라이드가 맞는지 사람이 직접 대조하는 용도.

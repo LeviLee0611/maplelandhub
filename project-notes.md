@@ -42,13 +42,10 @@
 ### 원킬 계산기 (One-Hit / One-Shot)
 - 경로: `/calculator/onehit`, `/calculators/onehit`
 - 로직: `src/lib/calculators/onehit.ts`
-- 프리셋 저장: `character_presets` DB 테이블 (calculator='onehit')
+- 프리셋 저장: `character_presets` DB 테이블 (calculator='onehit', server='mapleland'|'planet')
+- UI 본체는 `src/app/(routes)/calculators/onehit/onehit-calculator-client.tsx`(`OneHitCalculatorClient`)로 분리 — 메랜/플래닛 페이지가 이 클라이언트 컴포넌트를 공유하고 `monsters`/`server` prop만 다르게 주입
 
-### 파티 구인 (Party Finder)
-- 경로: `/parties`, `/parties/new`, `/parties/[id]`
-- 기능: 파티 글 작성 / 목록 / 상세 / 신청
-- DB: `posts` (파티 글), `applications` (신청)
-- 컴포넌트: `party-card.tsx`
+> 파티 구인 기능은 제거됨 (2026-07 이전, `27913d9` 커밋 참고).
 
 ### 퀘스트 추적기 (Quest Tracker)
 - 경로: `/quests`
@@ -78,7 +75,14 @@
 
 ### 피드백
 - 경로: `/feedback`
-- 알림: `src/app/api/feedback/notify/route.ts`
+- 알림: `src/app/api/feedback/notify/route.ts` (Resend API, `RESEND_API_KEY`/`ADMIN_EMAIL` 미설정 시 조용히 스킵)
+
+### 메이플 플래닛 (Planet) — 두 번째 서버 지원
+- 메랜과 동일 URL 구조를 `/planet` 이하에 미러링: `/planet`(랜딩), `/planet/drop-table`, `/planet/calculator/damage`, `/planet/calculators/onehit`
+- **큐브 시뮬레이터** (`/planet/cube-simulator`) — 플래닛 전용 신규 기능(메랜엔 큐브/잠재능력 시스템 없음). 로직: `src/lib/calculators/cubeSimulator.ts`, 데이터: `data/planet/cube-index.json`
+- 컴포넌트는 메랜과 공유하고 `monsters`/`server`/`calculatorBasePath`/`itemLinkBase` prop으로 서버 구분 (`setMonsterProvider` 전역 싱글턴은 동시 요청에 안전하지 않아 미사용)
+- 서버별 테마: `[data-server="planet"]` CSS 선택자로 cyan↔amber 강조색 전환 (`--brand-accent` 등, `globals.css`)
+- 데이터 파이프라인 상세: `data.md`의 "메이플 플래닛 데이터 파이프라인" 절 참고 — 소스 파일은 `scripts/sources/planet/`, 산출물은 `data/planet/`
 
 ---
 
@@ -92,14 +96,18 @@ src/app/
 │   ├── calculator/
 │   │   ├── damage/
 │   │   └── onehit/
-│   ├── parties/
 │   ├── quests/
 │   ├── buff-timer/
 │   ├── farming-manager/
 │   ├── probability/
 │   ├── admin/
 │   ├── login/
-│   └── feedback/
+│   ├── feedback/
+│   └── planet/        ← 메이플 플래닛 미러링 라우트
+│       ├── drop-table/
+│       ├── calculator/damage/
+│       ├── calculators/onehit/
+│       └── cube-simulator/
 ├── announcements/     ← 별도 그룹
 └── api/               ← API Routes
 ```
@@ -129,6 +137,5 @@ src/app/
 |---|---|
 | `/calculators/taken-damage` | redirect → `/calculator/damage` |
 | `/calculator/oneshot` | onehit 중복 추정 — 확인 필요 |
-| `/party` | `/parties`와 역할 중복 추정 — 정리 필요 |
 | `/services/*` | 각 기능 페이지로 redirect 추정 — 확인 필요 |
 | `src/components/Panel.tsx` | `src/components/ui/Panel.tsx`와 중복 추정 |

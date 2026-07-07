@@ -5,12 +5,10 @@ import { Panel } from "@/components/Panel";
 import { NumberField } from "@/components/NumberField";
 import { MonsterPanel } from "@/components/MonsterPanel";
 import { QuickSlots } from "@/components/quick-slots";
-import { getMonsters } from "@/lib/data/monsters";
 import type { Monster } from "@/types/monster";
 import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from "@/lib/calculators/takenDamage";
 import type { JobClass } from "@/types/takenDamage";
 
-const typedMonsters = (getMonsters() as Monster[]).filter((monster) => monster.exist !== false);
 const jobGroups = ["전사", "마법사", "궁수", "도적"] as const;
 const jobOptionsByGroup = {
   전사: ["파이터/크루세이더/히어로", "페이지/나이트/팔라딘", "스피어맨/드래곤나이트/다크나이트"],
@@ -52,7 +50,7 @@ function formatRange(min: number, max: number) {
 function getMaxButtonClass(isMax: boolean) {
   return `h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
     isMax
-      ? "border-cyan-300/80 bg-cyan-300/20 text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.18)]"
+      ? "border-[var(--brand-accent)] bg-[var(--brand-accent-soft)] text-[color:var(--brand-accent-text)] shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
       : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
   }`;
 }
@@ -61,7 +59,16 @@ function toggleMax(value: number, max: number, setter: (next: number) => void) {
   setter(value === max ? 0 : max);
 }
 
-export function TakenDamageCalculator() {
+type TakenDamageCalculatorProps = {
+  monsters: Monster[];
+  server?: "mapleland" | "planet";
+};
+
+export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenDamageCalculatorProps) {
+  const typedMonsters = useMemo(
+    () => monsters.filter((monster) => monster.exist !== false),
+    [monsters],
+  );
   const [level, setLevel] = useState(120);
   const [maxHp, setMaxHp] = useState(6000);
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>("전사");
@@ -144,7 +151,7 @@ export function TakenDamageCalculator() {
 
   const selectedMonster = useMemo(
     () => typedMonsters.find((monster) => monster.name === monsterName) ?? typedMonsters[0],
-    [monsterName],
+    [typedMonsters, monsterName],
   );
 
   const monsterWatk = Math.max(0, selectedMonster?.watk ?? 0);
@@ -324,7 +331,7 @@ export function TakenDamageCalculator() {
             ].map((text) => (
               <div
                 key={text}
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-emerald-200/60 hover:bg-white/10"
+                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-[var(--brand-accent-border)] hover:bg-white/10"
               >
                 <h3 className="text-[12px] font-semibold text-slate-100">{text}</h3>
               </div>
@@ -334,7 +341,8 @@ export function TakenDamageCalculator() {
 
         <div className="mt-4">
           <QuickSlots
-            storageKey="mlh-quickslots-takendamage-v1"
+            // 기존 메랜 유저 저장분과의 하위 호환을 위해 mapleland는 기존 키를 그대로 쓰고, planet만 별도 키 사용
+            storageKey={server === "planet" ? "mlh-quickslots-takendamage-v1:planet" : "mlh-quickslots-takendamage-v1"}
             getSnapshot={() => quickSnapshot}
             applySnapshot={applyQuickSnapshot}
             title="빠른 저장 (피격 데미지)"
