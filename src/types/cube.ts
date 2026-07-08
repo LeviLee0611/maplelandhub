@@ -21,3 +21,10 @@ export type ResolvedCubeLine = {
   grade: number;
   optionType: number;
 };
+
+export type CubeVariant = "suspicious" | "miracle";
+
+export type CubeRollResult = {
+  overallGrade: number;
+  lines: ResolvedCubeLine[];
+};

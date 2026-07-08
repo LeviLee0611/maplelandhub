@@ -227,8 +227,9 @@ function applyDropRateMultiplierToItemDetailBy(itemDetailBy, multiplier) {
 function applyMonsterOverrides(monsters, monsterOverrides) {
   if (!monsterOverrides || Object.keys(monsterOverrides).length === 0) return monsters;
   return monsters.map((monster) => {
-    const override = monsterOverrides[String(monster.mobCode)];
-    if (!override || typeof override !== "object") return monster;
+    const rawOverride = monsterOverrides[String(monster.mobCode)];
+    if (!rawOverride || typeof rawOverride !== "object") return monster;
+    const override = Object.fromEntries(Object.entries(rawOverride).filter(([key]) => !key.startsWith("_")));
     return { ...monster, ...override };
   });
 }
