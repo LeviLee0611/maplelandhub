@@ -6,6 +6,28 @@
 
 ## 2026-07-09
 
+### SEO 점검 + 드랍테이블 대용량 JSON 전송 문제 실제 수정
+
+사용자가 "플래닛을 같이 병행하면서 최적화가 필요할 수도 있고, SEO도 점검해달라"고 요청.
+
+**SEO 점검**: 처음엔 `/planet/drop-table`에 메타데이터가 없다고 판단했는데, `page.tsx`만 grep하고 같은 폴더의 `layout.tsx`(이 프로젝트가 메타데이터를 두는 실제 위치)를 놓친 오판이었음 — 재확인 결과 플래닛 페이지 5개 전부 title/description/canonical/OG/키워드 정상. 실제로 발견한 문제: `/admin/*`·`/ui/demo`가 robots.txt에서 크롤링 허용 상태(disallow 추가), `/feedback` 페이지 메타데이터 누락(layout.tsx 추가). OG 공유 이미지가 파비콘 하나로 통일된 것도 확인했지만 이미지 제작이 필요해 TODO로만 남김.
+
+**대용량 JSON 문제 — 이번엔 진짜로 고침**: `data.md`에 "대용량 JSON은 API Route로 필터링 후 전달"이라는 규칙이 있고 TODO엔 "DropTable/QuestBoard 서버 props로 이전 완료"라고 기록돼 있었는데, 실측해보니 `/drop-table`·`/planet/drop-table` 페이지가 여전히 2.4MB(raw)를 클라이언트로 보내고 있었음 — "서버 컴포넌트에서 import"는 했지만 그 데이터를 그대로 `"use client"` DropTable 컴포넌트에 props로 넘기고 있어서, RSC 직렬화 과정에서 결국 클라이언트로 그대로 전송되고 있었던 것. 예전 기록이 "import 위치"만 보고 "완료"로 잘못 표시했던 것으로 보임.
+
+**구현**: `items` 배열은 검색/아이콘 판별에 실제로 쓰는 필드(id/name/typeInfo.overallCategory·category/meta.synthetic/meta.equip.reqLevel)만 남기고 서버(page.tsx)에서 슬림화(0.82MB→0.18MB) — 나머지 필드(장비 스탯, 상점가, 캐시 여부 등)는 애초에 컴포넌트가 읽지도 않던 것들. 제일 무거운 `dropsByMonsterId`/`monstersByItemId`(합쳐서 ~1MB)는 초기 props에서 완전히 빼고, 몬스터/아이템을 실제로 선택했을 때만 새 API route로 온디맨드 fetch하도록 변경. 기존에 있던 "로컬 데이터 없으면 몬스터북 API로 폴백"하는 클라이언트 로직(`ensureFallbackDrops`)도 그대로 서버사이드로 옮겨서 하나의 라우트가 로컬/외부 소스를 알아서 판단하도록 통합 — 클라이언트 코드가 오히려 단순해짐. 검색 자체는 여전히 클라이언트 즉시 반응(네트워크 왕복 없음), 선택 시에만 짧은 로딩 문구.
+
+**결과**: `/drop-table` 2.37MB→648KB(gzip 228KB→65KB), `/planet/drop-table` 2.4MB→679KB(gzip 228KB→72KB) — 약 3.5배 감소. QuestBoard(퀘스트 페이지, JSON 6개 겹쳐 전달 중, 1517줄로 DropTable보다 더 복잡)는 이번 범위에서 미해결로 남김.
+
+**코드 리뷰(Codex) 반영 4건**:
+1. 데이터 출처 배지가 실제 소스 문자열(`"dropchance-html+..."`)과 안 맞는 조건(`startsWith("drops-parsed")`) 때문에 항상 "MonsterBook reward"로 잘못 표시되던 버그 — 조건을 뒤집어 실제로 몬스터북 전용일 때만 그 라벨이 뜨도록 수정.
+2. 신설한 API route 2개(`/api/drop-table/monster`, `/item`)가 edge 런타임에서 메랜+플래닛 데이터를 한 함수에 전부 번들하고 있었음(클라이언트 페이로드는 줄였지만 API 함수 번들/콜드스타트 비용으로 옮겨간 셈) — 서버별로 라우트 파일을 분리(`monster/mapleland`, `monster/planet`, `item/mapleland`, `item/planet`)하고 공통 로직은 `src/lib/drop-table-lookup.ts`에 데이터 없는 순수 함수로 추출. `npm run build`로 4개 라우트가 독립 함수로 분리된 것 확인.
+3. 온디맨드 fetch 실패 시 빈 배열로 캐싱해서 재시도를 막던 문제 — 실패는 캐시하지 않고 별도 에러 상태로 분리, "다시 시도" 버튼 추가.
+4. 타입상 항상 존재가 보장된 `monster?.mobCode`의 불필요한 옵셔널 체이닝 제거.
+
+**검증**: `npx tsc --noEmit`, `npx eslint src/`, `npx vitest run`, `npm run build` 전부 통과. API 라우트는 curl로 메랜/플래닛 양쪽 다 확률 수치까지 재확인(플래닛이 정확히 4배), 브라우저로 검색→몬스터 선택→아이템 역방향 조회까지 실측(리팩토링 전후 결과 완전히 동일).
+
+---
+
 ### 디자인 리뉴얼(색상), 드랍테이블 아이콘 누락 수정, 한방컷 계산기 Codex 리뷰 반영
 
 **디자인 리뉴얼**: 어제 TODO에 "내일 색깔 위주로 전체 레이아웃 손보자"고 적어둔 항목 처리. 처음엔 사용자가 "현재 마젠타/버건디 강조색 유지"라고 했는데, 실제 화면을 열어보니 강조색이 시안/블루(`#38bdf8`, 플래닛은 앰버)였음 — 화면 확인 결과를 보여주고 재확인하니 "이번 기회에 마젠타/버건디로 교체"로 방향 전환. `--brand-accent` 계열 CSS 변수를 `#be123c`(버건디)로 바꾸고, `.retro-panel-tone-blue`(플래닛 전용으로만 있던 브랜드색 오버라이드)를 기본 규칙 자체에 병합해서 플래닛 전용 중복 블록 제거, 로그인 버튼·홈페이지 뱃지·사이드바 활성 카드 등 하드코딩된 시안 값도 함께 교체. 플래닛(앰버)은 `[data-server="planet"]` 분리 구조 그대로 둬서 두 서버 시각 구분 유지.

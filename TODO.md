@@ -16,7 +16,7 @@
 
 - [ ] `data/release-filters.json` 주기적 검토 — 신규 출시 몬스터 차단 해제
 - [ ] 드롭 데이터 최신화 프로세스 문서화 (언제, 어디서 원본 소스 구하는지)
-- [x] 대용량 JSON 클라이언트 번들 포함 여부 감사 — DropTable(~4.1MB), QuestBoard(~5.4MB) 서버 props로 이전 완료
+- [x] **대용량 JSON 클라이언트 전송 문제 재확인 및 실제 수정**(2026-07-09) — 예전에 "DropTable/QuestBoard 서버 props로 이전 완료"라고 기록해뒀던 게 사실 근본 해결이 아니었음(서버 컴포넌트에서 import는 했지만 `"use client"` 컴포넌트에 그대로 props로 넘겨서 RSC 페이로드에 그대로 직렬화되고 있었음 — 실측 `/drop-table`·`/planet/drop-table` 각각 2.4MB). DropTable은 이번에 제대로 고침: 검색용 아이템 목록은 필요한 필드만 남겨 서버에서 슬림화(0.82MB→0.18MB), 드랍 연관관계(dropsByMonsterId/monstersByItemId, 합쳐서 ~1MB)는 아예 초기 props에서 빼고 몬스터/아이템 선택 시에만 `/api/drop-table/{monster,item}/{mapleland,planet}` 라우트로 온디맨드 fetch. 결과: 2.4MB→680KB(raw), gzip 228KB→70KB. 코드리뷰로 API 라우트가 메랜+플래닛 데이터를 한 함수에 같이 번들하던 것도 서버별 라우트 파일로 분리해서 해결(`src/lib/drop-table-lookup.ts`에 순수 로직만 공유). **QuestBoard(퀘스트 페이지, JSON 6개 겹쳐서 전달)는 이번 범위에서 아직 미해결** — DropTable보다 크고(1517줄) 데이터가 더 얽혀있어서 같은 패턴 적용은 다음 세션으로 미룸
 - [ ] `src/data/mapledb/` 파일들 `data/*.json`과 동기화 상태 확인
 
 ---
@@ -58,6 +58,18 @@
 - [ ] Supabase 백업 주기 확인 및 문서화
 - [ ] maplestory.io API 다운 시 fallback 이미지 처리
 - [x] `supabase/migrations/20260707_add_server_to_character_presets.sql`을 운영 Supabase에 적용 완료 (2026-07-07)
+
+---
+
+## SEO 점검 (2026-07-09)
+
+- [x] 플래닛 페이지 5개(홈/드랍테이블/계산기 2종/큐브 시뮬레이터) 메타데이터 전수 점검 — 전부 `layout.tsx`에 title/description/canonical/OG/키워드 정상 존재 확인 (처음엔 `page.tsx`만 확인해서 "없다"고 잘못 판단했었음, `layout.tsx` 패턴 놓친 것)
+- [x] `/admin/*`, `/ui/demo`가 robots.txt에서 크롤링 허용 상태였음 — `disallow` 추가
+- [x] `/feedback` 페이지에 메타데이터 없던 것 — `layout.tsx` 추가해서 title/description/canonical 부여
+- [x] sitemap.xml 플래닛 5개 라우트 정상 포함 확인(이미 이전 세션에 복구됨), robots.txt 문제없음
+- [x] `/calculator/oneshot`, `/calculator/onehit` 레거시 경로 — `/calculators/onehit`로 정상 redirect라 중복 콘텐츠 문제 없음 확인
+- [x] `/services/*` 설명 페이지들 — 실제 계산기와 다른 고유 콘텐츠 + 자체 canonical이라 문제없음 확인
+- [ ] OG 공유 이미지가 전 페이지 favicon.ico(작은 아이콘) 하나로 통일 — 카톡/디스코드 공유 미리보기가 볼품없을 수 있음, 1200x630 전용 이미지 제작 필요(디자인 작업)
 
 ---
 

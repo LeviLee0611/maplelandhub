@@ -1,16 +1,34 @@
 import dropIndexJson from "@data/drop-index.json";
-import itemDetailByJson from "@data/item-detail-by.json";
 import { DropTable } from "@/components/DropTable";
-import type { DropIndexData, ItemDetailByData } from "@/components/DropTable";
+import type { DropIndexData, DropIndexItem } from "@/components/DropTable";
 import { getMonsters } from "@/lib/data/monsters";
+
+// 검색/목록 렌더링에 필요한 필드만 남겨서 클라이언트로 보내는 페이로드를 줄인다.
+// 드랍/역방향 조회는 /api/drop-table/{monster,item} 라우트로 온디맨드 fetch.
+const slimItems: DropIndexItem[] = (dropIndexJson.items as DropIndexItem[]).map((item) => ({
+  id: item.id,
+  name: item.name,
+  typeInfo: item.typeInfo
+    ? { overallCategory: item.typeInfo.overallCategory, category: item.typeInfo.category }
+    : undefined,
+  meta: item.meta
+    ? { synthetic: item.meta.synthetic, equip: item.meta.equip ? { reqLevel: item.meta.equip.reqLevel } : undefined }
+    : undefined,
+}));
+
+const dropData: DropIndexData = {
+  generatedAt: dropIndexJson.generatedAt,
+  source: dropIndexJson.source,
+  items: slimItems,
+};
 
 export default function DropTablePage() {
   return (
     <DropTable
-      dropData={dropIndexJson as unknown as DropIndexData}
-      itemDetailByData={itemDetailByJson as unknown as ItemDetailByData}
+      dropData={dropData}
       monsters={getMonsters()}
       itemLinkBase="https://www.mapleland.gg"
+      server="mapleland"
     />
   );
 }
