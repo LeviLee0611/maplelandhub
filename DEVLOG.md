@@ -6,6 +6,24 @@
 
 ## 2026-07-09
 
+### QuestBoard 대용량 JSON 전송 최적화 — 버그 하나 발견하고 고침
+
+DropTable에 이어 QuestBoard(퀘스트 페이지)도 같은 문제(quests.json 외에 monsters/monster-spawns/drop-index/item-detail-by/npc-locations 등 6개 JSON을 `"use client"` 컴포넌트에 그대로 props로 전달)가 있어서 이어서 처리.
+
+**DropTable과 접근이 다름**: DropTable은 "검색 → 하나 선택 → 그 하나의 상세만 필요"라 온디맨드 API fetch가 맞았는데, QuestBoard는 703개 퀘스트를 통째로 검색/필터링하는 리스트 UI라 그 방식이 안 맞음. 대신 "퀘스트 데이터가 실제로 참조하는 아이템/NPC/몬스터가 몇 개나 되는지" 먼저 세어봄 — 보상템 393종(전체 아이템 카탈로그 2700여 종 중), 퀘스트 NPC 233종(전체 826종 중), 퀘스트가 참조하는 몬스터 447종(전체 689종 중) 정도로 원래 전체 카탈로그 대비 훨씬 작은 부분집합이었음. 그래서 온디맨드 fetch 대신 "서버(page.tsx)에서 이 부분집합만 미리 골라 훨씬 작은 버전을 만들어 한 번에 전달"하는 방식을 택함 — QuestBoard.tsx 내부 로직은 전혀 안 건드리고 page.tsx의 데이터 조립 부분만 손봄.
+
+**버그 하나 발견**: 처음엔 "아이템"이라고 하면 당연히 보상 아이템(`quest.rewards.items`)이겠거니 하고 그 393종만 기준으로 슬림화했는데, 실제로 화면에서 "드랍 몬스터" 정보를 보여주는 `itemDropMonstersByItemId`는 보상이 아니라 **퀘스트 완료 시 제출해야 하는 수집 아이템**(`quest.requirements.complete.items`, 546종 — 보상 목록과는 겹치지 않는 별도 집합)에 쓰이는 거였음. `QuestBoard.tsx`를 다시 읽다가 `itemDropMonstersByItemId.get(item.id)`가 "조건" 컬럼(`requiredItems = quest.requirements.complete?.items`) 안에서만 호출되는 걸 발견하고 알아챔.
+
+**검증 과정**: 스크린샷으로는 판단하기 애매해서(브라우저 확장이 이 세션 내내 불안정했음), DOM에서 `<p>드랍 몬스터</p>` 라벨 개수를 세는 방식으로 확인. 고치기 전엔 첫 20개 퀘스트 어디서도 0개(수집 아이템 393종이 아니라 잘못된 조합을 보고 있었으니 당연), Node 스크립트로 "실제로는 몇 개가 나와야 정상인지" 미리 계산해보니 7개가 나와야 함 — 고친 뒤 브라우저에서 정확히 7개로 일치하는 것 확인. 이 김에 `.next` 캐시를 지웠다가 기존에 떠있던 dev 서버(포트 3000)가 죽는 걸 발견해서 깨끗한 서버(포트 3001)로 재기동해 재검증 — 스테일 캐시 때문일 가능성도 배제.
+
+**결과**: `/quests` 3.38MB→1.0MB(raw), gzip 334KB→124KB (약 3.3배 감소). 버서크 재검증 때처럼, "직접 확인 안 하고 넘어가면 조용히 깨진 기능을 그대로 배포할 뻔했다"는 케이스 — 대용량 데이터 최적화처럼 여러 파일 데이터를 재조합하는 작업은 payload 크기만 보고 끝내지 말고 실제 화면 기능까지 항상 확인이 필요함.
+
+**코드 리뷰 후속 반영**: `rewardItemIds`라는 변수명이 실제로는 보상템+수집템을 다 담고 있어서 이름과 역할이 안 맞는다는 지적 → `referencedItemIds`로 개명. page.tsx에 그대로 들어있던 슬림 데이터 조립 로직(50줄 이상)도 `src/lib/quest-board-data.ts`(`buildSlimQuestBoardData`)로 추출 — DropTable 때 만든 `drop-table-lookup.ts`와 동일하게 "데이터 없는 순수 함수 + page.tsx는 JSON import와 호출만" 패턴으로 통일. 프로덕션 빌드 정적 HTML(`.next/server/app/quests.html`, 944KB)에서 "드랍 몬스터" 라벨 8개 확인해서 리팩토링 후에도 동일하게 동작하는 것 재검증(dev 서버가 세션 내내 불안정해서 이번엔 빌드 산출물 직접 검사로 확인).
+
+**검증**: `npx tsc --noEmit`, `npx eslint src/`, `npx vitest run`, `npm run build` 통과.
+
+---
+
 ### SEO 점검 + 드랍테이블 대용량 JSON 전송 문제 실제 수정
 
 사용자가 "플래닛을 같이 병행하면서 최적화가 필요할 수도 있고, SEO도 점검해달라"고 요청.
