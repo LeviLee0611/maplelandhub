@@ -236,12 +236,12 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
               onClick={() => setOpen(false)}
               className={`flex flex-col items-center gap-1 rounded-2xl border-2 px-2 py-3 text-center transition ${
                 !isPlanet
-                  ? "border-cyan-300/70 bg-cyan-300/15 shadow-[0_0_16px_rgba(56,189,248,0.25)]"
+                  ? "border-rose-400/70 bg-rose-400/15 shadow-[0_0_16px_rgba(190,18,60,0.25)]"
                   : "border-white/10 bg-white/5 hover:border-white/25 hover:bg-white/10"
               }`}
             >
               <span className="text-xl">🌲</span>
-              <span className={`text-xs font-bold ${!isPlanet ? "text-cyan-100" : "text-slate-300/80"}`}>메이플랜드</span>
+              <span className={`text-xs font-bold ${!isPlanet ? "text-rose-100" : "text-slate-300/80"}`}>메이플랜드</span>
             </Link>
             <Link
               href={getServerSwitchHref(pathname, "planet")}

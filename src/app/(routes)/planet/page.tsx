@@ -127,12 +127,12 @@ export default function PlanetHomePage() {
         <div className="grid gap-4 sm:grid-cols-2">
           <Link
             href="/"
-            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-3xl border-2 border-white/10 px-6 py-8 text-center transition duration-300 hover:-translate-y-0.5 hover:border-cyan-300/60 hover:shadow-[0_0_28px_rgba(56,189,248,0.22)]"
+            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-3xl border-2 border-white/10 px-6 py-8 text-center transition duration-300 hover:-translate-y-0.5 hover:border-rose-400/60 hover:shadow-[0_0_28px_rgba(190,18,60,0.22)]"
           >
             <div className="text-4xl">🌲</div>
-            <h2 className="mt-3 text-xl font-bold text-slate-100 transition group-hover:text-cyan-100">메이플랜드</h2>
+            <h2 className="mt-3 text-xl font-bold text-slate-100 transition group-hover:text-rose-100">메이플랜드</h2>
             <p className="mt-2 text-sm text-slate-200/80">드랍 테이블 · 계산기 · 퀘스트</p>
-            <p className="mt-3 text-xs font-semibold text-cyan-200/90 transition group-hover:text-cyan-100">바로가기 →</p>
+            <p className="mt-3 text-xs font-semibold text-rose-200/90 transition group-hover:text-rose-100">바로가기 →</p>
           </Link>
           <div className="glass-panel-strong relative overflow-hidden rounded-3xl border-2 border-[var(--brand-accent-border)] px-6 py-8 text-center shadow-[0_0_28px_var(--brand-accent-soft)]">
             <div className="text-4xl">🪐</div>
@@ -147,7 +147,7 @@ export default function PlanetHomePage() {
           <Link
             href={feature.href}
             key={feature.title}
-            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+            className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-[var(--brand-accent-border)]"
           >
             <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
             <div className="relative flex items-start gap-3">
@@ -155,7 +155,7 @@ export default function PlanetHomePage() {
               <div className="min-w-0">
                 <h2 className="text-base font-semibold leading-tight">{feature.title}</h2>
                 <p className="mt-1 text-sm text-slate-200/85">{feature.description}</p>
-                <p className="mt-2 text-xs font-semibold text-cyan-100/90 transition group-hover:text-cyan-50">
+                <p className="mt-2 text-xs font-semibold text-[color:var(--brand-accent-text)] transition group-hover:brightness-125">
                   바로가기 →
                 </p>
               </div>

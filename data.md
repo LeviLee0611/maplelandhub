@@ -71,7 +71,7 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 |---|---|
 | `scripts/build-drops-parsed-from-dropchance-html.mjs` | 원본 HTML → drops-parsed.json |
 | `scripts/build-merged-drops-parsed.mjs` | 드롭 데이터 병합 |
-| `scripts/build-drop-index.mjs` | 몬스터 기준 드롭 인덱스 생성 |
+| `scripts/build-drop-index.mjs` | 몬스터 기준 드롭 인덱스 생성 (수기 소스: `scripts/sources/item-name-overrides.json`, 아래 참고) |
 | `scripts/import-quests-from-turbopack.mjs` | 퀘스트 데이터 임포트 |
 | `scripts/build-monster-spawns-from-html.mjs` | 몬스터 스폰 데이터 |
 | `scripts/build-monster-map-locations.mjs` | 몬스터 맵 위치 |
@@ -84,6 +84,14 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 | `scripts/normalize-skills.mjs` | 스킬 데이터 정규화 |
 | `scripts/parse-drops-js.mjs` | JS 형식 드롭 파싱 |
 | `scripts/build-planet-data.mjs` | 메이플 플래닛 데이터셋 생성 (아래 "메이플 플래닛 데이터 파이프라인" 참고) |
+
+---
+
+## 아이템명 → 아이템ID 수기 오버라이드 (`scripts/sources/item-name-overrides.json`)
+
+`data/*.json`과 마찬가지로 손으로 편집하면 안 되는 산출물과 별개로, `scripts/sources/`에 두는 **손수 관리 소스** 파일(Planet의 `divergence-overrides.json`과 같은 성격). `build-drop-index.mjs`가 드롭 데이터를 조립할 때, 드랍표 스크래핑 단계에서 실제 아이템 DB와 이름이 안 맞아 "가상 아이템"(synthetic, 음수 ID)으로 처리된 항목을 이 파일의 이름→실제 itemId 매핑으로 우선 대체한다. 이 매핑이 없으면 해당 아이템은 아이콘 없이 텍스트 타일로만 표시됨(`DropTable.tsx`의 `ItemIcon`/`getResolvedIconItemId` 참고).
+
+새로운 미매칭 아이템을 발견하면 `https://maplestory.io/api/KMS/389/item?searchFor=<이름>`으로 정확히 일치하는 실제 아이템을 찾아 이 파일에 추가하고 `npm run build:drop-index`를 재실행한다. 이름이 스크래핑 원본에서 아예 깨져 있어(OCR/HTML 파싱 오류 등) 실제 아이템을 특정할 수 없는 경우는 억지로 매칭하지 말고 비워둔다(오매칭이 미표시보다 나쁨).
 
 ---
 

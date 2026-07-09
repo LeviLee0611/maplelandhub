@@ -95,9 +95,9 @@ export default function HomePage() {
   return (
     <section className="flex min-h-[calc(100vh-6rem)] flex-col items-center justify-center gap-10 py-8 text-center">
       <div className="glass-panel relative w-full max-w-xl overflow-hidden rounded-3xl px-6 py-7 md:px-8">
-        <div className="absolute left-1/2 top-4 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-cyan-200/30 bg-cyan-200/10 px-3 py-1 text-[11px] font-semibold text-cyan-100/80">
+        <div className="absolute left-1/2 top-4 z-10 inline-flex -translate-x-1/2 items-center gap-2 rounded-full border border-rose-300/30 bg-rose-300/10 px-3 py-1 text-[11px] font-semibold text-rose-100/80">
           MapleLand Hub
-          <span className="h-1.5 w-1.5 rounded-full bg-cyan-200/80 shadow-[0_0_10px_rgba(34,211,238,0.85)]" />
+          <span className="h-1.5 w-1.5 rounded-full bg-rose-300/80 shadow-[0_0_10px_rgba(190,18,60,0.85)]" />
         </div>
         <h1 className="relative z-10 mt-8 inline-flex items-center gap-2 text-3xl font-semibold leading-tight md:text-4xl">
           메랜Hub
@@ -117,9 +117,9 @@ export default function HomePage() {
       <div className="w-full max-w-4xl">
         <p className="mb-3 text-xs font-semibold uppercase tracking-[0.2em] text-slate-400/80">서버를 선택하세요</p>
         <div className="grid gap-4 sm:grid-cols-2">
-          <div className="glass-panel-strong relative overflow-hidden rounded-3xl border-2 border-cyan-300/60 px-6 py-8 text-center shadow-[0_0_28px_rgba(56,189,248,0.22)]">
+          <div className="glass-panel-strong relative overflow-hidden rounded-3xl border-2 border-rose-400/60 px-6 py-8 text-center shadow-[0_0_28px_rgba(190,18,60,0.22)]">
             <div className="text-4xl">🌲</div>
-            <h2 className="mt-3 text-xl font-bold text-cyan-100">메이플랜드</h2>
+            <h2 className="mt-3 text-xl font-bold text-rose-100">메이플랜드</h2>
             <p className="mt-2 text-sm text-slate-200/80">지금 보고 계신 버전이에요</p>
           </div>
           <Link
@@ -157,7 +157,7 @@ export default function HomePage() {
             <Link
               href={feature.href}
               key={feature.title}
-              className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-cyan-200/45"
+              className="glass-panel glass-panel-strong group relative overflow-hidden rounded-2xl border border-white/10 p-4 text-left shadow-[0_18px_30px_rgba(2,6,23,0.42)] transition duration-300 hover:-translate-y-0.5 hover:border-rose-300/45"
             >
               <div className={`pointer-events-none absolute inset-0 bg-gradient-to-br ${feature.accent}`} />
               <div className="relative flex items-start gap-3">

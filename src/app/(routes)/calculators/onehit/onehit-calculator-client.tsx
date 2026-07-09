@@ -189,7 +189,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const [berserkLevel, setBerserkLevel] = useState(0);
   const [beholderBerserkBonus, setBeholderBerserkBonus] = useState(0);
   const [beholderBuffBonus, setBeholderBuffBonus] = useState(0);
-  const [rushBonus, setRushBonus] = useState(0);
   const [rageBonus, setRageBonus] = useState(0);
   const [comboAttackLevel, setComboAttackLevel] = useState(0);
   const [amplificationLevel, setAmplificationLevel] = useState(0);
@@ -303,7 +302,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       berserkLevel,
       beholderBerserkBonus,
       beholderBuffBonus,
-      rushBonus,
       rageBonus,
       comboAttackLevel,
       amplificationLevel,
@@ -348,7 +346,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       berserkLevel,
       beholderBerserkBonus,
       beholderBuffBonus,
-      rushBonus,
       rageBonus,
       comboAttackLevel,
       amplificationLevel,
@@ -434,7 +431,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (typeof snapshot.berserkLevel === "number") setBerserkLevel(snapshot.berserkLevel);
     if (typeof snapshot.beholderBerserkBonus === "number") setBeholderBerserkBonus(snapshot.beholderBerserkBonus);
     if (typeof snapshot.beholderBuffBonus === "number") setBeholderBuffBonus(snapshot.beholderBuffBonus);
-    if (typeof snapshot.rushBonus === "number") setRushBonus(snapshot.rushBonus);
     if (typeof snapshot.rageBonus === "number") setRageBonus(snapshot.rageBonus);
     if (typeof snapshot.comboAttackLevel === "number") setComboAttackLevel(snapshot.comboAttackLevel);
     if (typeof snapshot.amplificationLevel === "number") setAmplificationLevel(snapshot.amplificationLevel);
@@ -1373,6 +1369,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const finalDamageMultiplier = useMemo(
     () =>
+      // 스나이핑은 스탯/버프 무관 고정 데미지(199999)라 다른 배율을 전혀 타면 안 됨
+      skillName === "스나이핑" ? 1 :
       skillEffects.buffMultiplier *
       (skillName === "힐" ? 1 : criticalAverageMultiplier) *
       shadowPartnerEffect.multiplier *
@@ -1380,7 +1378,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       berserkEffect.multiplier *
       levelToMultiplier(beholderBerserkBonus) *
       levelToMultiplier(beholderBuffBonus) *
-      (isHeroJob ? levelToMultiplier(rushBonus) : 1) *
       heroComboEffect.multiplier *
       comboFinisherMultiplier *
       amplificationEffect.multiplier *
@@ -1399,8 +1396,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       berserkEffect.multiplier,
       beholderBerserkBonus,
       beholderBuffBonus,
-      isHeroJob,
-      rushBonus,
       heroComboEffect.multiplier,
       comboFinisherMultiplier,
       amplificationEffect.multiplier,
@@ -1475,6 +1470,16 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
         max: baseMax - mdef * 0.5,
         skillMultiplier: 1,
         isMagic: true,
+        ignoreDefense: true,
+      };
+    }
+
+    if (skillName === "스나이핑") {
+      return {
+        min: 199999,
+        max: 199999,
+        skillMultiplier: 1,
+        isMagic: false,
         ignoreDefense: true,
       };
     }
@@ -1879,6 +1884,16 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                 </div>
               </div>
             ) : null}
+            {skillName === "생츄어리" ? (
+              <p className="text-[10px] text-[color:var(--retro-text-muted)]">
+                생츄어리는 맞은 대상의 HP를 1로 고정하고 즉사시키지 않는 스킬입니다 — 아래 계산 결과는 실제 몬스터 처치가 아닌 데미지 수치 참고용입니다.
+              </p>
+            ) : null}
+            {skillName === "스나이핑" ? (
+              <p className="text-[10px] text-[color:var(--retro-text-muted)]">
+                스나이핑은 스탯과 무관하게 거의 확정으로 최대 데미지(199999)를 주는 고정 데미지 스킬입니다 — 스킬 레벨/스탯 입력은 결과에 영향을 주지 않습니다.
+              </p>
+            ) : null}
           </SkillPanel>
 
           <Panel title="패시브/버프 스킬" tone="yellow">
@@ -2237,31 +2252,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                         </div>
                       </div>
 
-                      <div className="space-y-1">
-                        <span className="retro-chip">
-                          돌진 레벨
-                        </span>
-                        <div className="flex items-center gap-2">
-                          <SpinnerInput
-                            id="rush-bonus"
-                            value={rushBonus}
-                            onChange={setRushBonus}
-                            min={0}
-                            max={30}
-                            step={1}
-                            className="w-24"
-                            inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-                          />
-                          <button
-                            type="button"
-                            className={getMaxButtonClass(rushBonus === 30)}
-                            onClick={() => toggleMax(rushBonus, 30, setRushBonus)}
-                          >
-                            M
-                          </button>
-                          <span className="text-[10px] text-[color:var(--retro-text-muted)]">레벨=퍼센트</span>
-                        </div>
-                      </div>
                     </>
                   ) : null}
 

@@ -15,6 +15,7 @@ const OUTPUT_PATH = path.resolve("data/drop-index.json");
 const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
 const ITEM_DETAIL_BY_SOURCE = path.resolve("data/item-detail-by.json");
 const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
+const ITEM_NAME_OVERRIDES_SOURCE = path.resolve("scripts/sources/item-name-overrides.json");
 
 const CONCURRENCY = 4;
 const ITEM_CONCURRENCY = 6;
@@ -279,8 +280,23 @@ async function loadMapleDbItemNames() {
   }
 }
 
+async function loadItemNameOverrides() {
+  try {
+    const raw = await fs.readFile(ITEM_NAME_OVERRIDES_SOURCE, "utf8");
+    const parsed = JSON.parse(raw);
+    const map = new Map();
+    for (const [name, itemId] of Object.entries(parsed)) {
+      if (typeof itemId === "number" && itemId > 0) map.set(name, itemId);
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
+}
+
 async function main() {
   const mapledbNames = await loadMapleDbItemNames();
+  const itemNameOverrides = await loadItemNameOverrides();
   const mapledbItemIdsByName = new Map();
   for (const [itemId, name] of mapledbNames.entries()) {
     const rawName = String(name ?? "").trim();
@@ -332,7 +348,12 @@ async function main() {
       const name = itemTable?.[String(itemId)]?.name;
       const rawName = String(name ?? "").trim();
       if (!rawName) return itemId;
-      return mapledbItemIdsByName.get(rawName) ?? mapledbItemIdsByName.get(normalizeItemNameForLookup(rawName)) ?? itemId;
+      return (
+        itemNameOverrides.get(rawName) ??
+        mapledbItemIdsByName.get(rawName) ??
+        mapledbItemIdsByName.get(normalizeItemNameForLookup(rawName)) ??
+        itemId
+      );
     };
 
     for (const [mobId, entry] of Object.entries(dropTable)) {
