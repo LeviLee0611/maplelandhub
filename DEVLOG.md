@@ -6,6 +6,20 @@
 
 ## 2026-07-09
 
+### 플래닛 드랍테이블 아이콘 재제보 — 메랜/플래닛 데이터 파이프라인 동기화 누락
+
+사용자가 플래닛 드랍테이블에서 "웃는 가면", "녹색 옷자락" 등 아이콘 없는 아이템을 재제보. 둘 다 오늘 아까 메랜 쪽에서 이미 `item-name-overrides.json`으로 고쳤던 바로 그 아이템들이라 이상해서 확인해보니, **새 버그가 아니라 동기화 누락**이었음 — `scripts/build-planet-data.mjs`가 `data/drop-index.json`(메랜)을 입력으로 받아 플래닛 배율/오버라이드를 얹어 `data/planet/drop-index.json`을 만드는 구조인데, 아까 메랜 drop-index.json만 재생성(`npm run build:drop-index`)하고 플래닛 쪽(`npm run build:planet-data`)은 재생성을 안 해서 플래닛 데이터가 여전히 옛날(synthetic 110개짜리) 스냅샷을 쓰고 있었음.
+
+`npm run build:planet-data` 재실행으로 해결 — 플래닛도 synthetic 56개로 줄어듦(메랜과 정확히 같은 목록, "그륜"/"녹견량포" 2개만 여전히 미해결). 무관한 아이템 2600여 개·몬스터 653종 전부 그대로인 것 diff로 재확인.
+
+**후속 메모**: 메랜/플래닛 데이터가 완전히 독립된 두 파이프라인이 아니라 플래닛이 메랜을 입력으로 삼는 단방향 의존 관계라, 앞으로 메랜 drop-index/monsters 등을 재생성하는 작업을 하면 **플래닛도 반드시 같이 재생성**해야 함 — 안 그러면 이번처럼 한쪽만 최신화되고 다른 쪽은 조용히 뒤처짐. `data.md`에 이 의존 관계는 이미 문서화돼 있었는데(빌드 스크립트 섹션) 실제 작업 시 놓쳤던 케이스.
+
+**검증**: `npx tsc --noEmit`, `npx eslint src/`, `npx vitest run` 통과(데이터만 바뀐 변경이라 코드 검증은 원래 통과하던 것 재확인 수준).
+
+**재발 방지(같은 날 후속 조치)**: 위 "후속 메모"가 문서만으로는 또 놓칠 수 있다는 코드 리뷰 피드백을 받아, `package.json`의 `build:drop-index`/`build:drop-table-from-dropchance`/`build:item-detail-by`/`fetch:item-detail-by` 스크립트 끝에 `&& npm run build:planet-data`를 체이닝 — 메랜 쪽 소스(drop-index/item-detail-by)를 재생성하는 어떤 경로로 들어와도 플래닛이 자동으로 같이 재생성되어 사람이 기억해야 하는 단계가 아예 사라짐. 부수적으로 `build-planet-data.mjs`의 `drop-index`/`item-detail-by`/`cube-index` 출력이 실제 내용 변경 없이 `generatedAt`만 바뀌는 경우 파일을 건드리지 않도록 `writeJsonIfChanged`를 추가(리뷰에서 지적된 timestamp-only diff 노이즈 제거).
+
+---
+
 ### QuestBoard 대용량 JSON 전송 최적화 — 버그 하나 발견하고 고침
 
 DropTable에 이어 QuestBoard(퀘스트 페이지)도 같은 문제(quests.json 외에 monsters/monster-spawns/drop-index/item-detail-by/npc-locations 등 6개 JSON을 `"use client"` 컴포넌트에 그대로 props로 전달)가 있어서 이어서 처리.

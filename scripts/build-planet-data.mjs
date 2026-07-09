@@ -191,6 +191,22 @@ async function writeJson(filePath, data) {
   await fs.writeFile(filePath, JSON.stringify(data, null, 2), "utf8");
 }
 
+// generatedAt만 바뀌고 나머지 내용이 동일하면 파일을 건드리지 않는다 — 매 실행마다 timestamp만
+// 바뀌는 diff가 쌓여 리뷰 노이즈가 커지는 것을 방지 (내용이 실제로 바뀐 경우에만 generatedAt 갱신).
+async function writeJsonIfChanged(filePath, data) {
+  const { generatedAt: _newGeneratedAt, ...newRest } = data;
+  if (await pathExists(filePath)) {
+    const existing = await readJson(filePath);
+    const { generatedAt: _oldGeneratedAt, ...existingRest } = existing;
+    if (JSON.stringify(existingRest) === JSON.stringify(newRest)) {
+      console.log(`Skipped ${filePath} (내용 변경 없음, generatedAt 유지)`);
+      return false;
+    }
+  }
+  await writeJson(filePath, data);
+  return true;
+}
+
 async function pathExists(filePath) {
   try {
     await fs.access(filePath);
@@ -327,17 +343,21 @@ async function main() {
 
   const cubeIndex = await buildCubeIndex(CUBE_DATA_PATH);
 
-  await Promise.all([
+  const [, dropIndexWritten, itemDetailByWritten, cubeIndexWritten] = await Promise.all([
     writeJson(OUTPUT_MONSTERS, planetMonsters),
-    writeJson(OUTPUT_DROP_INDEX, planetDropIndex),
-    writeJson(OUTPUT_ITEM_DETAIL_BY, planetItemDetailBy),
-    ...(cubeIndex ? [writeJson(OUTPUT_CUBE_INDEX, cubeIndex)] : []),
+    writeJsonIfChanged(OUTPUT_DROP_INDEX, planetDropIndex),
+    writeJsonIfChanged(OUTPUT_ITEM_DETAIL_BY, planetItemDetailBy),
+    ...(cubeIndex ? [writeJsonIfChanged(OUTPUT_CUBE_INDEX, cubeIndex)] : []),
   ]);
 
   console.log(`Wrote ${OUTPUT_MONSTERS} (${planetMonsters.length} monsters, +${newMonsters.length} new entries requested)`);
-  console.log(`Wrote ${OUTPUT_DROP_INDEX} (${planetDropIndex.items.length} items, dropRate x${dropRateMultiplier})`);
-  console.log(`Wrote ${OUTPUT_ITEM_DETAIL_BY}`);
-  if (cubeIndex) {
+  if (dropIndexWritten) {
+    console.log(`Wrote ${OUTPUT_DROP_INDEX} (${planetDropIndex.items.length} items, dropRate x${dropRateMultiplier})`);
+  }
+  if (itemDetailByWritten) {
+    console.log(`Wrote ${OUTPUT_ITEM_DETAIL_BY}`);
+  }
+  if (cubeIndex && cubeIndexWritten) {
     console.log(`Wrote ${OUTPUT_CUBE_INDEX} (${cubeIndex.suspicious.length} suspicious, ${cubeIndex.miracle.length} miracle options)`);
   }
 
