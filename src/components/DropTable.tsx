@@ -538,7 +538,10 @@ export function DropTable({
   const renderFraction = (fraction: { num: number; den: number } | null) => {
     if (!fraction) return null;
     return (
-      <span className="inline-flex flex-col items-center text-[12px] leading-none text-current">
+      <span
+        title={`확률을 분수로 표현하면 ${fraction.num}/${fraction.den}`}
+        className="inline-flex flex-col items-center text-[12px] leading-none text-current/80"
+      >
         <span>{fraction.num}</span>
         <span className="my-0.5 h-px w-full bg-current/70" />
         <span>{fraction.den}</span>

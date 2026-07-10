@@ -206,6 +206,25 @@ export default function HomePage() {
         </div>
       </section>
 
+      <footer className="mt-4 flex w-full max-w-6xl flex-col items-center gap-2 border-t border-white/10 pt-5 text-xs text-slate-400/80">
+        <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-1">
+          <span>메랜Hub v1.0</span>
+          <Link href="/about" className="hover:text-slate-200">
+            사이트 소개
+          </Link>
+          <Link href="/guide" className="hover:text-slate-200">
+            사용방법
+          </Link>
+          <Link href="/privacy" className="hover:text-slate-200">
+            개인정보처리방침
+          </Link>
+          <Link href="/feedback" className="hover:text-slate-200">
+            문의/요청
+          </Link>
+        </div>
+        <p>본 사이트는 메이플랜드 공식 서비스가 아닌 팬메이드 유틸리티입니다.</p>
+      </footer>
+
     </section>
   );
 }

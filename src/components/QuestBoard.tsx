@@ -1331,22 +1331,22 @@ export function QuestBoard({
                                   />
                                   <span className="break-words">{item.name} x{item.count}</span>
                                 </div>
-                                <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs">
+                                <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[10px] md:text-[11px]">
                                   <a
                                     href={`https://www.mapleland.gg/item/${item.id}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-cyan-200 hover:text-cyan-100"
+                                    className="inline-flex items-center gap-1 rounded-full border border-cyan-200/40 bg-cyan-300/10 px-2 py-0.5 text-cyan-100 transition hover:border-cyan-100/70 hover:bg-cyan-300/20"
                                   >
-                                    매랜지지
+                                    매랜지지 <span aria-hidden="true">↗</span>
                                   </a>
                                   <a
                                     href={`https://mapledb.kr/search.php?q=${item.id}&t=item`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-emerald-200 hover:text-emerald-100"
+                                    className="inline-flex items-center gap-1 rounded-full border border-emerald-200/40 bg-emerald-300/10 px-2 py-0.5 text-emerald-100 transition hover:border-emerald-100/70 hover:bg-emerald-300/20"
                                   >
-                                    매랜DB
+                                    매랜DB <span aria-hidden="true">↗</span>
                                   </a>
                                 </div>
                               </div>
@@ -1468,22 +1468,22 @@ export function QuestBoard({
                                 : "기타템"}
                           </span>
                         </div>
-                        <div className="mt-1 flex items-center gap-2 text-[11px] md:text-xs">
+                        <div className="mt-1.5 flex flex-wrap items-center gap-1.5 text-[10px] md:text-[11px]">
                           <a
                             href={`https://www.mapleland.gg/item/${item.id}`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-cyan-200 hover:text-cyan-100"
+                            className="inline-flex items-center gap-1 rounded-full border border-cyan-200/40 bg-cyan-300/10 px-2 py-0.5 text-cyan-100 transition hover:border-cyan-100/70 hover:bg-cyan-300/20"
                           >
-                            매랜지지
+                            매랜지지 <span aria-hidden="true">↗</span>
                           </a>
                           <a
                             href={`https://mapledb.kr/search.php?q=${item.id}&t=item`}
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-emerald-200 hover:text-emerald-100"
+                            className="inline-flex items-center gap-1 rounded-full border border-emerald-200/40 bg-emerald-300/10 px-2 py-0.5 text-emerald-100 transition hover:border-emerald-100/70 hover:bg-emerald-300/20"
                           >
-                            매랜DB
+                            매랜DB <span aria-hidden="true">↗</span>
                           </a>
                         </div>
                       </div>
