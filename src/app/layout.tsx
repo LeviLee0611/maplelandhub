@@ -5,6 +5,7 @@ import "./globals.css";
 import { SidebarShell } from "@/components/sidebar-shell";
 import { AnnouncementBanner } from "@/components/announcement-banner";
 import { WebVitalsReporter } from "@/components/web-vitals-reporter";
+import { GoogleAnalytics } from "@/components/google-analytics";
 
 const display = Space_Grotesk({
   subsets: ["latin"],
@@ -66,6 +67,7 @@ export default function RootLayout({
   return (
     <html lang="ko" className={`${display.variable} ${body.variable}`}>
       <body className="min-h-screen overflow-x-hidden">
+        <GoogleAnalytics />
         <WebVitalsReporter debug={perfDebugEnabled} />
         <div className="page-glow" aria-hidden="true" />
         <Suspense fallback={null}>
