@@ -1,10 +1,11 @@
 "use client";
 /* eslint-disable @next/next/no-img-element */
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
 import { isReleasedMobCode } from "@/lib/release-filter";
+import { trackEvent } from "@/lib/analytics";
 import type { Monster } from "@/types/monster";
 export type DropIndexItem = {
   id: number;
@@ -237,6 +238,9 @@ export function DropTable({
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
+  const lastTrackedSearchRef = useRef<string | null>(null);
+  const lastTrackedResultKeyRef = useRef<string | null>(null);
+
   const selectedMonster = useMemo(
     () => monsterList.find((monster) => monster.mobCode === selectedMonsterMobCode),
     [selectedMonsterMobCode, monsterList]
@@ -280,6 +284,13 @@ export function DropTable({
     } finally {
       setItemMonstersLoading((prev) => (prev === itemId ? null : prev));
     }
+  };
+
+  const selectItem = (itemId: number, source: "search" | "drop_list") => {
+    setSelectedItemId(itemId);
+    setSelectedMonsterMobCode(null);
+    void ensureItemMonsters(itemId);
+    trackEvent("drop_table_item_click", { source });
   };
 
   const itemsById = useMemo(() => {
@@ -502,6 +513,40 @@ export function DropTable({
     }));
   }, [monsterList]);
 
+  // 키 입력마다 쏘지 않도록 디바운스 후 1회만 전송 (검색어 원문은 보내지 않음)
+  useEffect(() => {
+    if (!queryKeyword) return;
+    const timer = setTimeout(() => {
+      if (lastTrackedSearchRef.current === queryKeyword) return;
+      lastTrackedSearchRef.current = queryKeyword;
+      const resultCount = filteredItems.length + filteredMonsters.length;
+      trackEvent("drop_table_search", { query_length: queryKeyword.length, result_count: resultCount });
+      if (resultCount === 0) {
+        trackEvent("drop_table_no_result", { query_length: queryKeyword.length });
+      }
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [queryKeyword, filteredItems.length, filteredMonsters.length]);
+
+  // 몬스터/아이템 선택 결과가 실제로 로드된 시점에 1회만 전송 (동일 선택 재렌더로 인한 중복 방지)
+  useEffect(() => {
+    if (selectedMonster) {
+      const loaded = monsterDropsByMobCode[selectedMonster.mobCode];
+      if (!loaded) return;
+      const key = `monster:${selectedMonster.mobCode}`;
+      if (lastTrackedResultKeyRef.current === key) return;
+      lastTrackedResultKeyRef.current = key;
+      trackEvent("drop_table_result_view", { type: "monster", result_count: loaded.length });
+    } else if (selectedItemId) {
+      const loaded = itemMonstersByItemId[selectedItemId];
+      if (!loaded) return;
+      const key = `item:${selectedItemId}`;
+      if (lastTrackedResultKeyRef.current === key) return;
+      lastTrackedResultKeyRef.current = key;
+      trackEvent("drop_table_result_view", { type: "item", result_count: loaded.length });
+    }
+  }, [selectedMonster, selectedItemId, monsterDropsByMobCode, itemMonstersByItemId]);
+
   const formatProb = (prob?: number) => {
     if (typeof prob !== "number" || prob < 0) {
       return { percent: "정보 없음", fraction: null as { num: number; den: number } | null };
@@ -642,9 +687,7 @@ export function DropTable({
                       event.preventDefault();
                       const picked = suggestionItems[activeIndex];
                       if (picked.type === "item") {
-                        setSelectedItemId(picked.id);
-                        setSelectedMonsterMobCode(null);
-                        void ensureItemMonsters(picked.id);
+                        selectItem(picked.id, "search");
                         setQuery(picked.label);
                       } else {
                         setSelectedItemId(null);
@@ -664,7 +707,7 @@ export function DropTable({
                   placeholder="몬스터 또는 아이템 이름을 입력하세요"
                   className="w-full rounded-[12px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-10 py-3.5 text-sm text-[color:var(--retro-text)] placeholder:text-[color:var(--retro-text-muted)] shadow-[0_10px_30px_rgba(0,0,0,0.35)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-4 focus:ring-[var(--brand-accent-soft)]"
                 />
-                {query && showSuggestions ? (
+                {showSuggestions ? (
                   <div className="absolute top-full z-20 mt-2 max-h-80 w-full overflow-auto rounded-[10px] border border-[var(--retro-border-strong)] bg-slate-950/95 p-3 shadow-[0_18px_34px_rgba(0,0,0,0.55)] backdrop-blur">
                     <div className="space-y-4">
                       {displayedItems.length === 0 && displayedMonsters.length === 0 ? (
@@ -725,9 +768,7 @@ export function DropTable({
                                     : "border-transparent hover:border-[var(--retro-border-strong)] hover:bg-[var(--retro-cell-strong)]"
                                 }`}
                                 onClick={() => {
-                                  setSelectedItemId(item.id);
-                                  setSelectedMonsterMobCode(null);
-                                  void ensureItemMonsters(item.id);
+                                  selectItem(item.id, "search");
                                   setQuery(item.name);
                                   setShowSuggestions(false);
                                 }}
@@ -752,10 +793,32 @@ export function DropTable({
                 </p>
               ) : null}
               <div>
-                <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">월드맵 필터</label>
+                <div className="mb-1 flex items-center justify-between">
+                  <label className="block text-xs text-[color:var(--retro-text-muted)]">월드맵 필터</label>
+                  {query || selectedItemId || selectedMonsterMobCode || selectedWorldMap !== "all" ? (
+                    <button
+                      type="button"
+                      onClick={() => {
+                        setQuery("");
+                        setSelectedItemId(null);
+                        setSelectedMonsterMobCode(null);
+                        setSelectedWorldMap("all");
+                        setShowSuggestions(false);
+                        setActiveIndex(-1);
+                      }}
+                      className="text-xs font-medium text-[color:var(--brand-accent-text)] hover:underline"
+                    >
+                      초기화
+                    </button>
+                  ) : null}
+                </div>
                 <select
                   value={selectedWorldMap}
-                  onChange={(event) => setSelectedWorldMap(event.target.value)}
+                  onChange={(event) => {
+                    setSelectedWorldMap(event.target.value);
+                    setShowSuggestions(true);
+                    trackEvent("drop_table_filter_change", { filter_value: event.target.value });
+                  }}
                   className="w-full rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-3 py-2.5 text-sm text-[color:var(--retro-text)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-4 focus:ring-[var(--brand-accent-soft)]"
                 >
                   <option value="all">전체 지역</option>
@@ -852,17 +915,41 @@ export function DropTable({
                 <div className="flex flex-col gap-2">
                   <a
                     href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "monster" })}
                     className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                   >
                     N방컷 계산하기
                   </a>
                   <a
                     href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "damage", context: "monster" })}
                     className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)] hover:border-[var(--brand-accent-2)] hover:bg-[var(--brand-accent-2-soft)]"
                   >
                     피격뎀 계산하기
                   </a>
                 </div>
+              </div>
+            ) : null}
+
+            {selectedItemId && monstersForItem.length > 0 ? (
+              <div className="flex flex-col gap-2">
+                <p className="text-xs text-[color:var(--retro-text-muted)]">
+                  가장 확률 높은 드랍처: {monstersForItem[0].monster.name}
+                </p>
+                <a
+                  href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(monstersForItem[0].monster.name)}`}
+                  onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "item" })}
+                  className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
+                >
+                  N방컷 계산하기
+                </a>
+                <a
+                  href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(monstersForItem[0].monster.name)}`}
+                  onClick={() => trackEvent("related_tool_click", { tool: "damage", context: "item" })}
+                  className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)] hover:border-[var(--brand-accent-2)] hover:bg-[var(--brand-accent-2-soft)]"
+                >
+                  피격뎀 계산하기
+                </a>
               </div>
             ) : null}
           </div>
@@ -915,9 +1002,7 @@ export function DropTable({
                         className="retro-subsection flex items-center gap-4 rounded-[12px] border border-[var(--brand-accent-border)] bg-[var(--retro-cell)] px-4 py-3 text-sm shadow-[0_10px_20px_rgba(8,47,73,0.3)] transition hover:border-[var(--brand-accent)] hover:bg-[var(--retro-cell-strong)]"
                         onClick={() => {
                           if (!Number.isFinite(normalizedItemId)) return;
-                          setSelectedItemId(normalizedItemId);
-                          setSelectedMonsterMobCode(null);
-                          void ensureItemMonsters(normalizedItemId);
+                          selectItem(normalizedItemId, "drop_list");
                           const name = itemsById.get(normalizedItemId)?.name;
                           if (name) setQuery(name);
                         }}

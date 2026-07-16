@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { NumberField } from "@/components/NumberField";
 import { MonsterPanel } from "@/components/MonsterPanel";
@@ -8,6 +8,7 @@ import { QuickSlots } from "@/components/quick-slots";
 import type { Monster } from "@/types/monster";
 import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from "@/lib/calculators/takenDamage";
 import type { JobClass } from "@/types/takenDamage";
+import { trackEvent } from "@/lib/analytics";
 
 const jobGroups = ["전사", "마법사", "궁수", "도적"] as const;
 const jobOptionsByGroup = {
@@ -92,6 +93,24 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const [resistanceLevel, setResistanceLevel] = useState(0);
 
   const [mesoGuardLevel, setMesoGuardLevel] = useState(0);
+  const [copied, setCopied] = useState(false);
+
+  const hasStartedRef = useRef(false);
+  const hasCompletedOnceRef = useRef(false);
+  const lastTrackedInvalidMonsterRef = useRef<string | null>(null);
+
+  const trackInputChange = (field: string) => {
+    if (!hasStartedRef.current) {
+      hasStartedRef.current = true;
+      trackEvent("damage_calculator_start");
+    }
+    trackEvent("damage_calculator_input_change", { field });
+  };
+
+  const withTracking = (setter: (value: number) => void, field: string) => (value: number) => {
+    setter(value);
+    trackInputChange(field);
+  };
 
   const quickSnapshot = useMemo(
     () => ({
@@ -310,6 +329,57 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
     return oneShotLabel(hpMin, hpMax, maxHp);
   }, [monsterMatk, jobGroup, mageMagicalHp.min, mageMagicalHp.max, magicalRange.min, magicalRange.max, maxHp]);
 
+  // 자동완성 목록에 없는 이름을 직접 타이핑하면 첫 번째 몬스터로 조용히 대체되어 계산됨 — 사용자에게 알림
+  const monsterNotFound = monsterName.trim().length > 0 && !typedMonsters.some((monster) => monster.name === monsterName);
+
+  useEffect(() => {
+    if (!monsterNotFound) return;
+    const timer = setTimeout(() => {
+      if (lastTrackedInvalidMonsterRef.current === monsterName) return;
+      lastTrackedInvalidMonsterRef.current = monsterName;
+      trackEvent("damage_calculator_validation_error", { field: "monsterName" });
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [monsterNotFound, monsterName]);
+
+  // 입력이 잦아든 뒤 1회만 전송 — 최초 1회는 completion, 이후 재계산은 recalculate로 구분
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      if (!hasCompletedOnceRef.current) {
+        hasCompletedOnceRef.current = true;
+        trackEvent("damage_calculation_complete", {
+          physical_min: physicalRange.min,
+          physical_max: physicalRange.max,
+          magical_min: magicalRange.min,
+          magical_max: magicalRange.max,
+        });
+      } else {
+        trackEvent("damage_recalculate", {
+          physical_min: physicalRange.min,
+          physical_max: physicalRange.max,
+          magical_min: magicalRange.min,
+          magical_max: magicalRange.max,
+        });
+      }
+    }, 700);
+    return () => clearTimeout(timer);
+  }, [physicalRange.min, physicalRange.max, magicalRange.min, magicalRange.max]);
+
+  const handleCopyResult = () => {
+    const physicalText = jobGroup === "마법사"
+      ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP)`
+      : formatRange(physicalRange.min, physicalRange.max);
+    const magicalText = monsterMatk > 0
+      ? (jobGroup === "마법사" ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)` : formatRange(magicalRange.min, magicalRange.max))
+      : "마법공격 안함";
+    const text = `[${selectedMonster?.name ?? "몬스터"} 피격 데미지]\n물리: ${physicalText}\n마법: ${magicalText}`;
+    void navigator.clipboard.writeText(text).then(() => {
+      setCopied(true);
+      trackEvent("damage_result_copy");
+      setTimeout(() => setCopied(false), 1500);
+    });
+  };
+
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <div className="glass-panel rounded-2xl px-4 py-6 md:px-6">
@@ -321,23 +391,32 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
           </p>
         </header>
 
-        <section className="mt-4 rounded-2xl border border-white/10 bg-white/5 px-4 py-4 text-xs text-slate-200/90">
-          <h2 className="text-sm font-semibold text-slate-100">계산기 소개</h2>
-          <div className="mt-3 grid gap-2 md:grid-cols-3">
-            {[
-              "직업별 방어력 반영",
-              "마법 피해 계산",
-              "생존 시뮬레이션",
-            ].map((text) => (
-              <div
-                key={text}
-                className="rounded-xl border border-white/10 bg-white/5 px-3 py-2 transition hover:border-[var(--brand-accent-border)] hover:bg-white/10"
-              >
-                <h3 className="text-[12px] font-semibold text-slate-100">{text}</h3>
+        <div className="sticky top-2 z-10 mt-4 rounded-2xl border border-[var(--brand-accent-border)] bg-[var(--retro-bg)]/95 px-4 py-2.5 shadow-[0_10px_24px_rgba(0,0,0,0.35)] backdrop-blur lg:hidden">
+          <div className="flex items-center justify-between gap-3 text-xs">
+            <div>
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">물리 피격</div>
+              <div className="font-semibold">
+                {jobGroup === "마법사" ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} HP` : formatRange(physicalRange.min, physicalRange.max)}
               </div>
-            ))}
+            </div>
+            <div>
+              <div className="text-[10px] text-[color:var(--retro-text-muted)]">마법 피격</div>
+              <div className="font-semibold">
+                {monsterMatk > 0
+                  ? jobGroup === "마법사"
+                    ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} HP`
+                    : formatRange(magicalRange.min, magicalRange.max)
+                  : "안함"}
+              </div>
+            </div>
+            <a
+              href="#td-result-panel"
+              className="shrink-0 rounded-full border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-2.5 py-1 text-[11px] font-semibold text-[color:var(--brand-accent-text)]"
+            >
+              결과 보기 ↓
+            </a>
           </div>
-        </section>
+        </div>
 
         <div className="mt-4">
           <QuickSlots
@@ -364,6 +443,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                         const nextGroup = event.target.value as (typeof jobGroups)[number];
                         setJobGroup(nextGroup);
                         setJob(jobOptionsByGroup[nextGroup][0]);
+                        trackInputChange("jobGroup");
                       }}
                     >
                       {jobGroups.map((item) => (
@@ -379,7 +459,10 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                     <select
                       className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
                       value={job}
-                      onChange={(event) => setJob(event.target.value)}
+                      onChange={(event) => {
+                        setJob(event.target.value);
+                        trackInputChange("job");
+                      }}
                     >
                       {jobOptionsByGroup[jobGroup].map((item) => (
                         <option key={item} value={item}>
@@ -390,29 +473,48 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                   </label>
                 </div>
 
-                <NumberField id="td-level" label="레벨" value={level} min={1} onChange={setLevel} />
-                <NumberField id="td-max-hp" label="최대 HP" value={maxHp} min={1} onChange={setMaxHp} />
+                <NumberField
+                  id="td-level"
+                  label="레벨"
+                  value={level}
+                  min={1}
+                  onChange={(v) => {
+                    setLevel(v);
+                    trackInputChange("level");
+                  }}
+                />
+                <NumberField
+                  id="td-max-hp"
+                  label="최대 HP"
+                  value={maxHp}
+                  min={1}
+                  helper="캐릭터 창의 최대 HP 수치를 그대로 입력하세요."
+                  onChange={(v) => {
+                    setMaxHp(v);
+                    trackInputChange("maxHp");
+                  }}
+                />
 
                 <div className="retro-subsection space-y-2">
-                  <div className="retro-section-title">스탯 입력</div>
+                  <div className="retro-section-title">스탯 입력 (장비 포함 총합)</div>
                   <div className="grid grid-cols-2 gap-2">
-                    <NumberField id="td-str" label="STR" value={stats.str} min={0} onChange={(v) => setStats({ ...stats, str: v })} />
-                    <NumberField id="td-dex" label="DEX" value={stats.dex} min={0} onChange={(v) => setStats({ ...stats, dex: v })} />
-                    <NumberField id="td-int" label="INT" value={stats.int} min={0} onChange={(v) => setStats({ ...stats, int: v })} />
-                    <NumberField id="td-luk" label="LUK" value={stats.luk} min={0} onChange={(v) => setStats({ ...stats, luk: v })} />
-                    <NumberField id="td-wdef" label="물리 방어력" value={stats.wdef} min={0} onChange={(v) => setStats({ ...stats, wdef: v })} />
-                    <NumberField id="td-mdef" label="마법 방어력" value={stats.mdef} min={0} onChange={(v) => setStats({ ...stats, mdef: v })} />
+                    <NumberField id="td-str" label="STR" value={stats.str} min={0} onChange={(v) => { setStats({ ...stats, str: v }); trackInputChange("str"); }} />
+                    <NumberField id="td-dex" label="DEX" value={stats.dex} min={0} onChange={(v) => { setStats({ ...stats, dex: v }); trackInputChange("dex"); }} />
+                    <NumberField id="td-int" label="INT" value={stats.int} min={0} onChange={(v) => { setStats({ ...stats, int: v }); trackInputChange("int"); }} />
+                    <NumberField id="td-luk" label="LUK" value={stats.luk} min={0} onChange={(v) => { setStats({ ...stats, luk: v }); trackInputChange("luk"); }} />
+                    <NumberField id="td-wdef" label="물리 방어력" value={stats.wdef} min={0} onChange={(v) => { setStats({ ...stats, wdef: v }); trackInputChange("wdef"); }} />
+                    <NumberField id="td-mdef" label="마법 방어력" value={stats.mdef} min={0} onChange={(v) => { setStats({ ...stats, mdef: v }); trackInputChange("mdef"); }} />
                   </div>
                 </div>
               </div>
             </Panel>
 
-            <Panel title="피격 스킬" tone="yellow">
+            <Panel title="피격 스킬" tone="yellow" actions={<span>선택 입력 · 기본값 0</span>}>
               <div className="space-y-2 text-xs">
                 {jobGroup === "전사" ? (
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-end gap-2">
-                      <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={setAchillesLevel} />
+                      <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={withTracking(setAchillesLevel, "achillesLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(achillesLevel === 30)}
@@ -422,7 +524,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                       </button>
                     </div>
                     <div className="flex items-end gap-2">
-                      <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={setPowerGuardLevel} />
+                      <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={withTracking(setPowerGuardLevel, "powerGuardLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(powerGuardLevel === 30)}
@@ -437,7 +539,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                 {jobGroup === "마법사" ? (
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-end gap-2">
-                      <NumberField id="magic-guard" label="매직 가드 Lv" value={magicGuardLevel} min={0} max={20} onChange={setMagicGuardLevel} />
+                      <NumberField id="magic-guard" label="매직 가드 Lv" value={magicGuardLevel} min={0} max={20} onChange={withTracking(setMagicGuardLevel, "magicGuardLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(magicGuardLevel === 20)}
@@ -447,7 +549,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                       </button>
                     </div>
                     <div className="flex items-end gap-2">
-                      <NumberField id="invincible" label="인빈서블 Lv" value={invincibleLevel} min={0} max={20} onChange={setInvincibleLevel} />
+                      <NumberField id="invincible" label="인빈서블 Lv" value={invincibleLevel} min={0} max={20} onChange={withTracking(setInvincibleLevel, "invincibleLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(invincibleLevel === 20)}
@@ -457,7 +559,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                       </button>
                     </div>
                     <div className="flex items-end gap-2">
-                      <NumberField id="resistance" label="엘리멘트 레지스턴스 Lv" value={resistanceLevel} min={0} max={20} onChange={setResistanceLevel} />
+                      <NumberField id="resistance" label="엘리멘트 레지스턴스 Lv" value={resistanceLevel} min={0} max={20} onChange={withTracking(setResistanceLevel, "resistanceLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(resistanceLevel === 20)}
@@ -471,7 +573,10 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                       <select
                         className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-sm text-slate-100 focus:border-[var(--retro-border-strong)] focus:outline-none"
                         value={magicElement}
-                        onChange={(event) => setMagicElement(event.target.value as (typeof MAGIC_ELEMENTS)[number])}
+                        onChange={(event) => {
+                          setMagicElement(event.target.value as (typeof MAGIC_ELEMENTS)[number]);
+                          trackInputChange("magicElement");
+                        }}
                       >
                         {MAGIC_ELEMENTS.map((element) => (
                           <option key={element} value={element}>
@@ -488,7 +593,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                 {jobGroup === "도적" ? (
                   <div className="grid grid-cols-2 gap-2">
                     <div className="flex items-end gap-2">
-                      <NumberField id="meso-guard" label="메소 가드 Lv" value={mesoGuardLevel} min={0} max={20} onChange={setMesoGuardLevel} />
+                      <NumberField id="meso-guard" label="메소 가드 Lv" value={mesoGuardLevel} min={0} max={20} onChange={withTracking(setMesoGuardLevel, "mesoGuardLevel")} />
                       <button
                         type="button"
                         className={getMaxButtonClass(mesoGuardLevel === 20)}
@@ -507,16 +612,36 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
             <MonsterPanel
               monsters={typedMonsters}
               value={monsterName}
-              onChange={setMonsterName}
+              onChange={(v) => {
+                setMonsterName(v);
+                trackInputChange("monsterName");
+              }}
               selected={selectedMonster}
               characterLevel={level}
             />
+            {monsterNotFound ? (
+              <p className="text-[11px] text-amber-300">
+                일치하는 몬스터를 찾을 수 없어 목록의 첫 몬스터({typedMonsters[0]?.name ?? "-"}) 기준으로 계산 중입니다. 자동완성 목록에서 선택해주세요.
+              </p>
+            ) : null}
 
-            <Panel title="결과" tone="green">
-              <div className="space-y-3 text-xs">
-                <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+            <Panel
+              title="결과"
+              tone="green"
+              actions={
+                <button
+                  type="button"
+                  onClick={handleCopyResult}
+                  className="rounded-full border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-2.5 py-1 text-[11px] font-semibold text-[color:var(--brand-accent-2-text)]"
+                >
+                  {copied ? "복사됨 ✓" : "결과 복사"}
+                </button>
+              }
+            >
+              <div id="td-result-panel" className="space-y-3 text-xs">
+                <div className="rounded-[10px] border-2 border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-3 py-3">
                   <div className="text-[10px] text-[color:var(--retro-text-muted)]">물리 공격 피격</div>
-                  <div className="text-base font-semibold">
+                  <div className="text-xl font-bold text-[color:var(--brand-accent-2-text)]">
                     {jobGroup === "마법사"
                       ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP)`
                       : formatRange(physicalRange.min, physicalRange.max)}
@@ -526,9 +651,9 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                   </div>
                 </div>
 
-                <div className="rounded-[8px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-3 py-2">
+                <div className="rounded-[10px] border-2 border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-3 py-3">
                   <div className="text-[10px] text-[color:var(--retro-text-muted)]">마법 공격 피격</div>
-                  <div className="text-base font-semibold">
+                  <div className="text-xl font-bold text-[color:var(--brand-accent-2-text)]">
                     {monsterMatk > 0
                       ? (jobGroup === "마법사"
                         ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)`
@@ -554,6 +679,16 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                     ) : null}
                   </div>
                 </details>
+
+                {selectedMonster ? (
+                  <a
+                    href={`${server === "planet" ? "/planet" : ""}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "damage_calculator" })}
+                    className="inline-flex w-full items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
+                  >
+                    이 몬스터 N방컷 계산하기
+                  </a>
+                ) : null}
               </div>
             </Panel>
           </div>
