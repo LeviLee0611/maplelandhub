@@ -215,12 +215,6 @@ export function CubeSimulator({ cubeData }: CubeSimulatorProps) {
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-slate-100">큐브 시뮬레이터</h1>
             <p className="text-sm text-slate-300">아래 큐브를 클릭하면 잠재능력이 새로 부여됩니다.</p>
-            <a
-              href="/planet/cube-builder"
-              className="inline-flex items-center gap-1 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:underline"
-            >
-              내 캐릭터 스펙 기준으로 어느 부위가 효율적인지 보려면 → 큐브 빌더
-            </a>
           </div>
           <div className="flex items-start gap-2">
             <div

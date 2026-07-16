@@ -30,6 +30,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
+      url: `${baseUrl}/mapleland-vs-planet`,
+      lastModified: new Date(),
+    },
+    {
       url: `${baseUrl}/guide`,
       lastModified: new Date(),
     },
@@ -91,10 +95,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/planet/cube-simulator`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/planet/cube-builder`,
       lastModified: new Date(),
     },
   ];

@@ -97,19 +97,6 @@ const features: Feature[] = [
       </svg>
     ),
   },
-  {
-    title: "큐브 빌더",
-    description: "내 캐릭터 스펙 기준으로 어느 부위를 큐브 돌리는 게 효율적인지 계산합니다",
-    href: "/planet/cube-builder",
-    button: "빌더 열기",
-    accent: "from-rose-300/20 via-pink-300/10 to-transparent",
-    ring: "border-rose-200/35 bg-rose-300/15",
-    icon: (
-      <svg aria-hidden="true" viewBox="0 0 24 24" className="h-6 w-6 text-rose-300">
-        <path fill="currentColor" d="M12 4a8 8 0 1 0 8 8h-3a5 5 0 1 1-5-5V4Z" />
-      </svg>
-    ),
-  },
 ];
 
 export default function PlanetHomePage() {
@@ -195,10 +182,6 @@ export default function PlanetHomePage() {
             ,
             <Link href="/planet/cube-simulator" className="ml-2 font-semibold text-amber-200 hover:text-white">
               큐브 시뮬레이터
-            </Link>
-            ,
-            <Link href="/planet/cube-builder" className="ml-2 font-semibold text-rose-200 hover:text-white">
-              큐브 빌더
             </Link>
             를 바로 이용할 수 있습니다.
           </p>

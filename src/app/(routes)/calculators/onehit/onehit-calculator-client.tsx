@@ -143,6 +143,19 @@ const jobOptionsByGroup = {
 
 const QUICK_SLOT_COUNT = 6;
 
+type BlessingConfig = { maxLevel: number; attPerLevel: number; mattPerLevel: number };
+
+// 커뮤니티 정보 기반 잠정치(공식 검증 안 됨). 메이플랜드는 정령의 축복만 확인되어 여제의 축복은 미포함.
+const SPIRIT_BLESSING_BY_SERVER: Record<"mapleland" | "planet", BlessingConfig> = {
+  mapleland: { maxLevel: 20, attPerLevel: 1, mattPerLevel: 2 },
+  planet: { maxLevel: 200, attPerLevel: 1, mattPerLevel: 2 },
+};
+
+// 공식 패치노트(2026-05-13) 기준: 시그너스 최대 120레벨, 10레벨당 1포인트 → 여제의 축복 최대 12레벨.
+const EMPRESS_BLESSING_BY_SERVER: Partial<Record<"mapleland" | "planet", BlessingConfig>> = {
+  planet: { maxLevel: 12, attPerLevel: 1, mattPerLevel: 1 },
+};
+
 type QuickSlotRecord<T> = {
   data: T;
 } | null;
@@ -199,6 +212,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const [goldenEagleBonus, setGoldenEagleBonus] = useState(0);
   const [mapleHeroLevel, setMapleHeroLevel] = useState(0);
   const [meditationLevel, setMeditationLevel] = useState(0);
+  const [spiritBlessingLevel, setSpiritBlessingLevel] = useState(0);
+  const [empressBlessingLevel, setEmpressBlessingLevel] = useState(0);
 
   const [monsterName, setMonsterName] = useState("달팽이");
   const [showFormula, setShowFormula] = useState(false);
@@ -312,6 +327,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       goldenEagleBonus,
       mapleHeroLevel,
       meditationLevel,
+      spiritBlessingLevel,
+      empressBlessingLevel,
       monsterName,
     }),
     [
@@ -356,6 +373,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       goldenEagleBonus,
       mapleHeroLevel,
       meditationLevel,
+      spiritBlessingLevel,
+      empressBlessingLevel,
       monsterName,
     ],
   );
@@ -441,6 +460,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (typeof snapshot.goldenEagleBonus === "number") setGoldenEagleBonus(snapshot.goldenEagleBonus);
     if (typeof snapshot.mapleHeroLevel === "number") setMapleHeroLevel(snapshot.mapleHeroLevel);
     if (typeof snapshot.meditationLevel === "number") setMeditationLevel(snapshot.meditationLevel);
+    if (typeof snapshot.spiritBlessingLevel === "number") setSpiritBlessingLevel(snapshot.spiritBlessingLevel);
+    if (typeof snapshot.empressBlessingLevel === "number") setEmpressBlessingLevel(snapshot.empressBlessingLevel);
     if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
   }, []);
 
@@ -1100,8 +1121,17 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     const luk = stats.luk;
     const heroLevels = mapleHero.levels as Array<{ level: number; value: number }>;
     const heroValue = heroLevels.find((item) => item.level === mapleHeroLevel)?.value ?? 1;
-    const attack = Math.floor(main * 2 + dex * 0.5);
-    const magic = Math.floor(intel * 2 + luk * 0.5);
+    const spiritConfig = SPIRIT_BLESSING_BY_SERVER[server];
+    const empressConfig = EMPRESS_BLESSING_BY_SERVER[server];
+    const spiritAtt = spiritBlessingLevel * spiritConfig.attPerLevel;
+    const spiritMatt = spiritBlessingLevel * spiritConfig.mattPerLevel;
+    const empressAtt = empressConfig ? empressBlessingLevel * empressConfig.attPerLevel : 0;
+    const empressMatt = empressConfig ? empressBlessingLevel * empressConfig.mattPerLevel : 0;
+    // 정령의 축복/여제의 축복은 중첩되지 않고 더 높은 쪽만 적용
+    const blessingAtt = Math.max(spiritAtt, empressAtt);
+    const blessingMatt = Math.max(spiritMatt, empressMatt);
+    const attack = Math.floor(main * 2 + dex * 0.5) + blessingAtt;
+    const magic = Math.floor(intel * 2 + luk * 0.5) + blessingMatt;
     const accuracyBase = (() => {
       if (jobGroup === "전사" || jobGroup === "마법사") return dex * 0.8 + luk * 0.5;
       if (job === "인파이터/버커니어/바이퍼") return dex * 0.9 + luk * 0.3;
@@ -1124,6 +1154,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     stats,
     jobProfile,
     mapleHeroLevel,
+    spiritBlessingLevel,
+    empressBlessingLevel,
+    server,
     isNightLordJob,
     isShadowerJob,
     isNightWalkerJob,
@@ -2424,6 +2457,70 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                       <span className="text-[10px] text-[color:var(--retro-text-muted)]">최대 30</span>
                     </div>
                   </div>
+                  <div className="space-y-1">
+                    <span className="retro-chip" title="다른 캐릭터의 레벨에 비례해 공격력/마력이 오르는 패시브. 커뮤니티 정보 기반 잠정치로, 실제 서버 수치와 다를 수 있습니다.">
+                      정령의 축복
+                    </span>
+                    <div className="flex items-center gap-2">
+                      <SpinnerInput
+                        id="spirit-blessing"
+                        value={spiritBlessingLevel}
+                        onChange={setSpiritBlessingLevel}
+                        min={0}
+                        max={SPIRIT_BLESSING_BY_SERVER[server].maxLevel}
+                        step={1}
+                        className="w-24"
+                        inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                      />
+                      <button
+                        type="button"
+                        className={getMaxButtonClass(spiritBlessingLevel === SPIRIT_BLESSING_BY_SERVER[server].maxLevel)}
+                        onClick={() =>
+                          toggleMax(spiritBlessingLevel, SPIRIT_BLESSING_BY_SERVER[server].maxLevel, setSpiritBlessingLevel)
+                        }
+                      >
+                        M
+                      </button>
+                      <span className="text-[10px] text-[color:var(--retro-text-muted)]">
+                        최대 {SPIRIT_BLESSING_BY_SERVER[server].maxLevel} (잠정치)
+                      </span>
+                    </div>
+                  </div>
+                  {EMPRESS_BLESSING_BY_SERVER[server] ? (
+                    <div className="space-y-1">
+                      <span className="retro-chip" title="시그너스 기사단을 육성하면 오르는 패시브. 정령의 축복과 중첩되지 않고 더 높은 쪽만 적용됩니다. 커뮤니티 정보 기반 잠정치입니다.">
+                        여제의 축복
+                      </span>
+                      <div className="flex items-center gap-2">
+                        <SpinnerInput
+                          id="empress-blessing"
+                          value={empressBlessingLevel}
+                          onChange={setEmpressBlessingLevel}
+                          min={0}
+                          max={EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel}
+                          step={1}
+                          className="w-24"
+                          inputClassName="retro-number w-full rounded-[3px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
+                        />
+                        <button
+                          type="button"
+                          className={getMaxButtonClass(empressBlessingLevel === EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel)}
+                          onClick={() =>
+                            toggleMax(
+                              empressBlessingLevel,
+                              EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel,
+                              setEmpressBlessingLevel,
+                            )
+                          }
+                        >
+                          M
+                        </button>
+                        <span className="text-[10px] text-[color:var(--retro-text-muted)]">
+                          최대 {EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel} (잠정치, 정축과 중첩 안 됨)
+                        </span>
+                      </div>
+                    </div>
+                  ) : null}
                   {isArchMageJob ? (
                     <div className="space-y-1">
                       <span className="retro-chip">

@@ -29,12 +29,8 @@ function getPrimaryLinks(isPlanet: boolean) {
     { label: "피격뎀 계산기", href: `${planetPrefix}/calculator/damage`, icon: "shield" },
     { label: "드랍 테이블", href: `${planetPrefix}/drop-table`, icon: "cube" },
     // 큐브/잠재능력은 메이플랜드엔 없는 플래닛 전용 시스템이라 플래닛 모드에서만 노출
-    ...(isPlanet
-      ? [
-          { label: "큐브 시뮬레이터", href: "/planet/cube-simulator", icon: "star" },
-          { label: "큐브 빌더", href: "/planet/cube-builder", icon: "target" },
-        ]
-      : []),
+    // 큐브 빌더(/planet/cube-builder)는 검증된 수요가 없어 노출만 내림(코드/라우트는 유지, 2026-07-16)
+    ...(isPlanet ? [{ label: "큐브 시뮬레이터", href: "/planet/cube-simulator", icon: "star" }] : []),
     { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
     { label: "문의/요청", href: "/feedback", icon: "mail" },
   ];
@@ -57,6 +53,7 @@ function getServerSwitchHref(pathname: string, targetServer: "mapleland" | "plan
 const guideLinks = [
   { label: "사이트 소개", href: "/about", icon: "info" },
   { label: "사용방법 (필독)", href: "/guide", icon: "book" },
+  { label: "메랜 vs 플래닛 차이", href: "/mapleland-vs-planet", icon: "spark" },
   { label: "문의하기", href: "/contact", icon: "chat" },
   { label: "개인정보처리방침", href: "/privacy", icon: "lock" },
   { label: "업데이트 내역", href: "/changelog", icon: "spark" },
