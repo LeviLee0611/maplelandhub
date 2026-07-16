@@ -22,9 +22,10 @@
 
 ### 드롭 테이블 (Drop Table)
 - 경로: `/drop-table`
-- 몬스터 선택 → 드롭 아이템 목록 조회
-- `MonsterSelect` → `MonsterPanel` → `DropTable` + `EquipmentTable` 흐름
-- 데이터: `data/drop-index.json` (3.8MB), `data/drops-parsed.json` (3.7MB)
+- 몬스터↔아이템 양방향 검색(초성 지원 자동완성) → 드롭/역드롭 목록 조회
+- 검색·필터·자동완성 로직 전부 `DropTable.tsx` 내부에 있음(자체 인라인 검색 — `MonsterSelect`/`MonsterPanel`/`EquipmentTable`은 쓰지 않음, 이 셋은 계산기 쪽 컴포넌트)
+- 페이지가 실제로 로드하는 데이터는 `data/drop-index.json` (3.8MB, 서버에서 슬림화 후 전달)뿐 — `data/drops-parsed.json`은 빌드 파이프라인 중간 산출물이라 런타임에 쓰이지 않음(`data.md` 참고)
+- 몬스터/아이템 선택 시 드롭 상세는 `/api/drop-table/{monster,item}/{mapleland,planet}`에서 온디맨드 fetch(초기 payload에 포함 안 됨)
 - 서버 미출시 몬스터 필터링: `src/lib/release-filter.ts`
 - 아이템 이미지: maplestory.io API
 
@@ -36,7 +37,7 @@
   - `physical.ts` — 물리 방어 계산
   - `magical.ts` — 마법 방어 계산
   - `standardPdd.ts` — 표준 물리 방어력
-- 컴포넌트: `TakenDamageCalculator.tsx`, `StatTable.tsx`, `SkillPanel.tsx`
+- 컴포넌트: `TakenDamageCalculator.tsx`(버튼 없이 입력 즉시 재계산, `MonsterPanel`/`NumberField` 재사용) — `StatTable.tsx`/`SkillPanel.tsx`는 안 씀(원킬 계산기 전용 컴포넌트)
 - 프리셋 저장: `character_presets` DB 테이블 (calculator='taken-damage')
 
 ### 원킬 계산기 (One-Hit / One-Shot)
@@ -113,8 +114,7 @@ src/app/
 ```
 
 ### 컴포넌트 구조
-- `sidebar-shell.tsx` — 전체 레이아웃 (사이드바 + 콘텐츠)
-- `nav-bar.tsx` — 상단 네비게이션
+- `sidebar-shell.tsx` — 전체 레이아웃(사이드바 + 콘텐츠). 별도 상단 네비게이션 컴포넌트는 없음 — `nav-bar.tsx`는 실제로 존재하지 않는 파일이라 아래 표에서 제거함(TODO.md에도 잘못 남아있던 항목)
 - `ui/` — 재사용 UI 원자 (Panel, Cells, TableGrid, PanelHeader)
 - 피처 컴포넌트 — 특정 기능 전용 (DropTable, QuestBoard 등)
 
@@ -136,6 +136,6 @@ src/app/
 | 경로 | 상태 |
 |---|---|
 | `/calculators/taken-damage` | redirect → `/calculator/damage` |
-| `/calculator/oneshot` | onehit 중복 추정 — 확인 필요 |
-| `/services/*` | 각 기능 페이지로 redirect 추정 — 확인 필요 |
-| `src/components/Panel.tsx` | `src/components/ui/Panel.tsx`와 중복 추정 |
+| `/calculator/oneshot`, `/calculator/onehit` | `/calculators/onehit`로 정상 redirect, 중복 콘텐츠 문제 없음 확인(2026-07-09 SEO 점검) |
+| `/services/*` | redirect 아님 — 각 계산기/기능 페이지와 다른 고유 설명 콘텐츠 + 자체 canonical, 문제 없음 확인(2026-07-09 SEO 점검) |
+| `src/components/Panel.tsx` | `src/components/ui/Panel.tsx`와 중복(둘 다 실존, 미해결) — TODO.md 참고 |

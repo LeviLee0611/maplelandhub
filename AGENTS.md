@@ -61,14 +61,12 @@ Zone B │ 계산기
        │ src/lib/calculators.ts
        │ src/types/takenDamage.ts
 
-Zone C │ 파티 구인 & 퀘스트
-       │ src/app/(routes)/parties/
-       │ src/app/(routes)/party/
+Zone C │ 퀘스트
        │ src/app/(routes)/quests/
-       │ src/components/party-card.tsx
        │ src/components/QuestBoard.tsx
-       │ src/types/party.ts
        │ src/types/quest.ts
+       │ (파티 구인 기능은 완전히 제거됨 — /party, /parties, party-card.tsx, party.ts 전부 삭제 완료.
+       │  posts/applications DB 테이블만 레거시로 남아있음, database.md 참고)
 
 Zone D │ 데이터 파이프라인 (빌드 스크립트)
        │ scripts/
@@ -99,7 +97,6 @@ Zone F │ 백엔드 전용 (DB, Supabase)
 src/app/layout.tsx
 src/app/globals.css
 src/components/sidebar-shell.tsx
-src/components/nav-bar.tsx
 next.config.ts
 tsconfig.json
 ```

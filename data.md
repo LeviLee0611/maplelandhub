@@ -1,6 +1,6 @@
 # 메랜Hub — 데이터 파이프라인
 
-> 마지막 업데이트: 2026-07-07
+> 마지막 업데이트: 2026-07-16
 
 ---
 
@@ -62,6 +62,8 @@ npm run build:npc-locations
 npm run fetch:item-detail-by          # 원격 fetch 후 저장
 npm run build:item-detail-by          # HTML → item-detail-by.json
 ```
+
+**플래닛 데이터 자동 재생성**: `build:drop-table-from-dropchance`, `build:drop-index`, `build:item-detail-by`, `fetch:item-detail-by` 4개 스크립트는 `package.json`에서 끝에 `&& node scripts/build-planet-data.mjs`가 체이닝되어 있어 **`npm run build:planet-data`를 따로 실행할 필요 없음** — 메랜 원본(drop-index/item-detail-by)을 재생성하는 어떤 경로로 들어와도 플래닛이 자동으로 같이 갱신됨(2026-07-09, 메랜/플래닛 동기화 누락 재발 방지용으로 추가). 플래닛 데이터만 단독으로 다시 만들고 싶을 때만 `npm run build:planet-data`를 직접 호출.
 
 ---
 
@@ -147,9 +149,14 @@ Next.js 내부에서 직접 import되는 JS 파일. 대형 데이터는 이쪽�
 ## 번들 사이즈 주의사항
 
 `data/*.json`은 Next.js 빌드 타임에 번들에 포함됨.
-- drop-index.json (3.8MB), drops-parsed.json (3.7MB)은 서버 컴포넌트에서만 import
-- 클라이언트 컴포넌트에서 대용량 JSON 직접 import 금지
-- 필요 시 API Route를 통해 서버 사이드에서 필터링 후 전달
+
+**"서버 컴포넌트에서 import"만으로는 부족함 — 실제로 겪은 함정(2026-07-09)**: `page.tsx`(서버 컴포넌트)에서 대용량 JSON을 import해도, 그 값을 그대로 `"use client"` 컴포넌트에 props로 넘기면 RSC 페이로드에 통째로 직렬화되어 결국 클라이언트로 전송됨. 예전엔 "서버 컴포넌트에서 import했으니 완료"로 잘못 기록했다가, 실측(`/drop-table` 2.4MB)으로 드러나서야 발견했음 — import 위치가 아니라 **클라이언트로 넘어가는 props의 크기**가 기준.
+
+올바른 패턴(DropTable/QuestBoard에 적용된 방식, `data.md` 체크리스트 5번과 동일):
+- 검색/렌더링에 실제로 필요한 필드만 남기고 서버에서 슬림화한 뒤 클라이언트 props로 전달 (예: `src/lib/drop-table-lookup.ts`, `src/lib/quest-board-data.ts` — 데이터 없는 순수 함수로 분리)
+- 사용자가 선택했을 때만 필요한 상세 데이터(드랍 연관관계 등)는 초기 props에서 아예 빼고, API Route로 온디맨드 fetch
+- drop-index.json (3.8MB), drops-parsed.json (3.7MB) 등은 서버 컴포넌트에서 import는 하되, 슬림화 없이 클라이언트 컴포넌트로 그대로 넘기지 말 것
+- 작업 후엔 `npm run build` 산출물의 실제 페이지 크기(HTML/RSC payload)로 검증 — import 위치만 보고 안전하다고 판단하지 말 것
 
 ---
 
@@ -182,7 +189,7 @@ Planet 쪽에서 손으로 관리하거나 외부에서 받아온 원천 파일�
 ### 빌드 스크립트
 
 ```bash
-npm run build:planet-data              # data/planet/*.json 생성/갱신
+npm run build:planet-data              # data/planet/*.json 생성/갱신 — 위 "자동 재생성" 참고, 대부분 직접 호출 불필요
 npm run build:planet-data -- --force   # release-filters.json도 Mapleland 원본으로 덮어쓰기
 ```
 
