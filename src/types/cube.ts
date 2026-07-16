@@ -20,6 +20,7 @@ export type ResolvedCubeLine = {
   text: string;
   grade: number;
   optionType: number;
+  entryId: number;
 };
 
 export type CubeVariant = "suspicious" | "miracle";

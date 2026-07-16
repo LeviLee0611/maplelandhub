@@ -81,6 +81,7 @@
 ### 메이플 플래닛 (Planet) — 두 번째 서버 지원
 - 메랜과 동일 URL 구조를 `/planet` 이하에 미러링: `/planet`(랜딩), `/planet/drop-table`, `/planet/calculator/damage`, `/planet/calculators/onehit`
 - **큐브 시뮬레이터** (`/planet/cube-simulator`) — 플래닛 전용 신규 기능(메랜엔 큐브/잠재능력 시스템 없음). 로직: `src/lib/calculators/cubeSimulator.ts`, 데이터: `data/planet/cube-index.json`
+- **큐브 빌더** (`/planet/cube-builder`) — 캐릭터 스탯/현재 잠재 기준으로 장비 슬롯별 큐브 효율을 비교. 로직: `src/lib/calculators/cubeBuilder.ts`, UI: `src/components/CubeBuilder.tsx`
 - 컴포넌트는 메랜과 공유하고 `monsters`/`server`/`calculatorBasePath`/`itemLinkBase` prop으로 서버 구분 (`setMonsterProvider` 전역 싱글턴은 동시 요청에 안전하지 않아 미사용)
 - 서버별 테마: `[data-server="planet"]` CSS 선택자로 cyan↔amber 강조색 전환 (`--brand-accent` 등, `globals.css`)
 - 데이터 파이프라인 상세: `data.md`의 "메이플 플래닛 데이터 파이프라인" 절 참고 — 소스 파일은 `scripts/sources/planet/`, 산출물은 `data/planet/`
@@ -108,7 +109,8 @@ src/app/
 │       ├── drop-table/
 │       ├── calculator/damage/
 │       ├── calculators/onehit/
-│       └── cube-simulator/
+│       ├── cube-simulator/
+│       └── cube-builder/
 ├── announcements/     ← 별도 그룹
 └── api/               ← API Routes
 ```

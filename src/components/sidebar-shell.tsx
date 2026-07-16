@@ -29,7 +29,12 @@ function getPrimaryLinks(isPlanet: boolean) {
     { label: "피격뎀 계산기", href: `${planetPrefix}/calculator/damage`, icon: "shield" },
     { label: "드랍 테이블", href: `${planetPrefix}/drop-table`, icon: "cube" },
     // 큐브/잠재능력은 메이플랜드엔 없는 플래닛 전용 시스템이라 플래닛 모드에서만 노출
-    ...(isPlanet ? [{ label: "큐브 시뮬레이터", href: "/planet/cube-simulator", icon: "star" }] : []),
+    ...(isPlanet
+      ? [
+          { label: "큐브 시뮬레이터", href: "/planet/cube-simulator", icon: "star" },
+          { label: "큐브 빌더", href: "/planet/cube-builder", icon: "target" },
+        ]
+      : []),
     { label: "메랜 퀘스트", href: "/quests", icon: "quest" },
     { label: "문의/요청", href: "/feedback", icon: "mail" },
   ];

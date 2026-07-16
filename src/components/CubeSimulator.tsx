@@ -4,16 +4,21 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { NumberField } from "@/components/NumberField";
+import { GradeOptionPicker, type OptionGroup } from "@/components/GradeOptionPicker";
 import { getItemIconCandidateUrls } from "@/lib/maplestory-io";
 import { playCubeImpactSound, playCubeGradeUpSound, playCubeRevealSound } from "@/lib/audio/cubeSfx";
+import { GRADE_META, formatCount, formatProbability, gradeMeta } from "@/lib/cube-ui";
 import {
+  type EquipCategory,
+  EQUIP_CATEGORY_LABEL,
   eligiblePoolAtGrade,
   estimateCombinedOptionOdds,
   estimateGradeUpExpectedUses,
+  isOptionAllowedForEquip,
   resolveOptionText,
   rollCubeResult,
 } from "@/lib/calculators/cubeSimulator";
-import type { CubeIndexData, CubeOptionEntry, ResolvedCubeLine } from "@/types/cube";
+import type { CubeIndexData, ResolvedCubeLine } from "@/types/cube";
 
 type CubeType = "suspicious" | "miracle";
 type Phase = "idle" | "shaking" | "climbing";
@@ -40,60 +45,6 @@ const CUBE_ITEM_ID: Record<CubeType, number> = {
 
 // 등급 연출의 시작 지점 — 공식 사이트 확인 결과 두 큐브 모두 항상 레어에서 시작해 상승을 시도함.
 const CLIMB_BASELINE_GRADE = 1;
-
-const GRADE_META = [
-  { label: "일반", chip: "border-slate-400/50 bg-slate-400/10 text-slate-300", solid: "bg-slate-400 text-slate-950" },
-  { label: "레어", chip: "border-sky-400/50 bg-sky-400/10 text-sky-300", solid: "bg-sky-400 text-sky-950" },
-  { label: "에픽", chip: "border-purple-400/50 bg-purple-400/10 text-purple-300", solid: "bg-purple-400 text-purple-950" },
-  { label: "유니크", chip: "border-amber-400/50 bg-amber-400/10 text-amber-300", solid: "bg-amber-400 text-amber-950" },
-  { label: "레전드리", chip: "border-emerald-400/60 bg-emerald-400/10 text-emerald-300", solid: "bg-emerald-400 text-emerald-950" },
-] as const;
-
-function gradeMeta(grade: number) {
-  return GRADE_META[grade] ?? GRADE_META[0];
-}
-
-function formatCount(value: number) {
-  if (!Number.isFinite(value)) return "∞";
-  return value >= 100000 ? value.toLocaleString(undefined, { maximumFractionDigits: 0 }) : value.toFixed(1);
-}
-
-// 아주 희귀한 옵션은 "0.0000%"처럼 사실상 읽을 수 없는 숫자가 되므로, 충분히 작으면 "1/N" 형태로 보여준다.
-function formatProbability(p: number) {
-  if (!(p > 0)) return "0%";
-  if (p >= 0.001) return `${(p * 100).toFixed(2)}%`;
-  if (p >= 0.00001) return `${(p * 100).toFixed(4)}%`;
-  return `1/${Math.round(1 / p).toLocaleString()}`;
-}
-
-// 장비 종류별 스킬 옵션("<쓸만한 OO> 스킬 사용 가능") 제한 — cube-data.js 안에서 같은 optionType을 공유하는
-// 쌍(유니크 등급 이름 / 레전드리 등급 이름)으로 확인: 51=모자(미스틱 도어/어드밴스드 블레스),
-// 53=상의·하의·전신 갑옷(하이퍼 바디), 54=장갑(샤프 아이즈/윈드 부스터), 55=신발(헤이스트/컴뱃 오더스).
-// 스탯/공격력류 옵션은 optionType이 다르므로 장비 종류와 무관하게 항상 노출된다.
-type EquipCategory = "hat" | "top" | "glove" | "shoes" | "other";
-
-const EQUIP_CATEGORY_LABEL: Record<EquipCategory, string> = {
-  hat: "모자",
-  top: "상의/하의/전신 갑옷",
-  glove: "장갑",
-  shoes: "신발",
-  other: "기타 (무기·방패·망토·장신구 등 — 스킬 옵션 없음)",
-};
-
-const SKILL_OPTION_TYPE_BY_EQUIP: Partial<Record<EquipCategory, number>> = {
-  hat: 51,
-  top: 53,
-  glove: 54,
-  shoes: 55,
-};
-
-const ALL_SKILL_OPTION_TYPES = new Set(Object.values(SKILL_OPTION_TYPE_BY_EQUIP));
-
-function isOptionAllowedForEquip(entry: CubeOptionEntry, equipCategory: EquipCategory | null): boolean {
-  if (equipCategory === null) return true; // 필터 없음 — 전체 표시
-  if (!ALL_SKILL_OPTION_TYPES.has(entry.optionType)) return true; // 스킬 옵션이 아니면 부위 무관하게 항상 노출
-  return entry.optionType === SKILL_OPTION_TYPE_BY_EQUIP[equipCategory];
-}
 
 const SHAKE_DURATION_MS = 350;
 const CLIMB_STEP_MS = 400;
@@ -130,63 +81,6 @@ function CubeIcon({ cubeType }: { cubeType: CubeType }) {
         setFailed(true);
       }}
     />
-  );
-}
-
-type OptionGroup = { grade: number; options: { id: number; label: string }[] };
-
-// 등급을 먼저 고르고, 그 등급 안의 옵션만 두 번째 드롭다운에 보여준다 — 등급 상관없이 185개 안팎을 한 목록에
-// 다 넣으면 너무 길어지는 문제를 등급으로 먼저 좁혀서 해결.
-function GradeOptionPicker({
-  placeholder,
-  groups,
-  value,
-  onChange,
-}: {
-  placeholder: string;
-  groups: OptionGroup[];
-  value: number | null;
-  onChange: (id: number | null) => void;
-}) {
-  const [gradeFilter, setGradeFilter] = useState<number | null>(null);
-  const currentGroup = groups.find((group) => group.grade === gradeFilter) ?? null;
-
-  return (
-    <div className="grid grid-cols-2 gap-1.5">
-      <select
-        value={gradeFilter ?? ""}
-        onChange={(event) => {
-          setGradeFilter(event.target.value ? Number(event.target.value) : null);
-          onChange(null);
-        }}
-        className="rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)]"
-      >
-        <option value="">등급 선택</option>
-        {groups.map((group) => (
-          <option key={group.grade} value={group.grade}>
-            {gradeMeta(group.grade).label}
-          </option>
-        ))}
-      </select>
-
-      <select
-        value={value ?? ""}
-        onChange={(event) => onChange(event.target.value ? Number(event.target.value) : null)}
-        disabled={!currentGroup}
-        className={`rounded-[6px] border px-2 py-1.5 text-xs transition disabled:cursor-not-allowed disabled:opacity-50 ${
-          value !== null && gradeFilter !== null
-            ? gradeMeta(gradeFilter).chip
-            : "border-[var(--retro-border)] bg-[var(--retro-cell)] text-[color:var(--retro-text)]"
-        }`}
-      >
-        <option value="">{currentGroup ? placeholder : "등급을 먼저 선택"}</option>
-        {(currentGroup?.options ?? []).map((option) => (
-          <option key={option.id} value={option.id}>
-            {option.label}
-          </option>
-        ))}
-      </select>
-    </div>
   );
 }
 
@@ -321,6 +215,12 @@ export function CubeSimulator({ cubeData }: CubeSimulatorProps) {
           <div className="space-y-1">
             <h1 className="text-2xl font-bold text-slate-100">큐브 시뮬레이터</h1>
             <p className="text-sm text-slate-300">아래 큐브를 클릭하면 잠재능력이 새로 부여됩니다.</p>
+            <a
+              href="/planet/cube-builder"
+              className="inline-flex items-center gap-1 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:underline"
+            >
+              내 캐릭터 스펙 기준으로 어느 부위가 효율적인지 보려면 → 큐브 빌더
+            </a>
           </div>
           <div className="flex items-start gap-2">
             <div

@@ -51,15 +51,25 @@ Zone A │ 드롭테이블 & 몬스터
 Zone B │ 계산기
        │ src/app/(routes)/calculator/
        │ src/app/(routes)/calculators/
+       │ src/app/(routes)/planet/calculator/
+       │ src/app/(routes)/planet/calculators/
+       │ src/app/(routes)/planet/cube-simulator/
+       │ src/app/(routes)/planet/cube-builder/
        │ src/components/TakenDamageCalculator.tsx
        │ src/components/EquipmentTable.tsx
        │ src/components/StatTable.tsx
        │ src/components/SkillPanel.tsx
        │ src/components/NumberField.tsx
        │ src/components/SpinnerInput.tsx
+       │ src/components/CubeSimulator.tsx
+       │ src/components/CubeBuilder.tsx
+       │ src/components/GradeOptionPicker.tsx
        │ src/lib/calculators/
        │ src/lib/calculators.ts
+       │ src/lib/cube-ui.ts
        │ src/types/takenDamage.ts
+       │ src/types/cube.ts
+       │ src/types/cubeBuilder.ts
 
 Zone C │ 퀘스트
        │ src/app/(routes)/quests/

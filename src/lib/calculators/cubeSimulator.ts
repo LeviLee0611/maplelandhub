@@ -1,5 +1,35 @@
 import type { CubeOptionEntry, CubeRollResult, CubeVariant, ResolvedCubeLine } from "@/types/cube";
 
+// 장비 종류별 스킬 옵션("<쓸만한 OO> 스킬 사용 가능") 제한 — cube-data.js 안에서 같은 optionType을 공유하는
+// 쌍(유니크 등급 이름 / 레전드리 등급 이름)으로 확인: 51=모자(미스틱 도어/어드밴스드 블레스),
+// 53=상의·하의·전신 갑옷(하이퍼 바디), 54=장갑(샤프 아이즈/윈드 부스터), 55=신발(헤이스트/컴뱃 오더스).
+// 스탯/공격력류 옵션은 optionType이 다르므로 장비 종류와 무관하게 항상 노출된다.
+// 큐브 시뮬레이터/큐브 빌더 양쪽에서 공유하는 도메인 로직이라 이 lib 파일에 둔다.
+export type EquipCategory = "hat" | "top" | "glove" | "shoes" | "other";
+
+export const EQUIP_CATEGORY_LABEL: Record<EquipCategory, string> = {
+  hat: "모자",
+  top: "상의/하의/전신 갑옷",
+  glove: "장갑",
+  shoes: "신발",
+  other: "기타 (무기·방패·망토·장신구 등 — 스킬 옵션 없음)",
+};
+
+const SKILL_OPTION_TYPE_BY_EQUIP: Partial<Record<EquipCategory, number>> = {
+  hat: 51,
+  top: 53,
+  glove: 54,
+  shoes: 55,
+};
+
+const ALL_SKILL_OPTION_TYPES = new Set(Object.values(SKILL_OPTION_TYPE_BY_EQUIP));
+
+export function isOptionAllowedForEquip(entry: CubeOptionEntry, equipCategory: EquipCategory | null): boolean {
+  if (equipCategory === null) return true; // 필터 없음 — 전체 표시
+  if (!ALL_SKILL_OPTION_TYPES.has(entry.optionType)) return true; // 스킬 옵션이 아니면 부위 무관하게 항상 노출
+  return entry.optionType === SKILL_OPTION_TYPE_BY_EQUIP[equipCategory];
+}
+
 // 2026-07-08, mapleplanet.co.kr/Cube 공식 페이지를 직접 열어 브라우저 JS로 확인함 —
 // 수상한 큐브/미라클 큐브 두 종류의 확률표가 완전히 동일함(사이트의 큐브 탭 전환 UI가 표시만 안 바뀌는
 // 버그가 있어서 내부 상태(activeCube)를 강제로 바꿔가며 재확인, 두 번 다 같은 수치 확인).
@@ -57,8 +87,12 @@ export function levelBracket(itemLevel: number): string {
   return String(Math.min(20, Math.max(1, bracket)));
 }
 
+function resolveValues(entry: CubeOptionEntry, levelKey: string): Record<string, number> {
+  return entry.level[levelKey] ?? entry.level["1"] ?? {};
+}
+
 function resolveText(entry: CubeOptionEntry, levelKey: string): string {
-  const values = entry.level[levelKey] ?? entry.level["1"] ?? {};
+  const values = resolveValues(entry, levelKey);
   return entry.text.replace(/#(\w+)/g, (match, varName: string) => {
     const value = values[varName];
     return typeof value === "number" ? String(value) : match;
@@ -68,6 +102,15 @@ function resolveText(entry: CubeOptionEntry, levelKey: string): string {
 /** 특정 아이템 레벨 기준으로 옵션의 실제 표시 텍스트(수치 포함)를 계산한다 — 옵션 선택 UI 등에서 사용. */
 export function resolveOptionText(entry: CubeOptionEntry, itemLevel: number): string {
   return resolveText(entry, levelBracket(itemLevel));
+}
+
+/**
+ * 특정 아이템 레벨 기준 옵션의 원본 수치(치환 전, `#incSTR` 같은 변수명 -> 숫자)를 반환한다.
+ * `resolveOptionText`는 문자열로 치환한 결과만 주기 때문에, 옵션 가치를 계산해야 하는 큐브 빌더처럼
+ * 숫자 자체가 필요한 소비자를 위해 별도로 노출.
+ */
+export function resolveOptionValues(entry: CubeOptionEntry, itemLevel: number): Record<string, number> {
+  return resolveValues(entry, levelBracket(itemLevel));
 }
 
 // 특정 등급으로 확정된 뒤, 실제로 뽑기 후보가 되는 풀(착용 레벨 미달 옵션 제외, 없으면 등급 전체로 대체).
@@ -97,6 +140,7 @@ function pickLineAtGrade(pool: CubeOptionEntry[], itemLevel: number, grade: numb
     text: resolveText(picked, levelBracket(itemLevel)),
     grade: picked.grade,
     optionType: picked.optionType,
+    entryId: picked.id,
   };
 }
 
