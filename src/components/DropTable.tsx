@@ -6,6 +6,7 @@ import { Panel } from "@/components/Panel";
 import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
 import { isReleasedMobCode } from "@/lib/release-filter";
 import { trackEvent } from "@/lib/analytics";
+import { formatNumber } from "@/lib/utils";
 import type { Monster } from "@/types/monster";
 export type DropIndexItem = {
   id: number;
@@ -888,14 +889,14 @@ export function DropTable({
                     </span>
                   </div>
                   <div className="mt-3 grid grid-cols-2 gap-3 text-sm">
-                    <div>HP {selectedMonster.hp ?? "-"}</div>
-                    <div>EXP {selectedMonster.exp ?? "-"}</div>
-                    <div>물공 {selectedMonster.watk ?? "-"}</div>
-                    <div>마공 {selectedMonster.matk ?? "-"}</div>
-                    <div>물방 {selectedMonster.def ?? "-"}</div>
-                    <div>마방 {selectedMonster.mDef ?? "-"}</div>
-                    <div>회피 {selectedMonster.eva ?? "-"}</div>
-                    <div>필요 명중치 {getRequiredAcc(selectedMonster, characterLevel)}</div>
+                    <div>HP {selectedMonster.hp != null ? formatNumber(selectedMonster.hp) : "-"}</div>
+                    <div>EXP {selectedMonster.exp != null ? formatNumber(selectedMonster.exp) : "-"}</div>
+                    <div>물공 {selectedMonster.watk != null ? formatNumber(selectedMonster.watk) : "-"}</div>
+                    <div>마공 {selectedMonster.matk != null ? formatNumber(selectedMonster.matk) : "-"}</div>
+                    <div>물방 {selectedMonster.def != null ? formatNumber(selectedMonster.def) : "-"}</div>
+                    <div>마방 {selectedMonster.mDef != null ? formatNumber(selectedMonster.mDef) : "-"}</div>
+                    <div>회피 {selectedMonster.eva != null ? formatNumber(selectedMonster.eva) : "-"}</div>
+                    <div>필요 명중치 {formatNumber(getRequiredAcc(selectedMonster, characterLevel))}</div>
                   </div>
                   <div className="mt-3">
                     <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">캐릭터 레벨</label>
@@ -1084,7 +1085,7 @@ export function DropTable({
                             Lv.{monster.level ?? "-"} · {monster.region ?? "지역 정보 없음"}
                           </div>
                           <div className="text-xs text-[color:var(--retro-text-muted)]">
-                            HP {monster.hp ?? "-"} · EXP {monster.exp ?? "-"}
+                            HP {monster.hp != null ? formatNumber(monster.hp) : "-"} · EXP {monster.exp != null ? formatNumber(monster.exp) : "-"}
                             {formatAmountLabel(entry.min, entry.max) ? ` · ${formatAmountLabel(entry.min, entry.max)}` : ""}
                           </div>
                         </div>

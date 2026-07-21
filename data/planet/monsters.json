@@ -13242,6 +13242,445 @@
     "exist": true
   },
   {
+    "name": "카오스 자쿰(1페이즈)",
+    "level": 140,
+    "hp": 528000000,
+    "exp": 0,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1000,
+    "mDef": 1100,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800100,
+    "region": "폐광",
+    "watk": 1176,
+    "matk": 795,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰(2페이즈)",
+    "level": 140,
+    "hp": 704000000,
+    "exp": 0,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1100,
+    "mDef": 1300,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800101,
+    "region": "폐광",
+    "watk": 1248,
+    "matk": 825,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰(3페이즈)",
+    "level": 140,
+    "hp": 880000000,
+    "exp": 14000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1200,
+    "mDef": 1500,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800102,
+    "region": "폐광",
+    "watk": 1296,
+    "matk": 855,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔1",
+    "level": 140,
+    "hp": 264000000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800103,
+    "region": "폐광",
+    "watk": 606,
+    "matk": 552,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔2",
+    "level": 140,
+    "hp": 264000000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 800,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800104,
+    "region": "폐광",
+    "watk": 606,
+    "matk": 552,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔3",
+    "level": 140,
+    "hp": 176000000,
+    "exp": 1000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 950,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8800105,
+    "region": "폐광",
+    "watk": 636,
+    "matk": 582,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔4",
+    "level": 140,
+    "hp": 176000000,
+    "exp": 1000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 800,
+    "mDef": 950,
+    "ele": [
+      "불 약점",
+      "얼음 반감"
+    ],
+    "mobCode": 8800106,
+    "region": "폐광",
+    "watk": 636,
+    "matk": 582,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔5",
+    "level": 140,
+    "hp": 220000000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1050,
+    "mDef": 1050,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800107,
+    "region": "폐광",
+    "watk": 660,
+    "matk": 618,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔6",
+    "level": 140,
+    "hp": 240000000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1050,
+    "mDef": 1050,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800108,
+    "region": "폐광",
+    "watk": 660,
+    "matk": 618,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔7",
+    "level": 140,
+    "hp": 202400000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1050,
+    "mDef": 750,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800109,
+    "region": "폐광",
+    "watk": 612,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰팔8",
+    "level": 140,
+    "hp": 202400000,
+    "exp": 2000000,
+    "acc": 550,
+    "eva": 200,
+    "needAcc": 0,
+    "def": 1050,
+    "mDef": 750,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8800110,
+    "region": "폐광",
+    "watk": 612,
+    "matk": 600,
+    "exist": true
+  },
+  {
+    "name": "카오스 자쿰",
+    "level": 140,
+    "hp": 3900000000,
+    "exp": 31000000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8888889,
+    "region": "폐광",
+    "watk": 0,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 왼쪽 머리",
+    "level": 160,
+    "hp": 1650000000,
+    "exp": 389281,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810100,
+    "region": "보스",
+    "watk": 20900,
+    "matk": 7700,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 오른쪽 머리",
+    "level": 160,
+    "hp": 1650000000,
+    "exp": 389281,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810101,
+    "region": "보스",
+    "watk": 20900,
+    "matk": 7700,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 머리 A",
+    "level": 160,
+    "hp": 1650000000,
+    "exp": 1112232,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810102,
+    "region": "보스",
+    "watk": 20900,
+    "matk": 7700,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 머리 B",
+    "level": 160,
+    "hp": 1950000000,
+    "exp": 2302117,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810103,
+    "region": "보스",
+    "watk": 24500,
+    "matk": 8100,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 머리 C",
+    "level": 160,
+    "hp": 1650000000,
+    "exp": 1112232,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810104,
+    "region": "보스",
+    "watk": 20900,
+    "matk": 7700,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 왼손",
+    "level": 160,
+    "hp": 1150000000,
+    "exp": 775192,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810105,
+    "region": "보스",
+    "watk": 10600,
+    "matk": 3100,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 오른손",
+    "level": 160,
+    "hp": 1150000000,
+    "exp": 775192,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810106,
+    "region": "보스",
+    "watk": 10600,
+    "matk": 3100,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 날개",
+    "level": 160,
+    "hp": 1350000000,
+    "exp": 910008,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810107,
+    "region": "보스",
+    "watk": 10100,
+    "matk": 3400,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 다리",
+    "level": 160,
+    "hp": 650000000,
+    "exp": 438152,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810108,
+    "region": "보스",
+    "watk": 15500,
+    "matk": 3600,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일의 꼬리",
+    "level": 160,
+    "hp": 450000000,
+    "exp": 269632,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 50,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810109,
+    "region": "보스",
+    "watk": 25900,
+    "matk": 3700,
+    "exist": true
+  },
+  {
+    "name": "카오스 혼테일",
+    "level": 160,
+    "hp": 2000000000,
+    "exp": 0,
+    "acc": 650,
+    "eva": 169,
+    "needAcc": 0,
+    "def": 25,
+    "mDef": 25,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8810118,
+    "region": "보스",
+    "watk": 5812,
+    "matk": 5590,
+    "exist": true
+  },
+  {
     "name": "티노",
     "mobCode": 100120,
     "ele": [

@@ -14,21 +14,36 @@ const FALLBACK_VERSIONS = [
 
 type MapleIoImageType = "mob" | "item" | "map" | "npc" | "quest";
 
+// 개별 부위(머리/팔/다리 등)를 하나로 합쳐 보여주는 "집계용" 몬스터 카드는
+// maplestory.io에 전용 아이콘/렌더가 없어(혼테일 8810018 계열은 실제 mobId지만
+// 미등록, 자쿰 8888889/8888890 등은 공식 mobId 자체가 아님) 전신 이미지를 직접 대체한다.
+// 출처: 인벤 메이플스토리 몬스터 도감(static.inven.co.kr) — 혼테일은 세 얼굴이 모두 보이는
+// 몬스터북 컷, 자쿰은 본체+주먹이 함께 보이는 컷을 사용.
+const MOB_ICON_STATIC_OVERRIDES: Record<number, string> = {
+  8810018: "/images/monsters/horntail-full.png", // 혼테일 (본체)
+  8810118: "/images/monsters/horntail-full.png", // 카오스 혼테일 (통합 카드)
+  8888889: "/images/monsters/zakum-full.png", // 카오스 자쿰 (통합 카드)
+};
+
+function resolveStaticOverride(mobCode: number | string) {
+  return MOB_ICON_STATIC_OVERRIDES[Number(mobCode)];
+}
+
 export function getMobIconUrl(mobCode: number | string) {
-  return `https://maplestory.io/api/gms/100/mob/${mobCode}/icon`;
+  return resolveStaticOverride(mobCode) ?? `https://maplestory.io/api/gms/100/mob/${mobCode}/icon`;
 }
 
 export function getMobAnimatedUrl(mobCode: number | string, action: "move" | "stand" = "move") {
-  return `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
+  return resolveStaticOverride(mobCode) ?? `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
 }
 
 export function getMobAnimatedFallbackUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
-  return `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
+  return resolveStaticOverride(mobCode) ?? `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
 }
 
 export function getMobRenderUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
   const renderBase = "https://maplestory.io/api/GMS/62";
-  return `${renderBase}/mob/${mobCode}/render/${action}`;
+  return resolveStaticOverride(mobCode) ?? `${renderBase}/mob/${mobCode}/render/${action}`;
 }
 
 export function getNpcIconUrl(npcId: number | string) {
