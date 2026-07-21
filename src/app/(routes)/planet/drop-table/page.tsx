@@ -27,6 +27,14 @@ export default function PlanetDropTablePage() {
   return (
     <>
       <PlanetBadge />
+      <div className="glass-panel mb-4 rounded-2xl px-5 py-5 text-sm text-slate-200/90">
+        <h2 className="text-base font-semibold text-slate-100">메이플 플래닛 드랍테이블 안내</h2>
+        <p className="mt-2">
+          메이플 플래닛은 메이플랜드와 같은 프리빅뱅(1.2.95~98) 기반 서버지만, 드랍률이 기본 대비{" "}
+          <strong className="font-semibold text-slate-100">4배</strong>로 적용됩니다. 아래 확률은 이 배율까지
+          반영된 플래닛 실제 수치입니다.
+        </p>
+      </div>
       <DropTable
         dropData={dropData}
         monsters={getPlanetMonsters()}

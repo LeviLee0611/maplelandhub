@@ -1,3 +1,4 @@
+import Link from "next/link";
 import dropIndexJson from "@data/drop-index.json";
 import { DropTable } from "@/components/DropTable";
 import type { DropIndexData, DropIndexItem } from "@/components/DropTable";
@@ -24,11 +25,18 @@ const dropData: DropIndexData = {
 
 export default function DropTablePage() {
   return (
-    <DropTable
-      dropData={dropData}
-      monsters={getMonsters()}
-      itemLinkBase="https://www.mapleland.gg"
-      server="mapleland"
-    />
+    <>
+      <DropTable
+        dropData={dropData}
+        monsters={getMonsters()}
+        itemLinkBase="https://www.mapleland.gg"
+        server="mapleland"
+      />
+      <p className="mx-auto mt-2 max-w-6xl px-4 text-xs text-slate-400/80">
+        <Link href="/services/drop-table" className="hover:text-slate-200">
+          드랍 확률 계산 방식 설명 보기
+        </Link>
+      </p>
+    </>
   );
 }

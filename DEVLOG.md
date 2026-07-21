@@ -4,6 +4,24 @@
 
 ---
 
+## 2026-07-21 (2)
+
+### Google Search Console 색인 이슈 3종 진단 및 수정
+
+사용자가 GSC에서 본 색인 문제 3가지(중복 페이지/발견됨-미색인/크롤링됨-미색인)를 붙여넣고 원인을 물어봐서 코드 기반으로 진단.
+
+**1) `/feedback` — "사용자가 선택한 표준이 없는 중복 페이지"**: `/contact`("문의하기")와 `/feedback`("문의/요청")이 사실상 같은 목적(문의 채널 안내)의 페이지 — `/contact`가 아예 `/feedback`으로 링크까지 걸어주는 게이트웨이 관계인데 문구도 겹쳐서 구글이 중복으로 판단, 사용자가 지정한 canonical을 무시하고 자체적으로 하나만 색인. 사용자 확인 후 `/feedback`의 canonical을 `/contact`로 명시 지정(`feedback/layout.tsx`) — 폼 자체보다 채널 안내 페이지가 더 완결된 콘텐츠라 `/contact`를 표준으로 선택.
+
+**2) "발견됨 - 현재 색인이 생성되지 않음" (about/guide/login/planet/services 3종)**: `/services/drop-table`·`/services/onehit`·`/services/quests`는 `data.md`/DEVLOG 과거 기록상 원래 "검색 유입용 설명 페이지"로 의도적으로 만든 건데, 실제로는 사이트 내 링크가 `/services/drop-table`(그것도 숨겨진 `/probability-secret`에서만) 하나뿐이라 사실상 고아 페이지였음 — 내부 링크 신호 부재로 크롤 우선순위가 낮아진 것으로 판단. `/login`은 로그인 페이지라 원래 미색인이 정상(문제 아님). `/about`·`/guide`·`/planet`은 홈페이지에서 정상 링크되고 있어 고아는 아니고, 신생/니치 사이트라 도메인 권위 문제로 시간이 필요한 것으로 판단(코드 수정 대상 아님).
+
+**3) "크롤링됨 - 현재 색인이 생성되지 않음" (`/planet/drop-table` + favicon 2건)**: `/planet/drop-table`이 `/drop-table`과 같은 `DropTable.tsx` 컴포넌트를 데이터만 바꿔 재사용하다 보니 UI 뼈대/설명 문구가 거의 동일 — 근접 중복 콘텐츠로 판단해 플래닛 전용 안내 문단(프리빅뱅 기반 + 드랍률 4배 등 실제 차이점)을 페이지 본문에 추가해 콘텐츠 차별화. favicon.ico 2건은 GSC의 흔한 노이즈(파비콘이 페이지로 잘못 집계)라 실질적 문제 아님, 조치 안 함.
+
+**적용**: `drop-table/page.tsx`, `calculators/onehit/page.tsx`, `calculator/damage/page.tsx`, `quests/page.tsx` 각각에 대응하는 `/services/*` 설명 페이지로 가는 작은 링크 추가(고아 페이지 해소) + `planet/drop-table/page.tsx`에 플래닛 차별화 안내 문단 추가 + `feedback/layout.tsx` canonical을 `/contact`로 변경.
+
+**검증**: `npx tsc --noEmit`/`npx eslint src/` 통과, 로컬 서버에서 4개 페이지 전부 새 링크 렌더링 확인.
+
+---
+
 ## 2026-07-21
 
 ### 드롭테이블에 카오스 혼테일 추가 (메이플랜드)

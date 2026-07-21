@@ -1,3 +1,4 @@
+import Link from "next/link";
 import questJson from "@data/quests.json";
 import monstersJson from "@data/monsters.json";
 import monsterSpawnsJson from "@data/monster-spawns.json";
@@ -27,5 +28,14 @@ export default function QuestsPage() {
     data: questData,
     ...slimData,
   };
-  return <QuestBoard {...props} />;
+  return (
+    <>
+      <QuestBoard {...props} />
+      <p className="mx-auto mt-2 max-w-6xl px-4 text-xs text-slate-400/80">
+        <Link href="/services/quests" className="hover:text-slate-200">
+          퀘스트 섹션 설명 보기
+        </Link>
+      </p>
+    </>
+  );
 }
