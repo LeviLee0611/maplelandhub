@@ -9289,23 +9289,6 @@
     "exist": true
   },
   {
-    "name": "발록",
-    "level": 70,
-    "hp": 4280000,
-    "exp": 0,
-    "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 25,
-    "mDef": 25,
-    "ele": [
-      "무속성"
-    ],
-    "mobCode": 8830000,
-    "region": "보스",
-    "exist": true
-  },
-  {
     "name": "혼테일의 머리B",
     "level": 160,
     "hp": 490000000,
@@ -13678,6 +13661,63 @@
     "region": "보스",
     "watk": 5812,
     "matk": 5590,
+    "exist": true
+  },
+  {
+    "name": "발록",
+    "level": 70,
+    "hp": 4280000,
+    "exp": 0,
+    "acc": 49,
+    "eva": 36,
+    "needAcc": 0,
+    "def": 25,
+    "mDef": 25,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8830000,
+    "region": "보스",
+    "watk": 580,
+    "matk": 583,
+    "exist": true
+  },
+  {
+    "name": "발록(왼손)",
+    "level": 70,
+    "hp": 2640000,
+    "exp": 0,
+    "acc": 49,
+    "eva": 36,
+    "needAcc": 0,
+    "def": 25,
+    "mDef": 25,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8830001,
+    "region": "보스",
+    "watk": 589,
+    "matk": 565,
+    "exist": true
+  },
+  {
+    "name": "발록(오른손)",
+    "level": 70,
+    "hp": 3060000,
+    "exp": 0,
+    "acc": 49,
+    "eva": 36,
+    "needAcc": 0,
+    "def": 25,
+    "mDef": 25,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8830002,
+    "region": "보스",
+    "watk": 606,
+    "matk": 607,
     "exist": true
   },
   {
