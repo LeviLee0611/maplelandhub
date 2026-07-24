@@ -1,6 +1,6 @@
 # 메랜Hub — 데이터 파이프라인
 
-> 마지막 업데이트: 2026-07-16
+> 마지막 업데이트: 2026-07-24
 
 ---
 
@@ -99,7 +99,7 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 
 ## 정적 데이터 (src/data/mapledb/)
 
-Next.js 내부에서 직접 import되는 JS 파일. 대형 데이터는 이쪽보다 `data/*.json`을 선호.
+**런타임 미사용 확인(2026-07-24)**: `src/` 앱 코드에서 이 파일들을 import하는 곳은 없음 — Next.js 런타임에서 실제로 쓰이는 건 `data/*.json`뿐. 대신 `scripts/build-drop-index.mjs`(아이템명 매칭 소스), `parse-drops-js.mjs`, `find-item-names.mjs`, `build-npc-map-locations.mjs`, `build-monster-map-locations.mjs`, `build-merged-drops-parsed.mjs` 등 **빌드 스크립트(Zone D)의 입력 소스**로만 쓰인다. 레거시가 아니라 빌드타임 전용 원본 데이터이므로 삭제 대상 아님 — `data/*.json` 재생성 시 이 파일들도 최신 상태인지 같이 확인할 것.
 
 | 파일 | 내용 |
 |---|---|
@@ -134,6 +134,14 @@ Next.js 내부에서 직접 import되는 JS 파일. 대형 데이터는 이쪽�
 - 런타임 의존 (오프라인 시 이미지 없음)
 
 ---
+
+## 일회성 보스 데이터 보강 스크립트
+
+발록/카오스 자쿰/카오스 혼테일처럼 특정 몬스터 하나를 스탯/드롭 보강할 때 `scripts/add-chaos-horntail.mjs`, `scripts/update-balrog.mjs`, `scripts/update-balrog-drops.mjs` 같은 **일회성 스크립트**로 `data/monsters.json`/`data/drop-index.json`을 프로그래매틱하게 수정하는 패턴을 씀(직접 편집 금지 규칙 준수). 이미 실행 완료된 스크립트는 재실행하면 중복 반영/역인덱스 꼬임이 날 수 있어(카오스 혼테일 목걸이 중복 드랍 사례 참고, DEVLOG 2026-07-21) **삭제하지 않고 보존하되 재실행 전 스크립트 내용을 먼저 확인**할 것 — 멱등성이 보장된 스크립트가 아님. 실행 후에는 항상 `node scripts/build-planet-data.mjs`로 플래닛 쪽까지 동기화.
+
+## 확률 미상 처리 정책
+
+드롭 확률 출처를 찾을 수 없는 아이템은 **`prob` 필드를 비워서** UI가 "정보 없음"으로 정직하게 표시하도록 함 — 근거 없는 확률을 임의로 추정해 넣지 않음(자쿰의 나뭇가지, 카오스 혼테일의 목걸이 등 다수 사례, DEVLOG 참고). 오매칭/오추정이 미표시보다 나쁘다는 원칙은 위 "아이템명 → 아이템ID 수기 오버라이드" 절의 원칙과 동일.
 
 ## 데이터 업데이트 시 체크리스트
 

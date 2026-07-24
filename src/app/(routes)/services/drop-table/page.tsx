@@ -59,10 +59,17 @@ export default function DropTableInfoPage() {
 
       <div className="glass-panel rounded-2xl px-5 py-5">
         <h2 className="text-base font-semibold text-slate-100">드랍 테이블 바로가기</h2>
-        <p className="mt-2 text-sm text-slate-200/90">원하는 몬스터나 아이템을 검색해 확률을 확인하세요.</p>
-        <Link href="/drop-table" className="btn-ghost mt-4 inline-flex rounded-full px-4 py-2 text-xs font-semibold">
-          드랍 테이블 열기
-        </Link>
+        <p className="mt-2 text-sm text-slate-200/90">
+          원하는 몬스터나 아이템을 검색해 확률을 확인하세요. 메이플랜드/메이플플래닛 버전을 각각 제공합니다.
+        </p>
+        <div className="mt-4 flex flex-wrap gap-3">
+          <Link href="/drop-table" className="btn-ghost inline-flex rounded-full px-4 py-2 text-xs font-semibold">
+            메이플랜드 드랍 테이블
+          </Link>
+          <Link href="/planet/drop-table" className="btn-ghost inline-flex rounded-full px-4 py-2 text-xs font-semibold">
+            메이플 플래닛 드랍 테이블
+          </Link>
+        </div>
       </div>
     </section>
   );

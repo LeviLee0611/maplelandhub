@@ -36,6 +36,10 @@ export default function DropTablePage() {
         <Link href="/services/drop-table" className="hover:text-slate-200">
           드랍 확률 계산 방식 설명 보기
         </Link>
+        <span className="mx-2 text-slate-600">·</span>
+        <Link href="/planet/drop-table" className="hover:text-slate-200">
+          메이플 플래닛 드랍 테이블 보기
+        </Link>
       </p>
     </>
   );

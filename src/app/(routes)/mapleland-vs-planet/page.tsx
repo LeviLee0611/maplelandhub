@@ -120,8 +120,14 @@ export default function MaplelandVsPlanetPage() {
       <div className="glass-panel rounded-2xl px-5 py-5">
         <h2 className="text-base font-semibold text-slate-100">메랜Hub는 두 서버 모두 지원합니다</h2>
         <p className="mt-2 text-sm text-slate-200/90">
-          드랍 테이블, N방컷 계산기, 피격 데미지 계산기, 큐브 시뮬레이터까지 메이플랜드/메이플플래닛 버전을 각각
-          제공합니다.
+          <Link href="/drop-table" className="font-semibold text-violet-200 hover:text-white">
+            드랍 테이블
+          </Link>
+          (
+          <Link href="/planet/drop-table" className="font-semibold text-violet-200 hover:text-white">
+            플래닛판
+          </Link>
+          ), N방컷 계산기, 피격 데미지 계산기, 큐브 시뮬레이터까지 메이플랜드/메이플플래닛 버전을 각각 제공합니다.
         </p>
         <div className="mt-3 flex flex-wrap gap-3">
           <Link href="/" className="btn-ghost rounded-full px-4 py-2 text-xs font-semibold">
