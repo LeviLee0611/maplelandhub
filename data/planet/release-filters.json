@@ -3,5 +3,8 @@
     3220000
   ],
   "blockedMobCodeMin": 9000000,
+  "allowedMobCodes": [
+    9300383
+  ],
   "_comment": "TODO: Mapleland의 release-filters.json을 초기값으로 복사한 것. Planet은 패치 속도가 다른 별도 서버이므로 실제 미출시 콘텐츠 경계가 다를 수 있음 — 수동 검토 및 조정 필요."
 }

@@ -12,7 +12,7 @@ import { trackEvent } from "@/lib/analytics";
 
 const jobGroups = ["전사", "마법사", "궁수", "도적"] as const;
 const jobOptionsByGroup = {
-  전사: ["파이터/크루세이더/히어로", "페이지/나이트/팔라딘", "스피어맨/드래곤나이트/다크나이트"],
+  전사: ["파이터/크루세이더/히어로", "페이지/나이트/팔라딘", "스피어맨/드래곤나이트/다크나이트", "아란"],
   마법사: ["위자드/메이지/아크메이지(불/독)", "위자드/메이지/아크메이지(썬/콜)", "클레릭/프리스트/비숍"],
   궁수: ["헌터/레인저/보우마스터", "사수/저격수/신궁"],
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
@@ -183,8 +183,11 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const isSunCol = job.includes("썬/콜");
   const isFirePoison = job.includes("불/독");
 
-  const achillesReduce = jobGroup === "전사" ? pickTableValue(ACHILLES_TABLE, achillesLevel) / 10 : 0;
-  const powerGuardReduce = jobGroup === "전사" ? pickTableValue(POWER_GUARD_TABLE, powerGuardLevel) : 0;
+  // 아킬레스(파이터 계열 4차 고유 패시브)/파워가드(페이지 계열 스킬)는 프리빅뱅 원작 기준
+  // 서로 다른 전사 갈래 전용 스킬 — 스피어맨/드래곤나이트/다크나이트 및 아란은 둘 다 해당 없음.
+  // (아킬레스가 전사 공통 4차 스킬이 된 건 빅뱅 이후 리워크이므로 이 프로젝트의 프리빅뱅 서버엔 미적용)
+  const achillesReduce = job === "파이터/크루세이더/히어로" ? pickTableValue(ACHILLES_TABLE, achillesLevel) / 10 : 0;
+  const powerGuardReduce = job === "페이지/나이트/팔라딘" ? pickTableValue(POWER_GUARD_TABLE, powerGuardLevel) : 0;
   const mesoGuardReduce = jobGroup === "도적" ? Math.max(0, 100 - thiefMesoGuard) : 0;
 
   const physicalMultiplierPercent =
@@ -511,28 +514,32 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
 
             <Panel title="피격 스킬" tone="yellow" actions={<span>선택 입력 · 기본값 0</span>}>
               <div className="space-y-2 text-xs">
-                {jobGroup === "전사" ? (
+                {jobGroup === "전사" && (job === "파이터/크루세이더/히어로" || job === "페이지/나이트/팔라딘") ? (
                   <div className="grid grid-cols-2 gap-2">
-                    <div className="flex items-end gap-2">
-                      <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={withTracking(setAchillesLevel, "achillesLevel")} />
-                      <button
-                        type="button"
-                        className={getMaxButtonClass(achillesLevel === 30)}
-                        onClick={() => toggleMax(achillesLevel, 30, setAchillesLevel)}
-                      >
-                        M
-                      </button>
-                    </div>
-                    <div className="flex items-end gap-2">
-                      <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={withTracking(setPowerGuardLevel, "powerGuardLevel")} />
-                      <button
-                        type="button"
-                        className={getMaxButtonClass(powerGuardLevel === 30)}
-                        onClick={() => toggleMax(powerGuardLevel, 30, setPowerGuardLevel)}
-                      >
-                        M
-                      </button>
-                    </div>
+                    {job === "파이터/크루세이더/히어로" ? (
+                      <div className="flex items-end gap-2">
+                        <NumberField id="achilles" label="아킬레스 Lv" value={achillesLevel} min={0} max={30} onChange={withTracking(setAchillesLevel, "achillesLevel")} />
+                        <button
+                          type="button"
+                          className={getMaxButtonClass(achillesLevel === 30)}
+                          onClick={() => toggleMax(achillesLevel, 30, setAchillesLevel)}
+                        >
+                          M
+                        </button>
+                      </div>
+                    ) : null}
+                    {job === "페이지/나이트/팔라딘" ? (
+                      <div className="flex items-end gap-2">
+                        <NumberField id="power-guard" label="파워가드 Lv" value={powerGuardLevel} min={0} max={30} onChange={withTracking(setPowerGuardLevel, "powerGuardLevel")} />
+                        <button
+                          type="button"
+                          className={getMaxButtonClass(powerGuardLevel === 30)}
+                          onClick={() => toggleMax(powerGuardLevel, 30, setPowerGuardLevel)}
+                        >
+                          M
+                        </button>
+                      </div>
+                    ) : null}
                   </div>
                 ) : null}
 

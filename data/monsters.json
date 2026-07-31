@@ -13245,5 +13245,119 @@
     "watk": 606,
     "matk": 607,
     "exist": true
+  },
+  {
+    "name": "튜토리얼 무루",
+    "level": 1,
+    "hp": 8,
+    "exp": 4,
+    "acc": 20,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300383,
+    "region": "리엔",
+    "watk": 12,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "무루",
+    "level": 1,
+    "hp": 8,
+    "exp": 4,
+    "acc": 20,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100130,
+    "region": "리엔",
+    "watk": 12,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "무루파",
+    "level": 3,
+    "hp": 28,
+    "exp": 24,
+    "acc": 30,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100131,
+    "region": "리엔",
+    "watk": 21,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "무루피아",
+    "level": 5,
+    "hp": 43,
+    "exp": 36,
+    "acc": 35,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 3,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100132,
+    "region": "리엔",
+    "watk": 28,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "무루무루",
+    "level": 7,
+    "hp": 70,
+    "exp": 60,
+    "acc": 40,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 5,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100133,
+    "region": "리엔",
+    "watk": 36,
+    "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "무루쿤",
+    "level": 9,
+    "hp": 95,
+    "exp": 72,
+    "acc": 42,
+    "eva": 1,
+    "needAcc": 0,
+    "def": 10,
+    "mDef": 15,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100134,
+    "region": "리엔",
+    "watk": 48,
+    "matk": 0,
+    "exist": true
   }
 ]

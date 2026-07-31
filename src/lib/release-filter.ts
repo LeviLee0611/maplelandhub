@@ -4,6 +4,7 @@ import type { Monster } from "@/types/monster";
 export type ReleaseFilters = {
   blockedMobCodes?: number[];
   blockedMobCodeMin?: number;
+  allowedMobCodes?: number[];
 };
 
 export function createReleaseFilterer(filters: ReleaseFilters) {
@@ -11,12 +12,14 @@ export function createReleaseFilterer(filters: ReleaseFilters) {
   const blockedMobCodeMin = Number.isFinite(Number(filters.blockedMobCodeMin))
     ? Number(filters.blockedMobCodeMin)
     : 9_000_000;
+  const allowedMobCodeSet = new Set<number>((filters.allowedMobCodes ?? []).map((v) => Number(v)));
 
   function isReleasedMobCode(mobCode: number | string) {
     const code = Number(mobCode);
     if (!Number.isFinite(code) || code <= 0) return false;
-    if (code >= blockedMobCodeMin) return false;
     if (blockedMobCodeSet.has(code)) return false;
+    if (allowedMobCodeSet.has(code)) return true;
+    if (code >= blockedMobCodeMin) return false;
     return true;
   }
 

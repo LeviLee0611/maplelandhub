@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-07-22T16:22:58.785Z",
+  "generatedAt": "2026-07-31T17:06:40.975Z",
   "source": "dropchance-html+legacy-mapledb+item-detail-by+planet-divergence",
   "items": [
     {
@@ -79173,6 +79173,108 @@
     {
       "id": 1532023,
       "name": "발록의 알베로"
+    },
+    {
+      "id": 4032373,
+      "name": "튜토리얼 무루의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Quest Item",
+        "lowItemId": 4030000,
+        "highItemId": 4040000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4000493,
+      "name": "무루의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4000494,
+      "name": "무루파의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4000495,
+      "name": "무루피아의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4000496,
+      "name": "무루무루의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
+    },
+    {
+      "id": 4000497,
+      "name": "무루쿤의 털뭉치",
+      "typeInfo": {
+        "overallCategory": "Etc",
+        "category": "Other",
+        "subCategory": "Monster Drop",
+        "lowItemId": 4000000,
+        "highItemId": 4010000
+      },
+      "meta": {
+        "only": false,
+        "shop": {
+          "price": 1
+        }
+      }
     }
   ],
   "dropsByMonsterId": {
@@ -79288,6 +79390,31 @@
       {
         "itemId": 4020001,
         "prob": 0.008
+      }
+    ],
+    "100130": [
+      {
+        "itemId": 4000493
+      }
+    ],
+    "100131": [
+      {
+        "itemId": 4000494
+      }
+    ],
+    "100132": [
+      {
+        "itemId": 4000495
+      }
+    ],
+    "100133": [
+      {
+        "itemId": 4000496
+      }
+    ],
+    "100134": [
+      {
+        "itemId": 4000497
       }
     ],
     "120100": [
@@ -131289,6 +131416,11 @@
       {
         "itemId": 2022176,
         "prob": 0.36
+      }
+    ],
+    "9300383": [
+      {
+        "itemId": 4032373
       }
     ],
     "9400000": [
@@ -191182,6 +191314,31 @@
         "max": 1
       }
     ],
+    "4000493": [
+      {
+        "mobId": 100130
+      }
+    ],
+    "4000494": [
+      {
+        "mobId": 100131
+      }
+    ],
+    "4000495": [
+      {
+        "mobId": 100132
+      }
+    ],
+    "4000496": [
+      {
+        "mobId": 100133
+      }
+    ],
+    "4000497": [
+      {
+        "mobId": 100134
+      }
+    ],
     "4000542": [
       {
         "mobId": 9410009,
@@ -198771,6 +198928,11 @@
       {
         "mobId": 4230118,
         "prob": 0.16
+      }
+    ],
+    "4032373": [
+      {
+        "mobId": 9300383
       }
     ],
     "4033109": [

@@ -120,6 +120,11 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 - 로직: `src/lib/release-filter.ts`
   - `blockedMobCodeMin`: 이 값 이상인 mobCode 전체 차단 (default: 9,000,000)
   - `blockedMobCodes`: 개별 차단 몬스터 ID 배열
+  - `allowedMobCodes`: 개별 허용 예외 목록 — `blockedMobCodeMin` 이상이어도 여기 있으면 통과(2026-07-31 추가,
+    9백만 이상 mobCode를 튜토리얼/이벤트용으로 일괄 차단하다 보니 정식 출시된 신규 콘텐츠가 우연히 걸리는
+    경우의 예외 처리용. 예: 아란 튜토리얼 몬스터 9300383)
+  - 판정 순서: `blockedMobCodes`(명시적 차단, 최우선) → `allowedMobCodes`(명시적 허용, min 필터 무시) →
+    `blockedMobCodeMin`(그 외 일괄 차단)
 - 필터 적용 함수: `filterReleasedMonsters()`, `isReleasedMobCode()`, `isReleasedMonster()`
 
 신규 몬스터/아이템 차단 시 `data/release-filters.json`만 수정하면 됨.

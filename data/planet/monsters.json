@@ -13721,6 +13721,126 @@
     "exist": true
   },
   {
+    "name": "튜토리얼 무루",
+    "level": 1,
+    "hp": 8,
+    "exp": 4,
+    "acc": 20,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9300383,
+    "region": "리엔",
+    "watk": 12,
+    "matk": 0,
+    "exist": true,
+    "map": "차가운 숲3"
+  },
+  {
+    "name": "무루",
+    "level": 1,
+    "hp": 8,
+    "exp": 4,
+    "acc": 20,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100130,
+    "region": "리엔",
+    "watk": 12,
+    "matk": 0,
+    "exist": true,
+    "map": "리엔 수련장 입구"
+  },
+  {
+    "name": "무루파",
+    "level": 3,
+    "hp": 28,
+    "exp": 24,
+    "acc": 30,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 0,
+    "mDef": 0,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100131,
+    "region": "리엔",
+    "watk": 21,
+    "matk": 0,
+    "exist": true,
+    "map": "눈 덮인 벌판1"
+  },
+  {
+    "name": "무루피아",
+    "level": 5,
+    "hp": 43,
+    "exp": 36,
+    "acc": 35,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 3,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100132,
+    "region": "리엔",
+    "watk": 28,
+    "matk": 0,
+    "exist": true,
+    "map": "눈 덮인 벌판2"
+  },
+  {
+    "name": "무루무루",
+    "level": 7,
+    "hp": 70,
+    "exp": 60,
+    "acc": 40,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 5,
+    "mDef": 20,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100133,
+    "region": "리엔",
+    "watk": 36,
+    "matk": 0,
+    "exist": true,
+    "map": "눈 덮인 벌판3"
+  },
+  {
+    "name": "무루쿤",
+    "level": 9,
+    "hp": 95,
+    "exp": 72,
+    "acc": 42,
+    "eva": 1,
+    "needAcc": 0,
+    "def": 10,
+    "mDef": 15,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 100134,
+    "region": "리엔",
+    "watk": 48,
+    "matk": 0,
+    "exist": true,
+    "map": "얼음 벌판"
+  },
+  {
     "name": "티노",
     "mobCode": 100120,
     "ele": [
@@ -13737,24 +13857,6 @@
     "def": 0,
     "mDef": 0,
     "map": "티노의 숲"
-  },
-  {
-    "name": "무루",
-    "mobCode": 100130,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 8,
-    "exp": 4,
-    "level": 1,
-    "acc": 20,
-    "eva": 0,
-    "watk": 12,
-    "matk": 0,
-    "def": 0,
-    "mDef": 0,
-    "map": "리엔 수련장 입구"
   },
   {
     "name": "튜토리얼 티노",
@@ -13775,24 +13877,6 @@
     "map": "시작의 숲3"
   },
   {
-    "name": "튜토리얼 무루",
-    "mobCode": 9300383,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 8,
-    "exp": 4,
-    "level": 1,
-    "acc": 20,
-    "eva": 0,
-    "watk": 12,
-    "matk": 0,
-    "def": 0,
-    "mDef": 0,
-    "map": "차가운 숲3"
-  },
-  {
     "name": "티브",
     "mobCode": 100121,
     "ele": [
@@ -13811,24 +13895,6 @@
     "map": "티브의 숲"
   },
   {
-    "name": "무루파",
-    "mobCode": 100131,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 28,
-    "exp": 24,
-    "level": 3,
-    "acc": 30,
-    "eva": 0,
-    "watk": 21,
-    "matk": 0,
-    "def": 0,
-    "mDef": 0,
-    "map": "눈 덮인 벌판1"
-  },
-  {
     "name": "티무",
     "mobCode": 100122,
     "ele": [
@@ -13845,24 +13911,6 @@
     "def": 3,
     "mDef": 10,
     "map": "티무의 숲"
-  },
-  {
-    "name": "무루피아",
-    "mobCode": 100132,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 43,
-    "exp": 36,
-    "level": 5,
-    "acc": 35,
-    "eva": 0,
-    "watk": 28,
-    "matk": 0,
-    "def": 3,
-    "mDef": 10,
-    "map": "눈 덮인 벌판2"
   },
   {
     "name": "호박밭의 잭오랜턴",
@@ -13898,24 +13946,6 @@
     "def": 5,
     "mDef": 20,
     "map": "티루의 숲"
-  },
-  {
-    "name": "무루무루",
-    "mobCode": 100133,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 70,
-    "exp": 60,
-    "level": 7,
-    "acc": 40,
-    "eva": 0,
-    "watk": 36,
-    "matk": 0,
-    "def": 5,
-    "mDef": 20,
-    "map": "눈 덮인 벌판3"
   },
   {
     "name": "음흉한 여우",
@@ -13970,24 +14000,6 @@
     "def": 10,
     "mDef": 15,
     "map": "수련의 숲3"
-  },
-  {
-    "name": "무루쿤",
-    "mobCode": 100134,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 95,
-    "exp": 72,
-    "level": 9,
-    "acc": 42,
-    "eva": 1,
-    "watk": 48,
-    "matk": 0,
-    "def": 10,
-    "mDef": 15,
-    "map": "얼음 벌판"
   },
   {
     "name": "꼬마 눈사람",

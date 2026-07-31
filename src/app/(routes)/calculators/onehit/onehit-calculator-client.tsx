@@ -129,6 +129,7 @@ const jobOptionsByGroup = {
     "파이터/크루세이더/히어로",
     "페이지/나이트/팔라딘",
     "스피어맨/드래곤나이트/다크나이트",
+    "아란",
   ],
   마법사: [
     "위자드/메이지/아크메이지(불/독)",
@@ -744,6 +745,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       "윈드브레이커": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
       "나이트워커": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "스트라이커": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "아란": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
     } as const;
     return (
       profiles[job as keyof typeof profiles] ??
@@ -833,6 +835,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       setWeaponType("너클");
     } else if (job === "윈드브레이커") {
       setWeaponType("활");
+    } else if (job === "아란") {
+      setWeaponType("폴암");
     }
   }, [job]);
 
@@ -841,7 +845,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     job === "시프/시프마스터/섀도어" ||
     job === "나이트워커" ||
     job === "스트라이커" ||
-    job === "윈드브레이커";
+    job === "윈드브레이커" ||
+    job === "아란";
 
   const weaponNeedsMotion = useMemo(
     () => ["한손도끼", "두손도끼", "한손둔기", "두손둔기", "폴암", "창"].includes(weaponType),
@@ -909,6 +914,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       return [...SPEARMAN_SKILLS];
     }
 
+    // 아란 스킬 데미지%는 메이플플래닛 인게임 캡처로만 확보됨(2026-07-03) — 메이플랜드는
+    // 수치가 다를 수 있음이 TODO.md에 기록되어 있어(예: 파이널 차지) 검증 전까지 미지원.
+    if (job === "아란" && server !== "planet") return ["기본 공격"];
+
     const mapping = mainSkillMapping as Record<string, string[]>;
     if (mapping[skillKey]) return mapping[skillKey];
 
@@ -919,11 +928,15 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (mapping[aliasKey]) return mapping[aliasKey];
 
     return ["기본 공격"];
-  }, [skillKey, job]);
+  }, [skillKey, job, server]);
 
   useEffect(() => {
-    setSkillName(skillOptions[0] ?? "기본 공격");
-  }, [skillOptions]);
+    // 퀵 프리셋 복원 등으로 skillName이 현재 skillOptions에 없는 값으로 직접 세팅될 수 있어
+    // (예: 플래닛 프리셋의 아란 스킬을 메랜에서 불러오는 경우) 매번 검증 후 보정.
+    if (!skillOptions.includes(skillName)) {
+      setSkillName(skillOptions[0] ?? "기본 공격");
+    }
+  }, [skillOptions, skillName]);
 
   const skillLevelMax = useMemo(() => {
     const set20 = new Set(range20 as string[]);
@@ -1659,6 +1672,11 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                           {jobOptionsByGroup[jobGroup].map((item) => (
                             <option key={item} value={item}>
                               {item}
+                              {item === "아란"
+                                ? server === "planet"
+                                  ? " (플래닛 실측 기반, 2026-07-03 인게임 캡처 출처)"
+                                  : " (플래닛 실측치만 확보됨 — 메랜은 기본 공격만 지원)"
+                                : ""}
                             </option>
                           ))}
                         </select>
