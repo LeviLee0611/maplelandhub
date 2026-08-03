@@ -4,6 +4,52 @@
 
 ---
 
+## 2026-08-03
+
+### Codex 리뷰 5개 항목 — 우선순위 결정
+
+사용자가 Codex에 이 세션의 변경분 리뷰를 맡겨 5개 항목이 나옴. 항목별 처리 방침:
+
+1. **미커밋 변경 검증** — 완료. drop-index.json 유실 사고 발견·복구 포함(아래 항목들 참고).
+2. **운영 알림(Resend/Cloudflare 환경변수) 문제** — 환경변수 등록 자체는 사용자 권한 필요(Cloudflare 대시보드)라 이 세션에서 처리 불가. 코드 쪽(어드민 화면에 "알림 미설정/전송 실패" 표시)은 비용 대비 가치 있다고 판단해 다음 작업으로 보류 — `TODO.md`의 "배포 / 인프라" 절에 이미 추적 중.
+3. **데이터 정확도(핑크빈 EXP, 주문서 드롭률, 큐브 확률)** — 이미 `TODO.md`에 추적 중, 이번 세션 범위 아님.
+4. **퀘스트 비로그인 로컬 저장** — `TODO.md` 우선순위 높음 항목, 다음 기능 후보로 유지.
+5. **문서 정합성(TODO.md 자기설명 위반/CLAUDE.md schema.sql 설명/project-notes.md RSC 설명/Panel.tsx 중복)** — 전부 텍스트 정합성 문제고 실제 버그·막힌 작업은 아니라 이번엔 보류. 사용자 확인: "필요 없음, 나중에".
+
+### 계산기 직업 분류 수정 — 아란을 "전사" 하위가 아닌 독립 직업군으로 재분류
+
+사용자 지적: 아란은 시그너스 기사단처럼 그 자체로 독립된 직업군이지 전사(파이터/페이지/스피어맨 계열)의 하위 분화가 아님 — 혼(魂) 시스템 자체가 1~4차 전직 구조가 없는 단일 직업이라 "전사" 안에 끼워넣는 게 구조적으로 틀렸음(2026-07-31 아란 최초 추가 당시 "전사 그룹으로 등록"한 걸 그대로 따른 것이 원인).
+
+**한방컷 계산기(`onehit-calculator-client.tsx`)**: `jobGroups`에 "아란" 추가(전사/마법사/궁수/도적/해적/시그너스와 동급), `jobOptionsByGroup.전사`에서 "아란" 제거하고 `아란: ["아란"]` 단일 그룹 신설. `weaponTypesByGroup`도 이전엔 jobGroup이 "전사"라 무기 타입 드롭다운에 전사 8종 무기가 다 뜨고(실제로는 이펙트로 강제 "폴암" 고정) 있었는데, `jobGroup === "아란"` 분기를 추가해 애초에 "폴암" 하나만 노출하도록 정리.
+
+**피격뎀 계산기(`TakenDamageCalculator.tsx`)**: 같은 구조로 `jobGroups`/`jobOptionsByGroup` 수정. 여기서 더 중요했던 건 `jobClass: JobClass` 매핑(전사→"warrior", 마법사→"magician" 등, 나머지는 전부 "beginner"로 폴백)에 "아란"이 빠지면 데미지 계산 자체가 초보자 프로필로 폴백되는 심각한 회귀가 날 뻔했던 부분 — `jobGroup === "전사" || jobGroup === "아란"` 조건으로 수정해 방지.
+
+**레거시 프리셋 마이그레이션**: 기존에 저장된 퀵 프리셋/프로필(localStorage, 캐릭터 프리셋 DB)엔 `jobGroup: "전사", job: "아란"` 조합이 남아있어, 그대로면 복원 시 "직업" 드롭다운에 없는 값이 선택되는 불일치 상태가 됨. 처음엔 `useEffect`로 사후 보정하려 했으나 `react-hooks/set-state-in-effect` 린트 에러 발생(계단식 렌더 유발 패턴) — effect 대신 각 복원 지점(퀵 프리셋 `applyQuickSnapshot`, 한방컷의 `localStorage` 프로필 복원) 안에서 직접 `job === "아란"`이면 `jobGroup`도 같이 "아란"으로 맞춰주는 방식으로 수정. 실제 브라우저에서 이 정확한 시나리오(과거에 저장된 전사+아란 조합)가 있던 프로필로 재현·자동 보정 확인.
+
+**손대지 않은 부분**: 큐브 빌더는 애초에 전사/마법사/궁수/도적 4개 굵은 단위로만 프로필을 관리하고 아란 전용 옵션 자체가 없이 "전사" 프로필을 그대로 재사용하는 구조(2026-07-31 결정 유지)라 이번 변경 대상 아님.
+
+**검증**: `npx tsc --noEmit`, `npx eslint`, `npx vitest run`(54개) 전부 통과. 로컬 서버에서 한방컷 계산기 실측 확인 — 실제 브라우저에 저장돼있던 구버전 프로필(jobGroup=전사/job=아란)이 페이지 로드 시 자동으로 "아란" 직업군으로 보정되고 무기 타입도 "폴암" 하나만 노출되는 것까지 확인.
+
+**적용 방식**: `src/app/(routes)/calculators/onehit/onehit-calculator-client.tsx`, `src/components/TakenDamageCalculator.tsx` 직접 수정(Zone B). 커밋은 안 함(요청 시 진행).
+
+---
+
+### 카에데성(일본 여행) 몬스터 전체가 드랍테이블에서 숨겨져 있던 문제 수정
+
+유저 피드백 2건("드랍테이블 카에데성 추가해주세요", "하급닌자/쿠노이치 눈장식 종류 주문서가 검색되지 않아요") 처리 중 하나의 원인으로 수렴됨. 조사 결과 카에데성 데이터 자체는 `data/monsters.json`/`data/drop-index.json`에 이미 정상적으로 존재했음(까마귀/불너구리/구름여우/하급닌자/중급닌자/상급닌자/닌자두목/쿠노이치/아시가루/갑주무사 등 mobCode 9400xxx 17종, region: "해외여행: 일본") — 다만 전부 `blockedMobCodeMin: 9,000,000` 필터에 걸려 화면에서 통째로 숨겨져 있었음(아란 튜토리얼 무루 9300383과 동일한 오탐 케이스, `data.md` 참고). 사이드바 지역 카운트로 실측 확인(해외여행: 일본 (1) → (18), 유일하게 안 걸려있던 대나무 무사 1종만 노출 중이었음).
+
+`data/release-filters.json`/`data/planet/release-filters.json`의 `allowedMobCodes`에 17종 mobCode 전부 추가해 해제. Planet 쪽엔 몬스터 카탈로그(680종) 병합으로 같은 mobCode 대역에 "Extra A/B", "Slot Machine", "Emperor Toad" 등 미검증 placeholder 영문 몬스터도 섞여 있었으나 이번엔 손대지 않음(스코프 밖 — 별도 데이터 정확도 이슈).
+
+**눈장식 명중률 주문서 검색 안 되는 문제(피드백 2번째 항목)**: itemId 2040200/2040201/2040202("눈장식 명중률 주문서" 10%/60%/100%)는 드랍 인덱스에 이미 연결돼 있었지만, `build-drop-index.mjs`의 이름 조회가 KMS API에서 이 아이템을 못 찾아(해당 itemId가 KMS 389/284 어느 버전에도 없음, GMS엔 존재) GMS 영문 폴백 이름("Scroll for Eye Accessory for Accuracy 60%" 등)이 그대로 들어가 있었음 — 한글 검색으로 안 잡히던 원인. `src/data/mapledb/equips.js`(이름 조회 1순위 소스)에 3종 한글명을 수기 추가함 — 이 소스 수정 자체는 유지, 다음에 정말로 전체 재빌드를 해야 할 일이 생기면 이번 같은 문제가 재발하지 않도록.
+
+**주의(사고 후 수습): `npm run build:drop-index` 재실행이 기존 일회성 보스 데이터를 지워버림** — 처음엔 data.md 문서대로 `npm run build:drop-index`를 재실행해서 반영했는데, 이 명령이 `data/drop-index.json`을 스크래핑 소스(`drops-parsed.json`/`item-detail-by.json`)만 가지고 처음부터 다시 생성하는 방식이라, 과거 세션에서 일회성 스크립트(`add-chaos-horntail.mjs`, `update-balrog-drops.mjs`, `add-aran-rien-monsters.mjs` 등)로 **산출물 파일에 직접 patch**해뒀던 카오스 자쿰(8888889, 49→0건)/카오스 혼테일(8810118, 38→0건)/발록 추가 무기 21종(64→38건)/아란 리엔 몬스터 드롭(무루 등, 1→0건)이 전부 통째로 사라짐 — `git diff --stat`으로 drop-index.json 두 파일에서 약 2,800줄이 순감소한 걸 보고서야 발견. `git checkout -- data/drop-index.json data/planet/drop-index.json`으로 되돌린 뒤, 전체 재빌드 대신 3개 itemId의 `name` 필드만 직접 patch하는 스크립트로 최소 반영(diff 6줄/파일)으로 수정. **교훈**: 이 프로젝트의 일회성 보스/이벤트 데이터 스크립트들은 스크래핑 소스가 아니라 산출물(`data/drop-index.json`)에 직접 기록하는 구조라, `build:drop-index`(또는 그 체인인 `build:planet-data`)를 재실행하면 이 데이터들이 소스 어디에도 없어서 전부 유실됨 — data.md의 "일회성 보스 데이터 보강 스크립트" 절엔 "스크립트 재실행 시 위험"만 적혀있고 "기반 파이프라인(build:drop-index) 재실행 시에도 유실된다"는 경고가 없었음, TODO.md에 추가함.
+
+**검증**: `npx tsc --noEmit`, `npx eslint src/`, `npx vitest run`(54개) 전부 통과. `git diff --stat`으로 drop-index.json 변경분이 3개 아이템 이름만 바뀐 6줄/파일로 축소된 것 확인, 카오스 자쿰/카오스 혼테일/발록/무루 드롭 건수를 정정 전(HEAD) 수치와 재대조(49/38/64/1건 모두 일치). 로컬 서버에서 드랍테이블 사이드바 지역 카운트 변화(1→18)로 카에데성 언블록 확인, 검색 드롭다운에서 "눈장식 명중률 주문서" 3종이 아이콘과 함께 뜨는 것 확인. 이후 브라우저 확장 세션이 불안정해져(타이핑 입력이 아예 반영 안 됨, 페이지와 무관한 도구 자체 문제로 판단) 아이템→몬스터 역방향 목록 클릭 확인은 코드 리뷰로 대체(`drop-table-lookup.ts`의 `resolveItemMonsters`가 `itemDetailBy.itemsByItemId`를 우선 사용하는데 이 소스에 이미 mobId 9400400 등이 들어있었고, `DropTable.tsx`의 `isReleasedMobCode` 필터도 이번 allowedMobCodes 추가로 통과하게 됨을 코드로 확인).
+
+**적용 방식**: `src/data/mapledb/equips.js`(Zone D 입력 소스) 수정 + `data/drop-index.json`/`data/planet/drop-index.json`은 전체 재빌드 대신 3개 itemId 이름만 직접 patch, `data/release-filters.json`/`data/planet/release-filters.json` 수동 수정. 커밋은 안 함(요청 시 진행).
+
+---
+
 ## 2026-07-31
 
 ### 아란(Aran) 직업 추가 — 1차 반영(리엔 몬스터/드롭 + 계산기 등록, 스킬 데미지%는 이후 세션에서 반영 — 아래 후속 절 참고)

@@ -24,7 +24,7 @@ import mapleHero from "@data/skills/mapleHero.json";
 import meditation from "@data/skills/meditation.json";
 import rage from "@data/skills/rage.json";
 
-const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스", "아란"] as const;
 const SPEARMAN_SKILLS = [
   "파워 스트라이크",
   "슬래시 블래스트",
@@ -129,7 +129,6 @@ const jobOptionsByGroup = {
     "파이터/크루세이더/히어로",
     "페이지/나이트/팔라딘",
     "스피어맨/드래곤나이트/다크나이트",
-    "아란",
   ],
   마법사: [
     "위자드/메이지/아크메이지(불/독)",
@@ -140,6 +139,7 @@ const jobOptionsByGroup = {
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
   해적: ["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"],
   시그너스: ["소울마스터", "플레임위자드", "윈드브레이커", "나이트워커", "스트라이커"],
+  아란: ["아란"],
 } as const;
 
 const QUICK_SLOT_COUNT = 6;
@@ -389,7 +389,12 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (snapshot.jobGroup && jobGroups.includes(snapshot.jobGroup)) {
       setJobGroup(snapshot.jobGroup);
       setTimeout(() => {
-        if (typeof snapshot.job === "string") setJob(snapshot.job);
+        if (typeof snapshot.job === "string") {
+          // 아란이 예전엔 "전사" 그룹 하위 직업이었던 저장된 퀵 프리셋 복원 시
+          // jobGroup="전사"·job="아란" 조합이 남아있을 수 있어 자동 보정.
+          if (snapshot.job === "아란") setJobGroup("아란");
+          setJob(snapshot.job);
+        }
       }, 0);
     }
     if (typeof snapshot.level === "number") setLevel(snapshot.level);
@@ -475,7 +480,12 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       const saved = JSON.parse(raw);
       if (saved.nickname) setNickname(saved.nickname);
       if (saved.jobGroup) setJobGroup(saved.jobGroup);
-      if (saved.job) setJob(saved.job);
+      if (saved.job) {
+        // 아란이 예전엔 "전사" 그룹 하위 직업이었던 저장된 프로필 복원 시
+        // jobGroup="전사"·job="아란" 조합이 남아있을 수 있어 자동 보정.
+        if (saved.job === "아란") setJobGroup("아란");
+        setJob(saved.job);
+      }
       if (typeof saved.level === "number") setLevel(saved.level);
       if (typeof saved.characterAccuracy === "number") setCharacterAccuracy(saved.characterAccuracy);
       if (typeof saved.weaponType === "string") setWeaponType(saved.weaponType);
@@ -759,6 +769,14 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   }, [jobGroup]);
 
   useEffect(() => {
+    // 아란이 예전엔 "전사" 그룹 하위 직업이었던 저장된 프리셋/localStorage 복원 시
+    // jobGroup="전사"·job="아란" 조합이 남아있을 수 있어 자동 보정.
+    if (job === "아란" && jobGroup !== "아란") {
+      setJobGroup("아란");
+    }
+  }, [job, jobGroup]);
+
+  useEffect(() => {
     if ((jobGroup === "마법사" || job === "플레임위자드") && passiveMasteryBonus !== 0) {
       setPassiveMasteryBonus(0);
     }
@@ -813,6 +831,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (jobGroup === "궁수") return ["활", "석궁"];
     if (jobGroup === "도적") return ["단검", "아대"];
     if (jobGroup === "해적") return ["너클", "건"];
+    if (jobGroup === "아란") return ["폴암"];
     if (jobGroup === "시그너스") {
       if (isSoulMasterJob) return ["한손검", "두손검"];
       if (isFlameWizardJob) return [];
