@@ -137,7 +137,7 @@ const jobOptionsByGroup = {
   ],
   궁수: ["헌터/레인저/보우마스터", "사수/저격수/신궁"],
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
-  해적: ["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"],
+  해적: ["인파이터", "버커니어", "바이퍼", "건슬링거", "발키리", "캡틴"],
   시그너스: ["소울마스터", "플레임위자드", "윈드브레이커", "나이트워커", "스트라이커"],
   아란: ["아란"],
 } as const;
@@ -181,7 +181,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const [profileMessage, setProfileMessage] = useState("");
   const [stats, setStats] = useState({ str: 200, dex: 80, int: 4, luk: 30 });
   const [weaponType, setWeaponType] = useState("");
-  const [weaponMotion, setWeaponMotion] = useState<"자동" | "베기" | "찌르기">("자동");
   const [arrowType, setArrowType] = useState("");
   const [starType, setStarType] = useState("");
   const [gloveAttackBonus, setGloveAttackBonus] = useState(0);
@@ -254,7 +253,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     totalMagicInput,
     stats,
     weaponType,
-    weaponMotion,
     arrowType,
     starType,
     gloveAttackBonus,
@@ -274,7 +272,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     totalMagicInput,
     stats,
     weaponType,
-    weaponMotion,
     arrowType,
     starType,
     gloveAttackBonus,
@@ -297,7 +294,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       totalMagicInput,
       stats,
       weaponType,
-      weaponMotion,
       arrowType,
       starType,
       gloveAttackBonus,
@@ -343,7 +339,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       totalMagicInput,
       stats,
       weaponType,
-      weaponMotion,
       arrowType,
       starType,
       gloveAttackBonus,
@@ -400,9 +395,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (typeof snapshot.level === "number") setLevel(snapshot.level);
     if (typeof snapshot.characterAccuracy === "number") setCharacterAccuracy(snapshot.characterAccuracy);
     if (typeof snapshot.weaponType === "string") setWeaponType(snapshot.weaponType);
-    if (typeof snapshot.weaponMotion === "string") {
-      setWeaponMotion(snapshot.weaponMotion as "자동" | "베기" | "찌르기");
-    }
     const legacyWeaponAttack = readLegacyNumber(snapshot as Record<string, unknown>, [
       "weaponAttackInput",
       "attackOptionTotal",
@@ -489,9 +481,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       if (typeof saved.level === "number") setLevel(saved.level);
       if (typeof saved.characterAccuracy === "number") setCharacterAccuracy(saved.characterAccuracy);
       if (typeof saved.weaponType === "string") setWeaponType(saved.weaponType);
-      if (typeof saved.weaponMotion === "string") {
-        setWeaponMotion(saved.weaponMotion as "자동" | "베기" | "찌르기");
-      }
       const legacyWeaponAttack = readLegacyNumber(saved as Record<string, unknown>, [
         "weaponAttackInput",
         "attackOptionTotal",
@@ -748,8 +737,12 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       "사수/저격수/신궁": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
       "어쌔신/허밋/나이트로드": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "시프/시프마스터/섀도어": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
-      "인파이터/버커니어/바이퍼": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
-      "건슬링거/발키리/캡틴": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
+      "인파이터": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "버커니어": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "바이퍼": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "건슬링거": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
+      "발키리": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
+      "캡틴": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
       "소울마스터": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "플레임위자드": { primary: "int", secondary: "luk", multiplier: 1.0, mastery: 0.6 },
       "윈드브레이커": { primary: "dex", secondary: "str", multiplier: 4.0, mastery: 0.6 },
@@ -757,8 +750,12 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       "스트라이커": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "아란": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
     } as const;
+    // 해적 직업은 예전엔 "인파이터/버커니어/바이퍼"처럼 3단계를 묶은 값으로 저장됐음 —
+    // 저장된 프리셋 복원 시 개별 직업명 중 하나로 대응(레거시 호환용).
+    const legacyKey =
+      job === "인파이터/버커니어/바이퍼" ? "바이퍼" : job === "건슬링거/발키리/캡틴" ? "캡틴" : job;
     return (
-      profiles[job as keyof typeof profiles] ??
+      profiles[legacyKey as keyof typeof profiles] ??
       profiles["파이터/크루세이더/히어로"]
     );
   }, [job]);
@@ -767,14 +764,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     const nextJob = jobOptionsByGroup[jobGroup][0];
     setJob(nextJob);
   }, [jobGroup]);
-
-  useEffect(() => {
-    // 아란이 예전엔 "전사" 그룹 하위 직업이었던 저장된 프리셋/localStorage 복원 시
-    // jobGroup="전사"·job="아란" 조합이 남아있을 수 있어 자동 보정.
-    if (job === "아란" && jobGroup !== "아란") {
-      setJobGroup("아란");
-    }
-  }, [job, jobGroup]);
 
   useEffect(() => {
     if ((jobGroup === "마법사" || job === "플레임위자드") && passiveMasteryBonus !== 0) {
@@ -793,6 +782,12 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
     if (job.includes("썬/콜")) return "썬콜";
     if (job.includes("불/독")) return "불독";
+    if (job === "인파이터" || job === "버커니어" || job === "바이퍼" || job === "인파이터/버커니어/바이퍼") {
+      return "인파이터/버커니어/바이퍼";
+    }
+    if (job === "건슬링거" || job === "발키리" || job === "캡틴" || job === "건슬링거/발키리/캡틴") {
+      return "건슬링거/발키리/캡틴";
+    }
     return job;
   }, [job]);
 
@@ -866,16 +861,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     job === "스트라이커" ||
     job === "윈드브레이커" ||
     job === "아란";
-
-  const weaponNeedsMotion = useMemo(
-    () => ["한손도끼", "두손도끼", "한손둔기", "두손둔기", "폴암", "창"].includes(weaponType),
-    [weaponType],
-  );
-
-  useEffect(() => {
-    if (!weaponNeedsMotion) return;
-    setWeaponMotion((prev) => (prev === "자동" || prev === "베기" || prev === "찌르기" ? prev : "자동"));
-  }, [weaponNeedsMotion]);
 
   const arrowAttackBonus = useMemo(() => {
     if (!isArcherOrWindBreaker) return 0;
@@ -1166,8 +1151,17 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     const magic = Math.floor(intel * 2 + luk * 0.5) + blessingMatt;
     const accuracyBase = (() => {
       if (jobGroup === "전사" || jobGroup === "마법사") return dex * 0.8 + luk * 0.5;
-      if (job === "인파이터/버커니어/바이퍼") return dex * 0.9 + luk * 0.3;
-      if (jobGroup === "궁수" || jobGroup === "도적" || job === "건슬링거/발키리/캡틴") {
+      if (job === "인파이터" || job === "버커니어" || job === "바이퍼" || job === "인파이터/버커니어/바이퍼") {
+        return dex * 0.9 + luk * 0.3;
+      }
+      if (
+        jobGroup === "궁수" ||
+        jobGroup === "도적" ||
+        job === "건슬링거" ||
+        job === "발키리" ||
+        job === "캡틴" ||
+        job === "건슬링거/발키리/캡틴"
+      ) {
         return dex * 0.6 + luk * 0.3;
       }
       if (job === "소울마스터" || job === "플레임위자드") return dex * 0.8 + luk * 0.5;
@@ -1284,33 +1278,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
   }, [jobProfile.primary, jobProfile.multiplier, weaponType]);
 
-  const weaponMotionConstants = useMemo(() => {
-    if (!weaponNeedsMotion) return null;
-    const isSpear = weaponType === "창";
-    const isPolearm = weaponType === "폴암";
-    if (isSpear) {
-      return { slash: weaponConstants.min, thrust: weaponConstants.max };
-    }
-    if (isPolearm) {
-      return { slash: weaponConstants.max, thrust: weaponConstants.min };
-    }
-    return { slash: weaponConstants.max, thrust: weaponConstants.min };
-  }, [weaponNeedsMotion, weaponType, weaponConstants]);
-
-  const weaponMultiplierRange = useMemo(() => {
-    if (!weaponNeedsMotion || !weaponMotionConstants) return weaponConstants;
-    if (weaponMotion === "베기") {
-      return { min: weaponMotionConstants.slash, max: weaponMotionConstants.slash };
-    }
-    if (weaponMotion === "찌르기") {
-      return { min: weaponMotionConstants.thrust, max: weaponMotionConstants.thrust };
-    }
-    return {
-      min: Math.min(weaponMotionConstants.slash, weaponMotionConstants.thrust),
-      max: Math.max(weaponMotionConstants.slash, weaponMotionConstants.thrust),
-    };
-  }, [weaponNeedsMotion, weaponConstants, weaponMotion, weaponMotionConstants]);
-
   const passiveMasteryRate = (jobGroup === "마법사" || isFlameWizardJob) ? 0 : passiveMasteryBonus / 100;
   const effectiveMastery = jobProfile.primary === "int"
     ? Math.min(1, mastery)
@@ -1321,8 +1288,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       primaryStat: derived.primaryStat,
       secondaryStat: derived.secondaryStat,
       weaponAttack,
-      minStatMultiplier: weaponMultiplierRange.min,
-      maxStatMultiplier: weaponMultiplierRange.max,
+      minStatMultiplier: weaponConstants.min,
+      maxStatMultiplier: weaponConstants.max,
       statMultiplier: jobProfile.multiplier,
       skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
       mastery: effectiveMastery,
@@ -1332,80 +1299,13 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     derived.primaryStat,
     derived.secondaryStat,
     weaponAttack,
-    weaponMultiplierRange.min,
-    weaponMultiplierRange.max,
+    weaponConstants.min,
+    weaponConstants.max,
     jobProfile.multiplier,
     damageMultiplier,
     effectiveMastery,
     jobProfile.primary,
   ]);
-
-  const motionWeightedAvgDamage = useMemo(() => {
-    if (!weaponNeedsMotion || weaponMotion !== "자동" || !weaponMotionConstants) return null;
-    const isSpearFamily = weaponType === "창" || weaponType === "폴암";
-    const slashWeight = isSpearFamily ? 2 : 3;
-    const thrustWeight = isSpearFamily ? 2 : 1;
-    const total = slashWeight + thrustWeight;
-    const weightedConstant =
-      (weaponMotionConstants.slash * slashWeight + weaponMotionConstants.thrust * thrustWeight) / total;
-    const masteryFactor = (0.9 * effectiveMastery + 1) / 2;
-    const skillMul = jobProfile.primary === "int" ? damageMultiplier : 1;
-    return ((derived.primaryStat * weightedConstant * masteryFactor + derived.secondaryStat) * weaponAttack * skillMul) / 100;
-  }, [
-    weaponNeedsMotion,
-    weaponMotion,
-    weaponMotionConstants,
-    derived.primaryStat,
-    derived.secondaryStat,
-    weaponAttack,
-    jobProfile.primary,
-    damageMultiplier,
-    effectiveMastery,
-    weaponType,
-  ]);
-
-  const motionDamageRanges = useMemo(() => {
-    if (!weaponNeedsMotion || weaponMotion !== "자동" || !weaponMotionConstants) return null;
-    const baseSlash = calcBaseDamageFromStats({
-      primaryStat: derived.primaryStat,
-      secondaryStat: derived.secondaryStat,
-      weaponAttack,
-      minStatMultiplier: weaponMotionConstants.slash,
-      maxStatMultiplier: weaponMotionConstants.slash,
-      statMultiplier: jobProfile.multiplier,
-      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
-      mastery: effectiveMastery,
-      isMagic: jobProfile.primary === "int",
-    });
-    const baseThrust = calcBaseDamageFromStats({
-      primaryStat: derived.primaryStat,
-      secondaryStat: derived.secondaryStat,
-      weaponAttack,
-      minStatMultiplier: weaponMotionConstants.thrust,
-      maxStatMultiplier: weaponMotionConstants.thrust,
-      statMultiplier: jobProfile.multiplier,
-      skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
-      mastery: effectiveMastery,
-      isMagic: jobProfile.primary === "int",
-    });
-    return { slash: baseSlash, thrust: baseThrust };
-  }, [
-    weaponNeedsMotion,
-    weaponMotion,
-    weaponMotionConstants,
-    derived.primaryStat,
-    derived.secondaryStat,
-    weaponAttack,
-    jobProfile.multiplier,
-    jobProfile.primary,
-    damageMultiplier,
-    effectiveMastery,
-  ]);
-
-  const baseDamage = useMemo(() => {
-    if (motionWeightedAvgDamage === null) return baseDamageRange;
-    return { ...baseDamageRange, avgDamage: motionWeightedAvgDamage };
-  }, [baseDamageRange, motionWeightedAvgDamage]);
 
   const attackElement = useMemo<AttackElement>(() => {
     if (isPagePaladinJob && pageChargeLevel > 0) {
@@ -1583,15 +1483,13 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       statMultiplier: jobProfile.multiplier,
       skillMultiplier: jobProfile.primary === "int" ? damageMultiplier : 1,
       mastery: effectiveMastery,
-      minStatMultiplier: weaponMultiplierRange.min,
-      maxStatMultiplier: weaponMultiplierRange.max,
+      minStatMultiplier: weaponConstants.min,
+      maxStatMultiplier: weaponConstants.max,
       isMagic: jobProfile.primary === "int",
     },
     minDamage: specialBaseDamage?.min,
     maxDamage: specialBaseDamage?.max,
-    avgDamage: specialBaseDamage
-      ? (specialBaseDamage.min + specialBaseDamage.max) / 2
-      : motionWeightedAvgDamage ?? undefined,
+    avgDamage: specialBaseDamage ? (specialBaseDamage.min + specialBaseDamage.max) / 2 : undefined,
     finalDamageMultiplier,
     skillMultiplier: specialBaseDamage?.skillMultiplier ?? (jobProfile.primary === "int" ? 1 : damageMultiplier),
     ignoreDefense: specialBaseDamage?.ignoreDefense,
@@ -1715,20 +1613,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                                 {type}
                               </option>
                             ))}
-                          </select>
-                        </label>
-                      ) : null}
-                      {jobGroup !== "마법사" && weaponNeedsMotion ? (
-                        <label className="space-y-1">
-                          <span className="retro-chip">공격 모션</span>
-                          <select
-                            className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
-                            value={weaponMotion}
-                            onChange={(event) => setWeaponMotion(event.target.value as "자동" | "베기" | "찌르기")}
-                          >
-                            <option value="자동">자동(확률)</option>
-                            <option value="베기">베기</option>
-                            <option value="찌르기">찌르기</option>
                           </select>
                         </label>
                       ) : null}
@@ -2604,22 +2488,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
           <div className="space-y-6">
           <ResultPanel
             baseDamage={{
-              min: baseDamage.minDamage * finalDamageMultiplier,
-              avg: baseDamage.avgDamage * finalDamageMultiplier,
-              max: baseDamage.maxDamage * finalDamageMultiplier,
+              min: baseDamageRange.minDamage * finalDamageMultiplier,
+              avg: baseDamageRange.avgDamage * finalDamageMultiplier,
+              max: baseDamageRange.maxDamage * finalDamageMultiplier,
             }}
-            motionDamageRanges={motionDamageRanges ? {
-              slash: {
-                min: motionDamageRanges.slash.minDamage * finalDamageMultiplier,
-                avg: motionDamageRanges.slash.avgDamage * finalDamageMultiplier,
-                max: motionDamageRanges.slash.maxDamage * finalDamageMultiplier,
-              },
-              thrust: {
-                min: motionDamageRanges.thrust.minDamage * finalDamageMultiplier,
-                avg: motionDamageRanges.thrust.avgDamage * finalDamageMultiplier,
-                max: motionDamageRanges.thrust.maxDamage * finalDamageMultiplier,
-              },
-            } : undefined}
             result={result}
             elementMultiplier={elementMultiplier}
             bishopHealBonus={bishopHealBonus}

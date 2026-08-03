@@ -6,6 +6,22 @@
 
 ## 2026-08-03
 
+### 한방컷 계산기 — 공격 모션 제거, 해적 직업 개별 분리
+
+사용자 요청 2건.
+
+**공격 모션(베기/찌르기/자동) 제거**: 도끼/둔기/폴암/창 무기에서 선택하던 공격 모션 UI와 관련 로직(`weaponMotionConstants`/`weaponMultiplierRange`/`motionWeightedAvgDamage`/`motionDamageRanges`)을 전부 삭제. 기존 "자동" 모드가 계산하던 평균값은 표준 무기 min~max 범위(`weaponConstants`) 계산으로 자연스럽게 대체됨 — 다른 무기 타입(한손검/너클 등)이 원래 쓰던 방식과 동일해진 것. `ResultPanel.tsx`의 베기/찌르기 상세 breakdown 표시도 함께 제거.
+
+**해적 직업 "인파이터/버커니어/바이퍼" 묶음 표기를 개별 6종으로 분리**: 사용자가 "직업칸에 이상한 거 들어있다"고 지적 — 확인 질문 결과 해적 직업군 표기 방식을 말한 것으로 확인(처음엔 아란 관련 지적인 줄 알았으나 사용자가 직접 정정: 아란은 원래대로 단일 유지, 해적이 분리 대상). `jobOptionsByGroup.해적`을 `["인파이터/버커니어/바이퍼", "건슬링거/발키리/캡틴"]`(묶음 2개) → `["인파이터","버커니어","바이퍼","건슬링거","발키리","캡틴"]`(개별 6개)로 변경. 스킬 데이터(`data/skills/mainSkillMapping.json`)는 여전히 3단계 묶음 키로만 존재해서(빌드 산출물, 직접 편집 금지 대상) 개별 직업명 선택 시에도 `skillKey`/`jobProfile` 조회를 묶음 키로 alias하도록 처리 — 스피어맨 계열의 기존 alias 패턴(`job.includes("스피어맨") → "스피어맨/드래곤나이트/다크나이트"`)과 동일한 방식. 레거시 저장 프리셋(예전 묶음값)도 같은 alias 로직으로 커버됨.
+
+**작업 중 발견한 버그(수정 완료)**: 검증 중 직업군을 "해적"으로 바꾸면 50ms 안에 "아란"으로 되돌아가는 버그 발견 — 지난 세션 아란 재분류 작업 때 레거시 프리셋 보정용으로 추가했던 `useEffect`(`if (job === "아란" && jobGroup !== "아란") setJobGroup("아란")`)를 `TakenDamageCalculator.tsx`에서는 `react-hooks/set-state-in-effect` 린트 에러 때문에 제거하고 복원 지점(`applyQuickSnapshot`/localStorage restore)으로 옮겼었는데, 이 파일(`onehit-calculator-client.tsx`)에서는 같은 작업을 깜빡하고 effect를 안 지운 채 복원 지점 patch만 추가로 얹어놨던 것 — 두 로직이 공존하면서 "nextJob 리셋 effect"와 매 렌더마다 경합해 사용자가 수동으로 다른 직업군을 선택해도 즉시 "아란"으로 튕기는 상태가 됐었음. 남아있던 `useEffect`를 제거해 해결(복원 지점 patch만으로 충분).
+
+**검증**: `npx tsc --noEmit`, `npx eslint src/`, `npx vitest run`(54개) 전부 통과. 로컬 서버에서 브라우저 콘솔 스크립트로 직업군 해적→개별 직업(캡틴) 선택, 아란 그룹 진입/이탈 왕복까지 확인 — 정상 동작.
+
+**적용 방식**: `src/app/(routes)/calculators/onehit/onehit-calculator-client.tsx`, `src/components/ResultPanel.tsx` 직접 수정(Zone B). 커밋은 안 함(요청 시 진행).
+
+---
+
 ### Codex 리뷰 5개 항목 — 우선순위 결정
 
 사용자가 Codex에 이 세션의 변경분 리뷰를 맡겨 5개 항목이 나옴. 항목별 처리 방침:

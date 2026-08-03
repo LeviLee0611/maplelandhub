@@ -8,18 +8,6 @@ type ResultPanelProps = {
     avg: number;
     max: number;
   };
-  motionDamageRanges?: {
-    slash: {
-      min: number;
-      avg: number;
-      max: number;
-    };
-    thrust: {
-      min: number;
-      avg: number;
-      max: number;
-    };
-  };
   result: OneHitResult;
   elementMultiplier?: number;
   bishopHealBonus?: number;
@@ -31,7 +19,6 @@ type ResultPanelProps = {
 
 export function ResultPanel({
   baseDamage,
-  motionDamageRanges,
   result,
   elementMultiplier = 1,
   bishopHealBonus = 1,
@@ -132,28 +119,6 @@ export function ResultPanel({
               </div>
             </div>
           </div>
-          {motionDamageRanges ? (
-            <div className="mt-2 grid gap-3 md:grid-cols-2">
-              <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
-                <div className="text-[10px] text-[color:var(--retro-text-muted)]">베기 모션 기본 범위</div>
-                <div className="text-sm font-semibold text-[color:var(--retro-text)]">
-                  {formatRange(motionDamageRanges.slash.min, motionDamageRanges.slash.max)}
-                </div>
-                <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
-                  평균 {formatNumber(Math.round(motionDamageRanges.slash.avg))}
-                </div>
-              </div>
-              <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
-                <div className="text-[10px] text-[color:var(--retro-text-muted)]">찌르기 모션 기본 범위</div>
-                <div className="text-sm font-semibold text-[color:var(--retro-text)]">
-                  {formatRange(motionDamageRanges.thrust.min, motionDamageRanges.thrust.max)}
-                </div>
-                <div className="mt-1 text-[10px] text-[color:var(--retro-text-muted)]">
-                  평균 {formatNumber(Math.round(motionDamageRanges.thrust.avg))}
-                </div>
-              </div>
-            </div>
-          ) : null}
           <div className="mt-2 grid gap-3 md:grid-cols-2">
             <div className="border border-[var(--retro-border)] bg-[var(--retro-bg)] px-3 py-2 text-xs">
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">크리티컬 데미지 범위</div>
