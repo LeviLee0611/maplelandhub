@@ -1,6 +1,6 @@
 "use client";
 
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { SkillPanel } from "@/components/SkillPanel";
 import { MonsterPanel } from "@/components/MonsterPanel";
@@ -173,6 +173,11 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const [nickname, setNickname] = useState("");
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>(jobGroups[0]);
   const [job, setJob] = useState<string>(jobOptionsByGroup[jobGroup][0]);
+  // Supabase 기본 프리셋은 로그인 확인 후 비동기로 불러와 반영되는데, 그 응답이 오기 전에
+  // 사용자가 직업군/직업을 직접 바꾸면 응답 도착 시 방금 한 선택을 덮어써버리는 레이스가 있었음
+  // (예: 아란을 기본 프리셋으로 저장해둔 상태에서 페이지 진입 직후 해적을 눌러도 잠시 후 아란으로 되돌아감).
+  // 사용자가 직접 건드린 적이 있으면 그 뒤의 자동 복원은 건너뛰어 방지.
+  const userChangedJobRef = useRef(false);
   const [level, setLevel] = useState(70);
   const [characterAccuracy, setCharacterAccuracy] = useState(0);
   const [weaponAttackInput, setWeaponAttackInput] = useState(0);
@@ -576,7 +581,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
         });
 
         setPresetSlots(nextSlots);
-        if (defaultPreset) {
+        if (defaultPreset && !userChangedJobRef.current) {
           applyQuickSnapshot(defaultPreset);
         }
       } catch {
@@ -1569,7 +1574,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                           id="job-group"
                           className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
                           value={jobGroup}
-                          onChange={(event) => setJobGroup(event.target.value as (typeof jobGroups)[number])}
+                          onChange={(event) => {
+                            userChangedJobRef.current = true;
+                            setJobGroup(event.target.value as (typeof jobGroups)[number]);
+                          }}
                         >
                           {jobGroups.map((item) => (
                             <option key={item} value={item}>
@@ -1584,16 +1592,14 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                           id="job"
                           className="w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
                           value={job}
-                          onChange={(event) => setJob(event.target.value)}
+                          onChange={(event) => {
+                            userChangedJobRef.current = true;
+                            setJob(event.target.value);
+                          }}
                         >
                           {jobOptionsByGroup[jobGroup].map((item) => (
                             <option key={item} value={item}>
                               {item}
-                              {item === "아란"
-                                ? server === "planet"
-                                  ? " (플래닛 실측 기반, 2026-07-03 인게임 캡처 출처)"
-                                  : " (플래닛 실측치만 확보됨 — 메랜은 기본 공격만 지원)"
-                                : ""}
                             </option>
                           ))}
                         </select>
