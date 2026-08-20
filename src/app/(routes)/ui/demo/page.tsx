@@ -1,4 +1,4 @@
-import { Panel } from "@/components/ui/Panel";
+import { PanelSurface } from "@/components/ui/PanelSurface";
 import { PanelHeader } from "@/components/ui/PanelHeader";
 import { TableGrid } from "@/components/ui/TableGrid";
 import { LabelCell, ValueCell, ValueCellMuted } from "@/components/ui/Cells";
@@ -13,7 +13,7 @@ export default function UiDemoPage() {
           </div>
         </div>
 
-        <Panel>
+        <PanelSurface>
           <PanelHeader tone="blue">캐릭터 정보</PanelHeader>
           <TableGrid columns={4}>
             <LabelCell>닉네임</LabelCell>
@@ -31,9 +31,9 @@ export default function UiDemoPage() {
             <LabelCell>랭킹</LabelCell>
             <ValueCell>1,248위</ValueCell>
           </TableGrid>
-        </Panel>
+        </PanelSurface>
 
-        <Panel>
+        <PanelSurface>
           <PanelHeader tone="green">기본 스탯</PanelHeader>
           <TableGrid columns={4}>
             <LabelCell>힘</LabelCell>
@@ -51,9 +51,9 @@ export default function UiDemoPage() {
             <LabelCell>MP</LabelCell>
             <ValueCell>1,205</ValueCell>
           </TableGrid>
-        </Panel>
+        </PanelSurface>
 
-        <Panel>
+        <PanelSurface>
           <PanelHeader tone="yellow">전투 스탯</PanelHeader>
           <TableGrid columns={4}>
             <LabelCell>공격력</LabelCell>
@@ -71,9 +71,9 @@ export default function UiDemoPage() {
             <LabelCell>점프력</LabelCell>
             <ValueCellMuted>110%</ValueCellMuted>
           </TableGrid>
-        </Panel>
+        </PanelSurface>
 
-        <Panel>
+        <PanelSurface>
           <PanelHeader tone="blue">스킬 정보</PanelHeader>
           <TableGrid columns={2}>
             <LabelCell>주력 스킬</LabelCell>
@@ -91,7 +91,7 @@ export default function UiDemoPage() {
               상태: 안정
             </span>
           </div>
-        </Panel>
+        </PanelSurface>
       </div>
     </div>
   );

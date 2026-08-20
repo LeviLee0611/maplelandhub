@@ -44,7 +44,7 @@ const OUTPUT_RELEASE_FILTERS = path.join(PLANET_DIR, "release-filters.json");
 const ATTRIBUTE_ELEMENT_MAP = { F: "불", I: "얼음", L: "전기", S: "독", H: "성" };
 const ATTRIBUTE_STATE_MAP = { 1: "면역", 2: "반감", 3: "약점" };
 
-function decodeAttributeCode(eStr) {
+export function decodeAttributeCode(eStr) {
   if (!eStr) return [];
   const codes = eStr.match(/[A-Z]\d/g) ?? [];
   return codes.map((code) => `${ATTRIBUTE_ELEMENT_MAP[code[0]] ?? code[0]} ${ATTRIBUTE_STATE_MAP[code[1]] ?? code[1]}`);
@@ -216,14 +216,14 @@ async function pathExists(filePath) {
   }
 }
 
-function clampProbability(value) {
+export function clampProbability(value) {
   if (typeof value !== "number" || !Number.isFinite(value)) return value;
   if (value < 0) return 0;
   return Math.min(1, value);
 }
 
 // dropsByMonsterId / monstersByItemId 공통 형태: { [key: string]: Array<{ itemId?, mobId?, prob?, min?, max? }> }
-function applyDropRateMultiplierToRewardMap(rewardMap, multiplier) {
+export function applyDropRateMultiplierToRewardMap(rewardMap, multiplier) {
   const result = {};
   for (const [key, rewards] of Object.entries(rewardMap ?? {})) {
     result[key] = (rewards ?? []).map((reward) => {
@@ -235,12 +235,12 @@ function applyDropRateMultiplierToRewardMap(rewardMap, multiplier) {
 }
 
 // item-detail-by.json: { itemsByItemId: { [itemId: string]: Array<{ mobId, prob }> } }
-function applyDropRateMultiplierToItemDetailBy(itemDetailBy, multiplier) {
+export function applyDropRateMultiplierToItemDetailBy(itemDetailBy, multiplier) {
   const itemsByItemId = applyDropRateMultiplierToRewardMap(itemDetailBy?.itemsByItemId, multiplier);
   return { ...itemDetailBy, itemsByItemId };
 }
 
-function applyMonsterOverrides(monsters, monsterOverrides) {
+export function applyMonsterOverrides(monsters, monsterOverrides) {
   if (!monsterOverrides || Object.keys(monsterOverrides).length === 0) return monsters;
   return monsters.map((monster) => {
     const rawOverride = monsterOverrides[String(monster.mobCode)];
@@ -254,7 +254,7 @@ const REQUIRED_MONSTER_FIELDS = ["name", "level", "hp", "exp", "acc", "eva", "ne
 
 // Mapleland 베이스에 아예 존재하지 않는 Planet 전용 신규 몬스터(카오스 자쿰, 핑크빈 서브페이즈 등)를 추가한다.
 // 이미 존재하는 mobCode면 건너뛴다 (덮어쓰기는 monsterOverrides가 담당).
-function appendNewMonsters(monsters, newMonsters) {
+export function appendNewMonsters(monsters, newMonsters) {
   if (!Array.isArray(newMonsters) || newMonsters.length === 0) return monsters;
   const existingMobCodes = new Set(monsters.map((m) => m.mobCode));
   const toAppend = [];
@@ -277,7 +277,7 @@ function appendNewMonsters(monsters, newMonsters) {
   return [...monsters, ...toAppend];
 }
 
-function applyItemOverrides(items, itemOverrides) {
+export function applyItemOverrides(items, itemOverrides) {
   if (!itemOverrides || Object.keys(itemOverrides).length === 0) return items;
   return items.map((item) => {
     const override = itemOverrides[String(item.id)];

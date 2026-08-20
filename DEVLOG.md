@@ -4,6 +4,111 @@
 
 ---
 
+## 2026-08-20
+
+### Codex 리뷰 반영 — 퀘스트 로컬스토리지 이전 실패 처리 + 테스트 보강 + 문서 오타
+
+같은 날 세션에서 만든 퀘스트 비로그인 로컬스토리지 기능(위 절 참고)에 대해 사용자가 Codex 리뷰를 받아 3건 지적됨.
+
+1. **(중간) 로컬 퀘스트 이전 실패가 화면에 안 보임** — `loadTrackers`에서 로그인 시 로컬→서버 이전(`upsert`)이 실패해도 에러를 무시하고 서버 데이터만 그대로 렌더링해서, 로컬 데이터는 `localStorage`에 남아있는데도(이전 실패 시 `clearLocalTrackers` 미호출) 화면에서는 사라지고 사용자에게 안내도 없었음. 서버 목록에 없는 로컬 항목을 병합해 화면에서 계속 보이게 하고, `syncError`로 "이 기기에는 남아있으니 다시 로그인하면 재시도됩니다" 안내 추가.
+2. **(낮음) 로컬스토리지 핵심 로직 테스트 부재** — `loadLocalTrackers`/`saveLocalTrackers`/`clearLocalTrackers`에 `export` 추가 후 `src/components/__tests__/questBoardLocalTrackers.test.ts` 신설(6개 테스트: 저장→복원 왕복, 담기 해제 후 사라짐, 손상된 JSON 폴백, SSR(window 없음) 환경에서 예외 안 던짐, 로그인 시 clear 확인). jsdom/testing-library 없이 vitest 기본 node 환경에서 `globalThis.window`에 최소 in-memory localStorage만 꽂아 검증(새 의존성 추가 안 함). React 컴포넌트 렌더링/클릭 시뮬레이션까지는 아니라 완전한 회귀 방지는 아니지만, 이번에 지적된 핵심 저장/복원 계약은 커버함.
+3. **(문서) DEVLOG 오타** — "build-planet-data.mjs 순수 함수 8개"라고 적었는데 실제 export/테스트 대상은 7개 — 정정.
+
+검증: `npx tsc --noEmit`/`npx eslint`/`npx vitest run` 전부 통과(기존 94개 + 신규 6개 = 100개).
+
+적용 방식: `src/components/QuestBoard.tsx` 수정(이전 실패 처리 + export 3개), `src/components/__tests__/questBoardLocalTrackers.test.ts` 신설, DEVLOG.md 오타 수정(Zone C). 커밋은 안 함(요청 시 진행).
+
+### 기술부채 — 테스트 커버리지 확충 (build-planet-data.mjs, takenDamage 계산기)
+
+TODO.md "기술 부채" 항목 처리. 5개 항목 중 범위가 명확하고 리스크가 낮은 2개(테스트 부재)만 이번에 처리 — 나머지 3개(컴포넌트 재구성, API 에러 표준화, Web Vitals 활용계획)는 각각 별도 설계/우선순위 판단이 필요한 큰 작업이라 이번 세션 범위 밖으로 남김.
+
+**`build-planet-data.mjs`**: 순수 함수 7개(`decodeAttributeCode`/`clampProbability`/`applyDropRateMultiplierToRewardMap`/`applyDropRateMultiplierToItemDetailBy`/`applyMonsterOverrides`/`appendNewMonsters`/`applyItemOverrides`)에 `export` 추가(동작 변화 없음, 파일 I/O를 하는 `main()`은 그대로 미export) 후 `scripts/__tests__/build-planet-data.test.mjs` 신설, 16개 테스트. 특히 TODO에 명시된 "`_`-prefix 필드 leak" 회귀 테스트(`applyMonsterOverrides`/`appendNewMonsters` 양쪽)를 핵심으로 작성 — `_source` 같은 주석용 메타 필드가 병합 결과에 새지 않는지 확인.
+
+**`src/lib/calculators/takenDamage/`**: 빈 폴더로만 존재하던 `__tests__/`에 실제 테스트 3개 파일 신설(`standardPdd.test.ts`/`physical.test.ts`/`magical.test.ts`, 24개 테스트). `getStandardPDD`는 테이블 조회 로직이라 정확한 값으로 직접 검증(정확 일치/브라켓 보간/범위 밖 처리), `calcPhysicalTakenDamage`/`calcMagicalTakenDamage`는 공식 자체를 손으로 재검증하는 대신(부동소수 반올림 오차로 깨지기 쉬움) 방향성 속성으로 검증 — PDD/MDD가 높을수록 데미지 감소, 몬스터 공격력이 높을수록 데미지 증가, InvinciblePercent 100%면 최소치(1)로 clamp, PowerUpPercent 200이면 대략 2배 스케일, MaxPad/MaxMad/MaxDamage 등 limits가 실제로 clamp하는지, 마법사가 동일 스탯에서 다른 직업보다 보정계수가 커 데미지가 더 낮다는(코드상 0.3 vs 0.25 배율) 사실 등.
+
+검증: `npx tsc --noEmit`/`npx eslint`/`npx vitest run` — 기존 54개 + 신규 40개(build-planet-data 16 + takenDamage 24) = 94개 전부 통과. `node scripts/build-planet-data.mjs` 재실행해 export 추가가 실제 산출물에 영향 없음도 재확인(diff 없음).
+
+적용 방식: `scripts/build-planet-data.mjs`(export 추가만), `scripts/__tests__/build-planet-data.test.mjs` 신설(Zone D), `src/lib/calculators/takenDamage/__tests__/*.test.ts` 3개 신설(Zone B). 커밋은 안 함(요청 시 진행).
+
+### Panel 컴포넌트 중복 정리 — `ui/Panel.tsx` → `PanelSurface`로 이름 분리
+
+TODO.md "레거시/중복 정리" 항목 처리. `src/components/Panel.tsx`(title/tone/actions 받는 실제 앱 전역 사용 컴포넌트, 8개 파일에서 사용 중)와 `src/components/ui/Panel.tsx`(className만 받는 얇은 wrapper, `/ui/demo`라는 noindex 스타일가이드 페이지 1곳에서만 사용)가 동명이라 혼란 유발. 실제로는 서로 다른 API를 가진 별개 컴포넌트라 "중복 제거"보다는 "이름 충돌 해소"가 맞는 처리 — `ui/Panel.tsx`를 `ui/PanelSurface.tsx`로 이름 변경(export도 `PanelSurface`로), 유일한 사용처인 `src/app/(routes)/ui/demo/page.tsx`의 import/JSX 태그 갱신. `PanelHeader`/`TableGrid`/`Cells`와 조합해 쓰는 atomic 패턴 자체는 그대로 보존(스타일가이드 페이지가 실제 앱에서 이 패턴을 아직 안 쓰고 있다는 사실은 안 건드림 — 별도 결정 사항).
+
+검증: `npx tsc --noEmit`/`npx eslint` 통과. 순수 rename이라 시각적 변경 없음(브라우저 확장 미연결로 직접 스크린샷 확인은 못 했으나 클래스/구조 변경 없어 리스크 낮음).
+
+적용 방식: `src/components/ui/Panel.tsx` 삭제 → `PanelSurface.tsx` 신설, `ui/demo/page.tsx` 수정(Zone 무관 공용 컴포넌트, 사용처가 단일 데모 페이지라 Main 직접 처리). 커밋은 안 함(요청 시 진행).
+
+### 메랜 전용 아란 스킬 데미지% 재조사 — 소스 부족으로 반영 보류
+
+TODO.md 우선순위 높음 항목. 메랜에 아란이 실제로 라이브 중인지부터 재확인 필요(사용자 질문) — namu.wiki 검색 스니펫으로 "2026-04-30 릴리즈 확정, 5/11 공개 테스트" 확인, 이미 우리 데이터(리엔 몬스터/드롭)에도 반영돼 있어 라이브 콘텐츠임엔 의문 없음.
+
+메랜 전용 스킬 데미지% 소스를 찾기 위해 `maplelandzzul.gg/skill-tree/aran`(메랜 전용 스킬트리 사이트, 신뢰도 검증된 이력 있음)을 직접 열어봄 — 마스터레벨 값만 제공: 더블스윙140%·트리플스윙250%·콤보스매쉬700%(최대10)·바디프레셔100%·콤보펜릴800%(2회공격,최대10)·롤링스핀120%(최대12)는 플래닛 저장값과 마스터값이 정확히 일치, 파이널차지는 다름(메랜90%·최대12 vs 플래닛70%·최대9 — TODO에 이미 있던 "서버 간 수치 차이 가능성"이 실측으로 재확인됨), 파이널토스는 페이지에 노출 안 됨.
+
+레벨1~마스터 전체 표를 주는 소스는 못 찾음 — dcinside 메이플랜드 갤러리(스킬트리 순서 글은 있으나 %표 없음), namu.wiki(다른 직업들은 "Mapleland/직업/OO/스킬" 서브문서가 있는데 아란만 아직 없는 것으로 확인), 인벤(일반 KMS 정보라 메랜 자체 값과 다를 수 있음) 전부 실패. 마스터값이 6/8 일치한다고 중간 레벨까지 플래닛 커브를 그대로 재사용하는 건 사용자가 명시한 "실제값 확인 전 적용 금지" 원칙 위반이라 보류.
+
+적용 방식: 코드 변경 없음, TODO.md에 재조사 경위와 부분 확인된 마스터값 기록.
+
+### 핑크빈 EXP 3자 불일치 해결 — 원인은 메랜 원본 데이터 자체의 노후화
+
+TODO.md에 "핑크빈 EXP 미해결"로 남아있던 데이터 정확도 항목 처리. 기존엔 조아요(50,000,000)/catalog(200,000,000)/메랜 원본×4배율(25,160,000) 3개 값이 서로 안 맞아 조아요 값을 낮은 확신도로 잠정 적용 중이었음(2026-07-08 세션).
+
+**재조사 결과**: 메랜 원본(`data/monsters.json`) 자체가 낡은 값이었던 게 원인으로 확인됨. 핑크빈(mobCode 8820001)의 HP(2,100,000,000)는 모든 소스에서 정확히 일치해 같은 몬스터를 가리키는 게 확실한데, 메랜 전용 사이트 3곳(maplelandzzul.gg, 메이플노트 클래식, 웹 검색 종합)이 전부 EXP 50,000,000·물리방어 1,700·마법방어 1,930으로 일치했음(우리 저장값은 EXP 6,290,000·방어 70/70). 자체 드롭테이블에도 핑크빈 드롭 78종(리버스 등급 장비 포함)이 이미 존재해 라이브 콘텐츠임도 재확인(namu.wiki 검색 스니펫 하나가 "출시 예정"이라고 했으나 오래된 리비전 캐시로 판단, 자체 드롭 데이터가 이를 반증).
+
+**결정적 교차검증**: 정정된 메랜 원본 EXP(50,000,000)에 플래닛 표준 4배율(`rateMultipliers.exp: 4`)을 적용하면 50,000,000×4=200,000,000 — TODO에 있던 catalog 값과 정확히 일치. 낡은 원본을 기준으로 계산했을 때만 3자가 어긋났던 것이고, 원본을 고치니 catalog가 처음부터 정답이었음이 드러남.
+
+**반영**: `scripts/update-pinkbean-stats.mjs` 일회성 스크립트로 `data/monsters.json`의 핑크빈 exp(629만→5,000만)/def(70→1,700)/mDef(70→1,930) 정정 → `node scripts/build-planet-data.mjs` 재실행으로 플래닛 동기화 → `scripts/sources/planet/divergence-overrides.json`의 8820001 오버라이드를 조아요값(5,000만, 사실상 메랜 원본을 그대로 옮긴 것)에서 표준 4배율 적용값(2억)으로 교체, `_source` 주석에 재해결 경위 기록. acc/eva는 이번에도 확실한 소스를 못 찾아 기존값(0/0) 유지.
+
+**영향 범위**: 메랜 피격뎀 계산기에서 핑크빈 상대 방어력이 70→1,700(24배)으로 바뀌어 계산 결과가 크게 달라짐 — 부정확했던 이전 값보다 정확해지는 방향. 사용자에게 방어력 변경의 파급력을 미리 확인받고 진행함.
+
+**검증**: `npx tsc --noEmit`/`npx eslint`/`npx vitest run`(54개) 전부 통과. `git diff --stat`으로 `data/monsters.json`/`data/planet/monsters.json` 변경분이 핑크빈 항목 3필드만(6줄/파일) 반영된 것 확인, 나머지 플래닛 산출물(drop-index/item-detail-by/cube-index/release-filters)은 내용 변경 없어 스킵됨을 빌드 로그로 확인.
+
+**적용 방식**: `scripts/update-pinkbean-stats.mjs` 신규(Zone D 일회성 패턴), `scripts/sources/planet/divergence-overrides.json` 직접 수정(Zone D 손수 관리 소스), `data/monsters.json`/`data/planet/monsters.json`은 스크립트 산출물로만 갱신(직접 편집 안 함). 커밋은 안 함(요청 시 진행).
+
+---
+
+### 퀘스트 추적기 — 비로그인 로컬스토리지 지원
+
+TODO.md 우선순위 높음 항목 처리. 기존엔 "내 퀘스트 담기"/"완료하기"/"핵심 퀘스트 담기"/"내 퀘스트만 보기" 전부 비로그인 시 `/login`으로 강제 리다이렉트했음(`QuestBoard.tsx`) — 로그인 없이도 퀘스트 진행 상황을 추적하고 싶은 유저는 계정을 만들어야만 했음.
+
+**구현**: `localStorage`(`mrhub:quest-tracker:v1`, `{questId: {isCompleted}}` 형태)에 직접 저장하도록 변경. 기존에 서버 트래커를 `Map<number, TrackerMapValue>`(`id`/`quest_id`/`is_completed`)로 관리하던 구조를 그대로 재사용 — 로컬 항목은 `id: "local:{questId}"`로 합성해서 렌더링/필터링 로직(담기 여부, 완료 여부, 정렬 등)을 손대지 않고 저장 위치만 분기(`userId` 유무로 판단). 4개 핸들러(`handleToggleTracked`/`handleToggleCompleted`/`handleToggleTrackedOnly`/`handleAddVisiblePriorityToTracked`)에서 로그인 강제 리다이렉트 제거.
+
+**로그인 시 자동 이전**: 로그인하면 `loadTrackers`가 로컬스토리지에 남은 항목을 계정으로 upsert — 단 `ignoreDuplicates: true`를 줘서 서버에 이미 존재하는 퀘스트는 덮어쓰지 않음(로컬 상태로 서버의 완료 여부가 실수로 되돌아가는 걸 방지). 성공하면 로컬스토리지 비움, 이후엔 기존처럼 서버 동기화로 완전히 전환.
+
+**안내 문구**: 하단 상태 배너를 "로그인 후 담을 수 있음"에서 "내 퀘스트 N개(이 기기에만 저장) / 로그인하면 여러 기기에서 동기화됩니다"로 변경 — 비로그인도 정식 기능이라는 걸 명확히 함.
+
+**검증**: `npx tsc --noEmit`/`npx eslint src/`/`npx vitest run`(54개) 전부 통과. 개발 서버로 `/quests` 200 렌더 확인. **브라우저 확장 미연결로 실제 클릭(담기→새로고침→유지 확인)은 못 했음** — 다음 세션에서 확장 연결되면 마저 확인 필요.
+
+**적용 방식**: `src/components/QuestBoard.tsx` 직접 수정(Zone C). 커밋은 안 함(요청 시 진행).
+
+---
+
+### 자동 패치체크 루틴 무력화 발견 + 수동 패치 점검 (반영 없이 확인만)
+
+오랜만에 복귀한 사용자가 "업데이트된 내용 적용됐으면 좋겠다"고 요청. `gh`/GitHub API로 PR 목록을 확인해보니 2026-07-09부터 매주 도는 자동 패치체크 클라우드 루틴(`trig_01Wf6e7JvS3biMsG2Me2q2Cn`)이 실제로는 PR을 단 한 번도 만들지 못했음을 발견 — `RemoteTrigger`의 `list_runs`/`get_run_log`로 지난 6회 실행 로그를 확인.
+
+**원인 1 — 네트워크 egress 차단**: 그 클라우드 환경에서 `WebFetch`/`curl`로 `maple.land`/`mapleplanet.co.kr`/`arca.live`/`namu.wiki`에 접근하면 전부 403 `EGRESS_BLOCKED` — 패치노트 원문을 못 읽고 `WebSearch` 스니펫에만 의존해야 하는 상태였음.
+
+**원인 2 — GitHub 쓰기 권한 없음**: 2026-08-07 실행은 그래도 우회해서(WebSearch로 간접 확인) 로컬 커밋까지 만들었지만, `git push`와 GitHub MCP 쓰기 도구(`create_branch`/`push_files`/`create_or_update_file`) 전부 403 "Resource not accessible by integration"로 실패 — 로컬 커밋은 컨테이너 안에 갇힌 채 유실됨. 2026-08-14 실행은 원인 1에서 아예 막혀 시도조차 안 함.
+
+두 문제 다 이 세션(대화형)에는 해당 안 됨 — 이 세션에서 직접 `maple.land`는 WebFetch로 정상 접근됨(`mapleplanet.co.kr`는 403이지만 사이트 자체의 봇 차단으로 보이고 WebSearch로는 스니펫 확인 가능). git push도 정상.
+
+**수동 패치 점검 (2026-07-24 이후)**: 이 세션에서 직접 원문 확인.
+- 메랜 8/7: "무릉도장"(무릉도원 38층 도전 던전, 최상층 보스 "소공") 신규 콘텐츠. 8/14: "웨딩 빌리지"(혼인 시스템, 계산기/드롭테이블 무관) + 마법사 계열 스킬 밸런스(매직 컴포지션/파이어 데몬/아이스 데몬 "기본 공격력 향상" — 정확한 %가 원문에 없음, 패럴라이즈 타겟 1→2/체인 라이트닝 전이 공식 변경은 수치는 있으나 계산기가 다타겟 메커니즘을 애초에 모델링 안 함).
+- 플래닛 7/24: 아란 바디 프레셔 크리티컬 미적용 버그 수정(계산기에 크리티컬 스킬별 예외 로직이 없어 우리 쪽엔 원래도 영향 없었음), "석탄 가루" 드롭처 변경(폐광→엘나스, 그런데 우리 데이터엔 석탄 가루 자체가 없음). 8/18: 카오스 자쿰/혼테일 입장 제한 매일→주2회(파밍 매니저가 아직 placeholder라 트래킹 기능 자체 없음), 아란 밀착 몹 버그 수정 등.
+
+**결론 — 반영한 데이터 변경 없음**: 확인된 항목 전부 (a) 정확한 수치가 원문에 없거나, (b) 계산기/드롭테이블이 애초에 추적 안 하는 메커니즘이거나, (c) 우리 데이터셋에 해당 아이템/기능이 없어서 반영할 대상 자체가 없었음. "수치 명시 안 되면 추측 금지" 원칙에 따라 전부 TODO.md에 확인 필요 항목으로만 기록(위 "신규 콘텐츠/패치 확인 필요" 절 참고).
+
+**후속 조치**: `scripts/state/last-patch-check.json` 신규 생성(이전엔 8/7 실행이 `data/.last-patch-check.json`으로 만들려다 push 실패로 유실됐던 파일 — 이 세션에서 커밋 예정). TODO.md에 자동 루틴의 두 인프라 문제를 "사용자 조치 필요" 항목으로 기록 — claude.ai 쪽에서 네트워크 도메인 허용 설정과 GitHub App 쓰기 권한을 확인해야 다음 실행부터 정상화됨.
+
+**Codex 리뷰로 발견·수정한 문제 3건(같은 세션 내)**:
+1. 체크포인트 날짜만 전진시키면 자동 루틴이 "이미 처리한 패치"로 오인해 위 보류 항목들(무릉도장, 마법사 스킬 정확한 수치, 석탄 가루 등)을 영구히 재검토 안 할 위험 — 체크포인트에 `pendingReview` 배열을 추가해 보류 사유를 남기고, 나중에 정보가 확보되면 이 목록에서 제거하는 방식으로 변경.
+2. `data/.last-patch-check.json`으로 만들었던 최초 버전이 AGENTS.md의 "`data/*.json` 직접 편집 금지" 규칙과 정면 충돌(스크립트 산출물이 아닌 파일을 `data/`에 손으로 만듦) — `scripts/state/last-patch-check.json`으로 위치 이동, `data.md`에 이 파일의 성격(에이전트 실행 상태, 게임 데이터 아님)을 명문화.
+3. 이번 절 초안에 "이번엔 정상 커밋"이라고 과거형으로 적었는데 실제로는 아직 커밋 전이었고(작업 트리에만 존재), 플래닛 원문 접근 여부도 TODO.md 초안엔 "직접 접근"으로, 여기엔 "403이라 WebSearch로만"이라고 서로 다르게 적혀있던 모순 발견 — TODO.md 쪽 문구를 사실대로 정정(플래닛은 WebSearch 스니펫 근거, 원문 미대조).
+
+**적용 방식**: TODO.md/DEVLOG.md/data.md 직접 수정, `scripts/state/last-patch-check.json` 신규 생성(빌드 스크립트 산출물이 아닌 에이전트 상태 파일이라 `data/*.json` 규칙 적용 대상 아님). 검증: 데이터/코드 변경이 없어 `tsc`/`eslint`/`vitest` 재실행 불필요.
+
+---
+
 ## 2026-08-03
 
 ### 한방컷 계산기 — 공격 모션 제거, 해적 직업 개별 분리

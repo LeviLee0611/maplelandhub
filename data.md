@@ -89,6 +89,12 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 
 ---
 
+## 자동 패치체크 체크포인트 (`scripts/state/last-patch-check.json`)
+
+`data/*.json`(스크립트 산출물)도 아니고 `scripts/sources/`(빌드 입력 소스)도 아닌 세 번째 성격의 파일 — 주간 자동 패치체크 루틴(및 수동 점검 세션)이 "마지막으로 확인한 공식 패치노트가 어디까지인지" 기록해두는 체크포인트. `{"mapleland": {"lastTitle","lastDate","lastUrl","pendingReview":[...]}, "planet": {...}}` 형태. `pendingReview`는 확인은 했지만 데이터 반영을 보류한 항목 목록(수치 미기재/모델 범위 밖/데이터셋에 대상 없음 등 사유 포함) — 체크포인트 날짜만 갱신하고 이 목록을 비우지 않으면, 다음 실행이 "이미 처리한 패치"로 오인해 영구히 재검토를 건너뛰는 걸 방지하기 위함(2026-08-20, Codex 리뷰로 발견). `data/`가 아니라 `scripts/state/`에 두는 이유는 이 파일이 게임 데이터 산출물이 아니라 에이전트 실행 상태이기 때문 — `data/*.json` 직접 편집 금지 규칙과 무관하게 자유롭게 수정 가능.
+
+---
+
 ## 아이템명 → 아이템ID 수기 오버라이드 (`scripts/sources/item-name-overrides.json`)
 
 `data/*.json`과 마찬가지로 손으로 편집하면 안 되는 산출물과 별개로, `scripts/sources/`에 두는 **손수 관리 소스** 파일(Planet의 `divergence-overrides.json`과 같은 성격). `build-drop-index.mjs`가 드롭 데이터를 조립할 때, 드랍표 스크래핑 단계에서 실제 아이템 DB와 이름이 안 맞아 "가상 아이템"(synthetic, 음수 ID)으로 처리된 항목을 이 파일의 이름→실제 itemId 매핑으로 우선 대체한다. 이 매핑이 없으면 해당 아이템은 아이콘 없이 텍스트 타일로만 표시됨(`DropTable.tsx`의 `ItemIcon`/`getResolvedIconItemId` 참고).

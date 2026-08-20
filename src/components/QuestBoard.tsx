@@ -57,6 +57,54 @@ export type QuestBoardProps = {
 type QuestTrackerRow = Database["public"]["Tables"]["quest_trackers"]["Row"];
 type TrackerMapValue = Pick<QuestTrackerRow, "id" | "quest_id" | "is_completed">;
 const INITIAL_VISIBLE_COUNT = 20;
+const LOCAL_TRACKER_STORAGE_KEY = "mrhub:quest-tracker:v1";
+const LOCAL_TRACKER_ID_PREFIX = "local:";
+
+type LocalTrackerState = Record<string, { isCompleted: boolean }>;
+
+export function loadLocalTrackers(): Map<number, TrackerMapValue> {
+  const map = new Map<number, TrackerMapValue>();
+  if (typeof window === "undefined") return map;
+  try {
+    const raw = window.localStorage.getItem(LOCAL_TRACKER_STORAGE_KEY);
+    if (!raw) return map;
+    const parsed = JSON.parse(raw) as LocalTrackerState;
+    for (const [key, value] of Object.entries(parsed ?? {})) {
+      const questId = Number(key);
+      if (!Number.isFinite(questId) || questId <= 0) continue;
+      map.set(questId, {
+        id: `${LOCAL_TRACKER_ID_PREFIX}${questId}`,
+        quest_id: questId,
+        is_completed: Boolean(value?.isCompleted),
+      });
+    }
+  } catch {
+    // 손상된 로컬 데이터는 무시하고 빈 상태로 시작
+  }
+  return map;
+}
+
+export function saveLocalTrackers(map: Map<number, TrackerMapValue>) {
+  if (typeof window === "undefined") return;
+  const record: LocalTrackerState = {};
+  for (const [questId, tracker] of map.entries()) {
+    record[String(questId)] = { isCompleted: tracker.is_completed };
+  }
+  try {
+    window.localStorage.setItem(LOCAL_TRACKER_STORAGE_KEY, JSON.stringify(record));
+  } catch {
+    // 저장 공간 초과 등은 무시 — 트래킹은 세션 상태로만 유지됨
+  }
+}
+
+export function clearLocalTrackers() {
+  if (typeof window === "undefined") return;
+  try {
+    window.localStorage.removeItem(LOCAL_TRACKER_STORAGE_KEY);
+  } catch {
+    // ignore
+  }
+}
 const LOAD_MORE_COUNT = 20;
 const PRIORITY_EXCLUDED_ROOT_QUEST_IDS = new Set<number>([
   2019, // 비밀의 책의 단서
@@ -439,6 +487,27 @@ export function QuestBoard({
 
     try {
       const supabase = getSupabaseBrowserClient();
+
+      // 로그인 전 이 기기에 저장해둔 로컬 트래킹이 있으면 계정으로 이전 — 이미 서버에 있는
+      // 퀘스트는 덮어쓰지 않도록 ignoreDuplicates로 신규 항목만 추가
+      const localMap = loadLocalTrackers();
+      let migrationFailed = false;
+      if (localMap.size > 0) {
+        const { error: migrateError } = await supabase.from("quest_trackers").upsert(
+          Array.from(localMap.values()).map((tracker) => ({
+            user_id: uid,
+            quest_id: tracker.quest_id,
+            is_completed: tracker.is_completed,
+          })),
+          { onConflict: "user_id,quest_id", ignoreDuplicates: true },
+        );
+        if (migrateError) {
+          migrationFailed = true;
+        } else {
+          clearLocalTrackers();
+        }
+      }
+
       const { data: rows, error } = await supabase
         .from("quest_trackers")
         .select("id, quest_id, is_completed")
@@ -454,6 +523,16 @@ export function QuestBoard({
           is_completed: Boolean(row.is_completed),
         });
       }
+
+      // 이전 실패 시 로컬 데이터는 그대로 보존되므로(위에서 clearLocalTrackers 미호출),
+      // 서버 목록에 없는 로컬 항목을 병합해 화면에서 사라지지 않도록 함 — 다음 로그인 때 재이전 시도됨.
+      if (migrationFailed) {
+        for (const [questId, tracker] of localMap.entries()) {
+          if (!nextMap.has(questId)) nextMap.set(questId, tracker);
+        }
+        setSyncError("일부 로컬 퀘스트를 계정으로 이전하지 못했습니다. 이 기기에는 남아있으니 다시 로그인하면 재시도됩니다.");
+      }
+
       setTrackerByQuestId(nextMap);
     } catch {
       setSyncError("내 퀘스트 동기화에 실패했습니다. 잠시 후 다시 시도해주세요.");
@@ -476,7 +555,7 @@ export function QuestBoard({
       setUserId(nextUserId);
 
       if (!nextUserId) {
-        setTrackerByQuestId(new Map());
+        setTrackerByQuestId(loadLocalTrackers());
         setTrackerLoading(false);
         return;
       }
@@ -493,7 +572,7 @@ export function QuestBoard({
       setUserId(nextUserId);
 
       if (!nextUserId) {
-        setTrackerByQuestId(new Map());
+        setTrackerByQuestId(loadLocalTrackers());
         setTrackerLoading(false);
         return;
       }
@@ -672,7 +751,16 @@ export function QuestBoard({
   const handleToggleTracked = useCallback(
     async (questId: number) => {
       if (!userId) {
-        window.location.href = "/login";
+        setTrackerByQuestId((prev) => {
+          const next = new Map(prev);
+          if (next.has(questId)) {
+            next.delete(questId);
+          } else {
+            next.set(questId, { id: `${LOCAL_TRACKER_ID_PREFIX}${questId}`, quest_id: questId, is_completed: false });
+          }
+          saveLocalTrackers(next);
+          return next;
+        });
         return;
       }
 
@@ -731,7 +819,18 @@ export function QuestBoard({
   const handleToggleCompleted = useCallback(
     async (questId: number, nextChecked: boolean) => {
       if (!userId) {
-        window.location.href = "/login?next=/quests";
+        setTrackerByQuestId((prev) => {
+          const existing = prev.get(questId);
+          if (!existing && !nextChecked) return prev;
+          const next = new Map(prev);
+          next.set(questId, {
+            id: existing?.id ?? `${LOCAL_TRACKER_ID_PREFIX}${questId}`,
+            quest_id: questId,
+            is_completed: nextChecked,
+          });
+          saveLocalTrackers(next);
+          return next;
+        });
         return;
       }
 
@@ -820,12 +919,8 @@ export function QuestBoard({
   }, []);
 
   const handleToggleTrackedOnly = useCallback(() => {
-    if (!showTrackedOnly && !userId) {
-      window.location.href = "/login?next=/quests";
-      return;
-    }
     setShowTrackedOnly((prev) => !prev);
-  }, [showTrackedOnly, userId]);
+  }, []);
 
   const handleResetSearchFilters = useCallback(() => {
     setQuery("");
@@ -838,15 +933,22 @@ export function QuestBoard({
   }, []);
 
   const handleAddVisiblePriorityToTracked = useCallback(async () => {
-    if (!userId) {
-      window.location.href = "/login?next=/quests";
-      return;
-    }
-
     if (!showPriorityOnly) return;
 
     const missingQuestIds = filteredPriorityQuestIds.filter((questId) => !trackerByQuestId.has(questId));
     if (missingQuestIds.length === 0) return;
+
+    if (!userId) {
+      setTrackerByQuestId((prev) => {
+        const next = new Map(prev);
+        for (const questId of missingQuestIds) {
+          next.set(questId, { id: `${LOCAL_TRACKER_ID_PREFIX}${questId}`, quest_id: questId, is_completed: false });
+        }
+        saveLocalTrackers(next);
+        return next;
+      });
+      return;
+    }
 
     setSyncError(null);
     setBulkAddingPriority(true);
@@ -901,10 +1003,6 @@ export function QuestBoard({
     setOpenedMobInfoKey(null);
     setVisibleQuestCount(INITIAL_VISIBLE_COUNT);
   }, [query, selectedWorldGroup, maxLevel, rewardTypeFilter, rewardItemTypeFilter, showPriorityOnly, showTrackedOnly]);
-
-  useEffect(() => {
-    if (!userId && showTrackedOnly) setShowTrackedOnly(false);
-  }, [showTrackedOnly, userId]);
 
   useEffect(() => {
     if (!hasMoreQuests) return;
@@ -1071,12 +1169,17 @@ export function QuestBoard({
                 {trackerLoading ? <span className="text-cyan-200/80">동기화 중...</span> : null}
               </div>
             ) : (
-              <p>
-                <Link href="/login" className="font-semibold text-cyan-200 hover:text-cyan-100">
-                  로그인
-                </Link>{" "}
-                후 퀘스트를 담고 완료 체크를 저장할 수 있습니다.
-              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                <span>내 퀘스트 {trackedQuestCount}개(이 기기에만 저장)</span>
+                <span className="text-slate-400">/</span>
+                <span>완료 {completedQuestCount}개</span>
+                <span>
+                  <Link href="/login?next=/quests" className="font-semibold text-cyan-200 hover:text-cyan-100">
+                    로그인
+                  </Link>
+                  하면 여러 기기에서 동기화됩니다.
+                </span>
+              </div>
             )}
           </div>
 
