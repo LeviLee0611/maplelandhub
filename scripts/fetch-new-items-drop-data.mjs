@@ -1,185 +1,147 @@
-/**
- * 메이플노트 itemnote에서 고레벨(70+) 장비/주문서 아이템 ID를 수집하고,
- * 기존 drop-index.json에 없는 신규 아이템의 드롭 데이터를 item-detail-by.json에 추가합니다.
- *
- * 용도: 시그너스 기사단 업데이트 후 신규 장비/스크롤 추가
- * 실행: node scripts/fetch-new-items-drop-data.mjs
- */
-
+/** itemnote 전체 카테고리에서 신규 아이템/현재 몬스터 드롭을 안전하게 증분 병합한다. */
 import fs from "fs/promises";
 import path from "path";
 
-const BASE_SITE = "https://xn--o80b01o9mlw3kdzc.com";
-const DROP_INDEX_SOURCE = path.resolve("data/drop-index.json");
-const ITEM_DETAIL_BY_PATH = path.resolve("data/item-detail-by.json");
-const CONCURRENCY = Number(process.env.CONCURRENCY ?? 4);
-const REQUEST_DELAY_MS = Number(process.env.DELAY_MS ?? 150);
-const MIN_LEVEL = Number(process.env.MIN_LEVEL ?? 70);
-
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+const BASE = "https://xn--o80b01o9mlw3kdzc.com";
+const DROP_PATH = path.resolve("data/drop-index.json");
+const DETAIL_PATH = path.resolve("data/item-detail-by.json");
+const MONSTER_PATH = path.resolve("data/monsters.json");
+const CONCURRENCY = Math.max(1, Number(process.env.CONCURRENCY ?? 4));
+const DELAY = Math.max(0, Number(process.env.DELAY_MS ?? 150));
+const EQUIP = ["Hat", "Glove", "Shoes", "Overall", "Top", "Bottom", "Shield", "Earrings", "Cape", "Pendant"];
+const CATEGORIES = [
+  ["무기", ["One-Handed Sword", "Two-Handed Sword", "One-Handed Axe", "Two-Handed Axe", "One-Handed Blunt Weapon", "Two-Handed Blunt", "Spear", "Polearm", "Bow", "Crossbow", "Wand", "Staff", "Dagger", "Claw", "Knuckle", "Gun"]],
+  ["공용", [...EQUIP.map((v) => `0-${v}`), "0-Belt"]],
+  ["전사", EQUIP.slice(0, 8).map((v) => `1-${v}`)],
+  ["마법사", EQUIP.slice(0, 8).map((v) => `2-${v}`)],
+  ["궁수", EQUIP.slice(0, 7).map((v) => `4-${v}`)],
+  ["도적", EQUIP.slice(0, 8).map((v) => `8-${v}`)],
+  ["해적", EQUIP.slice(0, 5).map((v) => `16-${v}`)],
+  ["소비", ["Weapon Scroll", "Armor Scroll", "Thrown", "Arrow", "Bullet", "Mastery Book", "Potion", "HPPotion", "MPPotion"]],
+];
+const categoryCount = CATEGORIES.reduce((sum, [, values]) => sum + values.length, 0);
+if (categoryCount !== 72) throw new Error(`itemnote category contract changed: expected 72, got ${categoryCount}`);
+const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 async function fetchHtml(url, retries = 3) {
-  for (let attempt = 0; attempt <= retries; attempt++) {
+  for (let attempt = 0; attempt <= retries; attempt += 1) {
     try {
-      const res = await fetch(url, {
-        headers: { "user-agent": "maplelandhub-data-sync/1.0" },
-      });
-      if (res.status === 404) return null;
-      if (!res.ok) throw new Error(`HTTP ${res.status}`);
-      return await res.text();
-    } catch (err) {
-      if (attempt >= retries) throw err;
+      const response = await fetch(url, { headers: { "user-agent": "maplelandhub-data-sync/1.0" } });
+      if (response.status === 404) return null;
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      return response.text();
+    } catch (error) {
+      if (attempt === retries) throw error;
       await sleep(300 * (attempt + 1));
     }
   }
-  return null;
 }
 
-async function asyncPool(limit, items, fn) {
-  const ret = [];
-  const executing = new Set();
-  for (const item of items) {
-    const p = Promise.resolve().then(() => fn(item));
-    ret.push(p);
-    executing.add(p);
-    const clean = () => executing.delete(p);
-    p.then(clean, clean);
-    if (executing.size >= limit) await Promise.race(executing);
+async function pool(values, callback) {
+  const results = [], active = new Set();
+  for (const value of values) {
+    const promise = Promise.resolve().then(() => callback(value));
+    results.push(promise); active.add(promise);
+    promise.then(() => active.delete(promise), () => active.delete(promise));
+    if (active.size >= CONCURRENCY) await Promise.race(active);
   }
-  return Promise.all(ret);
+  return Promise.all(results);
 }
 
-function parseItemRows(html) {
-  const items = [];
-  // Match table rows: optional leading level cell, then item_detail link
-  const rowRe = /<tr[^>]*>([\s\S]*?)<\/tr>/g;
-  const idRe = /\/item_detail\/(\d+)/;
-  const levelRe = /^\s*<td[^>]*>\s*(\d+)\s*<\/td>/;
-  let match;
-  while ((match = rowRe.exec(html)) !== null) {
-    const rowHtml = match[1];
-    const idMatch = idRe.exec(rowHtml);
-    if (!idMatch) continue;
-    const id = Number(idMatch[1]);
-    if (!id) continue;
-    const levelMatch = levelRe.exec(rowHtml);
-    const level = levelMatch ? Number(levelMatch[1]) : 0;
-    items.push({ id, level });
+function text(html) {
+  return html.replace(/<[^>]+>/g, " ").replace(/&amp;/g, "&").replace(/&quot;/g, '"')
+    .replace(/&#39;|&apos;/g, "'").replace(/&lt;/g, "<").replace(/&gt;/g, ">").replace(/&nbsp;/g, " ")
+    .replace(/&#(\d+);/g, (_, n) => String.fromCodePoint(Number(n))).replace(/\s+/g, " ").trim();
+}
+
+function parseItems(html) {
+  const output = [];
+  for (const match of html.matchAll(/<tr[^>]*>([\s\S]*?)<\/tr>/gi)) {
+    const id = Number(match[1].match(/\/item_detail\/(\d+)/i)?.[1]);
+    const cells = [...match[1].matchAll(/<td[^>]*>([\s\S]*?)<\/td>/gi)].map((cell) => text(cell[1]));
+    const name = cells.at(-1) ?? "";
+    if (id > 0 && name) output.push({ id, name });
   }
-  return items;
+  return output;
 }
 
-function parseByRows(html) {
-  const rows = [];
-  const re = /href="[^"]*monster_detail\/(\d+)"[\s\S]*?<div class="drop-rate-box"[^>]*>\s*([\d.]+)%?\s*<\/div>/g;
-  let match;
-  while ((match = re.exec(html)) !== null) {
+function parseDrops(html, validMobs) {
+  const output = new Map();
+  const links = [...html.matchAll(/<a[^>]*href=["'][^"']*monster_detail\/(\d+)["'][^>]*>([\s\S]*?)<\/a>/gi)];
+  for (const match of links) {
     const mobId = Number(match[1]);
-    const prob = Number(match[2]) / 100;
-    if (mobId > 0 && prob > 0) rows.push({ mobId, prob });
+    const body = match[2];
+    if (!validMobs.has(mobId)) continue;
+    const raw = Number(body.match(/class=["'][^"']*drop-rate-box[^"']*["'][^>]*>\s*([\d.]+)\s*%?/i)?.[1]);
+    const row = { mobId, ...(Number.isFinite(raw) && raw > 0 ? { prob: raw / 100 } : {}) };
+    if (!output.has(mobId) || (row.prob ?? 0) > (output.get(mobId).prob ?? 0)) output.set(mobId, row);
   }
-  const deduped = new Map();
-  for (const row of rows) {
-    const prev = deduped.get(row.mobId);
-    if (!prev || row.prob > (prev.prob ?? 0)) deduped.set(row.mobId, row);
+  for (const match of links) {
+    const mobId = Number(match[1]);
+    if (validMobs.has(mobId) && !output.has(mobId)) output.set(mobId, { mobId });
   }
-  return Array.from(deduped.values()).sort((a, b) => (b.prob ?? 0) - (a.prob ?? 0));
+  return [...output.values()].sort((a, b) => a.mobId - b.mobId);
 }
 
-const CATEGORIES = [
-  { cat: "전사", subcats: ["1-Hat", "1-Glove", "1-Shoes", "1-Overall", "1-Top", "1-Bottom", "1-Shield", "1-Earrings"] },
-  { cat: "마법사", subcats: ["2-Hat", "2-Glove", "2-Shoes", "2-Overall", "2-Top", "2-Bottom", "2-Earrings"] },
-  { cat: "궁수", subcats: ["4-Hat", "4-Glove", "4-Shoes", "4-Overall", "4-Top", "4-Bottom", "4-Earrings"] },
-  { cat: "도적", subcats: ["8-Hat", "8-Glove", "8-Shoes", "8-Overall", "8-Top", "8-Bottom", "8-Earrings"] },
-  { cat: "해적", subcats: ["16-Hat", "16-Glove", "16-Shoes", "16-Overall", "16-Top", "16-Bottom"] },
-  {
-    cat: "무기",
-    subcats: [
-      "One-Handed Sword", "Two-Handed Sword", "One-Handed Axe", "Two-Handed Axe",
-      "One-Handed Blunt Weapon", "Two-Handed Blunt", "Spear", "Polearm",
-      "Bow", "Crossbow", "Wand", "Staff", "Dagger", "Claw", "Knuckle", "Gun",
-    ],
-  },
-  { cat: "소비", subcats: ["Weapon Scroll", "Armor Scroll", "Mastery Book"] },
-  { cat: "공용", subcats: ["0-Cape", "0-Pendant", "0-Earrings", "0-Shield"] },
-];
-
-async function fetchCategoryItemIds(cat, subcat) {
-  const url = `${BASE_SITE}/itemnote?category=${encodeURIComponent(cat)}&subCategory=${encodeURIComponent(subcat)}`;
-  const html = await fetchHtml(url);
-  if (!html) return [];
-  const items = parseItemRows(html);
-  if (cat === "소비") return items.map((i) => i.id);
-  return items.filter((i) => i.level >= MIN_LEVEL).map((i) => i.id);
+function itemMeta({ id, name }) {
+  const overallCategory = id >= 1e6 && id < 2e6 ? "Equip" : id >= 2e6 && id < 3e6 ? "Use" : undefined;
+  return { id, name, ...(overallCategory ? { typeInfo: { overallCategory } } : {}) };
 }
 
 async function main() {
-  // 1. Load existing item IDs
-  const dropIndexRaw = await fs.readFile(DROP_INDEX_SOURCE, "utf8").catch(() => "{}");
-  const dropIndex = JSON.parse(dropIndexRaw);
-  const existingIds = new Set((dropIndex.items ?? []).map((i) => i.id));
-
-  const detailByRaw = await fs.readFile(ITEM_DETAIL_BY_PATH, "utf8").catch(() => "{}");
-  const detailBy = JSON.parse(detailByRaw);
-  const itemsByItemId = { ...(detailBy.itemsByItemId ?? {}) };
-  const alreadyFetched = new Set(Object.keys(itemsByItemId).map(Number));
-
-  // 2. Collect all high-level item IDs from itemnote
-  console.log("Collecting item IDs from itemnote...");
-  const collectedIds = new Set();
-  for (const { cat, subcats } of CATEGORIES) {
-    for (const subcat of subcats) {
-      await sleep(100);
-      const ids = await fetchCategoryItemIds(cat, subcat);
-      for (const id of ids) collectedIds.add(id);
-      console.log(`  ${cat}/${subcat}: ${ids.length} items`);
+  const [dropIndex, detailBy, monsters] = await Promise.all([
+    fs.readFile(DROP_PATH, "utf8").then(JSON.parse), fs.readFile(DETAIL_PATH, "utf8").then(JSON.parse),
+    fs.readFile(MONSTER_PATH, "utf8").then(JSON.parse),
+  ]);
+  const beforeDrop = JSON.stringify(dropIndex), beforeDetail = JSON.stringify(detailBy);
+  const existing = new Set((dropIndex.items ?? []).map((item) => item.id));
+  const validMobs = new Set(monsters.map((mob) => mob?.mobCode).filter((id) => Number.isInteger(id) && id > 0));
+  const collected = new Map();
+  console.log(`Collecting ${categoryCount} itemnote categories...`);
+  const categoryPairs = CATEGORIES.flatMap(([category, subcategories]) =>
+    subcategories.map((subcategory) => ({ category, subcategory })),
+  );
+  const categoryResults = await pool(categoryPairs, async ({ category, subcategory }) => {
+      const url = `${BASE}/itemnote?category=${encodeURIComponent(category)}&subCategory=${encodeURIComponent(subcategory)}`;
+      const rows = parseItems(await fetchHtml(url));
+      console.log(`  ${category}/${subcategory}: ${rows.length}`);
+      return rows;
+  });
+  for (const rows of categoryResults) {
+    rows.forEach((row) => collected.set(row.id, row));
+  }
+  const missing = [...collected.values()].filter(({ id }) => id > 0 && !existing.has(id)).sort((a, b) => a.id - b.id);
+  console.log(`Unique positive IDs: ${collected.size}; missing: ${missing.length}`);
+  let done = 0;
+  const fetched = await pool(missing, async (item) => {
+    await sleep(DELAY);
+    const html = await fetchHtml(`${BASE}/item_detail/${item.id}`);
+    done += 1;
+    if (done % 25 === 0 || done === missing.length) console.log(`  Details: ${done}/${missing.length}`);
+    return { item, drops: html ? parseDrops(html, validMobs) : [] };
+  });
+  dropIndex.items ??= []; dropIndex.dropsByMonsterId ??= {}; dropIndex.monstersByItemId ??= {};
+  detailBy.itemsByItemId ??= {};
+  let linkedItems = 0, linkedDrops = 0;
+  for (const { item, drops } of fetched) {
+    dropIndex.items.push(itemMeta(item));
+    if (!drops.length) continue;
+    linkedItems += 1; linkedDrops += drops.length;
+    detailBy.itemsByItemId[String(item.id)] = drops;
+    dropIndex.monstersByItemId[String(item.id)] = drops;
+    for (const row of drops) {
+      const bucket = dropIndex.dropsByMonsterId[String(row.mobId)] ?? [];
+      if (!bucket.some((entry) => entry.itemId === item.id)) bucket.push({ itemId: item.id, ...(row.prob ? { prob: row.prob } : {}) });
+      dropIndex.dropsByMonsterId[String(row.mobId)] = bucket;
     }
   }
-  console.log(`Total collected: ${collectedIds.size} items`);
-
-  // 3. Filter to new items (not in drop-index AND not already fetched)
-  const newIds = Array.from(collectedIds).filter(
-    (id) => !existingIds.has(id) && !alreadyFetched.has(id)
-  );
-  console.log(`New items to fetch: ${newIds.length}`);
-
-  // 4. Fetch item_detail pages for new items
-  let processed = 0;
-  let found = 0;
-
-  await asyncPool(CONCURRENCY, newIds, async (itemId) => {
-    await sleep(REQUEST_DELAY_MS);
-    try {
-      const html = await fetchHtml(`${BASE_SITE}/item_detail/${itemId}`);
-      if (!html) { processed++; return; }
-      const rows = parseByRows(html);
-      if (rows.length > 0) {
-        itemsByItemId[String(itemId)] = rows;
-        found++;
-      }
-    } catch (err) {
-      console.warn(`  Skipped ${itemId}: ${err?.message}`);
-    } finally {
-      processed++;
-      if (processed % 50 === 0 || processed === newIds.length) {
-        console.log(`  Fetched: ${processed}/${newIds.length}, with drops: ${found}`);
-      }
-    }
-  });
-
-  // 5. Save updated item-detail-by.json
-  const payload = {
-    generatedAt: new Date().toISOString(),
-    source: "maple-note-item-detail",
-    sourceUrl: `${BASE_SITE}/item_detail`,
-    itemsByItemId,
-  };
-  await fs.writeFile(ITEM_DETAIL_BY_PATH, JSON.stringify(payload, null, 2), "utf8");
-  console.log(`\nSaved item-detail-by.json with ${Object.keys(itemsByItemId).length} total items (+${found} new with drops).`);
-  console.log("Next: npm run build:drop-index");
+  dropIndex.items.sort((a, b) => String(a.name).localeCompare(String(b.name), "ko"));
+  const dropChanged = beforeDrop !== JSON.stringify(dropIndex), detailChanged = beforeDetail !== JSON.stringify(detailBy);
+  const now = new Date().toISOString();
+  if (dropChanged) { dropIndex.generatedAt = now; await fs.writeFile(DROP_PATH, `${JSON.stringify(dropIndex, null, 2)}\n`); }
+  if (detailChanged) { detailBy.generatedAt = now; await fs.writeFile(DETAIL_PATH, `${JSON.stringify(detailBy, null, 2)}\n`); }
+  console.log(`Added ${missing.length}; ${linkedItems} items / ${linkedDrops} current-monster links.`);
+  console.log(dropChanged || detailChanged ? "Data updated." : "No changes (idempotent)." );
 }
 
-main().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+main().catch((error) => { console.error(error); process.exitCode = 1; });
