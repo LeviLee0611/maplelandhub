@@ -24,7 +24,7 @@ import mapleHero from "@data/skills/mapleHero.json";
 import meditation from "@data/skills/meditation.json";
 import rage from "@data/skills/rage.json";
 
-const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스", "아란"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스", "아란", "배틀메이지"] as const;
 const SPEARMAN_SKILLS = [
   "파워 스트라이크",
   "슬래시 블래스트",
@@ -140,6 +140,7 @@ const jobOptionsByGroup = {
   해적: ["인파이터", "버커니어", "바이퍼", "건슬링거", "발키리", "캡틴"],
   시그너스: ["소울마스터", "플레임위자드", "윈드브레이커", "나이트워커", "스트라이커"],
   아란: ["아란"],
+  배틀메이지: ["배틀메이지"],
 } as const;
 
 const QUICK_SLOT_COUNT = 6;
@@ -754,6 +755,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       "나이트워커": { primary: "luk", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "스트라이커": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "아란": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
+      "배틀메이지": { primary: "int", secondary: "luk", multiplier: 1.0, mastery: 0.6 },
     } as const;
     // 해적 직업은 예전엔 "인파이터/버커니어/바이퍼"처럼 3단계를 묶은 값으로 저장됐음 —
     // 저장된 프리셋 복원 시 개별 직업명 중 하나로 대응(레거시 호환용).
@@ -771,7 +773,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   }, [jobGroup]);
 
   useEffect(() => {
-    if ((jobGroup === "마법사" || job === "플레임위자드") && passiveMasteryBonus !== 0) {
+    if ((jobGroup === "마법사" || job === "플레임위자드" || job === "배틀메이지") && passiveMasteryBonus !== 0) {
       setPassiveMasteryBonus(0);
     }
   }, [jobGroup, job, passiveMasteryBonus]);
@@ -926,6 +928,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     // 아란 스킬 데미지%는 메이플플래닛 인게임 캡처로만 확보됨(2026-07-03) — 메이플랜드는
     // 수치가 다를 수 있음이 TODO.md에 기록되어 있어(예: 파이널 차지) 검증 전까지 미지원.
     if (job === "아란" && server !== "planet") return ["기본 공격"];
+
+    // 배틀메이지는 2026-09-07 메랜(mapleland) 패치로만 출시 확인됨 — 같은 기간 플래닛
+    // 패치노트엔 언급이 없어 플래닛 출시 여부 불명. 확인 전까지 플래닛에서는 미지원.
+    if (job === "배틀메이지" && server === "planet") return ["기본 공격"];
 
     const mapping = mainSkillMapping as Record<string, string[]>;
     if (mapping[skillKey]) return mapping[skillKey];
@@ -1283,7 +1289,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
   }, [jobProfile.primary, jobProfile.multiplier, weaponType]);
 
-  const passiveMasteryRate = (jobGroup === "마법사" || isFlameWizardJob) ? 0 : passiveMasteryBonus / 100;
+  const passiveMasteryRate = (jobGroup === "마법사" || isFlameWizardJob || job === "배틀메이지") ? 0 : passiveMasteryBonus / 100;
   const effectiveMastery = jobProfile.primary === "int"
     ? Math.min(1, mastery)
     : Math.min(1, (passiveMasteryBonus > 0 ? mastery : 0.1) + passiveMasteryRate);

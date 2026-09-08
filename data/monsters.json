@@ -13359,5 +13359,483 @@
     "watk": 48,
     "matk": 0,
     "exist": true
+  },
+  {
+    "name": "새싹 화분",
+    "level": 5,
+    "hp": 50,
+    "exp": 8,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 35,
+    "mDef": 35,
+    "ele": [
+      "불속성반감"
+    ],
+    "mobCode": 150000,
+    "region": "에델슈타인",
+    "watk": 15,
+    "matk": 12,
+    "exist": true
+  },
+  {
+    "name": "나팔꽃 화분",
+    "level": 6,
+    "hp": 65,
+    "exp": 10,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 35,
+    "mDef": 45,
+    "ele": [
+      "독속성약점",
+      "불속성반감"
+    ],
+    "mobCode": 150001,
+    "region": "에델슈타인",
+    "watk": 19,
+    "matk": 16,
+    "exist": true
+  },
+  {
+    "name": "포도주스병",
+    "level": 8,
+    "hp": 110,
+    "exp": 15,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 0,
+    "def": 30,
+    "mDef": 10,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 150002,
+    "region": "에델슈타인",
+    "watk": 29,
+    "matk": 24,
+    "exist": true
+  },
+  {
+    "name": "순찰로봇",
+    "level": 14,
+    "hp": 225,
+    "exp": 24,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 4,
+    "def": 100,
+    "mDef": 100,
+    "ele": [
+      "성속성반감"
+    ],
+    "mobCode": 1150000,
+    "region": "에델슈타인",
+    "watk": 58,
+    "matk": 55,
+    "exist": true
+  },
+  {
+    "name": "이상한 이정표",
+    "level": 16,
+    "hp": 275,
+    "exp": 28,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 4,
+    "def": 40,
+    "mDef": 15,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1150001,
+    "region": "에델슈타인",
+    "watk": 68,
+    "matk": 63,
+    "exist": true
+  },
+  {
+    "name": "구렁이",
+    "level": 18,
+    "hp": 325,
+    "exp": 32,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 4,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 1150002,
+    "region": "에델슈타인",
+    "watk": 79,
+    "matk": 76,
+    "exist": true
+  },
+  {
+    "name": "물 도둑",
+    "level": 20,
+    "hp": 375,
+    "exp": 35,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 4,
+    "def": 50,
+    "mDef": 20,
+    "ele": [
+      "불속성반감"
+    ],
+    "mobCode": 2150000,
+    "region": "에델슈타인",
+    "watk": 93,
+    "matk": 88,
+    "exist": true
+  },
+  {
+    "name": "더스트 박스",
+    "level": 22,
+    "hp": 435,
+    "exp": 39,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 11,
+    "def": 50,
+    "mDef": 20,
+    "ele": [
+      "불속성약점"
+    ],
+    "mobCode": 2150001,
+    "region": "에델슈타인",
+    "watk": 101,
+    "matk": 97,
+    "exist": true
+  },
+  {
+    "name": "가로등",
+    "level": 25,
+    "hp": 525,
+    "exp": 44,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 11,
+    "def": 45,
+    "mDef": 40,
+    "ele": [
+      "얼음속성반감",
+      "불속성약점"
+    ],
+    "mobCode": 2150002,
+    "region": "에델슈타인",
+    "watk": 117,
+    "matk": 108,
+    "exist": true
+  },
+  {
+    "name": "순찰로봇S",
+    "level": 28,
+    "hp": 720,
+    "exp": 53,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 11,
+    "def": 50,
+    "mDef": 20,
+    "ele": [
+      "불속성약점"
+    ],
+    "mobCode": 2150003,
+    "region": "에델슈타인",
+    "watk": 134,
+    "matk": 130,
+    "exist": true
+  },
+  {
+    "name": "안전제일",
+    "level": 31,
+    "hp": 990,
+    "exp": 64,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 22,
+    "def": 35,
+    "mDef": 40,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 3150000,
+    "region": "에델슈타인",
+    "watk": 151,
+    "matk": 142,
+    "exist": true
+  },
+  {
+    "name": "아기 바위베어먹기",
+    "level": 33,
+    "hp": 1200,
+    "exp": 72,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 22,
+    "def": 100,
+    "mDef": 100,
+    "ele": [
+      "성속성반감"
+    ],
+    "mobCode": 3150001,
+    "region": "에델슈타인",
+    "watk": 164,
+    "matk": 149,
+    "exist": true
+  },
+  {
+    "name": "큰 바위베어먹기",
+    "level": 35,
+    "hp": 1400,
+    "exp": 79,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 22,
+    "def": 45,
+    "mDef": 40,
+    "ele": [
+      "불속성약점",
+      "얼음속성약점"
+    ],
+    "mobCode": 3150002,
+    "region": "에델슈타인",
+    "watk": 163,
+    "matk": 169,
+    "exist": true
+  },
+  {
+    "name": "경비로봇",
+    "level": 67,
+    "hp": 8500,
+    "exp": 263,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 106,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 6150000,
+    "region": "에델슈타인",
+    "watk": 372,
+    "matk": 372,
+    "exist": true
+  },
+  {
+    "name": "라키",
+    "level": 70,
+    "hp": 10000,
+    "exp": 452,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 106,
+    "def": 40,
+    "mDef": 50,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7150000,
+    "region": "에델슈타인",
+    "watk": 406,
+    "matk": 376,
+    "exist": true
+  },
+  {
+    "name": "빅 스파이더",
+    "level": 72,
+    "hp": 10000,
+    "exp": 472,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 143,
+    "def": 180,
+    "mDef": 254,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7150001,
+    "region": "에델슈타인",
+    "watk": 439,
+    "matk": 413,
+    "exist": true
+  },
+  {
+    "name": "카트베어",
+    "level": 74,
+    "hp": 10000,
+    "exp": 488,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 143,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7150002,
+    "region": "에델슈타인",
+    "watk": 453,
+    "matk": 411,
+    "exist": true
+  },
+  {
+    "name": "라쿤",
+    "level": 76,
+    "hp": 10000,
+    "exp": 567,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 143,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7150003,
+    "region": "에델슈타인",
+    "watk": 442,
+    "matk": 460,
+    "exist": true
+  },
+  {
+    "name": "경비로봇L",
+    "level": 79,
+    "hp": 20000,
+    "exp": 630,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 143,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 7150004,
+    "region": "에델슈타인",
+    "watk": 469,
+    "matk": 490,
+    "exist": true
+  },
+  {
+    "name": "라칸",
+    "level": 82,
+    "hp": 20000,
+    "exp": 1100,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 187,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105000,
+    "region": "에델슈타인",
+    "watk": 518,
+    "matk": 531,
+    "exist": true
+  },
+  {
+    "name": "방어 시스템",
+    "level": 87,
+    "hp": 30000,
+    "exp": 1500,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 187,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105001,
+    "region": "에델슈타인",
+    "watk": 643,
+    "matk": 649,
+    "exist": true
+  },
+  {
+    "name": "강화된 방어 시스템",
+    "level": 90,
+    "hp": 40000,
+    "exp": 1780,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 187,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105002,
+    "region": "에델슈타인",
+    "watk": 725,
+    "matk": 689,
+    "exist": true
+  },
+  {
+    "name": "AF형 안드로이드",
+    "level": 93,
+    "hp": 50000,
+    "exp": 2100,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 238,
+    "def": 170,
+    "mDef": 210,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105003,
+    "region": "에델슈타인",
+    "watk": 776,
+    "matk": 715,
+    "exist": true
+  },
+  {
+    "name": "고장난 DF형 안드로이드",
+    "level": 96,
+    "hp": 50000,
+    "exp": 2300,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 238,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105004,
+    "region": "에델슈타인",
+    "watk": 781,
+    "matk": 827,
+    "exist": true
+  },
+  {
+    "name": "광석 이터",
+    "level": 101,
+    "hp": 60000,
+    "exp": 3050,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 293,
+    "def": 213,
+    "mDef": 229,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8105005,
+    "region": "에델슈타인",
+    "watk": 923,
+    "matk": 920,
+    "exist": true
   }
 ]

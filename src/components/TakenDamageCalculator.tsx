@@ -10,13 +10,14 @@ import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from 
 import type { JobClass } from "@/types/takenDamage";
 import { trackEvent } from "@/lib/analytics";
 
-const jobGroups = ["전사", "마법사", "궁수", "도적", "아란"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "아란", "배틀메이지"] as const;
 const jobOptionsByGroup = {
   전사: ["파이터/크루세이더/히어로", "페이지/나이트/팔라딘", "스피어맨/드래곤나이트/다크나이트"],
   마법사: ["위자드/메이지/아크메이지(불/독)", "위자드/메이지/아크메이지(썬/콜)", "클레릭/프리스트/비숍"],
   궁수: ["헌터/레인저/보우마스터", "사수/저격수/신궁"],
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
   아란: ["아란"],
+  배틀메이지: ["배틀메이지"],
 } as const;
 
 const MAGIC_GUARD_TABLE = [0, 11, 14, 17, 20, 23, 30, 33, 36, 39, 42, 49, 52, 55, 58, 61, 68, 71, 74, 77, 80];
@@ -220,7 +221,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const jobClass: JobClass =
     jobGroup === "전사" || jobGroup === "아란"
       ? "warrior"
-      : jobGroup === "마법사"
+      : jobGroup === "마법사" || jobGroup === "배틀메이지"
         ? "magician"
         : jobGroup === "궁수"
           ? "archer"

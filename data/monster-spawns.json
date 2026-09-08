@@ -1,8 +1,8 @@
 {
   "generatedAt": "2026-03-02T22:30:34.911Z",
-  "source": "mapledb.kr search.php?t=mob",
-  "count": 749,
-  "withMaps": 422,
+  "source": "mapledb.kr search.php?t=mob; Maple Note Edelstein snapshot",
+  "count": 774,
+  "withMaps": 447,
   "withoutMaps": 327,
   "errorCount": 0,
   "rows": [
@@ -630,6 +630,39 @@
       ]
     },
     {
+      "mob_code": 150000,
+      "mob_name": "새싹 화분",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310020000,
+          "map_name": "에델슈타인 공원1"
+        }
+      ]
+    },
+    {
+      "mob_code": 150001,
+      "mob_name": "나팔꽃 화분",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310020100,
+          "map_name": "에델슈타인 공원2"
+        }
+      ]
+    },
+    {
+      "mob_code": 150002,
+      "mob_name": "포도주스병",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310020200,
+          "map_name": "에델슈타인 공원3"
+        }
+      ]
+    },
+    {
       "mob_code": 210100,
       "mob_name": "슬라임",
       "mob_name_en": "Slime",
@@ -1220,6 +1253,39 @@
         {
           "map_code": 101030102,
           "map_name": "유적 발굴지2"
+        }
+      ]
+    },
+    {
+      "mob_code": 1150000,
+      "mob_name": "순찰로봇",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030000,
+          "map_name": "에델슈타인 산책로1"
+        }
+      ]
+    },
+    {
+      "mob_code": 1150001,
+      "mob_name": "이상한 이정표",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030100,
+          "map_name": "에델슈타인 산책로2"
+        }
+      ]
+    },
+    {
+      "mob_code": 1150002,
+      "mob_name": "구렁이",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030110,
+          "map_name": "뱀 나오는 길"
         }
       ]
     },
@@ -1962,6 +2028,50 @@
       ]
     },
     {
+      "mob_code": 2150000,
+      "mob_name": "물 도둑",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030200,
+          "map_name": "에델슈타인 산책로3"
+        }
+      ]
+    },
+    {
+      "mob_code": 2150001,
+      "mob_name": "더스트 박스",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030300,
+          "map_name": "에델슈타인 산책로4"
+        }
+      ]
+    },
+    {
+      "mob_code": 2150002,
+      "mob_name": "가로등",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310030310,
+          "map_name": "가로등길"
+        }
+      ]
+    },
+    {
+      "mob_code": 2150003,
+      "mob_name": "순찰로봇S",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310040000,
+          "map_name": "광산 가는 길1"
+        }
+      ]
+    },
+    {
       "mob_code": 2220000,
       "mob_name": "마노",
       "mob_name_en": "Mano",
@@ -2685,6 +2795,39 @@
         {
           "map_code": 261010003,
           "map_name": "연구소 103호"
+        }
+      ]
+    },
+    {
+      "mob_code": 3150000,
+      "mob_name": "안전제일",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310040100,
+          "map_name": "광산 가는 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 3150001,
+      "mob_name": "아기 바위베어먹기",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310040300,
+          "map_name": "바위길"
+        }
+      ]
+    },
+    {
+      "mob_code": 3150002,
+      "mob_name": "큰 바위베어먹기",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310040400,
+          "map_name": "광석길"
         }
       ]
     },
@@ -5542,6 +5685,21 @@
       ]
     },
     {
+      "mob_code": 6150000,
+      "mob_name": "경비로봇",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050200,
+          "map_name": "갱도 입구1"
+        },
+        {
+          "map_code": 310050300,
+          "map_name": "갱도 입구2"
+        }
+      ]
+    },
+    {
       "mob_code": 6220000,
       "mob_name": "다일",
       "mob_name_en": "Dyle",
@@ -6172,6 +6330,61 @@
       ]
     },
     {
+      "mob_code": 7150000,
+      "mob_name": "라키",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050500,
+          "map_name": "갱도1"
+        }
+      ]
+    },
+    {
+      "mob_code": 7150001,
+      "mob_name": "빅 스파이더",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050600,
+          "map_name": "갱도2"
+        }
+      ]
+    },
+    {
+      "mob_code": 7150002,
+      "mob_name": "카트베어",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050700,
+          "map_name": "갱도3"
+        }
+      ]
+    },
+    {
+      "mob_code": 7150003,
+      "mob_name": "라쿤",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050510,
+          "map_name": "너구리 소굴"
+        }
+      ]
+    },
+    {
+      "mob_code": 7150004,
+      "mob_name": "경비로봇L",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050800,
+          "map_name": "갱도4"
+        }
+      ]
+    },
+    {
       "mob_code": 7160000,
       "mob_name": "듀얼 파이렛",
       "mob_name_en": "Dual Ghost Pirate",
@@ -6208,6 +6421,88 @@
         {
           "map_code": 261010102,
           "map_name": "연구소 202호"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105000,
+      "mob_name": "라칸",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310050520,
+          "map_name": "위험한 너구리 소굴"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105001,
+      "mob_name": "방어 시스템",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310060200,
+          "map_name": "방어 시스템 연구소1"
+        },
+        {
+          "map_code": 310060210,
+          "map_name": "방어 시스템 연구소2"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105002,
+      "mob_name": "강화된 방어 시스템",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310060210,
+          "map_name": "방어 시스템 연구소2"
+        },
+        {
+          "map_code": 310060220,
+          "map_name": "방어 시스템 연구소3"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105003,
+      "mob_name": "AF형 안드로이드",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310060100,
+          "map_name": "안드로이드 연구소1"
+        },
+        {
+          "map_code": 310060110,
+          "map_name": "안드로이드 연구소2"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105004,
+      "mob_name": "고장난 DF형 안드로이드",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310060110,
+          "map_name": "안드로이드 연구소2"
+        },
+        {
+          "map_code": 310060120,
+          "map_name": "안드로이드 연구소3"
+        }
+      ]
+    },
+    {
+      "mob_code": 8105005,
+      "mob_name": "광석 이터",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 310060300,
+          "map_name": "깊은 갱도"
         }
       ]
     },

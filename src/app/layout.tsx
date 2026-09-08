@@ -70,10 +70,15 @@ export default function RootLayout({
         <GoogleAnalytics />
         <WebVitalsReporter debug={perfDebugEnabled} />
         <div className="page-glow" aria-hidden="true" />
-        <Suspense fallback={null}>
-          <AnnouncementBanner />
-        </Suspense>
-        <SidebarShell>{children}</SidebarShell>
+        <SidebarShell
+          banner={
+            <Suspense fallback={null}>
+              <AnnouncementBanner />
+            </Suspense>
+          }
+        >
+          {children}
+        </SidebarShell>
       </body>
     </html>
   );

@@ -143,7 +143,13 @@ function SidebarIcon({ name, size = 4 }: { name: string; size?: number }) {
   }
 }
 
-export function SidebarShell({ children }: { children: React.ReactNode }) {
+export function SidebarShell({
+  children,
+  banner,
+}: {
+  children: React.ReactNode;
+  banner?: React.ReactNode;
+}) {
   const [open, setOpen] = useState(false);
   const [collapsed, setCollapsed] = useState(false);
   const desktopSidebarWidth = collapsed ? "4rem" : "16rem";
@@ -314,6 +320,7 @@ export function SidebarShell({ children }: { children: React.ReactNode }) {
       <div
         className={`transition-[margin,width] duration-200 ${collapsed ? "lg:ml-16 lg:w-[calc(100%-4rem)]" : "lg:ml-64 lg:w-[calc(100%-16rem)]"}`}
       >
+        {banner}
         <div className="mx-auto flex w-full max-w-[1600px] flex-col px-4 pb-16 pt-6 md:px-6 xl:px-8">
           <div className="hidden w-full items-center justify-end gap-3 pb-4 lg:flex">
             <AdminLink />
