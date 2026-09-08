@@ -19,6 +19,8 @@ export default function AdminAnnouncementsPage() {
   const [error, setError] = useState<string | null>(null);
   const [saving, setSaving] = useState(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [togglingId, setTogglingId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
 
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
@@ -84,36 +86,93 @@ export default function AdminAnnouncementsPage() {
     };
   }, []);
 
-  async function createAnnouncement() {
+  function resetForm() {
+    setTitle("");
+    setBody("");
+    setIsPinned(false);
+    setCategory("notice");
+    setEditingId(null);
+  }
+
+  function startEdit(row: AnnouncementRow) {
+    setEditingId(row.id);
+    setTitle(row.title);
+    setBody(row.body);
+    setCategory(row.category);
+    setIsPinned(Boolean(row.is_pinned));
+    setError(null);
+  }
+
+  function sortRows(list: AnnouncementRow[]) {
+    return [...list].sort((a, b) => {
+      if (Boolean(a.is_pinned) !== Boolean(b.is_pinned)) return a.is_pinned ? -1 : 1;
+      return (b.published_at ?? "").localeCompare(a.published_at ?? "");
+    });
+  }
+
+  async function saveAnnouncement() {
     if (!canSubmit || saving) return;
     setSaving(true);
     setError(null);
     try {
       const supabase = getSupabaseBrowserClient();
-      const payload: AnnouncementInsert = {
-        title: title.trim(),
-        body: body.trim(),
-        category,
-        is_pinned: isPinned,
-        published_at: new Date().toISOString(),
-      };
 
-      const { data, error: insertError } = await supabase
+      if (editingId) {
+        const { data, error: updateError } = await supabase
+          .from("announcements")
+          .update({ title: title.trim(), body: body.trim(), category, is_pinned: isPinned })
+          .eq("id", editingId)
+          .select("*")
+          .single();
+
+        if (updateError) throw updateError;
+        setRows((prev) => sortRows(prev.map((row) => (row.id === editingId ? (data as AnnouncementRow) : row))));
+      } else {
+        const payload: AnnouncementInsert = {
+          title: title.trim(),
+          body: body.trim(),
+          category,
+          is_pinned: isPinned,
+          published_at: new Date().toISOString(),
+        };
+
+        const { data, error: insertError } = await supabase
+          .from("announcements")
+          .insert(payload)
+          .select("*")
+          .single();
+
+        if (insertError) throw insertError;
+        setRows((prev) => sortRows([data as AnnouncementRow, ...prev]));
+      }
+
+      resetForm();
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "저장에 실패했습니다.");
+    } finally {
+      setSaving(false);
+    }
+  }
+
+  async function togglePinned(row: AnnouncementRow) {
+    if (togglingId) return;
+    setTogglingId(row.id);
+    setError(null);
+    try {
+      const supabase = getSupabaseBrowserClient();
+      const { data, error: updateError } = await supabase
         .from("announcements")
-        .insert(payload)
+        .update({ is_pinned: !row.is_pinned })
+        .eq("id", row.id)
         .select("*")
         .single();
 
-      if (insertError) throw insertError;
-      setRows((prev) => [data as AnnouncementRow, ...prev]);
-      setTitle("");
-      setBody("");
-      setIsPinned(false);
-      setCategory("notice");
+      if (updateError) throw updateError;
+      setRows((prev) => sortRows(prev.map((r) => (r.id === row.id ? (data as AnnouncementRow) : r))));
     } catch (err) {
-      setError(err instanceof Error ? err.message : "등록에 실패했습니다.");
+      setError(err instanceof Error ? err.message : "고정 상태 변경에 실패했습니다.");
     } finally {
-      setSaving(false);
+      setTogglingId(null);
     }
   }
 
@@ -129,6 +188,7 @@ export default function AdminAnnouncementsPage() {
       const { error: deleteError } = await supabase.from("announcements").delete().eq("id", id);
       if (deleteError) throw deleteError;
       setRows((prev) => prev.filter((row) => row.id !== id));
+      if (editingId === id) resetForm();
     } catch (err) {
       setError(err instanceof Error ? err.message : "삭제에 실패했습니다.");
     } finally {
@@ -159,6 +219,7 @@ export default function AdminAnnouncementsPage() {
         {!loading && authorized && !error ? (
           <>
             <div className="mt-6 space-y-3 rounded-xl border border-[var(--retro-border)] bg-[var(--retro-cell)] p-4">
+              {editingId ? <div className="text-xs font-semibold text-amber-200">공지 수정 중</div> : null}
               <div className="grid gap-3 md:grid-cols-2">
                 <label className="space-y-1">
                   <span className="text-xs text-slate-300">제목</span>
@@ -198,15 +259,25 @@ export default function AdminAnnouncementsPage() {
                 />
                 상단 고정
               </label>
-              <div>
+              <div className="flex items-center gap-2">
                 <button
                   type="button"
-                  onClick={createAnnouncement}
+                  onClick={saveAnnouncement}
                   disabled={!canSubmit || saving}
                   className="rounded-md border border-cyan-300/50 bg-cyan-300/10 px-4 py-2 text-sm font-semibold text-cyan-100 hover:border-cyan-200/70 disabled:opacity-40"
                 >
-                  {saving ? "등록 중..." : "공지 등록"}
+                  {saving ? "저장 중..." : editingId ? "수정 저장" : "공지 등록"}
                 </button>
+                {editingId ? (
+                  <button
+                    type="button"
+                    onClick={resetForm}
+                    disabled={saving}
+                    className="rounded-md border border-[var(--retro-border)] px-4 py-2 text-sm text-slate-300 hover:border-[var(--retro-border-strong)] disabled:opacity-40"
+                  >
+                    취소
+                  </button>
+                ) : null}
               </div>
             </div>
 
@@ -228,14 +299,31 @@ export default function AdminAnnouncementsPage() {
                       <span className="text-[11px] text-slate-400">
                         {row.published_at ? new Date(row.published_at).toLocaleDateString("ko-KR") : "-"}
                       </span>
-                      <button
-                        type="button"
-                        onClick={() => deleteAnnouncement(row.id)}
-                        disabled={deletingId === row.id}
-                        className="ml-auto rounded border border-rose-300/50 bg-rose-300/10 px-2 py-0.5 text-[11px] text-rose-100 hover:border-rose-200/70 disabled:opacity-40"
-                      >
-                        {deletingId === row.id ? "삭제 중..." : "삭제"}
-                      </button>
+                      <div className="ml-auto flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => togglePinned(row)}
+                          disabled={togglingId === row.id}
+                          className="rounded border border-amber-300/50 bg-amber-300/10 px-2 py-0.5 text-[11px] text-amber-100 hover:border-amber-200/70 disabled:opacity-40"
+                        >
+                          {togglingId === row.id ? "변경 중..." : row.is_pinned ? "고정 해제" : "상단 고정"}
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => startEdit(row)}
+                          className="rounded border border-cyan-300/50 bg-cyan-300/10 px-2 py-0.5 text-[11px] text-cyan-100 hover:border-cyan-200/70"
+                        >
+                          수정
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => deleteAnnouncement(row.id)}
+                          disabled={deletingId === row.id}
+                          className="rounded border border-rose-300/50 bg-rose-300/10 px-2 py-0.5 text-[11px] text-rose-100 hover:border-rose-200/70 disabled:opacity-40"
+                        >
+                          {deletingId === row.id ? "삭제 중..." : "삭제"}
+                        </button>
+                      </div>
                     </div>
                     <h3 className="mt-2 text-lg font-semibold text-slate-100">{row.title}</h3>
                     <p className="mt-2 whitespace-pre-wrap text-sm text-slate-200/90">{row.body}</p>

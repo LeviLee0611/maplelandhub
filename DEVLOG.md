@@ -32,6 +32,22 @@
 
 적용 방식: `scripts/import-edelstein-monsters.mjs` 신설(Zone D), `data/monsters.json`/`data/monster-spawns.json` 갱신(Zone D 산출물), `TODO.md`/`scripts/state/last-patch-check.json` 갱신. 커밋은 안 함(요청 시 진행).
 
+### 에델슈타인 아이템 드랍 반영 + 몬스터 레벨 정정 + 공지 관리 기능(수정/고정 토글) 추가
+
+에델슈타인 몬스터를 반영한 직후 사용자가 "아이템 드랍 정보 미반영" 상태를 지적, 실제로 처리 가능한 범위라 바로 착수.
+
+**드랍 데이터**: 기존 `fetch-new-items-drop-data.mjs`는 "이미 알려진 아이템"은 재검사하지 않는 구조라 신규 몬스터가 기존 아이템을 드랍해도 못 잡는 구조적 한계 확인. 대신 몬스터 쪽에서 접근하는 `scripts/fetch-edelstein-drops.mjs` 신설 — `monster_detail/<mobCode>` 페이지의 GET 섹션(`item-box`/`drop-rate-box`)을 직접 파싱해 25종 전부 드랍 연결(39건). 정규식 첫 시도에서 non-greedy 옵셔널 그룹이 매칭을 건너뛰는 문제(드랍률 캡처 실패)를 겪어 `<a>` 블록을 통째로 잘라낸 뒤 2단계로 파싱하도록 수정. AF형/고장난 DF형 안드로이드/광석 이터가 배틀메이지 마스터리북(피니쉬 블로우/다크 제네시스/와일드 발칸)을 드랍하는 것으로 나와 오늘 추가한 배틀메이지 콘텐츠와 자연스럽게 맞아떨어짐 — 데이터 신뢰도의 방증. HEAD 대비 diff로 기존 드랍 663→691종, 유실 0건 재확인.
+
+**레벨 정정**: 사용자가 "네오 도쿄" 유무를 묻는 과정에서 마플랜드 공식 9/7 패치노트 원문을 직접 열람하게 됐는데, 거기 명시된 에델슈타인 몬스터 레벨이 기존에 Maple Note 스냅샷으로 가져온 값과 7종에서 ±1~3레벨 차이가 남을 발견(순찰로봇 14→15, 이상한 이정표 16→17, 구렁이 18→19, 안전제일 31→30, 경비로봇L 79→78, 라칸 82→83, 고장난 DF형 안드로이드 96→95). 공식 패치노트가 가장 신뢰도 높은 소스라 즉시 `data/monsters.json`/`data/planet/monsters.json` 정정. hp/exp는 패치노트에 안 나와 있어 기존값 유지.
+
+**공지 관리 기능**: `/admin/announcements`에 수정 기능이 없어 삭제 후 재등록만 가능했던 것을 지적받아 개선 — 폼에 `editingId` 상태를 추가해 "수정" 버튼 클릭 시 기존 값으로 폼을 채우고 저장 시 insert 대신 update, 취소 버튼으로 편집 모드 이탈 가능. 별도로 목록 전체 편집 없이 바로 켜고 끌 수 있는 "상단 고정/고정 해제" 토글 버튼도 행마다 추가(`is_pinned` 단독 업데이트). 이 자동화 브라우저 세션은 사용자 로그인 세션과 프로필이 달라 실제 클릭 테스트는 못 함 — `npx tsc --noEmit`/`npx eslint`로만 검증.
+
+**네오 도쿄 조사(반영 안 함, 리드만)**: 사용자가 "네오 도쿄 있나?"라고 물어 조사 — KMS엔 원래 없던 해외서비스(JMS 등) 전용 콘텐츠임을 확인. 다만 arca.live "메이플랜드 채널"에서 2026-01-27 게시물이 "배틀메이지 | 메이플랜드 2.0" 태그로 네오 도쿄 관련 글을 묶어뒀던 것과, 커뮤니티가 "메랜엔 언제 나올라나" 식으로 계속 기대하던 정황을 확인 — 배틀메이지와 같은 로드맵으로 예고돼있었다는 뜻. 방금 확인한 9/7 공식 패치노트엔 네오 도쿄 언급이 없어 이번 패치엔 미포함 확정, TODO.md에 다음 패치체크 확인 항목으로 등록만 하고 반영은 안 함(출시 확정 전까지 데이터 만들 근거 없음).
+
+검증: `npx tsc --noEmit`/`npx eslint`/`npx vitest run`(100개) 전부 통과.
+
+적용 방식: `scripts/fetch-edelstein-drops.mjs` 신설(Zone D), `data/drop-index.json`/`data/item-detail-by.json`/`data/monsters.json`/`data/planet/monsters.json` 갱신, `src/app/(routes)/admin/announcements/page.tsx` 수정(Zone E), `TODO.md` 갱신. 커밋은 안 함(요청 시 진행).
+
 ---
 
 ## 2026-08-20
