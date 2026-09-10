@@ -3,7 +3,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import { Panel } from "@/components/Panel";
-import { getItemIconCandidateUrls, getMobAnimatedFallbackUrl, getMobIconUrl, getMobRenderUrl } from "@/lib/maplestory-io";
+import { getItemIconCandidateUrls, getMobIconUrl, getMobRenderUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import { isReleasedMobCode } from "@/lib/release-filter";
 import { trackEvent } from "@/lib/analytics";
 import { formatNumber } from "@/lib/utils";
@@ -617,17 +617,6 @@ export function DropTable({
     return Math.max(0, Math.ceil(((55 + diffLevel * 2) * eva) / 15));
   };
 
-  const handleMobImageError = (event: React.SyntheticEvent<HTMLImageElement, Event>, mobCode: number) => {
-    const target = event.currentTarget;
-    if (target.dataset.fallback === "animated") {
-      target.onerror = null;
-      target.src = getMobIconUrl(mobCode);
-      return;
-    }
-    target.dataset.fallback = "animated";
-    target.src = getMobAnimatedFallbackUrl(mobCode, "stand");
-  };
-
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
       <header className="glass-panel flex flex-col gap-3 rounded-3xl px-6 py-6 text-left">
@@ -740,8 +729,10 @@ export function DropTable({
                                 <img
                                   src={getMobIconUrl(monster.mobCode)}
                                   alt={monster.name}
+                                  data-maple-code={String(monster.mobCode)}
+                                  data-maple-retry="0"
                                   className="h-6 w-6"
-                                  onError={(event) => handleMobImageError(event, monster.mobCode)}
+                                  onError={(event) => handleMapleIoImageError(event, "mob")}
                                 />
                                 <span className="flex-1 truncate">{monster.name}</span>
                                 <span className="text-[11px] text-[color:var(--retro-text-muted)]">
@@ -866,8 +857,10 @@ export function DropTable({
                   <img
                     src={getMobIconUrl(selectedMonster.mobCode)}
                     alt={selectedMonster.name}
+                    data-maple-code={String(selectedMonster.mobCode)}
+                    data-maple-retry="0"
                     className="h-12 w-12"
-                    onError={(event) => handleMobImageError(event, selectedMonster.mobCode)}
+                    onError={(event) => handleMapleIoImageError(event, "mob")}
                   />
                   <div className="flex-1">
                     <div className="text-base font-semibold">{selectedMonster.name}</div>
@@ -1074,7 +1067,17 @@ export function DropTable({
                       alt={monster.name}
                       className="h-16 w-16"
                       onError={(event) => {
-                        handleMobImageError(event, monster.mobCode);
+                        const target = event.currentTarget;
+                        if (target.dataset.fallback !== "icon") {
+                          // render 이미지가 없으면 icon으로 우선 대체 — 그 icon마저 깨지면
+                          // 아래에서 handleMapleIoImageError의 버전별 재시도 체인을 이어서 탄다.
+                          target.dataset.fallback = "icon";
+                          target.setAttribute("data-maple-code", String(monster.mobCode));
+                          target.setAttribute("data-maple-retry", "0");
+                          target.src = getMobIconUrl(monster.mobCode);
+                          return;
+                        }
+                        handleMapleIoImageError(event, "mob");
                       }}
                     />
                     <div className="flex-1">

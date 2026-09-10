@@ -15,6 +15,7 @@ import mainSkillMapping from "@data/skills/mainSkillMapping.json";
 import range20 from "@data/skills/range20.json";
 import range30 from "@data/skills/range30.json";
 import damageMapping from "@data/skills/damageMapping.json";
+import damageMappingPlanetOverrides from "@data/skills/damageMappingPlanetOverrides.json";
 import damageMappingActive from "@data/skills/damageMappingActive.json";
 import damageMappingActive2 from "@data/skills/damageMappingActive2.json";
 import criticalThrowMapping from "@data/skills/criticalThrowMapping.json";
@@ -147,10 +148,12 @@ const QUICK_SLOT_COUNT = 6;
 
 type BlessingConfig = { maxLevel: number; attPerLevel: number; mattPerLevel: number };
 
-// 커뮤니티 정보 기반 잠정치(공식 검증 안 됨). 메이플랜드는 정령의 축복만 확인되어 여제의 축복은 미포함.
+// 메이플랜드는 정령의 축복만 확인되어 여제의 축복은 미포함.
+// 플래닛 마스터레벨 20→22는 공식 패치노트(2026-08-28) 확인 완료 — "잠정치" 아님.
+// (예전엔 커뮤니티 글의 "정축 최대 200"을 캐릭터 레벨로 착각해 잘못 넣어뒀던 값이었음, 2026-09-09 정정)
 const SPIRIT_BLESSING_BY_SERVER: Record<"mapleland" | "planet", BlessingConfig> = {
   mapleland: { maxLevel: 20, attPerLevel: 1, mattPerLevel: 2 },
-  planet: { maxLevel: 200, attPerLevel: 1, mattPerLevel: 2 },
+  planet: { maxLevel: 22, attPerLevel: 1, mattPerLevel: 2 },
 };
 
 // 공식 패치노트(2026-05-13) 기준: 시그너스 최대 120레벨, 10레벨당 1포인트 → 여제의 축복 최대 12레벨.
@@ -925,10 +928,6 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       return [...SPEARMAN_SKILLS];
     }
 
-    // 아란 스킬 데미지%는 메이플플래닛 인게임 캡처로만 확보됨(2026-07-03) — 메이플랜드는
-    // 수치가 다를 수 있음이 TODO.md에 기록되어 있어(예: 파이널 차지) 검증 전까지 미지원.
-    if (job === "아란" && server !== "planet") return ["기본 공격"];
-
     // 배틀메이지는 2026-09-07 메랜(mapleland) 패치로만 출시 확인됨 — 같은 기간 플래닛
     // 패치노트엔 언급이 없어 플래닛 출시 여부 불명. 확인 전까지 플래닛에서는 미지원.
     if (job === "배틀메이지" && server === "planet") return ["기본 공격"];
@@ -964,6 +963,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const skillBase = useMemo(() => {
     const bySkill = damageMapping as Record<string, Record<string, number | { damage?: number; count?: number; mastery?: number; rate?: number; critDMG?: number; critRate?: number }>>;
+    const byPlanet = damageMappingPlanetOverrides as Record<string, Record<string, number | { damage?: number; count?: number; mastery?: number }>>;
     const bySkillActive = damageMappingActive as Record<string, Record<string, number | { damage?: number; maxCount?: number }>>;
     const bySkillActive2 = damageMappingActive2 as Record<string, Record<string, number>>;
     const byCrit = criticalThrowMapping as Record<string, Record<string, { damage?: number; rate?: number }>>;
@@ -971,7 +971,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     const byVenom = venomSkill as Record<string, Record<string, { damage?: number; time?: number; prop?: number }>>;
 
     const levelKey = String(Math.min(Math.max(skillLevel, 0), skillLevelMax));
+    // 플래닛 전용 오버라이드(damageMappingPlanetOverrides)는 마스터레벨 등 일부 레벨만 채워져 있어
+    // 없는 레벨은 damageMapping(메랜 기준)의 공유 곡선으로 자연스럽게 폴백됨.
     const entry =
+      (server === "planet" ? byPlanet[skillName]?.[levelKey] : undefined) ??
       bySkill[skillName]?.[levelKey] ??
       bySkillActive[skillName]?.[levelKey] ??
       bySkillActive2[skillName]?.[levelKey] ??
@@ -988,7 +991,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       count: entry.count ?? 1,
       mastery: entry.mastery,
     };
-  }, [skillName, skillLevel, skillLevelMax]);
+  }, [skillName, skillLevel, skillLevelMax, server]);
 
   const skillEffects = useMemo(() => {
     const levelKey = String(Math.min(Math.max(skillLevel, 0), skillLevelMax));
@@ -1345,8 +1348,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const finalDamageMultiplier = useMemo(
     () =>
-      // 스나이핑은 스탯/버프 무관 고정 데미지(199999)라 다른 배율을 전혀 타면 안 됨
-      skillName === "스나이핑" ? 1 :
+      // 스나이핑은 메랜에서 스탯/버프 무관 고정 데미지(199999)라 다른 배율을 전혀 타면 안 됨.
+      // 플래닛은 2026-08-28 패치로 즉사 메커니즘이 사라지고 일반 데미지% 스킬이 됐으므로 이 예외 제외.
+      skillName === "스나이핑" && server !== "planet" ? 1 :
       skillEffects.buffMultiplier *
       (skillName === "힐" ? 1 : criticalAverageMultiplier) *
       shadowPartnerEffect.multiplier *
@@ -1387,6 +1391,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       elementMultiplier,
       bishopHealBonus,
       skillName,
+      server,
     ],
   );
 
@@ -1450,7 +1455,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       };
     }
 
-    if (skillName === "스나이핑") {
+    // 플래닛은 2026-08-28 패치로 스나이핑의 즉사 메커니즘이 사라지고 일반 데미지% 스킬(1500%×2)이
+    // 됐으므로 이 고정 데미지 특수 처리에서 제외 — damageMappingPlanetOverrides 값으로 아래 일반
+    // 물리 계산(return null → statDamage 폴백)을 그대로 타게 함. 메랜은 기존 즉사 메커니즘 유지.
+    if (skillName === "스나이핑" && server !== "planet") {
       return {
         min: 199999,
         max: 199999,
@@ -1478,7 +1486,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
 
     return null;
-  }, [stats, weaponAttack, damageMultiplier, skillName, effectiveMastery, healTargetCount, skillLevel, selectedMonster]);
+  }, [stats, weaponAttack, damageMultiplier, skillName, effectiveMastery, healTargetCount, skillLevel, selectedMonster, server]);
 
   const result = calcOneHit({
     monsterHp: selectedMonster?.hp ?? 1,
@@ -1855,7 +1863,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                 생츄어리는 맞은 대상의 HP를 1로 고정하고 즉사시키지 않는 스킬입니다 — 아래 계산 결과는 실제 몬스터 처치가 아닌 데미지 수치 참고용입니다.
               </p>
             ) : null}
-            {skillName === "스나이핑" ? (
+            {skillName === "스나이핑" && server !== "planet" ? (
               <p className="text-[10px] text-[color:var(--retro-text-muted)]">
                 스나이핑은 스탯과 무관하게 거의 확정으로 최대 데미지(199999)를 주는 고정 데미지 스킬입니다 — 스킬 레벨/스탯 입력은 결과에 영향을 주지 않습니다.
               </p>

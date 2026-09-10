@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Panel } from "@/components/Panel";
 import { MonsterSelect } from "@/components/MonsterSelect";
-import { getMobAnimatedUrl } from "@/lib/maplestory-io";
+import { getMobAnimatedUrl, getMobIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import type { Monster } from "@/types/monster";
 import { formatNumber } from "@/lib/utils";
 
@@ -46,6 +46,19 @@ export function MonsterPanel({
                 height={56}
                 className="h-14 w-14 object-contain"
                 unoptimized
+                onError={(event) => {
+                  const target = event.currentTarget as HTMLImageElement;
+                  if (target.dataset.fallback !== "icon") {
+                    // 애니메이션 GIF가 없으면 정적 아이콘으로 우선 대체 — 그마저 깨지면
+                    // handleMapleIoImageError의 버전별 재시도 체인을 이어서 탄다.
+                    target.dataset.fallback = "icon";
+                    target.setAttribute("data-maple-code", String(selected.mobCode));
+                    target.setAttribute("data-maple-retry", "0");
+                    target.src = getMobIconUrl(selected.mobCode);
+                    return;
+                  }
+                  handleMapleIoImageError(event, "mob");
+                }}
               />
             ) : (
               "이미지 없음"

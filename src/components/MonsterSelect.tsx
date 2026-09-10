@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
 import Image from "next/image";
-import { getMobAnimatedFallbackUrl, getMobIconUrl } from "@/lib/maplestory-io";
+import { getMobIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import { filterReleasedMonsters } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
 
@@ -141,18 +141,11 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
               alt={selectedMonster.name}
               width={22}
               height={22}
+              data-maple-code={String(selectedMonster.mobCode)}
+              data-maple-retry="0"
               className="h-[22px] w-[22px] object-contain"
               unoptimized
-              onError={(event) => {
-                const target = event.currentTarget as HTMLImageElement;
-                if (target.dataset.fallback === "animated") {
-                  target.onerror = null;
-                  target.src = getMobIconUrl(selectedMonster.mobCode);
-                  return;
-                }
-                target.dataset.fallback = "animated";
-                target.src = getMobAnimatedFallbackUrl(selectedMonster.mobCode, "stand");
-              }}
+              onError={(event) => handleMapleIoImageError(event, "mob")}
             />
           ) : (
             <span className="inline-flex h-[22px] w-[22px] items-center justify-center rounded bg-[var(--retro-cell-strong)] text-[10px] text-[color:var(--retro-text-muted)]">
@@ -187,18 +180,11 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
                     alt={monster.name}
                     width={24}
                     height={24}
+                    data-maple-code={String(monster.mobCode)}
+                    data-maple-retry="0"
                     className="h-6 w-6 shrink-0 object-contain"
                     unoptimized
-                    onError={(event) => {
-                      const target = event.currentTarget as HTMLImageElement;
-                      if (target.dataset.fallback === "animated") {
-                        target.onerror = null;
-                        target.src = getMobIconUrl(monster.mobCode);
-                        return;
-                      }
-                      target.dataset.fallback = "animated";
-                      target.src = getMobAnimatedFallbackUrl(monster.mobCode, "stand");
-                    }}
+                    onError={(event) => handleMapleIoImageError(event, "mob")}
                   />
                   <span className="flex-1">{monster.name}</span>
                   <span className="text-[10px] text-[color:var(--retro-text-muted)]">Lv.{monster.level}</span>

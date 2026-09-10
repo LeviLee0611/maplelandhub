@@ -37,10 +37,6 @@ export function getMobAnimatedUrl(mobCode: number | string, action: "move" | "st
   return resolveStaticOverride(mobCode) ?? `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
 }
 
-export function getMobAnimatedFallbackUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
-  return resolveStaticOverride(mobCode) ?? `https://maplestory.io/api/gms/200/mob/animated/${mobCode}/${action}`;
-}
-
 export function getMobRenderUrl(mobCode: number | string, action: "stand" | "move" = "stand") {
   const renderBase = "https://maplestory.io/api/GMS/62";
   return resolveStaticOverride(mobCode) ?? `${renderBase}/mob/${mobCode}/render/${action}`;

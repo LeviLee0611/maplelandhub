@@ -103,6 +103,16 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 
 ---
 
+## 스킬 데미지% 서버별 오버라이드 (`damageMappingPlanetOverrides`, 2026-09-09 신설)
+
+`data/raw/skills.raw.ts`의 `damageMapping`(한방컷 계산기용 스킬 데미지%)은 원래 메랜/플래닛 구분 없는 단일 공유 테이블이었으나, 2026-09-09 두 서버가 각자 독자적으로 스킬 밸런스 패치를 해와 특정 스킬은 서버마다 수치가 달라진 게 확인됨(메랜 2026-06-19 "Mapleland 2.0" 출시 패치의 KMS 1.2.35→1.2.89 재조정, 플래닛 2026-08-28 대규모 밸런스 패치). 이를 위해 같은 파일에 `damageMappingPlanetOverrides` 상수를 신설(몬스터/드롭의 `data/` vs `data/planet/` 오버라이드 패턴과 같은 방향 — `damageMapping`은 메랜 기준으로 유지, 플래닛에서만 다른 스킬만 이 테이블에 마스터레벨 값만 기록).
+
+`scripts/normalize-skills.mjs`의 `mappings` 배열에 이름이 등록돼 있어 `damageMapping.json`과 동일하게 `node scripts/normalize-skills.mjs`로 함께 빌드됨(`data/skills/damageMappingPlanetOverrides.json`). `onehit-calculator-client.tsx`의 `skillBase`가 `server === "planet"`일 때 이 테이블을 먼저 조회하고, 없는 레벨(패치노트가 마스터값만 줘서 1~29는 비어있음)은 자동으로 `damageMapping`의 공유 곡선으로 폴백한다.
+
+새로운 서버 간 스킬% 차이가 발견되면: (1) 공식 패치노트 원문으로 "이전/이후" 수치를 직접 확인(스니펫 금지), (2) 현재 `damageMapping`의 저장값이 패치노트의 "이전" 값과 일치하는지 대조해 신뢰도 판단, (3) 일치하면 마스터 레벨만 새 값으로 교체(하위 레벨은 곡선 형태를 알 수 없어 그대로 유지 — 배틀메이지 다크 라이트닝/싸이클론 때와 동일 원칙), (4) 플래닛 전용이면 `damageMappingPlanetOverrides`에, 메랜 쪽이 바뀐 거면 `damageMapping` 본체에 반영.
+
+---
+
 ## 정적 데이터 (src/data/mapledb/)
 
 **런타임 미사용 확인(2026-07-24)**: `src/` 앱 코드에서 이 파일들을 import하는 곳은 없음 — Next.js 런타임에서 실제로 쓰이는 건 `data/*.json`뿐. 대신 `scripts/build-drop-index.mjs`(아이템명 매칭 소스), `parse-drops-js.mjs`, `find-item-names.mjs`, `build-npc-map-locations.mjs`, `build-monster-map-locations.mjs`, `build-merged-drops-parsed.mjs` 등 **빌드 스크립트(Zone D)의 입력 소스**로만 쓰인다. 레거시가 아니라 빌드타임 전용 원본 데이터이므로 삭제 대상 아님 — `data/*.json` 재생성 시 이 파일들도 최신 상태인지 같이 확인할 것.

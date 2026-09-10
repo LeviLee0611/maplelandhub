@@ -23,6 +23,7 @@ const mappings = [
   "criticalThrowMapping",
   "damageMappingActive",
   "damageMappingActive2",
+  "damageMappingPlanetOverrides",
 ];
 
 fs.mkdirSync(outDir, { recursive: true });
