@@ -11,6 +11,11 @@
  *   (기존 region 필드는 "엘나스" 등 광역 지역명 컨벤션 — 구체적 맵 이름은 별도 관리 안 함).
  * - 드롭: 몬스터당 전용 아이템 1종("~의 털뭉치")만 연결. 확률 출처가 없어 prob 필드는 비움
  *   (UI에서 "정보 없음" 표시). 아이템 메타는 maplestory.io KMS/389 API로 이름 확인 후 등록.
+ * - 2026-09-10 mobCode 재배정: 무루 5종에 처음 붙였던 100130~100134가 드랍 스크래핑 소스
+ *   (data/item-detail-by.json)에서 이미 정체불명의 다른 몬스터가 쓰던 번호라, 무루 5종에
+ *   스틸 풀 헬름 등 엉뚱한 장비 드랍이 붙는 충돌이 있었음. 어디와도 안 겹치는 9600300~9600304로
+ *   재배정. 카탈로그/맵 소스는 여전히 옛 번호를 쓰므로 scripts/sources/mobcode-corrections.json의
+ *   identityRemap이 정규 빌드에서 이를 흡수한다(그 파일 주석 참고).
  *
  * 실행: node scripts/add-aran-rien-monsters.mjs
  */
@@ -23,21 +28,21 @@ const DROP_INDEX_PATH = path.resolve("data/drop-index.json");
 
 const NEW_MONSTERS = [
   { name: "튜토리얼 무루", level: 1, hp: 8, exp: 4, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9300383, region: "리엔", watk: 12, matk: 0, exist: true },
-  { name: "무루", level: 1, hp: 8, exp: 4, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 100130, region: "리엔", watk: 12, matk: 0, exist: true },
-  { name: "무루파", level: 3, hp: 28, exp: 24, acc: 30, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 100131, region: "리엔", watk: 21, matk: 0, exist: true },
-  { name: "무루피아", level: 5, hp: 43, exp: 36, acc: 35, eva: 0, needAcc: 0, def: 3, mDef: 10, ele: ["무속성"], mobCode: 100132, region: "리엔", watk: 28, matk: 0, exist: true },
-  { name: "무루무루", level: 7, hp: 70, exp: 60, acc: 40, eva: 0, needAcc: 0, def: 5, mDef: 20, ele: ["무속성"], mobCode: 100133, region: "리엔", watk: 36, matk: 0, exist: true },
-  { name: "무루쿤", level: 9, hp: 95, exp: 72, acc: 42, eva: 1, needAcc: 0, def: 10, mDef: 15, ele: ["무속성"], mobCode: 100134, region: "리엔", watk: 48, matk: 0, exist: true },
+  { name: "무루", level: 1, hp: 8, exp: 4, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600300, region: "리엔", watk: 12, matk: 0, exist: true },
+  { name: "무루파", level: 3, hp: 28, exp: 24, acc: 30, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600301, region: "리엔", watk: 21, matk: 0, exist: true },
+  { name: "무루피아", level: 5, hp: 43, exp: 36, acc: 35, eva: 0, needAcc: 0, def: 3, mDef: 10, ele: ["무속성"], mobCode: 9600302, region: "리엔", watk: 28, matk: 0, exist: true },
+  { name: "무루무루", level: 7, hp: 70, exp: 60, acc: 40, eva: 0, needAcc: 0, def: 5, mDef: 20, ele: ["무속성"], mobCode: 9600303, region: "리엔", watk: 36, matk: 0, exist: true },
+  { name: "무루쿤", level: 9, hp: 95, exp: 72, acc: 42, eva: 1, needAcc: 0, def: 10, mDef: 15, ele: ["무속성"], mobCode: 9600304, region: "리엔", watk: 48, matk: 0, exist: true },
 ];
 
 // mobCode -> 드롭 아이템 매핑 (몬스터당 1종, prob 없음)
 const DROPS_BY_MOB_CODE = {
   9300383: 4032373,
-  100130: 4000493,
-  100131: 4000494,
-  100132: 4000495,
-  100133: 4000496,
-  100134: 4000497,
+  9600300: 4000493,
+  9600301: 4000494,
+  9600302: 4000495,
+  9600303: 4000496,
+  9600304: 4000497,
 };
 
 // maplestory.io KMS/389 API로 확인한 아이템 메타 (이름 일치 확인 완료)

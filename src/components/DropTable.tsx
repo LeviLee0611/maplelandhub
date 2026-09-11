@@ -7,6 +7,7 @@ import { getItemIconCandidateUrls, getMobIconUrl, getMobRenderUrl, handleMapleIo
 import { isReleasedMobCode } from "@/lib/release-filter";
 import { trackEvent } from "@/lib/analytics";
 import { formatNumber } from "@/lib/utils";
+import { AdSlot } from "@/components/AdSlot";
 import type { Monster } from "@/types/monster";
 export type DropIndexItem = {
   id: number;
@@ -231,11 +232,15 @@ export function DropTable({
   const [selectedMonsterMobCode, setSelectedMonsterMobCode] = useState<number | null>(null);
   const [characterLevel, setCharacterLevel] = useState(1);
   const [monsterDropsByMobCode, setMonsterDropsByMobCode] = useState<Record<number, DropEntry[]>>({});
-  const [monsterDropsLoading, setMonsterDropsLoading] = useState<number | null>(null);
-  const [monsterDropsError, setMonsterDropsError] = useState<number | null>(null);
+  // 로딩/오류는 "현재 선택된 하나"가 아니라 대상별로 관리한다 — A→B→A처럼 빠르게 옮겨다닐 때
+  // 마지막 선택만 추적하면 이전 대상의 상태가 잘못 남거나 사라진다.
+  const [monsterDropsLoading, setMonsterDropsLoading] = useState<ReadonlySet<number>>(new Set());
+  const [monsterDropsError, setMonsterDropsError] = useState<ReadonlySet<number>>(new Set());
   const [itemMonstersByItemId, setItemMonstersByItemId] = useState<Record<number, MonsterDropEntry[]>>({});
-  const [itemMonstersLoading, setItemMonstersLoading] = useState<number | null>(null);
-  const [itemMonstersError, setItemMonstersError] = useState<number | null>(null);
+  const [itemMonstersLoading, setItemMonstersLoading] = useState<ReadonlySet<number>>(new Set());
+  const [itemMonstersError, setItemMonstersError] = useState<ReadonlySet<number>>(new Set());
+  // 진행 중인 요청을 공유해, 응답이 오기 전에 같은 대상을 다시 선택해도 요청이 한 번만 나가게 한다.
+  const inFlightRequestsRef = useRef<Map<string, Promise<void>>>(new Map());
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -247,44 +252,78 @@ export function DropTable({
     [selectedMonsterMobCode, monsterList]
   );
 
-  // 몬스터 드랍은 로컬 데이터 우선, 없으면 API route가 서버사이드에서 MonsterBook reward로 폴백.
-  // 실패 시엔 캐시에 빈 배열을 넣지 않음 — "일시적 네트워크 오류"와 "실제로 드랍 없음"을 구분해서 재시도 가능하게 함.
-  const ensureMonsterDrops = async (mobCode: number) => {
-    if (!mobCode || monsterDropsByMobCode[mobCode]) return;
-    setMonsterDropsLoading(mobCode);
-    try {
-      const res = await fetch(`/api/drop-table/monster/${server}?mobCode=${mobCode}`);
-      if (!res.ok) throw new Error(`request_failed_${res.status}`);
-      const json = await res.json();
-      setMonsterDropsByMobCode((prev) => ({
-        ...prev,
-        [mobCode]: Array.isArray(json?.drops) ? json.drops : [],
-      }));
-      setMonsterDropsError((prev) => (prev === mobCode ? null : prev));
-    } catch {
-      setMonsterDropsError(mobCode);
-    } finally {
-      setMonsterDropsLoading((prev) => (prev === mobCode ? null : prev));
-    }
+  const withId = (prev: ReadonlySet<number>, id: number) => {
+    if (prev.has(id)) return prev;
+    const next = new Set(prev);
+    next.add(id);
+    return next;
   };
 
-  const ensureItemMonsters = async (itemId: number) => {
-    if (!itemId || itemMonstersByItemId[itemId]) return;
-    setItemMonstersLoading(itemId);
-    try {
-      const res = await fetch(`/api/drop-table/item/${server}?itemId=${itemId}`);
-      if (!res.ok) throw new Error(`request_failed_${res.status}`);
-      const json = await res.json();
-      setItemMonstersByItemId((prev) => ({
-        ...prev,
-        [itemId]: Array.isArray(json?.monsters) ? json.monsters : [],
-      }));
-      setItemMonstersError((prev) => (prev === itemId ? null : prev));
-    } catch {
-      setItemMonstersError(itemId);
-    } finally {
-      setItemMonstersLoading((prev) => (prev === itemId ? null : prev));
-    }
+  const withoutId = (prev: ReadonlySet<number>, id: number) => {
+    if (!prev.has(id)) return prev;
+    const next = new Set(prev);
+    next.delete(id);
+    return next;
+  };
+
+  /**
+   * 같은 대상에 대한 요청을 하나로 합친다. 응답이 오기 전에 다시 선택해도 진행 중인 약속을
+   * 그대로 돌려주고, 실패하면 맵에서 지워 재시도할 수 있게 한다.
+   */
+  const runShared = (key: string, task: () => Promise<void>) => {
+    const existing = inFlightRequestsRef.current.get(key);
+    if (existing) return existing;
+
+    const promise = task().finally(() => {
+      inFlightRequestsRef.current.delete(key);
+    });
+    inFlightRequestsRef.current.set(key, promise);
+    return promise;
+  };
+
+  // 몬스터 드랍은 로컬 데이터 우선, 없으면 API route가 서버사이드에서 MonsterBook reward로 폴백.
+  // 실패 시엔 캐시에 빈 배열을 넣지 않음 — "조회 실패"와 "확인된 드랍 없음"을 구분해서 재시도 가능하게 함
+  // (서버도 외부 조회 실패 시 502를 주므로 여기서 오류로 잡힌다 — drop-table-lookup.ts 참고).
+  const ensureMonsterDrops = (mobCode: number) => {
+    if (!mobCode || monsterDropsByMobCode[mobCode]) return Promise.resolve();
+    return runShared(`monster:${server}:${mobCode}`, async () => {
+      setMonsterDropsLoading((prev) => withId(prev, mobCode));
+      try {
+        const res = await fetch(`/api/drop-table/monster/${server}?mobCode=${mobCode}`);
+        if (!res.ok) throw new Error(`request_failed_${res.status}`);
+        const json = await res.json();
+        setMonsterDropsByMobCode((prev) => ({
+          ...prev,
+          [mobCode]: Array.isArray(json?.drops) ? json.drops : [],
+        }));
+        setMonsterDropsError((prev) => withoutId(prev, mobCode));
+      } catch {
+        setMonsterDropsError((prev) => withId(prev, mobCode));
+      } finally {
+        setMonsterDropsLoading((prev) => withoutId(prev, mobCode));
+      }
+    });
+  };
+
+  const ensureItemMonsters = (itemId: number) => {
+    if (!itemId || itemMonstersByItemId[itemId]) return Promise.resolve();
+    return runShared(`item:${server}:${itemId}`, async () => {
+      setItemMonstersLoading((prev) => withId(prev, itemId));
+      try {
+        const res = await fetch(`/api/drop-table/item/${server}?itemId=${itemId}`);
+        if (!res.ok) throw new Error(`request_failed_${res.status}`);
+        const json = await res.json();
+        setItemMonstersByItemId((prev) => ({
+          ...prev,
+          [itemId]: Array.isArray(json?.monsters) ? json.monsters : [],
+        }));
+        setItemMonstersError((prev) => withoutId(prev, itemId));
+      } catch {
+        setItemMonstersError((prev) => withId(prev, itemId));
+      } finally {
+        setItemMonstersLoading((prev) => withoutId(prev, itemId));
+      }
+    });
   };
 
   const selectItem = (itemId: number, source: "search" | "drop_list") => {
@@ -619,20 +658,29 @@ export function DropTable({
 
   return (
     <section className="retro-glass space-y-6 text-[color:var(--retro-text)]">
-      <header className="glass-panel flex flex-col gap-3 rounded-3xl px-6 py-6 text-left">
+      <header
+        className="glass-panel relative flex flex-col gap-3 overflow-hidden rounded-3xl px-6 py-6 text-left shadow-[0_25px_50px_rgba(190,18,60,0.12)]"
+        style={{
+          backgroundImage:
+            "radial-gradient(circle at 12% -10%, rgba(190,18,60,0.16), transparent 55%), radial-gradient(circle at 90% 110%, rgba(219,39,119,0.12), transparent 50%)",
+        }}
+      >
         <h1 className="display text-4xl font-semibold md:text-5xl">드랍 테이블</h1>
         <p className="text-base text-slate-200/90 md:text-lg">
           몬스터가 드랍하는 아이템과 아이템을 드랍하는 몬스터를 양방향으로 빠르게 확인합니다.
         </p>
-        <div className="flex flex-wrap gap-2 text-sm text-slate-200/70">
-          <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">
+        <div className="flex flex-wrap gap-2 text-sm">
+          <span className="rounded-full border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-1 font-medium text-[color:var(--brand-accent-text)]">
             데이터: {String(dropData.source ?? "").startsWith("monsterbook-reward") ? "MonsterBook reward" : "드랍 테이블"}
           </span>
-          <span className="rounded-full border border-white/10 bg-white/5 px-2 py-1">드랍 확률/수량: 제공</span>
+          <span className="rounded-full border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-1 font-medium text-[color:var(--brand-accent-2-text)]">
+            드랍 확률/수량: 제공
+          </span>
         </div>
       </header>
 
       <div className="grid gap-6 lg:grid-cols-[340px_1fr]">
+        <div className="flex flex-col gap-6">
         <Panel
           title="검색"
           tone="blue"
@@ -641,7 +689,7 @@ export function DropTable({
               표시 {displayedItems.length + displayedMonsters.length} / 결과 {filteredItems.length + filteredMonsters.length}
             </span>
           }
-          className="shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
+          className="flex-1 shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           <div className="flex flex-col gap-4 text-sm text-[color:var(--retro-text)]">
             <div className="space-y-2">
@@ -827,6 +875,7 @@ export function DropTable({
               <div className="rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(8,47,73,0.35)]">
                 <div className="flex items-center gap-2">
                   <ItemIcon
+                    key={selectedItemId}
                     item={itemsById.get(selectedItemId)}
                     sizeClass="h-12 w-12"
                     iconItemId={getResolvedIconItemId(itemsById.get(selectedItemId))}
@@ -855,6 +904,7 @@ export function DropTable({
               <div className="rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-3 py-2 shadow-[0_10px_22px_rgba(6,78,59,0.35)]">
                 <div className="flex items-center gap-2">
                   <img
+                    key={selectedMonster.mobCode}
                     src={getMobIconUrl(selectedMonster.mobCode)}
                     alt={selectedMonster.name}
                     data-maple-code={String(selectedMonster.mobCode)}
@@ -908,14 +958,14 @@ export function DropTable({
                 </div>
                 <div className="flex flex-col gap-2">
                   <a
-                    href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}&mobCode=${selectedMonster.mobCode}`}
                     onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "monster" })}
                     className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                   >
                     N방컷 계산하기
                   </a>
                   <a
-                    href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(selectedMonster.name)}&mobCode=${selectedMonster.mobCode}`}
                     onClick={() => trackEvent("related_tool_click", { tool: "damage", context: "monster" })}
                     className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)] hover:border-[var(--brand-accent-2)] hover:bg-[var(--brand-accent-2-soft)]"
                   >
@@ -931,14 +981,14 @@ export function DropTable({
                   가장 확률 높은 드랍처: {monstersForItem[0].monster.name}
                 </p>
                 <a
-                  href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(monstersForItem[0].monster.name)}`}
+                  href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(monstersForItem[0].monster.name)}&mobCode=${monstersForItem[0].monster.mobCode}`}
                   onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "item" })}
                   className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                 >
                   N방컷 계산하기
                 </a>
                 <a
-                  href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(monstersForItem[0].monster.name)}`}
+                  href={`${calculatorBasePath}/calculator/damage?mob=${encodeURIComponent(monstersForItem[0].monster.name)}&mobCode=${monstersForItem[0].monster.mobCode}`}
                   onClick={() => trackEvent("related_tool_click", { tool: "damage", context: "item" })}
                   className="inline-flex items-center justify-center rounded-[10px] border border-[var(--brand-accent-2-border)] bg-[var(--brand-accent-2-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-2-text)] hover:border-[var(--brand-accent-2)] hover:bg-[var(--brand-accent-2-soft)]"
                 >
@@ -948,6 +998,8 @@ export function DropTable({
             ) : null}
           </div>
         </Panel>
+        <AdSlot slot="drop-table-sidebar" className="shrink-0" />
+        </div>
 
         <Panel
           title="결과"
@@ -966,9 +1018,9 @@ export function DropTable({
           {selectedMonster && !selectedItemId ? (
             <div className="grid gap-4 sm:grid-cols-2">
                 {monsterDrops.length === 0 ? (
-                  monsterDropsLoading === selectedMonster.mobCode ? (
+                  monsterDropsLoading.has(selectedMonster.mobCode) ? (
                     <p className="text-sm text-[color:var(--retro-text-muted)]">드랍 데이터를 불러오는 중입니다...</p>
-                  ) : monsterDropsError === selectedMonster.mobCode ? (
+                  ) : monsterDropsError.has(selectedMonster.mobCode) ? (
                     <div className="flex items-center gap-2 text-sm text-[color:var(--retro-text-muted)]">
                       <span>드랍 데이터를 불러오지 못했습니다.</span>
                       <button
@@ -1033,9 +1085,9 @@ export function DropTable({
             ) : selectedItemId ? (
               <div className="grid gap-4 sm:grid-cols-2">
                 {selectedItemId && monstersForItem.length === 0 ? (
-                  itemMonstersLoading === selectedItemId ? (
+                  itemMonstersLoading.has(selectedItemId) ? (
                     <p className="text-sm text-[color:var(--retro-text-muted)]">드랍 데이터를 불러오는 중입니다...</p>
-                  ) : itemMonstersError === selectedItemId ? (
+                  ) : itemMonstersError.has(selectedItemId) ? (
                     <div className="flex items-center gap-2 text-sm text-[color:var(--retro-text-muted)]">
                       <span>드랍 데이터를 불러오지 못했습니다.</span>
                       <button

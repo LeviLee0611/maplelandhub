@@ -33,6 +33,7 @@ const ATTRIBUTE_DATA_PATH = path.join(PLANET_SOURCES_DIR, "monster-attribute-dat
 const CATALOG_DATA_PATH = path.join(PLANET_SOURCES_DIR, "monster-catalog-data.js");
 const MAP_CATALOG_DATA_PATH = path.join(PLANET_SOURCES_DIR, "map-catalog-data.js");
 const CUBE_DATA_PATH = path.join(PLANET_SOURCES_DIR, "cube-data.js");
+const MOBCODE_CORRECTIONS_PATH = path.resolve("scripts/sources/mobcode-corrections.json");
 const OUTPUT_CUBE_INDEX = path.join(PLANET_DIR, "cube-index.json");
 const OUTPUT_MONSTERS = path.join(PLANET_DIR, "monsters.json");
 const OUTPUT_DROP_INDEX = path.join(PLANET_DIR, "drop-index.json");
@@ -104,7 +105,23 @@ const CATALOG_FIELD_MAP = {
 // Planet 전용 신규 몬스터로 변환한다. 이미 존재하는 mobCode는 건드리지 않음(별도 검증 없이
 // 대량 덮어쓰기하지 않기 위함 — exp는 이미 Planet 4배가 반영된 값으로 보이나 몬스터별 편차가 있어
 // 기존 항목 자동 교체는 하지 않음, monsterOverrides로 개별 확인 후 반영 권장).
-async function applyCatalogData(monsters, catalogDataPath, attributeDataPath) {
+// 외부 카탈로그가 쓰는 mobCode -> 우리 내부 mobCode 매핑. 우리가 임의 배정한 mobCode를
+// 나중에 재배정하면(무루 5종 100130~100134 -> 9600300~9600304, 2026-09-10) 카탈로그의 옛
+// mobCode가 "우리에게 없는 신규 몬스터"로 오인돼 중복 생성되므로, 정체성 기준 소스에는
+// 이 매핑을 먼저 적용한다.
+async function loadIdentityRemap(correctionsPath) {
+  if (!(await pathExists(correctionsPath))) return new Map();
+  const parsed = JSON.parse(await fs.readFile(correctionsPath, "utf8"));
+  return new Map(
+    Object.entries(parsed?.identityRemap ?? {}).map(([from, to]) => [Number(from), Number(to)]),
+  );
+}
+
+function remapMobCode(identityRemap, mobCode) {
+  return identityRemap.get(Number(mobCode)) ?? mobCode;
+}
+
+async function applyCatalogData(monsters, catalogDataPath, attributeDataPath, identityRemap) {
   if (!(await pathExists(catalogDataPath))) return monsters;
 
   const catalogUrl = pathToFileURL(catalogDataPath).href;
@@ -121,12 +138,15 @@ async function applyCatalogData(monsters, catalogDataPath, attributeDataPath) {
   const existingMobCodes = new Set(monsters.map((m) => m.mobCode));
   const newEntries = [];
   let skippedExisting = 0;
+  let skippedRemapped = 0;
   for (const entry of catalogEntries) {
-    if (existingMobCodes.has(entry.id)) {
-      skippedExisting++;
+    const mobCode = remapMobCode(identityRemap, entry.id);
+    if (existingMobCodes.has(mobCode)) {
+      if (mobCode !== entry.id) skippedRemapped++;
+      else skippedExisting++;
       continue;
     }
-    const monster = { name: entry.name, mobCode: entry.id, ele: ["무속성"], needAcc: 0 };
+    const monster = { name: entry.name, mobCode, ele: ["무속성"], needAcc: 0 };
     for (const [catalogKey, monsterKey] of Object.entries(CATALOG_FIELD_MAP)) {
       monster[monsterKey] = typeof entry[catalogKey] === "number" ? entry[catalogKey] : 0;
     }
@@ -136,11 +156,12 @@ async function applyCatalogData(monsters, catalogDataPath, attributeDataPath) {
       if (decoded.length > 0) monster.ele = decoded;
     }
     newEntries.push(monster);
-    existingMobCodes.add(entry.id);
+    existingMobCodes.add(mobCode);
   }
 
   console.log(
-    `[monster-catalog-data] ${catalogEntries.length}종 중 ${skippedExisting}종은 이미 존재(건드리지 않음), ${newEntries.length}종 신규 추가`,
+    `[monster-catalog-data] ${catalogEntries.length}종 중 ${skippedExisting}종은 이미 존재(건드리지 않음), ` +
+      `${skippedRemapped}종은 mobCode 재배정분으로 이미 존재, ${newEntries.length}종 신규 추가`,
   );
 
   return [...monsters, ...newEntries];
@@ -149,7 +170,7 @@ async function applyCatalogData(monsters, catalogDataPath, attributeDataPath) {
 // scripts/sources/planet/map-catalog-data.js (있으면)를 읽어, 몬스터의 구체적 출현 맵(map 필드, 현재 어떤 몬스터도
 // 채워져 있지 않음)을 보강한다. 한 몬스터가 여러 맵에 출현할 수 있으므로 스폰 수(count)가 가장 많은
 // 맵을 대표 맵으로 채택한다. region 필드(광역 지역명, 이미 전량 채워져 있음)는 건드리지 않는다.
-async function applyMapCatalogData(monsters, mapCatalogDataPath) {
+async function applyMapCatalogData(monsters, mapCatalogDataPath, identityRemap) {
   if (!(await pathExists(mapCatalogDataPath))) return monsters;
 
   const moduleUrl = pathToFileURL(mapCatalogDataPath).href;
@@ -159,9 +180,10 @@ async function applyMapCatalogData(monsters, mapCatalogDataPath) {
   const bestMapByMobCode = new Map();
   for (const map of MAP_CATALOG_DATA ?? []) {
     for (const mob of map.mobs ?? []) {
-      const current = bestMapByMobCode.get(mob.id);
+      const mobCode = remapMobCode(identityRemap, mob.id);
+      const current = bestMapByMobCode.get(mobCode);
       if (!current || mob.count > current.count) {
-        bestMapByMobCode.set(mob.id, { name: map.name, count: mob.count });
+        bestMapByMobCode.set(mobCode, { name: map.name, count: mob.count });
       }
     }
   }
@@ -319,9 +341,15 @@ async function main() {
   // 1) monsters.json: 속성(ele) 보강 -> 카탈로그의 신규 몬스터 추가 -> 출현 맵(map) 보강
   //    -> 몬스터 오버라이드 적용 -> divergence-overrides.json의 신규 몬스터 추가
   //    (exp/meso 배율은 굽지 않음 — 위 헤더 주석 참고. 단, 카탈로그의 exp는 이미 Planet 4배가 반영된 값으로 보임)
+  const identityRemap = await loadIdentityRemap(MOBCODE_CORRECTIONS_PATH);
   const monstersWithAttributes = await applyAttributeData(monsters, ATTRIBUTE_DATA_PATH);
-  const monstersWithCatalog = await applyCatalogData(monstersWithAttributes, CATALOG_DATA_PATH, ATTRIBUTE_DATA_PATH);
-  const monstersWithMaps = await applyMapCatalogData(monstersWithCatalog, MAP_CATALOG_DATA_PATH);
+  const monstersWithCatalog = await applyCatalogData(
+    monstersWithAttributes,
+    CATALOG_DATA_PATH,
+    ATTRIBUTE_DATA_PATH,
+    identityRemap,
+  );
+  const monstersWithMaps = await applyMapCatalogData(monstersWithCatalog, MAP_CATALOG_DATA_PATH, identityRemap);
   const planetMonsters = appendNewMonsters(applyMonsterOverrides(monstersWithMaps, monsterOverrides), newMonsters);
 
   // 2) drop-index.json: dropRate 배율을 dropsByMonsterId/monstersByItemId의 prob에 반영 + itemOverrides

@@ -2,12 +2,20 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEv
 import Image from "next/image";
 import { getMobIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import { filterReleasedMonsters } from "@/lib/release-filter";
+import { resolveSelectedMonster } from "@/lib/data/monsters";
 import type { Monster } from "@/types/monster";
 
 type MonsterSelectProps = {
   monsters: Monster[];
   value: string;
-  onChange: (value: string) => void;
+  /**
+   * 목록에서 고른 몬스터의 mobCode. 이름이 같은 몬스터가 여럿이라(출시분 기준 52개 이름,
+   * 그중 19개는 HP까지 다름) 이름만으로는 어느 쪽인지 결정되지 않는다. 검색어를 직접
+   * 입력하는 중이면 null.
+   */
+  selectedMobCode?: number | null;
+  /** 목록에서 고른 경우에만 mobCode가 함께 온다. 자유 입력 중에는 undefined. */
+  onChange: (value: string, mobCode?: number) => void;
 };
 
 function normalizeMonsterQuery(text: string) {
@@ -30,7 +38,7 @@ function getMonsterSearchKeys(name: string) {
   ]));
 }
 
-export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps) {
+export function MonsterSelect({ monsters, value, selectedMobCode, onChange }: MonsterSelectProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [showAllOnOpen, setShowAllOnOpen] = useState(false);
@@ -38,23 +46,32 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
   const listRef = useRef<HTMLDivElement | null>(null);
   const releasedMonsters = useMemo(() => filterReleasedMonsters(monsters), [monsters]);
 
+  // 검색 키는 목록이 바뀔 때만 만든다 — 예전엔 타이핑할 때마다 500여 종의 키를 다시 만들었다.
+  const searchIndex = useMemo(
+    () => releasedMonsters.map((monster) => ({ monster, keys: getMonsterSearchKeys(monster.name) })),
+    [releasedMonsters],
+  );
+
   const filtered = useMemo(() => {
     if (showAllOnOpen) {
       return releasedMonsters.slice(0, 60);
     }
     const keyword = normalizeMonsterQuery(value);
-    const list = keyword
-      ? releasedMonsters.filter((monster) => {
-          const keys = getMonsterSearchKeys(monster.name);
-          return keys.some((key) => key.includes(keyword));
-        })
-      : releasedMonsters;
-    return list.slice(0, 60);
-  }, [releasedMonsters, showAllOnOpen, value]);
+    if (!keyword) return releasedMonsters.slice(0, 60);
+
+    const matched: Monster[] = [];
+    for (const entry of searchIndex) {
+      if (entry.keys.some((key) => key.includes(keyword))) {
+        matched.push(entry.monster);
+        if (matched.length >= 60) break;
+      }
+    }
+    return matched;
+  }, [releasedMonsters, searchIndex, showAllOnOpen, value]);
 
   const selectedMonster = useMemo(
-    () => releasedMonsters.find((monster) => monster.name === value),
-    [releasedMonsters, value],
+    () => resolveSelectedMonster(releasedMonsters, value, selectedMobCode),
+    [releasedMonsters, selectedMobCode, value],
   );
 
   useEffect(() => {
@@ -81,8 +98,8 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
     setShowAllOnOpen(false);
   };
 
-  const handleSelect = (monsterName: string) => {
-    onChange(monsterName);
+  const handleSelect = (monster: Monster) => {
+    onChange(monster.name, monster.mobCode);
     setIsOpen(false);
   };
 
@@ -104,7 +121,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
 
     if (event.key === "Enter") {
       event.preventDefault();
-      handleSelect(filtered[activeIndex]?.name ?? filtered[0].name);
+      handleSelect(filtered[activeIndex] ?? filtered[0]);
       return;
     }
 
@@ -137,6 +154,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
         <span className="pointer-events-none absolute left-2 top-1/2 -translate-y-1/2">
           {selectedMonster?.mobCode ? (
             <Image
+              key={selectedMonster.mobCode}
               src={getMobIconUrl(selectedMonster.mobCode)}
               alt={selectedMonster.name}
               width={22}
@@ -168,7 +186,7 @@ export function MonsterSelect({ monsters, value, onChange }: MonsterSelectProps)
                   key={monster.mobCode}
                   data-index={index}
                   type="button"
-                  onClick={() => handleSelect(monster.name)}
+                  onClick={() => handleSelect(monster)}
                   className={`flex w-full items-center gap-2 rounded-[6px] border px-2 py-1.5 text-left text-xs transition ${
                     index === activeIndex
                       ? "border-cyan-300/70 bg-cyan-300/20 text-white shadow-[inset_0_0_0_1px_rgba(255,255,255,0.2)]"

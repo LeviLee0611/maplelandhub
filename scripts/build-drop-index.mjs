@@ -16,6 +16,7 @@ const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
 const ITEM_DETAIL_BY_SOURCE = path.resolve("data/item-detail-by.json");
 const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
 const ITEM_NAME_OVERRIDES_SOURCE = path.resolve("scripts/sources/item-name-overrides.json");
+const MOBCODE_CORRECTIONS_SOURCE = path.resolve("scripts/sources/mobcode-corrections.json");
 
 const CONCURRENCY = 4;
 const ITEM_CONCURRENCY = 6;
@@ -294,9 +295,28 @@ async function loadItemNameOverrides() {
   }
 }
 
+// mobCode 충돌 보정 소스. 일회성 패치 스크립트 대신 정규 빌드가 항상 읽어서, 재빌드해도
+// 보정이 유지되도록 한다(2026-09-10 무루 5종 mobCode 충돌 대응 과정에서 도입).
+async function loadMobcodeCorrections() {
+  try {
+    const raw = await fs.readFile(MOBCODE_CORRECTIONS_SOURCE, "utf8");
+    const parsed = JSON.parse(raw);
+    return {
+      dropSourceIgnoredMobCodes: new Set(
+        (parsed?.dropSourceIgnoredMobCodes ?? []).map((code) => Number(code)),
+      ),
+      manualDrops: parsed?.manualDrops ?? {},
+      manualItems: parsed?.manualItems ?? [],
+    };
+  } catch {
+    return { dropSourceIgnoredMobCodes: new Set(), manualDrops: {}, manualItems: [] };
+  }
+}
+
 async function main() {
   const mapledbNames = await loadMapleDbItemNames();
   const itemNameOverrides = await loadItemNameOverrides();
+  const corrections = await loadMobcodeCorrections();
   const mapledbItemIdsByName = new Map();
   for (const [itemId, name] of mapledbNames.entries()) {
     const rawName = String(name ?? "").trim();
@@ -422,6 +442,8 @@ async function main() {
         .map((row) => {
           const mobId = Number(row?.mobId ?? 0);
           if (!Number.isFinite(mobId) || mobId <= 0) return null;
+          // 충돌 mobCode의 행은 우리 몬스터의 드랍이 아니므로 폐기(mobcode-corrections.json)
+          if (corrections.dropSourceIgnoredMobCodes.has(mobId)) return null;
           const probRaw = Number(row?.prob);
           const prob = Number.isFinite(probRaw) && probRaw > 0 ? probRaw : undefined;
           return { mobId, ...(typeof prob === "number" ? { prob } : {}) };
@@ -493,7 +515,26 @@ async function main() {
       meta: meta?.meta,
     };
   });
-  const filteredItems = items.filter(Boolean).sort((a, b) => a.name.localeCompare(b.name, "ko"));
+  // 보정 소스의 수동 아이템/드랍 주입 — 아이템 목록에 없는 드랍은 아래에서 걸러지므로
+  // 아이템을 먼저 채운 뒤 드랍을 넣는다(mobcode-corrections.json).
+  const resolvedItems = items.filter(Boolean);
+  const resolvedItemIds = new Set(resolvedItems.map((item) => item.id));
+  for (const manualItem of corrections.manualItems) {
+    if (!resolvedItemIds.has(manualItem.id)) {
+      resolvedItems.push(manualItem);
+      resolvedItemIds.add(manualItem.id);
+    }
+  }
+  for (const [mobIdText, drops] of Object.entries(corrections.manualDrops)) {
+    const existing = dropsByMonsterId[mobIdText] ?? [];
+    const existingItemIds = new Set(existing.map((reward) => reward.itemId));
+    for (const drop of drops ?? []) {
+      if (!existingItemIds.has(drop.itemId)) existing.push({ ...drop });
+    }
+    dropsByMonsterId[mobIdText] = existing;
+  }
+
+  const filteredItems = resolvedItems.sort((a, b) => a.name.localeCompare(b.name, "ko"));
   const validItemIds = new Set(filteredItems.map((item) => item.id));
   const itemNamesById = new Map(filteredItems.map((item) => [item.id, item.name]));
 

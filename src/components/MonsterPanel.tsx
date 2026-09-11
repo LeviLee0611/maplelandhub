@@ -8,7 +8,9 @@ import { formatNumber } from "@/lib/utils";
 type MonsterPanelProps = {
   monsters: Monster[];
   value: string;
-  onChange: (value: string) => void;
+  /** 이름이 같은 몬스터가 여럿이라 어느 쪽을 고른 건지 mobCode로 확정한다. */
+  selectedMobCode?: number | null;
+  onChange: (value: string, mobCode?: number) => void;
   selected: Monster | undefined;
   characterLevel: number;
 };
@@ -25,6 +27,7 @@ function getDisplayedNeedAcc(monster: Monster | undefined, characterLevel: numbe
 export function MonsterPanel({
   monsters,
   value,
+  selectedMobCode,
   onChange,
   selected,
   characterLevel,
@@ -34,12 +37,13 @@ export function MonsterPanel({
   return (
     <Panel title="몬스터 정보" tone="blue">
       <div className="space-y-3">
-        <MonsterSelect monsters={monsters} value={value} onChange={onChange} />
+        <MonsterSelect monsters={monsters} value={value} selectedMobCode={selectedMobCode} onChange={onChange} />
 
         <div className="grid gap-3 border border-[var(--retro-border)] bg-[var(--retro-cell)] p-3 text-xs text-[color:var(--retro-text)] md:grid-cols-[72px_1fr]">
           <div className="flex h-[72px] w-[72px] items-center justify-center border border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)]">
             {selected?.mobCode ? (
               <Image
+                key={selected.mobCode}
                 src={getMobAnimatedUrl(selected.mobCode)}
                 alt={selected.name}
                 width={56}

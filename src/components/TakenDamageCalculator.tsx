@@ -9,6 +9,7 @@ import type { Monster } from "@/types/monster";
 import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from "@/lib/calculators/takenDamage";
 import type { JobClass } from "@/types/takenDamage";
 import { trackEvent } from "@/lib/analytics";
+import { resolveSelectedMonster } from "@/lib/data/monsters";
 
 const jobGroups = ["전사", "마법사", "궁수", "도적", "아란", "배틀메이지"] as const;
 const jobOptionsByGroup = {
@@ -86,6 +87,12 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
     return getMobParam();
   });
   const [monsterName, setMonsterName] = useState(() => getMobParam() ?? typedMonsters[0]?.name ?? "");
+  // 동명이몹 구분용 — 목록에서 고르거나 링크로 넘어오면 mobCode로 확정한다.
+  const [monsterMobCode, setMonsterMobCode] = useState<number | null>(() => {
+    if (typeof window === "undefined") return null;
+    const raw = Number(new URLSearchParams(window.location.search).get("mobCode"));
+    return Number.isFinite(raw) && raw > 0 ? raw : null;
+  });
 
   const [achillesLevel, setAchillesLevel] = useState(0);
   const [powerGuardLevel, setPowerGuardLevel] = useState(0);
@@ -176,8 +183,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   }
 
   const selectedMonster = useMemo(
-    () => typedMonsters.find((monster) => monster.name === monsterName) ?? typedMonsters[0],
-    [typedMonsters, monsterName],
+    () => resolveSelectedMonster(typedMonsters, monsterName, monsterMobCode) ?? typedMonsters[0],
+    [typedMonsters, monsterName, monsterMobCode],
   );
 
   const monsterWatk = Math.max(0, selectedMonster?.watk ?? 0);
@@ -626,8 +633,10 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
             <MonsterPanel
               monsters={typedMonsters}
               value={monsterName}
-              onChange={(v) => {
+              selectedMobCode={monsterMobCode}
+              onChange={(v, mobCode) => {
                 setMonsterName(v);
+                setMonsterMobCode(mobCode ?? null);
                 trackInputChange("monsterName");
               }}
               selected={selectedMonster}
@@ -696,7 +705,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
 
                 {selectedMonster ? (
                   <a
-                    href={`${server === "planet" ? "/planet" : ""}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}`}
+                    href={`${server === "planet" ? "/planet" : ""}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}&mobCode=${selectedMonster.mobCode}`}
                     onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "damage_calculator" })}
                     className="inline-flex w-full items-center justify-center rounded-[10px] border border-[var(--brand-accent-border)] bg-[var(--brand-accent-soft)] px-3 py-2 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:border-[var(--brand-accent)] hover:bg-[var(--brand-accent-soft)]"
                   >

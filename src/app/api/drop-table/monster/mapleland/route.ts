@@ -13,5 +13,10 @@ export async function GET(request: Request) {
   }
 
   const result = await resolveMonsterDrops(dropIndex as unknown as DropIndexLookup, mobCode);
+  if (result.lookupFailed) {
+    // 외부 조회 실패를 200 + 빈 배열로 주면 클라이언트가 "드랍 없음"으로 캐시해버린다.
+    // 재시도 가능한 오류로 전달한다.
+    return NextResponse.json({ ok: false, error: "lookup_failed", ...result }, { status: 502 });
+  }
   return NextResponse.json({ ok: true, ...result });
 }

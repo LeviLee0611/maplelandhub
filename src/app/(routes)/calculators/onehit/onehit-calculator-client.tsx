@@ -10,7 +10,9 @@ import { SpinnerInput } from "@/components/SpinnerInput";
 import { QuickSlots } from "@/components/quick-slots";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Monster } from "@/types/monster";
-import { calcBaseDamageFromStats, calcOneHit } from "@/lib/calculators/onehit";
+import { calcBaseDamageFromStats, calcOneHit, normalizePresetSkillLevel } from "@/lib/calculators/onehit";
+import { resolveSelectedMonster } from "@/lib/data/monsters";
+import { AdSlot } from "@/components/AdSlot";
 import mainSkillMapping from "@data/skills/mainSkillMapping.json";
 import range20 from "@data/skills/range20.json";
 import range30 from "@data/skills/range30.json";
@@ -146,19 +148,28 @@ const jobOptionsByGroup = {
 
 const QUICK_SLOT_COUNT = 6;
 
-type BlessingConfig = { maxLevel: number; attPerLevel: number; mattPerLevel: number };
+// confirmed: 공식 패치노트로 상한을 직접 확인한 값. false면 커뮤니티 정보 기반 잠정치.
+// UI 라벨("잠정치" 표기)이 이 플래그를 따라가므로, 확인된 값과 미확인 값이 섞여 보이지 않는다.
+type BlessingConfig = {
+  maxLevel: number;
+  attPerLevel: number;
+  mattPerLevel: number;
+  confirmed: boolean;
+};
 
 // 메이플랜드는 정령의 축복만 확인되어 여제의 축복은 미포함.
 // 플래닛 마스터레벨 20→22는 공식 패치노트(2026-08-28) 확인 완료 — "잠정치" 아님.
 // (예전엔 커뮤니티 글의 "정축 최대 200"을 캐릭터 레벨로 착각해 잘못 넣어뒀던 값이었음, 2026-09-09 정정)
+// 메랜 20은 아직 공식 패치노트로 직접 확인 못 함 — 잠정치로 유지.
 const SPIRIT_BLESSING_BY_SERVER: Record<"mapleland" | "planet", BlessingConfig> = {
-  mapleland: { maxLevel: 20, attPerLevel: 1, mattPerLevel: 2 },
-  planet: { maxLevel: 22, attPerLevel: 1, mattPerLevel: 2 },
+  mapleland: { maxLevel: 20, attPerLevel: 1, mattPerLevel: 2, confirmed: false },
+  planet: { maxLevel: 22, attPerLevel: 1, mattPerLevel: 2, confirmed: true },
 };
 
 // 공식 패치노트(2026-05-13) 기준: 시그너스 최대 120레벨, 10레벨당 1포인트 → 여제의 축복 최대 12레벨.
+// 상한은 패치노트에서 직접 도출되지만 레벨당 상승 수치(공1/마1)는 커뮤니티 정보 기반이라 잠정.
 const EMPRESS_BLESSING_BY_SERVER: Partial<Record<"mapleland" | "planet", BlessingConfig>> = {
-  planet: { maxLevel: 12, attPerLevel: 1, mattPerLevel: 1 },
+  planet: { maxLevel: 12, attPerLevel: 1, mattPerLevel: 1, confirmed: false },
 };
 
 type QuickSlotRecord<T> = {
@@ -226,14 +237,28 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const [monsterName, setMonsterName] = useState("달팽이");
   const [showFormula, setShowFormula] = useState(false);
+  // 이름이 같은 몬스터가 여럿이라(출시분 52개 이름, 그중 19개는 HP까지 다름) 이름만으로는
+  // 어느 쪽인지 결정되지 않는다. 목록에서 고르거나 링크로 넘어온 경우 mobCode로 확정한다.
+  const [monsterMobCode, setMonsterMobCode] = useState<number | null>(null);
   const [mobParam] = useState<string | null>(() => {
     if (typeof window === "undefined") return null;
     return new URLSearchParams(window.location.search).get("mob");
   });
+  const [mobCodeParam] = useState<number | null>(() => {
+    if (typeof window === "undefined") return null;
+    const raw = Number(new URLSearchParams(window.location.search).get("mobCode"));
+    return Number.isFinite(raw) && raw > 0 ? raw : null;
+  });
 
   useEffect(() => {
     if (mobParam) setMonsterName(mobParam);
-  }, [mobParam]);
+    if (mobCodeParam !== null) setMonsterMobCode(mobCodeParam);
+  }, [mobParam, mobCodeParam]);
+
+  const handleMonsterChange = useCallback((name: string, mobCode?: number) => {
+    setMonsterName(name);
+    setMonsterMobCode(mobCode ?? null);
+  }, []);
 
   const getMaxButtonClass = (isMax: boolean) =>
     `h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
@@ -247,8 +272,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   };
 
   const selectedMonster = useMemo(
-    () => typedMonsters.find((monster) => monster.name === monsterName),
-    [typedMonsters, monsterName],
+    () => resolveSelectedMonster(typedMonsters, monsterName, monsterMobCode),
+    [typedMonsters, monsterName, monsterMobCode],
   );
 
   const profileSnapshot = useMemo(() => ({
@@ -336,6 +361,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       spiritBlessingLevel,
       empressBlessingLevel,
       monsterName,
+      monsterMobCode,
     }),
     [
       nickname,
@@ -381,6 +407,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       spiritBlessingLevel,
       empressBlessingLevel,
       monsterName,
+      monsterMobCode,
     ],
   );
 
@@ -467,10 +494,21 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (typeof snapshot.goldenEagleBonus === "number") setGoldenEagleBonus(snapshot.goldenEagleBonus);
     if (typeof snapshot.mapleHeroLevel === "number") setMapleHeroLevel(snapshot.mapleHeroLevel);
     if (typeof snapshot.meditationLevel === "number") setMeditationLevel(snapshot.meditationLevel);
-    if (typeof snapshot.spiritBlessingLevel === "number") setSpiritBlessingLevel(snapshot.spiritBlessingLevel);
-    if (typeof snapshot.empressBlessingLevel === "number") setEmpressBlessingLevel(snapshot.empressBlessingLevel);
+    // 축복 계열은 상한이 바뀐 이력이 있어(플래닛 정축 200→22, 2026-08-28) 옛 프리셋 값이
+    // 슬라이더 max를 우회해 계산에 들어갈 수 있다 — 복원 시 항상 정규화를 거친다.
+    if (snapshot.spiritBlessingLevel !== undefined) {
+      setSpiritBlessingLevel(
+        normalizePresetSkillLevel(snapshot.spiritBlessingLevel, SPIRIT_BLESSING_BY_SERVER[server].maxLevel),
+      );
+    }
+    if (snapshot.empressBlessingLevel !== undefined) {
+      setEmpressBlessingLevel(
+        normalizePresetSkillLevel(snapshot.empressBlessingLevel, EMPRESS_BLESSING_BY_SERVER[server]?.maxLevel),
+      );
+    }
     if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
-  }, []);
+    setMonsterMobCode(typeof snapshot.monsterMobCode === "number" ? snapshot.monsterMobCode : null);
+  }, [server]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -2399,7 +2437,14 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                     </div>
                   </div>
                   <div className="space-y-1">
-                    <span className="retro-chip" title="다른 캐릭터의 레벨에 비례해 공격력/마력이 오르는 패시브. 커뮤니티 정보 기반 잠정치로, 실제 서버 수치와 다를 수 있습니다.">
+                    <span
+                      className="retro-chip"
+                      title={
+                        SPIRIT_BLESSING_BY_SERVER[server].confirmed
+                          ? "다른 캐릭터의 레벨에 비례해 공격력/마력이 오르는 패시브. 마스터 레벨 상한은 공식 패치노트로 확인된 값입니다."
+                          : "다른 캐릭터의 레벨에 비례해 공격력/마력이 오르는 패시브. 커뮤니티 정보 기반 잠정치로, 실제 서버 수치와 다를 수 있습니다."
+                      }
+                    >
                       정령의 축복
                     </span>
                     <div className="flex items-center gap-2">
@@ -2423,7 +2468,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                         M
                       </button>
                       <span className="text-[10px] text-[color:var(--retro-text-muted)]">
-                        최대 {SPIRIT_BLESSING_BY_SERVER[server].maxLevel} (잠정치)
+                        최대 {SPIRIT_BLESSING_BY_SERVER[server].maxLevel}
+                        {SPIRIT_BLESSING_BY_SERVER[server].confirmed ? "" : " (잠정치)"}
                       </span>
                     </div>
                   </div>
@@ -2457,7 +2503,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                           M
                         </button>
                         <span className="text-[10px] text-[color:var(--retro-text-muted)]">
-                          최대 {EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel} (잠정치, 정축과 중첩 안 됨)
+                          최대 {EMPRESS_BLESSING_BY_SERVER[server]!.maxLevel}
+                          {EMPRESS_BLESSING_BY_SERVER[server]!.confirmed ? "" : " (잠정치)"}, 정축과 중첩 안 됨
                         </span>
                       </div>
                     </div>
@@ -2499,13 +2546,15 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
           <MonsterPanel
             monsters={typedMonsters}
             value={monsterName}
-            onChange={setMonsterName}
+            selectedMobCode={monsterMobCode}
+            onChange={handleMonsterChange}
             selected={selectedMonster}
             characterLevel={level}
           />
           </div>
 
           <div className="space-y-6">
+          <AdSlot slot="onehit-above-result" />
           <ResultPanel
             baseDamage={{
               min: baseDamageRange.minDamage * finalDamageMultiplier,

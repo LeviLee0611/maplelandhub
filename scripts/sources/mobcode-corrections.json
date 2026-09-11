@@ -1,0 +1,88 @@
+{
+  "_comment": [
+    "외부 소스(카탈로그/맵/드랍 스크래핑)가 쓰는 mobCode를 우리 내부 mobCode로 정규화하고,",
+    "mobCode 충돌로 잘못 붙은 드랍을 차단하며, 검증된 드랍을 주입하는 보정 소스.",
+    "일회성 패치 스크립트와 달리 정규 빌드(build-drop-index.mjs / build-planet-data.mjs)가",
+    "항상 읽으므로 재빌드해도 보정이 유지된다. 보정이 필요해지면 이 파일만 고치면 된다."
+  ],
+
+  "_identityRemapComment": [
+    "'외부 소스의 이 mobCode는 사실 우리 내부의 저 mobCode다'라는 동일 몬스터 매핑.",
+    "카탈로그(신규 몬스터 판정)·맵 보강처럼 '몬스터 정체성'을 다루는 소스에만 적용한다.",
+    "드랍 소스에는 적용하지 않는다 — 충돌 mobCode의 드랍은 같은 몬스터의 것이 아니기 때문."
+  ],
+  "identityRemap": {
+    "100130": 9600300,
+    "100131": 9600301,
+    "100132": 9600302,
+    "100133": 9600303,
+    "100134": 9600304
+  },
+
+  "_dropSourceIgnoredMobCodesComment": [
+    "드랍 소스(item-detail-by.json 등)에 이 mobCode로 들어있는 행은 전부 버린다.",
+    "100130~100134는 2026-07-31 아란 리엔 몬스터 추가 때 우리가 임의로 쓴 번호인데,",
+    "드랍 스크래핑 소스는 그 전부터 같은 번호를 정체불명의 다른 몬스터로 쓰고 있어서",
+    "무루 5종에 스틸 풀 헬름 등 엉뚱한 장비 드랍이 붙었다(2026-09-09~10 조사).",
+    "그래서 identityRemap으로 옮기지 않고 폐기한다. 정당한 드랍은 manualDrops로 주입."
+  ],
+  "dropSourceIgnoredMobCodes": [100130, 100131, 100132, 100133, 100134],
+
+  "_manualDropsComment": [
+    "출처가 확인됐지만 스크래핑 소스엔 없는 드랍을 주입한다(mobCode -> 드랍 목록).",
+    "prob 없음 = 확률 미상. 아란 리엔 무루 계열의 'OO의 털뭉치'는 나무위키 아란 리엔",
+    "몬스터 문서로 확인(2026-09-10)."
+  ],
+  "manualDrops": {
+    "9600300": [{ "itemId": 4000493 }],
+    "9600301": [{ "itemId": 4000494 }],
+    "9600302": [{ "itemId": 4000495 }],
+    "9600303": [{ "itemId": 4000496 }],
+    "9600304": [{ "itemId": 4000497 }],
+    "9300383": [{ "itemId": 4032373 }]
+  },
+
+  "_manualItemsComment": [
+    "manualDrops가 가리키는 아이템 중 maplestory.io 조회로는 안 잡히는 것들의 카탈로그 정의.",
+    "드랍 인덱스는 아이템 목록에 없는 드랍을 버리므로, 이게 없으면 재빌드 때 manualDrops도 같이 사라진다.",
+    "(원래 scripts/add-aran-rien-monsters.mjs 안에만 있던 정의를 정규 빌드가 읽도록 옮겨온 것)"
+  ],
+  "manualItems": [
+    {
+      "id": 4000493,
+      "name": "무루의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Monster Drop", "lowItemId": 4000000, "highItemId": 4010000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    },
+    {
+      "id": 4000494,
+      "name": "무루파의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Monster Drop", "lowItemId": 4000000, "highItemId": 4010000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    },
+    {
+      "id": 4000495,
+      "name": "무루피아의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Monster Drop", "lowItemId": 4000000, "highItemId": 4010000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    },
+    {
+      "id": 4000496,
+      "name": "무루무루의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Monster Drop", "lowItemId": 4000000, "highItemId": 4010000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    },
+    {
+      "id": 4000497,
+      "name": "무루쿤의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Monster Drop", "lowItemId": 4000000, "highItemId": 4010000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    },
+    {
+      "id": 4032373,
+      "name": "튜토리얼 무루의 털뭉치",
+      "typeInfo": { "overallCategory": "Etc", "category": "Other", "subCategory": "Quest Item", "lowItemId": 4030000, "highItemId": 4040000 },
+      "meta": { "only": false, "shop": { "price": 1 } }
+    }
+  ]
+}

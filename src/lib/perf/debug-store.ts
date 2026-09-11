@@ -8,6 +8,8 @@ export type PerfMetricReport = {
   navigationType?: string;
   url?: string;
   path?: string;
+  /** 최초 페이지 진입 지표인지, 이후 화면 이동 지표인지 — 둘을 섞어 보면 판단이 흐려진다. */
+  phase?: "initial" | "soft-navigation";
   timestamp?: number;
   attribution?: unknown;
   details?: Record<string, unknown>;

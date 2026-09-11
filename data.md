@@ -160,6 +160,24 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 
 발록/카오스 자쿰/카오스 혼테일처럼 특정 몬스터 하나를 스탯/드롭 보강할 때 `scripts/add-chaos-horntail.mjs`, `scripts/update-balrog.mjs`, `scripts/update-balrog-drops.mjs` 같은 **일회성 스크립트**로 `data/monsters.json`/`data/drop-index.json`을 프로그래매틱하게 수정하는 패턴을 씀(직접 편집 금지 규칙 준수). 이미 실행 완료된 스크립트는 재실행하면 중복 반영/역인덱스 꼬임이 날 수 있어(카오스 혼테일 목걸이 중복 드랍 사례 참고, DEVLOG 2026-07-21) **삭제하지 않고 보존하되 재실행 전 스크립트 내용을 먼저 확인**할 것 — 멱등성이 보장된 스크립트가 아님. 실행 후에는 항상 `node scripts/build-planet-data.mjs`로 플래닛 쪽까지 동기화.
 
+### 몬스터 아이콘 점검 (`scripts/check-mob-icons.mjs`)
+
+`node scripts/check-mob-icons.mjs [--limit N] [--out report.json]` — 출시 필터를 통과한 몬스터의 아이콘을 실제로 받아 **HTTP 상태 + PNG 실제 크기**를 확인한다. maplestory.io는 아이콘이 없는 mobId에도 200 + 1×1 투명 PNG를 돌려줘서 브라우저 `onError`로는 안 잡히기 때문(미믹 8220036 사례). 기본 URL이 실패하면 런타임과 같은 폴백 순서로 시도해 어떤 region/version이 되는지까지 알려준다.
+
+도구는 `src/lib/maplestory-io.ts`의 `MOB_ICON_STATIC_OVERRIDES`·`MOB_ICON_ID_ALIASES`·`MOB_ICON_PREFERRED_VERSION`을 읽어 반영하므로, 이미 처리된 몬스터는 오탐하지 않는다. 리포트에 "폴백으로만 되는 몬스터"가 나오면 그 버전을 `MOB_ICON_PREFERRED_VERSION`에 넣어 첫 요청부터 성공하게 하고, "전부 실패"가 나오면 별칭(다른 mobId에 같은 몬스터가 있는지 `/mob?searchFor=` 로 확인) 또는 정적 이미지로 처리한다. 세 맵 중 하나를 고쳤으면 도구를 다시 돌려 수치를 확인할 것.
+
+### 보정 소스로 승격하기 (권장, 2026-09-10 도입)
+
+일회성 스크립트의 근본 문제는 "재빌드하면 유실"이다. 재빌드해도 살아남아야 하는 보정은 **정규 빌드가 항상 읽는 소스 파일**로 옮기는 게 낫다 — `scripts/sources/mobcode-corrections.json`이 그 패턴의 첫 사례(무루 5종 mobCode 재배정, 2026-09-10):
+
+| 키 | 용도 | 읽는 곳 |
+|---|---|---|
+| `identityRemap` | 외부 카탈로그/맵 소스의 mobCode → 우리 내부 mobCode | `build-planet-data.mjs` |
+| `dropSourceIgnoredMobCodes` | 충돌 mobCode의 드랍 행을 폐기(다른 몬스터 것이므로 이전하지 않음) | `build-drop-index.mjs` |
+| `manualDrops` / `manualItems` | 스크래핑 소스에 없는 검증된 드랍/아이템 주입 | `build-drop-index.mjs` |
+
+`identityRemap`은 **정체성 소스에만** 적용하고 드랍 소스엔 적용하지 않는 게 핵심 — mobCode가 겹쳤다는 건 "같은 몬스터"라는 뜻이 아니라 "번호만 겹쳤다"는 뜻이라, 드랍까지 옮기면 잘못된 드랍을 그대로 물려받는다. 회귀 방지는 `scripts/__tests__/mobcode-corrections.test.mjs`가 담당(서버별 1개 존재·옛 ID 재유입·드랍 연결·출시 필터 통과 검사).
+
 **⚠️ 이 스크립트들이 patch한 데이터는 `data/drop-index.json` 그 자체에만 존재함 — `npm run build:drop-index`(스크래핑 소스 `drops-parsed.json`/`item-detail-by.json` 기준으로 처음부터 재생성)를 재실행하면 전부 유실됨.** 카오스 자쿰/카오스 혼테일/발록 추가 무기/아란 리엔 몬스터 드롭 등은 원본 스크래핑 사이트에 데이터가 아예 없어서(또는 사이트에 있어도 파이프라인이 참조 안 해서) 이 방식으로 추가된 것이라, 베이스 파이프라인 입장에서는 "존재한 적 없는" 데이터임(2026-08-03 실제로 `build:drop-index` 재실행으로 유실 발생, `git checkout`으로 복구 — DEVLOG 참고). 아이템 이름 하나 고치는 것처럼 작은 수정이라도 **베이스 파이프라인 전체를 재실행하지 말고, 산출물 JSON에 필요한 필드만 최소 patch**할 것. 정말 전체 재생성이 필요하면 재생성 후 위 일회성 스크립트들을 순서대로 다시 실행해서 복구해야 함(단, 각 스크립트의 멱등성 문제 재확인 필요).
 
 ## 확률 미상 처리 정책

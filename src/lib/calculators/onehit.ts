@@ -197,3 +197,18 @@ export function calcOneHit(input: OneHitInput): OneHitResult {
     nShotChances,
   };
 }
+
+/**
+ * 저장된 프리셋/퀵슬롯의 스킬 레벨 값을 안전한 계산 입력으로 정규화한다.
+ *
+ * 프리셋은 과거 버전의 앱이 저장한 값이라 현재 규칙과 어긋날 수 있다(예: 플래닛 정령의 축복
+ * 상한이 200이던 시절 저장된 150 → 현재 상한 22). 입력 UI의 max는 사용자가 직접 조작할 때만
+ * 걸리므로, 복원 경로에서 이 함수를 반드시 거쳐야 부풀려진 값이 계산에 들어가지 않는다.
+ *
+ * @param maxLevel 서버별 상한. undefined면 해당 서버가 지원하지 않는 버프로 보고 0을 반환한다.
+ */
+export function normalizePresetSkillLevel(value: unknown, maxLevel: number | undefined): number {
+  if (maxLevel === undefined) return 0;
+  if (typeof value !== "number" || !Number.isFinite(value)) return 0;
+  return Math.min(Math.max(Math.floor(value), 0), Math.max(maxLevel, 0));
+}

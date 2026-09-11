@@ -49,6 +49,7 @@ function normalizeReport(input: unknown): PerfMetricReport | null {
     navigationType: typeof raw.navigationType === "string" ? raw.navigationType : undefined,
     url: typeof raw.url === "string" ? raw.url : undefined,
     path: typeof raw.path === "string" ? raw.path : undefined,
+    phase: raw.phase === "initial" || raw.phase === "soft-navigation" ? raw.phase : undefined,
     timestamp: toNumber(raw.timestamp),
     attribution: raw.attribution,
     details: raw.details && typeof raw.details === "object" ? (raw.details as Record<string, unknown>) : undefined,
