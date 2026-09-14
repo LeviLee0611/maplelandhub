@@ -2,7 +2,7 @@ import { useEffect, useMemo, useRef, useState, type ChangeEvent, type KeyboardEv
 import Image from "next/image";
 import { getMobIconUrl, handleMapleIoImageError } from "@/lib/maplestory-io";
 import { filterReleasedMonsters } from "@/lib/release-filter";
-import { resolveSelectedMonster } from "@/lib/data/monsters";
+import { resolveSelectedMonster } from "@/lib/monster-resolver";
 import type { Monster } from "@/types/monster";
 
 type MonsterSelectProps = {

@@ -31,6 +31,15 @@ type ReportPayload = {
   attribution?: unknown;
   timestamp?: number;
   url?: string;
+  /** 이 리포터가 처음 마운트됐을 때의 경로 — 이 값은 세션 내내 바뀌지 않는다. */
+  entryPath?: string;
+  /**
+   * 보고 시점에 실제로 떠 있던 경로. CLS/INP처럼 페이지 수명 동안 누적되다 나중에(때로는
+   * 다른 화면으로 이동한 뒤에) 최종값이 보고되는 지표는, 이 값이 지표가 실제로 측정된 화면과
+   * 다를 수 있다 — App Router의 클라이언트 내비게이션은 전체 언로드가 아니라서 web-vitals
+   * 라이브러리의 관측이 화면 전환을 가로질러 계속되기 때문. `entryPath`와 함께 봐야
+   * "어느 화면 지표인지"를 오판하지 않는다.
+   */
   path?: string;
   phase?: ReportPhase;
   details?: Record<string, unknown>;
@@ -74,6 +83,9 @@ export function WebVitalsReporter({ debug = false }: ReporterProps) {
   // observer가 재등록되고 buffered 항목을 다시 읽는다(중복 보고). 참조를 고정하기 위해
   // 경로는 ref로 읽는다 — Next.js도 보고 콜백 참조 안정화를 권장.
   const pathnameRef = useRef(pathname);
+  // 마운트 시점(이 세션 최초 진입) 경로 — 절대 갱신하지 않는다. pathnameRef는 보고 시점의
+  // "현재" 경로를 추적하는 것과 역할이 다르다.
+  const entryPathRef = useRef(pathname);
   const phaseRef = useRef<ReportPhase>("initial");
   // metric:id -> 마지막으로 보낸 값. 같은 값의 재보고만 걸러내고, 값이 갱신된 후속 보고는
   // 통과시킨다. CLS/INP는 같은 id로 값이 커지며 여러 번 보고되므로, 무조건 첫 보고만 받으면
@@ -92,6 +104,7 @@ export function WebVitalsReporter({ debug = false }: ReporterProps) {
     (payload: Omit<ReportPayload, "url" | "path" | "timestamp" | "phase">) => {
       const report: ReportPayload = {
         ...payload,
+        entryPath: entryPathRef.current,
         path: pathnameRef.current,
         phase: phaseRef.current,
         url: typeof window !== "undefined" ? window.location.href : undefined,
@@ -110,23 +123,32 @@ export function WebVitalsReporter({ debug = false }: ReporterProps) {
     [debug],
   );
 
-  useReportWebVitals((metric: NextMetric) => {
-    const metricKey = `${metric.name}:${metric.id}`;
-    const lastValue = lastSentValueByMetric.current.get(metricKey);
-    if (lastValue === metric.value) return;
-    lastSentValueByMetric.current.set(metricKey, metric.value);
+  // next/web-vitals의 useReportWebVitals는 넘겨준 콜백 참조를 deps로 삼아 매번
+  // onCLS/onFID/onLCP/onINP/onFCP/onTTFB를 다시 등록한다(node_modules/next/dist/client/web-vitals.js
+  // 참고). 인라인 함수를 넘기면 렌더될 때마다 재등록돼 관측이 중복 누적된다 — useCallback으로
+  // 참조를 고정해야 마운트 시 한 번만 등록된다.
+  const handleWebVitalsMetric = useCallback(
+    (metric: NextMetric) => {
+      const metricKey = `${metric.name}:${metric.id}`;
+      const lastValue = lastSentValueByMetric.current.get(metricKey);
+      if (lastValue === metric.value) return;
+      lastSentValueByMetric.current.set(metricKey, metric.value);
 
-    pushReport({
-      source: "next-web-vitals",
-      metric: metric.name,
-      value: metric.value,
-      delta: metric.delta,
-      id: metric.id,
-      rating: metric.rating,
-      navigationType: metric.navigationType,
-      attribution: metric.attribution,
-    });
-  });
+      pushReport({
+        source: "next-web-vitals",
+        metric: metric.name,
+        value: metric.value,
+        delta: metric.delta,
+        id: metric.id,
+        rating: metric.rating,
+        navigationType: metric.navigationType,
+        attribution: metric.attribution,
+      });
+    },
+    [pushReport],
+  );
+
+  useReportWebVitals(handleWebVitalsMetric);
 
   // 네비게이션 타이밍 분해(dns/tcp/tls/request/response). 표준 Web Vitals가 다루지 않는
   // 정보이고 페이지 로드당 1회뿐이라 항상 수집한다.

@@ -37,6 +37,7 @@ describe("resolveMonsterDrops — 외부 조회 실패와 '드랍 없음' 구분
     expect(result.source).toBe("local");
     expect(result.drops).toEqual([{ itemId: 4000493 }]);
     expect(result.lookupFailed).toBe(false);
+    expect(result.partial).toBe(false);
     expect(fetchSpy).not.toHaveBeenCalled();
   });
 
@@ -98,9 +99,10 @@ describe("resolveMonsterDrops — 외부 조회 실패와 '드랍 없음' 구분
     expect(result.source).toBe("monsterbook");
     expect(result.drops).toEqual([{ itemId: 4000493 }, { itemId: 4000494 }]);
     expect(result.lookupFailed).toBe(false);
+    expect(result.partial).toBe(false);
   });
 
-  it("일부만 실패하면 얻은 만큼 반환하고 실패로 표시하지 않는다", async () => {
+  it("일부만 실패하면 얻은 만큼 반환하되 partial로 표시한다(완전한 결과로 오인하면 안 됨)", async () => {
     mockFetch((url) => {
       if (url.endsWith("/reward")) return { body: { children: ["0", "1"] } };
       if (url.endsWith("/0")) return { body: { value: 4000493 } };
@@ -111,5 +113,6 @@ describe("resolveMonsterDrops — 외부 조회 실패와 '드랍 없음' 구분
 
     expect(result.drops).toEqual([{ itemId: 4000493 }]);
     expect(result.lookupFailed).toBe(false);
+    expect(result.partial).toBe(true);
   });
 });

@@ -236,6 +236,9 @@ export function DropTable({
   // 마지막 선택만 추적하면 이전 대상의 상태가 잘못 남거나 사라진다.
   const [monsterDropsLoading, setMonsterDropsLoading] = useState<ReadonlySet<number>>(new Set());
   const [monsterDropsError, setMonsterDropsError] = useState<ReadonlySet<number>>(new Set());
+  // 외부 조회가 일부만 실패해 드랍 일부만 확인된 상태 — 화면엔 보여주되 "완전한 결과"로 캐시하지
+  // 않고 재조회 여지를 남긴다(전부 실패는 monsterDropsError가 담당).
+  const [monsterDropsPartial, setMonsterDropsPartial] = useState<ReadonlySet<number>>(new Set());
   const [itemMonstersByItemId, setItemMonstersByItemId] = useState<Record<number, MonsterDropEntry[]>>({});
   const [itemMonstersLoading, setItemMonstersLoading] = useState<ReadonlySet<number>>(new Set());
   const [itemMonstersError, setItemMonstersError] = useState<ReadonlySet<number>>(new Set());
@@ -285,7 +288,10 @@ export function DropTable({
   // 실패 시엔 캐시에 빈 배열을 넣지 않음 — "조회 실패"와 "확인된 드랍 없음"을 구분해서 재시도 가능하게 함
   // (서버도 외부 조회 실패 시 502를 주므로 여기서 오류로 잡힌다 — drop-table-lookup.ts 참고).
   const ensureMonsterDrops = (mobCode: number) => {
-    if (!mobCode || monsterDropsByMobCode[mobCode]) return Promise.resolve();
+    // 이미 완전한 결과를 캐시해둔 경우에만 건너뛴다 — partial로 남아있으면 재조회를 허용한다.
+    if (!mobCode || (monsterDropsByMobCode[mobCode] && !monsterDropsPartial.has(mobCode))) {
+      return Promise.resolve();
+    }
     return runShared(`monster:${server}:${mobCode}`, async () => {
       setMonsterDropsLoading((prev) => withId(prev, mobCode));
       try {
@@ -297,6 +303,7 @@ export function DropTable({
           [mobCode]: Array.isArray(json?.drops) ? json.drops : [],
         }));
         setMonsterDropsError((prev) => withoutId(prev, mobCode));
+        setMonsterDropsPartial((prev) => (json?.partial ? withId(prev, mobCode) : withoutId(prev, mobCode)));
       } catch {
         setMonsterDropsError((prev) => withId(prev, mobCode));
       } finally {
@@ -1016,7 +1023,20 @@ export function DropTable({
           className="glass-panel-strong border-[var(--brand-accent-border)] shadow-[0_20px_40px_rgba(15,23,42,0.45)]"
         >
           {selectedMonster && !selectedItemId ? (
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="space-y-3">
+              {monsterDrops.length > 0 && monsterDropsPartial.has(selectedMonster.mobCode) ? (
+                <div className="flex items-center gap-2 rounded-[10px] border border-amber-400/40 bg-amber-400/10 px-3 py-2 text-xs text-amber-200">
+                  <span>일부 드랍만 확인됐습니다. 외부 조회가 부분적으로 실패했을 수 있어요.</span>
+                  <button
+                    type="button"
+                    className="rounded-full border border-amber-400/50 px-2 py-1 font-semibold text-amber-100 hover:border-amber-300"
+                    onClick={() => void ensureMonsterDrops(selectedMonster.mobCode)}
+                  >
+                    다시 시도
+                  </button>
+                </div>
+              ) : null}
+              <div className="grid gap-4 sm:grid-cols-2">
                 {monsterDrops.length === 0 ? (
                   monsterDropsLoading.has(selectedMonster.mobCode) ? (
                     <p className="text-sm text-[color:var(--retro-text-muted)]">드랍 데이터를 불러오는 중입니다...</p>
@@ -1081,6 +1101,7 @@ export function DropTable({
                     );
                   })
                 )}
+              </div>
               </div>
             ) : selectedItemId ? (
               <div className="grid gap-4 sm:grid-cols-2">

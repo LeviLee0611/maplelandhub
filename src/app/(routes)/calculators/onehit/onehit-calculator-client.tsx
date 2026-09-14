@@ -11,7 +11,7 @@ import { QuickSlots } from "@/components/quick-slots";
 import { getSupabaseBrowserClient } from "@/lib/supabase/client";
 import type { Monster } from "@/types/monster";
 import { calcBaseDamageFromStats, calcOneHit, normalizePresetSkillLevel } from "@/lib/calculators/onehit";
-import { resolveSelectedMonster } from "@/lib/data/monsters";
+import { resolveSelectedMonster } from "@/lib/monster-resolver";
 import { AdSlot } from "@/components/AdSlot";
 import mainSkillMapping from "@data/skills/mainSkillMapping.json";
 import range20 from "@data/skills/range20.json";

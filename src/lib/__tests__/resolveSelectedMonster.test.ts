@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import monstersJson from "@data/monsters.json";
-import { resolveSelectedMonster } from "../monsters";
+import { resolveSelectedMonster } from "../monster-resolver";
 import { filterReleasedMonsters } from "@/lib/release-filter";
 import type { Monster } from "@/types/monster";
 

@@ -16,6 +16,18 @@
  *   스틸 풀 헬름 등 엉뚱한 장비 드랍이 붙는 충돌이 있었음. 어디와도 안 겹치는 9600300~9600304로
  *   재배정. 카탈로그/맵 소스는 여전히 옛 번호를 쓰므로 scripts/sources/mobcode-corrections.json의
  *   identityRemap이 정규 빌드에서 이를 흡수한다(그 파일 주석 참고).
+ * - 2026-09-11 EXP 정정: maplestory.io의 프리빅뱅 포맷 스냅샷(GMS/80~92 — 방어력이 절대값으로
+ *   나오는 버전, mobId 100130~134/9300383로 직접 조회)에서 관찰된 값과 대조한 결과 level/hp/acc/
+ *   eva/def/mDef/watk는 전부 일치했지만 exp만 정확히 4배 차이(예: 무루파 24 vs 스냅샷 6)였음.
+ *   원인 추적 결과 이 6종의 원래 소스인 monster-catalog-data.js의 exp 필드가 이미 플래닛 4배
+ *   배율이 곱해진 값이었음(2026-07-08 세션에서 556종 중 346종이 "메랜원본×4=catalog"로 검증된
+ *   바로 그 특성 — 이 6종은 당시 검증 대상에 없어 놓쳤던 것). 아래 NEW_MONSTERS의 exp는 그
+ *   스냅샷 관찰값(1/1/6/9/15/18)으로 정정 — maplestory.io 자체가 메랜의 공식 소스는 아니므로
+ *   "메랜이 실제로 이 값을 쓴다"는 확정이 아니라 근거가 가장 튼튼한 추정치라는 점은 유의.
+ *   플래닛은 별도 오버라이드 없이 이 값을 그대로 상속한다 — exp 필드는 어느 서버 파일에도
+ *   배율을 굽지 않는 게 이 코드베이스의 기존 규칙이라(달팽이 등 일반 몬스터로 확인, 4배는
+ *   `scripts/sources/planet/divergence-overrides.json`의 `rateMultipliers.exp`에만 기록),
+ *   플래닛에 4배 값을 오버라이드로 남기면 오히려 이 6종만 다른 744종과 다른 규칙을 갖게 됨.
  *
  * 실행: node scripts/add-aran-rien-monsters.mjs
  */
@@ -26,13 +38,15 @@ import path from "path";
 const MONSTERS_PATH = path.resolve("data/monsters.json");
 const DROP_INDEX_PATH = path.resolve("data/drop-index.json");
 
+// exp는 maplestory.io 프리빅뱅 포맷 스냅샷(GMS/92, mobId 100130~134/9300383)에서 관찰한 값
+// (2026-09-11) — 위 "2026-09-11 EXP 정정" 주석 참고. 나머지 필드는 그 스냅샷과 이미 일치.
 const NEW_MONSTERS = [
-  { name: "튜토리얼 무루", level: 1, hp: 8, exp: 4, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9300383, region: "리엔", watk: 12, matk: 0, exist: true },
-  { name: "무루", level: 1, hp: 8, exp: 4, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600300, region: "리엔", watk: 12, matk: 0, exist: true },
-  { name: "무루파", level: 3, hp: 28, exp: 24, acc: 30, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600301, region: "리엔", watk: 21, matk: 0, exist: true },
-  { name: "무루피아", level: 5, hp: 43, exp: 36, acc: 35, eva: 0, needAcc: 0, def: 3, mDef: 10, ele: ["무속성"], mobCode: 9600302, region: "리엔", watk: 28, matk: 0, exist: true },
-  { name: "무루무루", level: 7, hp: 70, exp: 60, acc: 40, eva: 0, needAcc: 0, def: 5, mDef: 20, ele: ["무속성"], mobCode: 9600303, region: "리엔", watk: 36, matk: 0, exist: true },
-  { name: "무루쿤", level: 9, hp: 95, exp: 72, acc: 42, eva: 1, needAcc: 0, def: 10, mDef: 15, ele: ["무속성"], mobCode: 9600304, region: "리엔", watk: 48, matk: 0, exist: true },
+  { name: "튜토리얼 무루", level: 1, hp: 8, exp: 1, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9300383, region: "리엔", watk: 12, matk: 0, exist: true },
+  { name: "무루", level: 1, hp: 8, exp: 1, acc: 20, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600300, region: "리엔", watk: 12, matk: 0, exist: true },
+  { name: "무루파", level: 3, hp: 28, exp: 6, acc: 30, eva: 0, needAcc: 0, def: 0, mDef: 0, ele: ["무속성"], mobCode: 9600301, region: "리엔", watk: 21, matk: 0, exist: true },
+  { name: "무루피아", level: 5, hp: 43, exp: 9, acc: 35, eva: 0, needAcc: 0, def: 3, mDef: 10, ele: ["무속성"], mobCode: 9600302, region: "리엔", watk: 28, matk: 0, exist: true },
+  { name: "무루무루", level: 7, hp: 70, exp: 15, acc: 40, eva: 0, needAcc: 0, def: 5, mDef: 20, ele: ["무속성"], mobCode: 9600303, region: "리엔", watk: 36, matk: 0, exist: true },
+  { name: "무루쿤", level: 9, hp: 95, exp: 18, acc: 42, eva: 1, needAcc: 0, def: 10, mDef: 15, ele: ["무속성"], mobCode: 9600304, region: "리엔", watk: 48, matk: 0, exist: true },
 ];
 
 // mobCode -> 드롭 아이템 매핑 (몬스터당 1종, prob 없음)

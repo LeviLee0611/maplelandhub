@@ -298,19 +298,35 @@ async function loadItemNameOverrides() {
 // mobCode 충돌 보정 소스. 일회성 패치 스크립트 대신 정규 빌드가 항상 읽어서, 재빌드해도
 // 보정이 유지되도록 한다(2026-09-10 무루 5종 mobCode 충돌 대응 과정에서 도입).
 async function loadMobcodeCorrections() {
+  // 이 파일은 더 이상 "있으면 좋은" 선택적 소스가 아니다 — 무루 5종 등 실제 mobCode 충돌을
+  // 막는 유일한 안전장치라, 누락되거나 JSON이 깨지면 조용히 빈 보정으로 넘어가지 않고
+  // 빌드 자체를 실패시킨다. 그래야 오타 하나가 예전 충돌(엉뚱한 장비 드랍 등)을 소리 없이
+  // 되살리는 사고를 막을 수 있다.
+  let raw;
   try {
-    const raw = await fs.readFile(MOBCODE_CORRECTIONS_SOURCE, "utf8");
-    const parsed = JSON.parse(raw);
-    return {
-      dropSourceIgnoredMobCodes: new Set(
-        (parsed?.dropSourceIgnoredMobCodes ?? []).map((code) => Number(code)),
-      ),
-      manualDrops: parsed?.manualDrops ?? {},
-      manualItems: parsed?.manualItems ?? [],
-    };
-  } catch {
-    return { dropSourceIgnoredMobCodes: new Set(), manualDrops: {}, manualItems: [] };
+    raw = await fs.readFile(MOBCODE_CORRECTIONS_SOURCE, "utf8");
+  } catch (err) {
+    throw new Error(
+      `필수 보정 소스를 읽을 수 없음: ${MOBCODE_CORRECTIONS_SOURCE}
+` +
+        `이 파일이 없으면 mobCode 충돌 보정(무루 5종 등)이 적용되지 않은 채 빌드가 진행된다.
+` +
+        `원인: ${err.message}`,
+    );
   }
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (err) {
+    throw new Error(`${MOBCODE_CORRECTIONS_SOURCE}의 JSON 파싱 실패: ${err.message}`);
+  }
+
+  return {
+    dropSourceIgnoredMobCodes: new Set((parsed?.dropSourceIgnoredMobCodes ?? []).map((code) => Number(code))),
+    manualDrops: parsed?.manualDrops ?? {},
+    manualItems: parsed?.manualItems ?? [],
+  };
 }
 
 async function main() {

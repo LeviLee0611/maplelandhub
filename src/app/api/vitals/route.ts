@@ -48,6 +48,7 @@ function normalizeReport(input: unknown): PerfMetricReport | null {
     id: typeof raw.id === "string" ? raw.id : undefined,
     navigationType: typeof raw.navigationType === "string" ? raw.navigationType : undefined,
     url: typeof raw.url === "string" ? raw.url : undefined,
+    entryPath: typeof raw.entryPath === "string" ? raw.entryPath : undefined,
     path: typeof raw.path === "string" ? raw.path : undefined,
     phase: raw.phase === "initial" || raw.phase === "soft-navigation" ? raw.phase : undefined,
     timestamp: toNumber(raw.timestamp),

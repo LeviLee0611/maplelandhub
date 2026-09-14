@@ -9,7 +9,7 @@ import type { Monster } from "@/types/monster";
 import { calcMagicalTakenDamage, calcPhysicalTakenDamage, getStandardPDD } from "@/lib/calculators/takenDamage";
 import type { JobClass } from "@/types/takenDamage";
 import { trackEvent } from "@/lib/analytics";
-import { resolveSelectedMonster } from "@/lib/data/monsters";
+import { resolveSelectedMonster } from "@/lib/monster-resolver";
 
 const jobGroups = ["전사", "마법사", "궁수", "도적", "아란", "배틀메이지"] as const;
 const jobOptionsByGroup = {

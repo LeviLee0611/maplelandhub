@@ -4,7 +4,49 @@
 
 ---
 
+## 2026-09-14
+
+### 외부 리뷰 2차 수용 — 콜백 재등록, 드랍 부분 실패 캐시, 클라이언트 번들 분리, 필수 보정 파일, AdSlot 코멘트 정정
+
+9/10 작업에 대한 2차 외부 리뷰를 받음. 이번엔 지적 5건 전부 코드로 직접 재현/확인한 뒤 수정 — 특히 세 번째(클라이언트 번들)는 실제 빌드 산출물 diff로 심각도를 확인했다.
+
+**① `useReportWebVitals` 콜백 미고정**: `pushReport`는 9/10에 이미 `useCallback`으로 고정했지만, 정작 `useReportWebVitals`에 넘기는 함수 자체는 여전히 인라인 화살표 함수였다. `node_modules/next/dist/client/web-vitals.js`를 직접 열어 확인한 결과, 이 훅은 넘겨준 함수 참조를 `useEffect` deps로 써서 `onCLS`/`onFID`/`onLCP`/`onINP`/`onFCP`/`onTTFB`를 매번 다시 등록한다 — 인라인 함수는 렌더마다 참조가 바뀌므로 매 렌더 재등록되는 구조였다. `handleWebVitalsMetric`을 `useCallback([pushReport])`로 감싸 고정.
+
+같이 지적된 `phase: soft-navigation`의 의미 문제도 처리 — `WebVitalsReporter`는 루트 레이아웃에 한 번만 마운트돼 클라이언트 내비게이션을 가로질러 존속하는데, CLS/INP처럼 페이지 수명 동안 누적되다 나중에(다른 화면으로 이동한 뒤일 수도 있음) 최종값이 보고되는 지표는 보고 시점의 "현재 경로"가 실제 측정 화면과 다를 수 있다. `entryPath`(리포터 마운트 시점 경로, 세션 내내 고정) 필드를 추가해 기존 `path`(보고 시점 경로)와 분리 — 어느 화면 지표인지 한 필드로 단정하지 않도록 함. API 라우트·저장 타입까지 반영.
+
+**② 드랍 "부분 실패"가 완전한 성공으로 캐시됨**: `fetchMonsterBookFallback`의 `lookupFailed`가 `results.every(failed)`로만 판정돼서, 10개 중 9개가 실패하고 1개만 성공해도 `lookupFailed: false`로 나가 클라이언트가 그 1개를 "완전한 결과"로 영구 캐시하고 있었다. `partial` 플래그를 신설(일부만 실패 = `partial: true`) — 얻은 결과는 그대로 보여주되, `DropTable.tsx`의 `ensureMonsterDrops` 재조회 가드를 "완전한 결과가 캐시돼 있고 partial이 아닐 때만 스킵"으로 바꿔 재시도 여지를 남겼다. 화면엔 "일부 드랍만 확인됐습니다" 배너 + 다시 시도 버튼 추가. 테스트 케이스도 `partial: true` 단언으로 갱신.
+
+**③ 클라이언트 번들에 몬스터 JSON 전체가 새로 포함됨 (가장 심각)**: 리뷰가 "`.next/static/chunks`에 몬스터 데이터가 든 154KB 청크가 보인다"고 지적해 직접 추적 — `resolveSelectedMonster`(9/10에 동명이몹 버그를 고치며 추가한 함수)가 `src/lib/data/monsters.ts`에 들어있었는데, 이 파일 최상단이 `@data/monsters.json`/`@data/planet/monsters.json`을 통째로 import한다. 이 순수 검색 함수 하나 때문에 클라이언트 컴포넌트 3곳(한방컷/피격뎀 계산기, MonsterSelect)이 이 모듈을 import하게 됐고, 번들러는 JSON import를 트리셰이킹하지 못해 계산기 4개 페이지(`/calculator/damage`, `/calculators/onehit`, `/planet/calculator/damage`, `/planet/calculators/onehit`)의 클라이언트 청크에 몬스터 데이터 전체가 새로 실렸다. `git log`로 확인한 결과 9/10 이전엔 이 세 컴포넌트가 `@/lib/data/monsters`를 아예 import하지 않았던 게 확인돼 — **9/10에 내가 만든 순수 회귀**였음이 확정됨.
+
+수정: `resolveSelectedMonster`를 JSON import가 전혀 없는 새 파일 `src/lib/monster-resolver.ts`로 분리, `Monster` 타입만 참조. 서버 컴포넌트(`getMonsters`/`getPlanetMonsters` 사용)만 기존 `@/lib/data/monsters.ts`를 그대로 쓰도록 정리. 빌드 후 재확인 — 154KB 청크 자체가 사라졌고, 클라이언트 청크 어디에도 몬스터 이름 문자열이 안 남는 것을 `grep`으로 직접 확인.
+
+**④ 필수 보정 파일이 조용히 스킵됨**: `mobcode-corrections.json`은 9/10에 "무루 mobCode 충돌을 막는 유일한 안전장치"로 승격됐는데, `build-drop-index.mjs`의 로더가 파일 누락·JSON 파싱 실패를 전부 `catch`로 삼켜 빈 보정으로 조용히 계속 진행하고 있었다 — 오타 하나가 예전 충돌(엉뚱한 장비 드랍)을 소리 없이 되살릴 수 있는 상태. `try/catch`를 read/parse 단계별로 나눠 각각 명확한 에러 메시지와 함께 **빌드를 실패시키도록** 변경. 파일을 실제로 지우거나 깨뜨려서 두 경우 다 `node` 프로세스가 exit code 1로 죽는 것까지 직접 확인 후 원복.
+
+같이 지적된 `scripts/add-aran-rien-monsters.mjs`의 stale 코멘트("플래닛에 4배 값을 오버라이드로 유지한다")도 정정 — 실제로는 이 코드베이스가 exp 필드에 서버 배율을 굽지 않는다는 걸 뒤늦게 확인하고 오버라이드 없이 상속하는 쪽으로 방향을 바꿨는데, 주석은 옛 계획 그대로 남아있었다. maplestory.io 스냅샷 값도 "메랜 공식 확정값"이 아니라 "관찰값"으로 표현을 낮춰 과신하지 않도록 정리.
+
+**⑤ AdSlot 코멘트가 실제 동작보다 강하게 말하고 있었음**: "높이를 항상 고정으로 잡아둔다"고 적혀 있었지만 실제 스타일은 `minHeight`(최소값)라 내용이 커지면 박스가 늘어난다 — 지금은 플레이스홀더 텍스트가 항상 그 안에 들어가서 우연히 고정처럼 보일 뿐. 실제 광고 연동 전 확인이 필요하다는 걸 명시하도록 코멘트 정정(코드 동작 자체는 지금 문제없음 — 실제 광고 붙일 때 높이 초과 여부를 그때 확인하라는 안내로 남김).
+
+검증: `tsc`/`eslint`/`vitest`(135 passed, 관련 테스트 갱신)/`build` 전부 통과. 프로덕션 서버로 실제 확인 — 로컬 드랍 있는 몬스터는 `partial:false` 정상, 외부 API가 마침 실제로 느려서(39초) 진짜 장애 상황에서 `lookupFailed:true`가 정확히 뜨는 것까지 우연히 실측. `/api/vitals`에 `entryPath`/`path` 분리 필드 저장 확인. 클라이언트 청크 grep으로 몬스터 데이터 완전 제거 확인.
+
+**한계**: 이번에도 브라우저 자동화 도구가 없어 "부분 실패 배너가 실제로 뜨는지", "재시도 버튼 클릭이 실제로 재조회하는지"는 코드 리뷰 + 단위 테스트로 대체했고 실제 화면 클릭 확인은 못 함.
+
+적용 방식: `web-vitals-reporter.tsx`/`debug-store.ts`/`api/vitals/route.ts`(콜백 고정, entryPath), `drop-table-lookup.ts`/`DropTable.tsx`/`dropTableLookup.test.ts`(partial), `monster-resolver.ts`(신규)/`data/monsters.ts`/3개 클라이언트 컴포넌트/`resolveSelectedMonster.test.ts`(이동)(번들 분리), `build-drop-index.mjs`/`add-aran-rien-monsters.mjs`(필수 파일·코멘트 정정), `AdSlot.tsx`(코멘트 정정). 커밋은 안 함(요청 시 진행).
+
 ## 2026-09-10
+
+### 무루 5종 EXP 정정 — maplestory.io 프리빅뱅 스냅샷으로 4배 오염 확인
+
+사용자가 "무루 5종 데이터를 못 찾은 거냐"고 물어 재조사. 나무위키 데이터(어제 확보)는 여전히 방어력이 %(포스트빅뱅) 방식이라 못 쓰지만, 사용자가 "우리가 쓰는 API(maplestory.io)에도 있을 텐데 찾아봐라"고 제안 — 아이콘 조회에 늘 쓰던 그 API의 **몬스터 스탯 엔드포인트**(`/mob/{id}`, icon이 아닌 전체 JSON)를 직접 열어본 적은 없었음.
+
+**발견**: `GMS/80`~`GMS/92` 버전 스냅샷이 방어력을 **절대값**으로 반환(`physicalDefense`/`magicDefense`, %가 아님) — 우리 스키마와 정확히 같은 프리빅뱅 포맷. mobId 100130~134/9300383로 6종 전체 조회한 결과 **level/hp/acc/eva/def/mDef/watk가 현재 저장값과 전부 정확히 일치**, 딱 하나 **exp만 정확히 4배** 차이(무루파: 저장값 24 vs 공식 6, 무루무루: 60 vs 15 등 5종 전부 정수로 딱 나뉨).
+
+**원인**: 이 6종의 원 소스인 `monster-catalog-data.js`는 2026-07-08 세션에 "556종 중 346종이 메랜원본×4=catalog값으로 검증됨(EXP 필드가 이미 플래닛 배율 포함)"이라고 이미 문서화돼 있었는데, 이 6종은 그 검증 대상에 없어서 놓쳤던 것 — 7/31에 카탈로그 값을 그대로 복사해오면서 EXP도 다른 필드처럼 "이미 프리빅뱅 절대값"이라고 착각하고 그대로 씀.
+
+**수정**: `scripts/add-aran-rien-monsters.mjs`의 `NEW_MONSTERS` exp를 공식값(1/1/6/9/15/18)으로 정정, 재실행해 `data/monsters.json` 갱신. **처음엔 플래닛 쪽에 4배 값을 오버라이드로 남겨두려 했으나, 확인해보니 이 코드베이스는 exp 필드를 어느 서버에서도 배율 적용 없이 그대로 저장·표시함**(`data/planet/monsters.json`의 달팽이 exp가 메랜과 동일한 3으로 확인, `rateMultipliers._expNote`에도 "EXP 계산기가 생기면 곱해서 써야 함, 지금은 안 굽음"이라고 명시돼 있었음) — 그래서 플래닛에만 4배 값을 남기면 오히려 이 6종만 다른 744종과 다른 규칙을 갖는 새로운 불일치가 됐을 것. `node scripts/build-planet-data.mjs` 재실행으로 플래닛도 메랜의 정정값을 그대로 상속하도록 정리(별도 오버라이드 없음).
+
+검증: 두 파일 모두 6종 exp가 1/1/6/9/15/18로 일치하는 것 직접 확인, `tsc`/`eslint`/`vitest`(135 passed, 변경 없음 — mobcode-corrections 테스트가 드랍 연결까지 재검증)/`build` 전부 통과.
+
+적용 방식: `scripts/add-aran-rien-monsters.mjs`(exp 정정 + 재실행), `data/monsters.json`/`data/planet/monsters.json`(재생성). 커밋은 안 함(요청 시 진행).
 
 ### 애드센스 배치 자리 표시 + 드롭테이블 UI 다듬기
 
