@@ -8,6 +8,7 @@ import { isReleasedMobCode } from "@/lib/release-filter";
 import { trackEvent } from "@/lib/analytics";
 import { formatNumber } from "@/lib/utils";
 import { AdSlot } from "@/components/AdSlot";
+import { SpinnerInput } from "@/components/SpinnerInput";
 import type { Monster } from "@/types/monster";
 export type DropIndexItem = {
   id: number;
@@ -950,16 +951,13 @@ export function DropTable({
                   </div>
                   <div className="mt-3">
                     <label className="mb-1 block text-xs text-[color:var(--retro-text-muted)]">캐릭터 레벨</label>
-                    <input
-                      type="number"
+                    <SpinnerInput
+                      value={characterLevel}
+                      onChange={setCharacterLevel}
                       min={1}
                       max={250}
-                      value={characterLevel}
-                      onChange={(event) => {
-                        const parsed = Number(event.target.value);
-                        setCharacterLevel(Number.isFinite(parsed) ? Math.min(250, Math.max(1, Math.floor(parsed))) : 1);
-                      }}
-                      className="w-full rounded-[8px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-3 py-2 text-sm text-[color:var(--retro-text)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-accent-soft)]"
+                      className="w-full"
+                      inputClassName="w-full rounded-[8px] border border-[var(--brand-accent-border)] bg-[var(--retro-bg)] px-3 py-2 text-sm text-[color:var(--retro-text)] focus:border-[var(--brand-accent)] focus:outline-none focus:ring-2 focus:ring-[var(--brand-accent-soft)]"
                     />
                   </div>
                 </div>
