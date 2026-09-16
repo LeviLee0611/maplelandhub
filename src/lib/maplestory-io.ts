@@ -51,6 +51,14 @@ const MOB_ICON_ID_ALIASES: Record<number, number> = {
 // 새 항목을 넣기 전엔 받은 이미지를 반드시 눈으로 확인할 것.
 const MOB_ICON_PREFERRED_VERSION: Record<number, { region: string; version: string }> = {
   2600622: { region: "kms", version: "284" }, // 알리샤르
+  // 무루 5종은 별칭(→100130~134)을 태운 뒤 gms/92에서 정상 로드되는 것을 이미지로 직접 확인했다
+  // (2026-09-15, 5종 모두 솜털 생물 스프라이트). 지정하지 않으면 gms/100·kms/284를 헛돌아 3번째
+  // 요청에서야 성공한다.
+  9600300: { region: "gms", version: "92" }, // 무루
+  9600301: { region: "gms", version: "92" }, // 무루파
+  9600302: { region: "gms", version: "92" }, // 무루피아
+  9600303: { region: "gms", version: "92" }, // 무루무루
+  9600304: { region: "gms", version: "92" }, // 무루쿤
 };
 
 function resolveStaticOverride(mobCode: number | string) {

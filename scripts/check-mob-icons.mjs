@@ -84,6 +84,62 @@ function readPngSize(buffer) {
   return { width: buffer.readUInt32BE(16), height: buffer.readUInt32BE(20) };
 }
 
+/**
+ * 받아온 그림이 "정말 그 몬스터인지"는 이 스크립트가 원래 전혀 보지 않았다 — 판정 기준이
+ * "1x1 빈 PNG가 아니면 성공"뿐이었다. 그래서 무루 5종이 폴백 체인을 돌다 gms/200에서 상하이
+ * 예원의 닭·양 아이콘을 만나자 "성공"으로 고정됐고, 그 상태가 MOB_ICON_PREFERRED_VERSION에
+ * 굳어 실제 서비스에 잘못된 이미지가 나갔다(2026-09-15 발견).
+ *
+ * 레벨 자동 대조는 시도했다가 버렸다: 유일하게 안정적으로 받아지는 목록이 GMS/200(포스트빅뱅)
+ * 인데, 우리 데이터는 프리빅뱅이라 레벨이 전면 재조정돼 출시 499종 중 339종이 허용오차 5를
+ * 넘는다(알리샤르 56 vs 166, 미믹 54 vs 150처럼 **맞는** 것까지 튄다). 임계값으로 거를 수 있는
+ * 신호가 아니다.
+ *
+ * 그래서 판정하지 않고 **보여준다**. 조회한 mobId가 maplestory.io에선 어떤 이름인지 리포트에
+ * 그대로 찍는다. "무루 -> Raving Chicken"은 사람이 보면 0.5초 만에 알아챈다. 원래 리포트는
+ * 성공/실패 개수만 보여줘서 이걸 볼 기회 자체가 없었다.
+ */
+// GMS/200을 먼저 둔다 — 실측상 이 목록만 안정적으로 캐시돼 즉시 내려오고, 나머지는 522로
+// 40초씩 물린다(2026-09-15). 레벨은 포스트빅뱅이라 못 믿지만 여기서 쓰는 건 "이름"뿐이다.
+const REFERENCE_INDEX_CANDIDATES = [
+  { region: "GMS", version: "200" },
+  { region: "gms", version: "100" },
+  { region: "gms", version: "92" },
+];
+const REFERENCE_INDEX_TIMEOUT_MS = 20000;
+
+let referenceIndexPromise = null;
+
+async function loadReferenceIndex() {
+  if (referenceIndexPromise) return referenceIndexPromise;
+  referenceIndexPromise = (async () => {
+    for (const candidate of REFERENCE_INDEX_CANDIDATES) {
+      const key = `${candidate.region}/${candidate.version}`;
+      try {
+        const res = await fetch(`https://maplestory.io/api/${key}/mob`, {
+          headers: { "User-Agent": USER_AGENT },
+          signal: AbortSignal.timeout(REFERENCE_INDEX_TIMEOUT_MS),
+        });
+        if (!res.ok) continue;
+        const list = await res.json();
+        return { via: key, map: new Map(list.map((m) => [m.id, { name: m.name, level: m.level }])) };
+      } catch {
+        // 다음 후보로
+      }
+    }
+    return null;
+  })();
+  return referenceIndexPromise;
+}
+
+async function describeLookup(lookupCode) {
+  const reference = await loadReferenceIndex();
+  if (!reference) return null;
+  const entry = reference.map.get(lookupCode);
+  if (!entry) return { via: reference.via, missing: true };
+  return { via: reference.via, name: entry.name, level: entry.level };
+}
+
 async function probe(candidate, mobCode) {
   try {
     const res = await fetch(iconUrl(candidate, mobCode), { headers: { "User-Agent": USER_AGENT } });
@@ -110,7 +166,9 @@ async function checkMonster(monster, runtime) {
   }
 
   // 런타임이 다른 mobId로 조회하도록 별칭이 걸려 있으면 그 ID로 점검해야 실제 동작과 일치한다.
-  const lookupCode = runtime.idAliases.get(monster.mobCode) ?? monster.mobCode;
+  // readMap이 정규식 캡처를 문자열로 돌려주기 때문에 별칭 값은 숫자로 맞춰준다. 아이콘 URL은
+  // 문자열이어도 그대로 만들어져 여태 드러나지 않았지만, 숫자 키로 된 목록 조회에선 어긋난다.
+  const lookupCode = Number(runtime.idAliases.get(monster.mobCode) ?? monster.mobCode);
   const aliased = lookupCode !== monster.mobCode ? lookupCode : undefined;
 
   // 런타임이 이 몬스터만 다른 버전으로 먼저 요청하도록 지정돼 있으면 그 버전이 곧 첫 요청이다.
@@ -126,6 +184,7 @@ async function checkMonster(monster, runtime) {
       via: `${first.region}/${first.version}`,
       pinned: Boolean(preferred),
       detail: primary,
+      lookup: await describeLookup(lookupCode),
     };
   }
 
@@ -139,6 +198,7 @@ async function checkMonster(monster, runtime) {
         via: `${candidate.region}/${candidate.version}`,
         primaryReason: primary.reason,
         detail: result,
+        lookup: await describeLookup(lookupCode),
       };
     }
   }
@@ -182,7 +242,7 @@ async function main() {
   const limit = Number(parseArg("--limit", "")) || released.length;
   const targets = released
     .slice(0, limit)
-    .map((monster) => ({ mobCode: monster.mobCode, name: monster.name }));
+    .map((monster) => ({ mobCode: monster.mobCode, name: monster.name, level: monster.level }));
 
   const runtime = await loadRuntimeIconHandling();
   console.log(
@@ -213,6 +273,25 @@ async function main() {
     console.log("\n--- 모든 후보 실패 (정적 대체나 별칭 필요) ---");
     for (const item of broken) {
       console.log(`  ${item.mobCode} ${item.name}: ${item.primaryReason}`);
+    }
+  }
+
+  // 별칭/버전 지정/폴백으로 해결된 것만 추린다 — 기본 경로로 바로 성공한 몬스터는 우리 mobCode를
+  // 그대로 조회한 것이라 뒤바뀔 여지가 없다. 손댄 것들만 사람이 눈으로 확인하면 된다.
+  const needsEyeball = results.filter((r) => r.aliased || r.pinned || r.status === "fallback");
+  if (needsEyeball.length > 0) {
+    const via = needsEyeball.find((r) => r.lookup?.via)?.lookup?.via;
+    console.log(`\n--- 조회 ID가 maplestory.io에선 무슨 몬스터인지 (기준 목록: ${via ?? "받지 못함"}) ---`);
+    console.log("    이름이 전혀 다른 몬스터면 잘못된 그림이다. 레벨은 포스트빅뱅 기준이라 달라도 정상.");
+    for (const item of needsEyeball) {
+      const how = item.aliased ? `별칭 ${item.mobCode}->${item.aliased}` : item.pinned ? "버전 지정" : "폴백";
+      const where = item.via ?? `모든 후보 실패(${item.primaryReason})`;
+      const seen = !item.lookup
+        ? "기준 목록 없음"
+        : item.lookup.missing
+          ? "기준 목록에 해당 ID 없음"
+          : `"${item.lookup.name}"(Lv${item.lookup.level})`;
+      console.log(`  ${item.mobCode} ${item.name}(Lv${item.level}) [${how}, ${where}] -> ${seen}`);
     }
   }
 
