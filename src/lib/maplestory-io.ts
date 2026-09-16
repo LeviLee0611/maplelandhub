@@ -30,18 +30,27 @@ const MOB_ICON_STATIC_OVERRIDES: Record<number, string> = {
 // 이미지가 있는 경우(2026-09-10 확인) — 정적 파일 대신 조회용 mobId만 바꿔 API를 그대로 재사용.
 const MOB_ICON_ID_ALIASES: Record<number, number> = {
   8220036: 9300004, // 미믹(폐광) — maplestory.io엔 이 mobId로만 아이콘/렌더 등록됨
+  // 무루 5종의 9600300~9600304는 원작 mobId가 아니라 2026-09-10 드랍 충돌을 피하려고 우리가
+  // 직접 배정한 번호다. 그런데 maplestory.io에는 하필 그 번호에 상하이 예원 몬스터(닭/오리/양,
+  // Lv140대)가 실재해서, 무루 자리에 닭·양 아이콘이 그대로 노출되고 있었다(2026-09-15 확인).
+  // 원작 mobId 100130~100134가 실제로 존재하며 이름(Muru/Murupa/Murupia/Murumuru/Murukun)과
+  // 레벨(1/3/5/7/9)이 우리 데이터와 정확히 일치 — 조회용 ID만 되돌린다(데이터의 mobCode는 유지).
+  9600300: 100130, // 무루
+  9600301: 100131, // 무루파
+  9600302: 100132, // 무루피아
+  9600303: 100133, // 무루무루
+  9600304: 100134, // 무루쿤
 };
 
 // 기본 버전(gms/100)엔 아이콘이 없고 특정 버전에만 있는 몬스터. 지정하지 않으면 폴백 체인을
-// 순서대로 타느라 성공할 때까지 빈 이미지가 보인다(무루 계열은 4번째 요청에서야 성공).
-// 출처: `node scripts/check-mob-icons.mjs` 실측(2026-09-10, 출시 500종 중 이 6종만 해당).
+// 순서대로 타느라 성공할 때까지 빈 이미지가 보인다.
+// 출처: `node scripts/check-mob-icons.mjs` 실측(2026-09-10).
+// 주의: 이 스크립트는 "1x1 빈 PNG가 아니면 성공"으로만 판정하고 그림 속 몬스터가 맞는지는
+// 보지 않는다 — 무루 5종이 여기에 gms/200으로 지정돼 있었으나 그건 실제로는 같은 번호를 쓰는
+// 상하이 예원의 닭/양 아이콘이었다(2026-09-15 발견, MOB_ICON_ID_ALIASES로 이전).
+// 새 항목을 넣기 전엔 받은 이미지를 반드시 눈으로 확인할 것.
 const MOB_ICON_PREFERRED_VERSION: Record<number, { region: string; version: string }> = {
   2600622: { region: "kms", version: "284" }, // 알리샤르
-  9600300: { region: "gms", version: "200" }, // 무루
-  9600301: { region: "gms", version: "200" }, // 무루파
-  9600302: { region: "gms", version: "200" }, // 무루피아
-  9600303: { region: "gms", version: "200" }, // 무루무루
-  9600304: { region: "gms", version: "200" }, // 무루쿤
 };
 
 function resolveStaticOverride(mobCode: number | string) {
