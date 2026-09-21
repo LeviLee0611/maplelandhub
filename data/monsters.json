@@ -8928,17 +8928,21 @@
     "level": 180,
     "hp": 2100000000,
     "exp": 50000000,
-    "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
+    "acc": 270,
+    "eva": 55,
+    "needAcc": 7.33,
     "def": 1700,
     "mDef": 1930,
     "ele": [
-      "무속성"
+      "성 반감",
+      "불 반감",
+      "얼음 반감"
     ],
     "mobCode": 8820001,
     "region": "보스",
-    "exist": true
+    "exist": true,
+    "watk": 1700,
+    "matk": 1200
   },
   {
     "name": "혼테일",
@@ -13989,6 +13993,127 @@
     "region": "리엔",
     "watk": 48,
     "matk": 0,
+    "exist": true
+  },
+  {
+    "name": "아리엘",
+    "level": 180,
+    "hp": 600000000,
+    "exp": 20000000,
+    "acc": 265,
+    "eva": 54,
+    "needAcc": 7.2,
+    "def": 1700,
+    "mDef": 1980,
+    "ele": [
+      "성 면역",
+      "불 반감",
+      "전기 반감",
+      "얼음 반감"
+    ],
+    "mobCode": 8820002,
+    "region": "보스",
+    "watk": 1650,
+    "matk": 1300,
+    "exist": true
+  },
+  {
+    "name": "현자 솔로몬",
+    "level": 180,
+    "hp": 300000000,
+    "exp": 3000000,
+    "acc": 240,
+    "eva": 50,
+    "needAcc": 6.67,
+    "def": 1540,
+    "mDef": 1810,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8820003,
+    "region": "보스",
+    "watk": 1440,
+    "matk": 770,
+    "exist": true
+  },
+  {
+    "name": "현자 렉스",
+    "level": 180,
+    "hp": 300000000,
+    "exp": 3000000,
+    "acc": 250,
+    "eva": 51,
+    "needAcc": 6.8,
+    "def": 1580,
+    "mDef": 1830,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 8820004,
+    "region": "보스",
+    "watk": 1480,
+    "matk": 750,
+    "exist": true
+  },
+  {
+    "name": "휘긴",
+    "level": 180,
+    "hp": 450000000,
+    "exp": 3500000,
+    "acc": 255,
+    "eva": 52,
+    "needAcc": 6.93,
+    "def": 1600,
+    "mDef": 1860,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 8820005,
+    "region": "보스",
+    "watk": 1580,
+    "matk": 900,
+    "exist": true
+  },
+  {
+    "name": "무닌",
+    "level": 180,
+    "hp": 450000000,
+    "exp": 3500000,
+    "acc": 260,
+    "eva": 53,
+    "needAcc": 7.07,
+    "def": 1580,
+    "mDef": 1880,
+    "ele": [
+      "얼음 반감",
+      "불 약점"
+    ],
+    "mobCode": 8820006,
+    "region": "보스",
+    "watk": 1600,
+    "matk": 950,
+    "exist": true
+  },
+  {
+    "name": "미니빈",
+    "level": 150,
+    "hp": 303000,
+    "exp": 11000,
+    "acc": 240,
+    "eva": 50,
+    "needAcc": 6.67,
+    "def": 1200,
+    "mDef": 1200,
+    "ele": [
+      "독 반감",
+      "얼음 약점",
+      "불 약점"
+    ],
+    "mobCode": 8820007,
+    "region": "보스",
+    "watk": 700,
+    "matk": 800,
     "exist": true
   }
 ]
