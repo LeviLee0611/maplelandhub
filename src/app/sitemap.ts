@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { getReleasedMonsterCodes } from "@/lib/data/monster-detail";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const rawBaseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://maplelandhub.com";
@@ -97,5 +98,40 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/planet/cube-simulator`,
       lastModified: new Date(),
     },
+    // 누락돼 있던 공개 라우트(2026-09-23 보완). /probability-secret, /ui/demo는 의도적 제외.
+    {
+      url: `${baseUrl}/buff-timer`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/calculators`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/exp-tracker`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/farming-manager`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/feedback`,
+      lastModified: new Date(),
+    },
+    {
+      url: `${baseUrl}/planet/cube-builder`,
+      lastModified: new Date(),
+    },
+    // 몬스터 상세 페이지. 출시 필터를 통과한 몬스터만 정적 생성되므로 같은 소스를 쓴다
+    // (`generateStaticParams`와 어긋나면 sitemap이 404를 가리키게 된다).
+    ...getReleasedMonsterCodes("mapleland").map((mobCode) => ({
+      url: `${baseUrl}/monster/${mobCode}`,
+      lastModified: new Date(),
+    })),
+    ...getReleasedMonsterCodes("planet").map((mobCode) => ({
+      url: `${baseUrl}/planet/monster/${mobCode}`,
+      lastModified: new Date(),
+    })),
   ];
 }

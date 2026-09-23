@@ -962,6 +962,15 @@ export function DropTable({
                   </div>
                 </div>
                 <div className="flex flex-col gap-2">
+                  {/* 몬스터 상세 페이지로 보내는 내부 링크. 계산기 링크와 달리 쿼리스트링이 아닌
+                      고유 경로라 검색엔진이 개별 페이지로 색인한다(2026-09-23 신설). */}
+                  <a
+                    href={`${calculatorBasePath}/monster/${selectedMonster.mobCode}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "monster" })}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-[var(--retro-border-strong)] bg-[var(--retro-cell)] px-3 py-2 text-xs font-semibold text-[color:var(--retro-text)] hover:border-[var(--brand-accent)]"
+                  >
+                    {selectedMonster.name} 상세 정보
+                  </a>
                   <a
                     href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}&mobCode=${selectedMonster.mobCode}`}
                     onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "monster" })}
@@ -983,7 +992,14 @@ export function DropTable({
             {selectedItemId && monstersForItem.length > 0 ? (
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-[color:var(--retro-text-muted)]">
-                  가장 확률 높은 드랍처: {monstersForItem[0].monster.name}
+                  가장 확률 높은 드랍처:{" "}
+                  <a
+                    href={`${calculatorBasePath}/monster/${monstersForItem[0].monster.mobCode}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "item" })}
+                    className="font-semibold underline decoration-dotted hover:text-[color:var(--retro-text)]"
+                  >
+                    {monstersForItem[0].monster.name}
+                  </a>
                 </p>
                 <a
                   href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(monstersForItem[0].monster.name)}&mobCode=${monstersForItem[0].monster.mobCode}`}
