@@ -3,6 +3,7 @@ import dropIndexJson from "@data/drop-index.json";
 import { DropTable } from "@/components/DropTable";
 import type { DropIndexData, DropIndexItem } from "@/components/DropTable";
 import { getMonsters } from "@/lib/data/monsters";
+import { CalculatorGuide } from "@/components/CalculatorGuide";
 
 // 검색/목록 렌더링에 필요한 필드만 남겨서 클라이언트로 보내는 페이로드를 줄인다.
 // 드랍/역방향 조회는 /api/drop-table/{monster,item} 라우트로 온디맨드 fetch.
@@ -32,15 +33,13 @@ export default function DropTablePage() {
         itemLinkBase="https://www.mapleland.gg"
         server="mapleland"
       />
+      {/* 계산 방식 설명 링크는 아래 설명 블록 안으로 옮겼다(중복). 서버 전환 링크만 남긴다. */}
       <p className="mx-auto mt-2 max-w-6xl px-4 text-xs text-slate-400/80">
-        <Link href="/services/drop-table" className="hover:text-slate-200">
-          드랍 확률 계산 방식 설명 보기
-        </Link>
-        <span className="mx-2 text-slate-600">·</span>
         <Link href="/planet/drop-table" className="hover:text-slate-200">
-          메이플 플래닛 드랍 테이블 보기
+          메이플 플래닛 드랍 테이블 보기 →
         </Link>
       </p>
+      <CalculatorGuide variant="drop-table" />
     </>
   );
 }

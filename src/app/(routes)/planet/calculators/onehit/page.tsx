@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getPlanetMonsters } from "@/lib/data/monsters";
 import { OneHitCalculatorClient } from "@/app/(routes)/calculators/onehit/onehit-calculator-client";
 import { PlanetBadge } from "@/components/PlanetBadge";
+import { CalculatorGuide } from "@/components/CalculatorGuide";
 
 export const metadata: Metadata = {
   title: "메랜Hub - 메이플 플래닛 한방컷 계산기 (N방컷 계산기)",
@@ -44,6 +45,7 @@ export default function PlanetOneHitCalculatorPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
       <PlanetBadge />
       <OneHitCalculatorClient monsters={getPlanetMonsters()} server="planet" />
+      <CalculatorGuide variant="onehit" server="planet" />
     </>
   );
 }

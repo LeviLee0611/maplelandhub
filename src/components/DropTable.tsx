@@ -7,7 +7,6 @@ import { getItemIconCandidateUrls, getMobIconUrl, getMobRenderUrl, handleMapleIo
 import { isReleasedMobCode } from "@/lib/release-filter";
 import { trackEvent } from "@/lib/analytics";
 import { formatNumber } from "@/lib/utils";
-import { AdSlot } from "@/components/AdSlot";
 import { SpinnerInput } from "@/components/SpinnerInput";
 import type { Monster } from "@/types/monster";
 export type DropIndexItem = {
@@ -1019,7 +1018,6 @@ export function DropTable({
             ) : null}
           </div>
         </Panel>
-        <AdSlot slot="drop-table-sidebar" className="shrink-0" />
         </div>
 
         <Panel

@@ -3,6 +3,7 @@ import { DropTable } from "@/components/DropTable";
 import type { DropIndexData, DropIndexItem } from "@/components/DropTable";
 import { getPlanetMonsters } from "@/lib/data/monsters";
 import { PlanetBadge } from "@/components/PlanetBadge";
+import { CalculatorGuide } from "@/components/CalculatorGuide";
 
 // 검색/목록 렌더링에 필요한 필드만 남겨서 클라이언트로 보내는 페이로드를 줄인다.
 // 드랍/역방향 조회는 /api/drop-table/{monster,item} 라우트로 온디맨드 fetch.
@@ -41,6 +42,7 @@ export default function PlanetDropTablePage() {
         calculatorBasePath="/planet"
         server="planet"
       />
+      <CalculatorGuide variant="drop-table" server="planet" />
     </>
   );
 }

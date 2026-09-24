@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { TakenDamageCalculator } from "@/components/TakenDamageCalculator";
 import { getPlanetMonsters } from "@/lib/data/monsters";
 import { PlanetBadge } from "@/components/PlanetBadge";
+import { CalculatorGuide } from "@/components/CalculatorGuide";
 
 export const metadata: Metadata = {
   title: "메랜Hub - 메이플 플래닛 피격 데미지 계산기",
@@ -32,6 +33,7 @@ export default function PlanetDamageCalculatorPage() {
     <>
       <PlanetBadge />
       <TakenDamageCalculator monsters={getPlanetMonsters()} server="planet" />
+      <CalculatorGuide variant="damage" server="planet" />
     </>
   );
 }

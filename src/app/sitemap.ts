@@ -98,7 +98,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/planet/cube-simulator`,
       lastModified: new Date(),
     },
-    // 누락돼 있던 공개 라우트(2026-09-23 보완). /probability-secret, /ui/demo는 의도적 제외.
+    // 누락돼 있던 공개 라우트(2026-09-23 보완).
+    // 의도적 제외: /probability-secret, /ui/demo, 그리고 /planet/cube-builder —
+    // 큐브 빌더는 노출 중단 상태로 페이지 자체가 robots noindex다(2026-09-24 Codex 지적).
+    // noindex 페이지를 sitemap에 넣으면 서로 모순된 신호를 보내게 된다.
     {
       url: `${baseUrl}/buff-timer`,
       lastModified: new Date(),
@@ -117,10 +120,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     {
       url: `${baseUrl}/feedback`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/planet/cube-builder`,
       lastModified: new Date(),
     },
     // 몬스터 상세 페이지. 출시 필터를 통과한 몬스터만 정적 생성되므로 같은 소스를 쓴다

@@ -47,6 +47,18 @@ export async function buildMonsterMetadata(params: MonsterPageProps["params"], s
   };
 }
 
+/**
+ * 은/는 조사를 받침 유무로 고른다. 몬스터 이름이 데이터에서 오므로 하드코딩하면
+ * "크림슨 발록는"처럼 어색해진다(2026-09-23 발견).
+ */
+function subjectParticle(name: string) {
+  const last = name.trim().slice(-1);
+  const code = last.charCodeAt(0);
+  // 한글 음절 영역이 아니면(숫자·영문 등) 판단할 수 없으므로 무난한 쪽을 쓴다.
+  if (Number.isNaN(code) || code < 0xac00 || code > 0xd7a3) return "은";
+  return (code - 0xac00) % 28 === 0 ? "는" : "은";
+}
+
 function basePath(server: MonsterServer) {
   return server === "planet" ? "/planet" : "";
 }
@@ -91,6 +103,7 @@ export default async function MonsterDetailView({ params, server }: MonsterPageP
     ["마법 방어력", formatNumber(monster.mDef)],
     ["회피 수치", formatNumber(monster.eva)],
     ["명중 수치", formatNumber(monster.acc)],
+    ["필요 명중치 (동레벨 기준)", monster.eva ? formatNumber(needAcc) : "정보 없음"],
     ["속성", elements.length ? elements.join(", ") : "무속성"],
     ["출현 지역", monster.region ?? "정보 없음"],
   ];
@@ -111,12 +124,12 @@ export default async function MonsterDetailView({ params, server }: MonsterPageP
         <h1 className="text-2xl font-bold">
           {monster.name} <span className="text-base font-normal">(Lv.{monster.level})</span>
         </h1>
+        {/* 아래 표와 같은 숫자를 다시 늘어놓지 않는다 — 표에 없는 맥락(서버·출현지·드랍 수)만 한 줄로. */}
         <p className="text-sm text-[color:var(--retro-text-muted)]">
-          {serverLabel} <strong>{monster.name}</strong>는 레벨 {monster.level} 몬스터로, HP {formatNumber(monster.hp)},
-          획득 경험치 {formatNumber(monster.exp)}입니다. 물리 방어력은 {formatNumber(monster.def)}, 마법 방어력은{" "}
-          {formatNumber(monster.mDef)}이며 회피 수치는 {formatNumber(monster.eva)}입니다.
-          {monster.eva ? ` 동레벨 캐릭터 기준 필요 명중치는 약 ${formatNumber(needAcc)}입니다.` : ""}
-          {elements.length ? ` 속성은 ${elements.join(", ")}입니다.` : ""}
+          {serverLabel}의 <strong>{monster.name}</strong>
+          {subjectParticle(monster.name)} 레벨 {monster.level} 몬스터입니다.
+          {monster.region ? ` ${monster.region}에서 만날 수 있습니다.` : ""}
+          {drops.length ? ` 드랍 아이템 ${drops.length}종과 상세 스탯을 아래에서 확인하세요.` : ""}
         </p>
       </header>
 
