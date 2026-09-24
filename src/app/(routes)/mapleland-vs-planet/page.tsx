@@ -3,7 +3,7 @@ import Link from "next/link";
 
 const title = "메이플랜드 vs 메이플플래닛 차이점 총정리 | 메랜Hub";
 const description =
-  "메이플랜드와 메이플플래닛의 출시일, 경험치/드랍률/메소 배율, 큐브 시스템, 직업 구성 차이를 한눈에 정리했습니다.";
+  "메이플랜드와 메이플플래닛의 경험치·드랍률·메소 배율, 큐브 시스템, 그리고 두 서버에서 수치가 다른 스킬 8종을 공식 패치노트 기준으로 비교했습니다.";
 
 export const metadata: Metadata = {
   title,
@@ -15,6 +15,9 @@ export const metadata: Metadata = {
     "메이플랜드 메이플플래닛 차이",
     "메이플랜드 메이플플래닛 차이점",
     "메이플랜드 플래닛 비교",
+    "플래닛 스킬 차이",
+    "플래닛 블래스트 데미지",
+    "메랜 플래닛 스킬 비교",
   ],
   alternates: {
     canonical: "/mapleland-vs-planet",
@@ -39,6 +42,24 @@ const compareRows: Array<{ label: string; mapleland: string; planet: string }> =
   { label: "메소 획득량(메랜 대비)", mapleland: "기준(1배)", planet: "약 2배" },
   { label: "큐브 / 잠재능력 시스템", mapleland: "없음", planet: "있음 (수상한 큐브 / 미라클 큐브)" },
   { label: "직업 구성", mapleland: "프리빅뱅 기본 직업군", planet: "메랜과 동일한 전 직업 + 후반 액티브 스킬 일부 추가" },
+];
+
+/**
+ * 두 서버의 마스터 레벨 스킬 수치 차이.
+ *
+ * 출처는 메이플플래닛 2026-08-28 밸런스 패치노트 원문이고, 우리 계산기가 쓰는
+ * `data/skills/damageMappingPlanetOverrides.json`과 같은 값이다(수치가 바뀌면 양쪽을 함께 고칠 것).
+ * 공식 패치노트로 확인된 8종만 싣는다 — 제3자 데이터로만 짐작되는 차이는 근거가 약해 제외했다.
+ */
+const skillRows: Array<{ job: string; skill: string; mapleland: string; planet: string; note: string }> = [
+  { job: "팔라딘", skill: "블래스트", mapleland: "600% × 1타", planet: "330% × 2타", note: "타수가 2배로 늘고 1타당 데미지는 감소" },
+  { job: "히어로", skill: "브랜디쉬", mapleland: "270% × 2타", planet: "290% × 2타", note: "타수 동일, 데미지만 상승" },
+  { job: "아크메이지", skill: "빅뱅", mapleland: "450% × 1타", planet: "225% × 2타", note: "총합은 비슷하나 타수가 갈림" },
+  { job: "비숍", skill: "엔젤레이", mapleland: "250% × 1타", planet: "140% × 2타", note: "총합은 비슷하나 타수가 갈림" },
+  { job: "신궁·저격수", skill: "스트레이프", mapleland: "100% × 4타", planet: "120% × 4타", note: "타수 동일, 데미지만 상승" },
+  { job: "나이트로드", skill: "어벤져", mapleland: "180% × 1타", planet: "215% × 1타", note: "타수 동일, 데미지만 상승" },
+  { job: "바이퍼", skill: "드래곤 스트라이크", mapleland: "810% × 1타", planet: "420% × 2타", note: "타수가 2배" },
+  { job: "신궁", skill: "스나이핑", mapleland: "고정 데미지(즉사급)", planet: "1500% × 2타", note: "고정 데미지에서 배율형으로 성격이 바뀜" },
 ];
 
 export default function MaplelandVsPlanetPage() {
@@ -104,6 +125,57 @@ export default function MaplelandVsPlanetPage() {
             메이플랜드에는 잠재능력/큐브 시스템 자체가 없어 장비 스펙업 방식이 단순한 반면, 메이플플래닛은 수상한
             큐브·미라클 큐브로 장비에 잠재능력을 부여할 수 있어 엔드 콘텐츠에서 스펙을 더 세밀하게 파고들 수 있습니다.
           </p>
+        </div>
+      </div>
+
+      <div className="glass-panel rounded-2xl px-5 py-5">
+        <h2 className="text-base font-semibold text-slate-100">스킬 수치가 다른 직업들</h2>
+        <p className="mt-2 text-sm text-slate-200/90">
+          같은 프리빅뱅 원본에서 출발했지만 두 서버가 각자 밸런스 패치를 해오면서 스킬 수치가 갈리기 시작했습니다.
+          메이플랜드는 2026년 6월 19일 패치로 스킬 기준을 1.2.35에서 1.2.89(모험가의 귀환)로 올렸고,
+          메이플플래닛은 2026년 8월 28일 대규모 밸런스 개편을 했습니다. 아래는 플래닛 8월 28일 패치노트로
+          확인된 <strong>마스터 레벨 기준</strong> 차이입니다.
+        </p>
+        <div className="mt-3 overflow-x-auto">
+          <table className="w-full min-w-[640px] border-collapse text-sm">
+            <thead>
+              <tr className="border-b border-white/10 text-left text-slate-200/70">
+                <th className="py-2 pr-4 font-semibold">직업</th>
+                <th className="py-2 pr-4 font-semibold">스킬</th>
+                <th className="py-2 pr-4 font-semibold text-rose-200">메이플랜드</th>
+                <th className="py-2 pr-4 font-semibold text-amber-200">메이플플래닛</th>
+                <th className="py-2 font-semibold">차이</th>
+              </tr>
+            </thead>
+            <tbody>
+              {skillRows.map((row) => (
+                <tr key={row.skill} className="border-b border-white/5 text-slate-200/90">
+                  <td className="py-2 pr-4 text-slate-200/70">{row.job}</td>
+                  <td className="py-2 pr-4 font-medium text-slate-100">{row.skill}</td>
+                  <td className="py-2 pr-4">{row.mapleland}</td>
+                  <td className="py-2 pr-4">{row.planet}</td>
+                  <td className="py-2 text-xs text-slate-200/70">{row.note}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+        <p className="mt-3 text-sm text-slate-200/90">
+          타수가 갈리는 스킬이 특히 중요합니다. 총 데미지가 비슷해 보여도 <strong>방어력이 높은 몬스터</strong>에게는
+          타수가 많을수록 차감이 여러 번 적용돼 실제 피해가 더 줄어듭니다. 그래서 같은 스킬이라도 서버에 따라
+          체감 효율이 달라집니다.
+        </p>
+        <p className="mt-2 text-xs text-slate-200/60">
+          위 수치는 마스터 레벨 기준입니다. 두 서버 모두 패치노트가 마스터 값만 공개해 하위 레벨(1~29) 곡선은
+          공식적으로 확인되지 않았습니다. 확인되지 않은 구간을 임의로 추정하지는 않습니다.
+        </p>
+        <div className="mt-3 flex flex-wrap gap-3">
+          <Link href="/calculators/onehit" className="btn-ghost rounded-full px-4 py-2 text-xs font-semibold">
+            메랜 한방컷 계산기
+          </Link>
+          <Link href="/planet/calculators/onehit" className="btn-ghost rounded-full px-4 py-2 text-xs font-semibold">
+            플래닛 한방컷 계산기
+          </Link>
         </div>
       </div>
 
