@@ -31,7 +31,10 @@ const RAW_PATH = path.resolve("data/raw/skills.raw.ts");
 const API = "https://api.maplab.kr/api/skill-stats";
 const APPLY = process.argv.includes("--apply");
 
-/** 6/19 패치노트가 명시한 마스터 데미지%. 채택 전 maplab 값과 대조하는 검문소. */
+/**
+ * A군 — 6/19 패치노트가 마스터 데미지%를 명시한 스킬. 그 수치를 검문소로 쓴다.
+ * maplab 마스터가 이 값과 다르면 그 소스가 낡은 것이므로 건너뛴다.
+ */
 const OFFICIAL_MASTER = {
   "돌진": 140,
   "어썰터": 500,
@@ -40,6 +43,20 @@ const OFFICIAL_MASTER = {
   "래피드 파이어": 200,
   "아이언 에로우": 200,
 };
+
+/**
+ * B군 — 2026-08-14 메랜 마법사 밸런스 패치 대상.
+ *
+ * **A군보다 근거가 약하다.** 패치노트가 "기본 공격력이 향상되었습니다"라고만 적고 수치를
+ * 주지 않아(`maple.land/board/notices/pzx6wmuz4h4slkbvklaojerw`) A군처럼 공식 값과 대조할
+ * 검문소가 없다. 대신 **maplab 마스터값이 우리 저장 마스터값과 정확히 같은지**를 검문소로 쓴다 —
+ * 마스터가 일치하는데 하위 레벨만 다르다는 것은 "기본 공격력만 올린" 패치 서술과 맞아떨어지고,
+ * 어제(2026-09-22) A군 6종에서 확인된 패턴과 동일하다.
+ *
+ * 매직 컴포지션은 제외했다: 우리는 (불독)/(썬콜)로 나눠 갖고 있는데 maplab엔 통합된
+ * "매직 컴포지션" 하나뿐이라 어느 쪽에 대응하는지 확정할 수 없다.
+ */
+const MASTER_MATCH_ONLY = ["파이어 데몬", "아이스 데몬", "메테오"];
 
 function findBlock(source, name) {
   // 정규식을 쓰지 않는다 — 스킬 이름에 메타문자가 없고, 이스케이프를 다루다 조용히 어긋나는
@@ -61,17 +78,32 @@ function findBlock(source, name) {
   return null;
 }
 
+/**
+ * 블록 안의 레벨별 값을 읽는다. 두 가지 포맷이 섞여 있다:
+ *   "1": 72                                   (숫자형)
+ *   "1": { damage: 62, count: 1, mastery: 0.15 }  (객체형 — 타수·숙련도를 함께 가짐)
+ * 객체형은 damage만 뽑고, 쓰기도 damage 숫자만 교체한다. count·mastery를 건드리면 안 된다.
+ */
 function parseLevels(text) {
   const inner = text.slice(text.indexOf("{") + 1, text.lastIndexOf("}"));
   const out = {};
-  for (const piece of inner.split(",")) {
-    const at = piece.indexOf(":");
-    if (at < 0) continue;
-    const key = Number(piece.slice(0, at).trim().replaceAll('"', ""));
-    const value = Number(piece.slice(at + 1).trim());
-    if (Number.isFinite(key) && Number.isFinite(value)) out[key] = value;
+  for (const m of inner.matchAll(/"(\d+)"\s*:\s*(\{[^}]*\}|[\d.]+)/g)) {
+    const level = Number(m[1]);
+    const raw = m[2];
+    if (raw.startsWith("{")) {
+      const d = /damage\s*:\s*([\d.]+)/.exec(raw);
+      if (d) out[level] = { value: Number(d[1]), object: true, text: raw };
+    } else {
+      out[level] = { value: Number(raw), object: false, text: raw };
+    }
   }
   return out;
+}
+
+/** 한 레벨 항목의 damage(또는 숫자)만 새 값으로 바꾼 문자열을 돌려준다. */
+function rewriteEntry(entry, nextValue) {
+  if (!entry.object) return String(nextValue);
+  return entry.text.replace(/damage\s*:\s*[\d.]+/, `damage: ${nextValue}`);
 }
 
 async function main() {
@@ -89,7 +121,12 @@ async function main() {
   let changedSkills = 0;
   let changedLevels = 0;
 
-  for (const [name, officialMaster] of Object.entries(OFFICIAL_MASTER)) {
+  const plan = [
+    ...Object.entries(OFFICIAL_MASTER).map(([name, master]) => ({ name, officialMaster: master, group: "A(공식 대조)" })),
+    ...MASTER_MATCH_ONLY.map((name) => ({ name, officialMaster: null, group: "B(마스터 일치만)" })),
+  ];
+
+  for (const { name, officialMaster, group } of plan) {
     const entry = byName.get(name);
     if (!entry) { console.log(`건너뜀 ${name}: maplab에 없음`); continue; }
 
@@ -97,8 +134,8 @@ async function main() {
     const masterLv = Math.max(...lv.keys());
     const master = lv.get(masterLv);
 
-    // 검문소: maplab 마스터가 공식 패치노트와 다르면 그 스킬은 손대지 않는다.
-    if (master?.power !== officialMaster) {
+    // A군 검문소: maplab 마스터가 공식 패치노트와 다르면 그 스킬은 손대지 않는다.
+    if (officialMaster !== null && master?.power !== officialMaster) {
       console.log(`건너뜀 ${name}: maplab 마스터 ${master?.power} != 공식 ${officialMaster} (이 소스가 낡음)`);
       continue;
     }
@@ -112,21 +149,23 @@ async function main() {
     if (!block) { console.log(`건너뜀 ${name}: raw 소스에서 블록을 찾지 못함`); continue; }
 
     const current = parseLevels(block.text);
-    const currentMaster = current[masterLv];
-    if (currentMaster !== officialMaster) {
-      console.log(`건너뜀 ${name}: 우리 마스터 ${currentMaster} != 공식 ${officialMaster} — 먼저 확인 필요`);
+    const currentMaster = current[masterLv]?.value;
+    const expectedMaster = officialMaster ?? master?.power;
+    if (currentMaster !== expectedMaster) {
+      const basis = officialMaster !== null ? "공식" : "maplab 마스터";
+      console.log(`건너뜀 ${name}: 우리 마스터 ${currentMaster} != ${basis} ${expectedMaster} — 먼저 확인 필요`);
       continue;
     }
 
     const diffs = [];
-    const next = { ...current };
+    const next = {};
     for (const level of Object.keys(current).map(Number).sort((a, b) => a - b)) {
       if (level >= masterLv) continue;            // 마스터는 공식 근거로 이미 맞다
       const src = lv.get(level);
       if (!src || typeof src.power !== "number") continue;
       if ((src.hits ?? 1) !== 1) continue;
-      if (current[level] !== src.power) {
-        diffs.push([level, current[level], src.power]);
+      if (current[level].value !== src.power) {
+        diffs.push([level, current[level].value, src.power]);
         next[level] = src.power;
       }
     }
@@ -135,11 +174,13 @@ async function main() {
 
     changedSkills++;
     changedLevels += diffs.length;
-    console.log(`${name}: ${diffs.length}개 레벨 변경 (마스터 ${masterLv}=${officialMaster} 유지)`);
+    console.log(`${name} [${group}]: ${diffs.length}개 레벨 변경 (마스터 ${masterLv}=${expectedMaster} 유지)`);
     console.log(`   ${diffs.slice(0, 4).map(([l, a, b]) => `Lv${l} ${a}->${b}`).join(", ")}${diffs.length > 4 ? ` … Lv${diffs.at(-1)[0]} ${diffs.at(-1)[1]}->${diffs.at(-1)[2]}` : ""}`);
 
-    const body = Object.keys(next).map(Number).sort((a, b) => a - b)
-      .map((l) => `"${l}": ${next[l]}`).join(", ");
+    // 원문 포맷(객체형의 count·mastery 포함)을 유지하려고 항목 단위로만 갈아끼운다.
+    const body = Object.keys(current).map(Number).sort((a, b) => a - b)
+      .map((l) => `"${l}": ${rewriteEntry(current[l], next[l] ?? current[l].value)}`)
+      .join(", ");
     source = source.slice(0, block.start) + `    "${name}": { ${body} }` + source.slice(block.end);
   }
 
