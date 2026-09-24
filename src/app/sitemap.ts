@@ -124,12 +124,11 @@ export default function sitemap(): MetadataRoute.Sitemap {
     },
     // 몬스터 상세 페이지. 출시 필터를 통과한 몬스터만 정적 생성되므로 같은 소스를 쓴다
     // (`generateStaticParams`와 어긋나면 sitemap이 404를 가리키게 된다).
+    // 플래닛 몬스터 상세는 뺐다 — 메랜+플래닛 1,056개를 프리렌더하면 Next 16이 페이지당 파일
+    // 12개를 만들어 라우트가 13,500개가 되고, @cloudflare/next-on-pages가 라우팅 매니페스트를
+    // 만들다 "Invalid string length"로 빌드에 실패한다(2026-09-24 실측). 메랜만 유지한다.
     ...getReleasedMonsterCodes("mapleland").map((mobCode) => ({
       url: `${baseUrl}/monster/${mobCode}`,
-      lastModified: new Date(),
-    })),
-    ...getReleasedMonsterCodes("planet").map((mobCode) => ({
-      url: `${baseUrl}/planet/monster/${mobCode}`,
       lastModified: new Date(),
     })),
   ];
