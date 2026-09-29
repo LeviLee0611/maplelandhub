@@ -59,6 +59,9 @@ const MOB_ICON_PREFERRED_VERSION: Record<number, { region: string; version: stri
   9600302: { region: "gms", version: "92" }, // 무루피아
   9600303: { region: "gms", version: "92" }, // 무루무루
   9600304: { region: "gms", version: "92" }, // 무루쿤
+  // 예원(중국) 지역 개방(2026-09-29) 시 확인 — 기본 gms/100과 gms/92·kms/284 모두 빈 응답이고
+  // gms/200에서만 실제 이미지가 온다. 지정하지 않으면 4번째 요청에서야 성공한다.
+  9600009: { region: "gms", version: "200" }, // 대왕지네
 };
 
 function resolveStaticOverride(mobCode: number | string) {

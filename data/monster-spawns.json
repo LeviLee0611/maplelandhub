@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-03-02T22:30:34.911Z",
   "source": "mapledb.kr search.php?t=mob; Maple Note Edelstein snapshot",
-  "count": 774,
-  "withMaps": 447,
-  "withoutMaps": 327,
+  "count": 784,
+  "withMaps": 472,
+  "withoutMaps": 312,
   "errorCount": 0,
   "rows": [
     {
@@ -1537,7 +1537,7 @@
       "maps": [
         {
           "map_code": 103000101,
-          "map_name": "40"
+          "map_name": "커닝시티지하철: 1호선<1구역>"
         }
       ]
     },
@@ -2608,7 +2608,7 @@
         },
         {
           "map_code": 220010600,
-          "map_name": "38"
+          "map_name": "루디브리엄성: 하늘테라스<1>"
         }
       ]
     },
@@ -2699,7 +2699,7 @@
         },
         {
           "map_code": 220010600,
-          "map_name": "50"
+          "map_name": "루디브리엄성: 하늘테라스<1>"
         }
       ]
     },
@@ -2942,7 +2942,7 @@
       "maps": [
         {
           "map_code": 220011000,
-          "map_name": "95"
+          "map_name": "루디브리엄성: 하늘테라스<5>"
         }
       ]
     },
@@ -2953,7 +2953,7 @@
       "maps": [
         {
           "map_code": 220010300,
-          "map_name": "70"
+          "map_name": "루디브리엄성: 구름테라스<2>"
         }
       ]
     },
@@ -3507,7 +3507,7 @@
       "maps": [
         {
           "map_code": 220010000,
-          "map_name": "110"
+          "map_name": "루디브리엄성: 구름테라스<5>"
         }
       ]
     },
@@ -3518,7 +3518,7 @@
       "maps": [
         {
           "map_code": 220040100,
-          "map_name": "90"
+          "map_name": "루디브리엄성: 시간의길<2>"
         }
       ]
     },
@@ -4084,7 +4084,7 @@
       "maps": [
         {
           "map_code": 220020000,
-          "map_name": "210"
+          "map_name": "루디브리엄성: 장난감공장<1공정>1구역"
         }
       ]
     },
@@ -4110,7 +4110,7 @@
       "maps": [
         {
           "map_code": 220040000,
-          "map_name": "130"
+          "map_name": "루디브리엄성: 시간의길<1>"
         }
       ]
     },
@@ -4121,7 +4121,7 @@
       "maps": [
         {
           "map_code": 220040400,
-          "map_name": "170"
+          "map_name": "루디브리엄성: 시간의길<4>"
         }
       ]
     },
@@ -5319,7 +5319,7 @@
       "maps": [
         {
           "map_code": 200080200,
-          "map_name": "30"
+          "map_name": "오르비스탑: 오르비스탑<20층>"
         }
       ]
     },
@@ -5534,7 +5534,16 @@
       "mob_code": 6130102,
       "mob_name": "페페",
       "mob_name_en": "Separated Pepe",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040101,
+          "map_name": "히든스트리트: 설인의 골짜기"
+        },
+        {
+          "map_code": 211040200,
+          "map_name": "엘나스 산맥: 얼음골짜기2"
+        }
+      ]
     },
     {
       "mob_code": 6130103,
@@ -5551,7 +5560,12 @@
       "mob_code": 6130104,
       "mob_name": "부기",
       "mob_name_en": "Boogie",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 280030000,
+          "map_name": "마지막임무: 카오스자쿰의제단"
+        }
+      ]
     },
     {
       "mob_code": 6130200,
@@ -5560,7 +5574,7 @@
       "maps": [
         {
           "map_code": 220060000,
-          "map_name": "213"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<1>"
         }
       ]
     },
@@ -5583,7 +5597,16 @@
       "mob_code": 6130202,
       "mob_name": "깨비",
       "mob_name_en": "Morphed Blin",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 222010400,
+          "map_name": "루더스호수: 도깨비 산마루"
+        },
+        {
+          "map_code": 222010401,
+          "map_name": "히든스트리트: 깊은 산 흉가"
+        }
+      ]
     },
     {
       "mob_code": 6130203,
@@ -5751,7 +5774,12 @@
       "mob_code": 6230201,
       "mob_name": "다크 페페",
       "mob_name_en": "Separated Dark Pepe",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040700,
+          "map_name": "폐광: 위험한절벽"
+        }
+      ]
     },
     {
       "mob_code": 6230300,
@@ -5760,7 +5788,7 @@
       "maps": [
         {
           "map_code": 220060000,
-          "map_name": "180"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<1>"
         }
       ]
     },
@@ -5876,13 +5904,31 @@
       "mob_code": 6300001,
       "mob_name": "예티",
       "mob_name_en": "Transformed Yeti",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040100,
+          "map_name": "엘나스산맥: 얼음골짜기1"
+        },
+        {
+          "map_code": 211020000,
+          "map_name": "엘나스산맥: 빙판조심2"
+        }
+      ]
     },
     {
       "mob_code": 6300002,
       "mob_name": "예티",
       "mob_name_en": "Separated Yeti",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040101,
+          "map_name": "히든스트리트: 설인의 골짜기"
+        },
+        {
+          "map_code": 211040200,
+          "map_name": "엘나스 산맥: 얼음골짜기2"
+        }
+      ]
     },
     {
       "mob_code": 6300003,
@@ -5941,13 +5987,31 @@
       "mob_code": 6400001,
       "mob_name": "다크 예티",
       "mob_name_en": "Transformed Dark Yeti",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040300,
+          "map_name": "폐광: 날카로운절벽1"
+        },
+        {
+          "map_code": 211040400,
+          "map_name": "폐광: 날카로운절벽2"
+        },
+        {
+          "map_code": 211040700,
+          "map_name": "폐광: 위험한절벽"
+        }
+      ]
     },
     {
       "mob_code": 6400002,
       "mob_name": "다크 예티",
       "mob_name_en": "Separated Dark Yeti",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 211040700,
+          "map_name": "폐광: 위험한절벽"
+        }
+      ]
     },
     {
       "mob_code": 6400003,
@@ -6111,7 +6175,24 @@
       "mob_code": 7130020,
       "mob_name": "망둥이",
       "mob_name_en": "Goby",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 230040000,
+          "map_name": "아쿠아로드: 깊은 바다 협곡1"
+        },
+        {
+          "map_code": 230040100,
+          "map_name": "아쿠아로드: 깊은 바다 협곡2"
+        },
+        {
+          "map_code": 230040200,
+          "map_name": "아쿠아로드: 위험한 바다 협곡1"
+        },
+        {
+          "map_code": 230040400,
+          "map_name": "아쿠아로드: 난파선의 무덤"
+        }
+      ]
     },
     {
       "mob_code": 7130100,
@@ -6230,19 +6311,34 @@
       "mob_code": 7130400,
       "mob_name": "노란 왕도깨비",
       "mob_name_en": "Yellow King Goblin",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 222010401,
+          "map_name": "히든스트리트: 깊은 산 흉가"
+        }
+      ]
     },
     {
       "mob_code": 7130401,
       "mob_name": "파란 왕도깨비",
       "mob_name_en": "Blue King Goblin",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 222010401,
+          "map_name": "히든스트리트: 깊은 산 흉가"
+        }
+      ]
     },
     {
       "mob_code": 7130402,
       "mob_name": "초록 왕도깨비",
       "mob_name_en": "Green King Goblin",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 222010401,
+          "map_name": "히든스트리트: 깊은 산 흉가"
+        }
+      ]
     },
     {
       "mob_code": 7130500,
@@ -7152,7 +7248,16 @@
       "mob_code": 8190002,
       "mob_name": "네스트골렘",
       "mob_name_en": "Nest Golem",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 240040520,
+          "map_name": "미나르숲: 망가진 용의 둥지"
+        },
+        {
+          "map_code": 240040521,
+          "map_name": "미나르숲: 위험한 용의 둥지"
+        }
+      ]
     },
     {
       "mob_code": 8190003,
@@ -7248,7 +7353,12 @@
       "mob_code": 8500002,
       "mob_name": "파풀라투스",
       "mob_name_en": "Papulatus",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 220080001,
+          "map_name": "시계탑최하층: 시계탑의 근원"
+        }
+      ]
     },
     {
       "mob_code": 8500003,
@@ -7306,7 +7416,12 @@
       "mob_code": 8800002,
       "mob_name": "자쿰",
       "mob_name_en": "Zakum3",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 280030000,
+          "map_name": "마지막임무: 카오스자쿰의제단"
+        }
+      ]
     },
     {
       "mob_code": 8800003,
@@ -7623,7 +7738,7 @@
       "maps": [
         {
           "map_code": 105040314,
-          "map_name": "999"
+          "map_name": "히든스트리트: 끈기의깊은숲<5단계>"
         }
       ]
     },
@@ -7650,7 +7765,7 @@
         },
         {
           "map_code": 109040001,
-          "map_name": "999"
+          "map_name": "히든스트리트: 고지를향해서<1단계>"
         }
       ]
     },
@@ -7661,7 +7776,7 @@
       "maps": [
         {
           "map_code": 103000901,
-          "map_name": "999"
+          "map_name": "3호선공사장: B1<2구역>"
         }
       ]
     },
@@ -7801,7 +7916,7 @@
       "maps": [
         {
           "map_code": 922010100,
-          "map_name": "85"
+          "map_name": "히든스트리트: 버려진 탑<1단계>"
         }
       ]
     },
@@ -7823,7 +7938,7 @@
       "maps": [
         {
           "map_code": 922010300,
-          "map_name": "120"
+          "map_name": "히든스트리트: 버려진 탑<3단계>"
         }
       ]
     },
@@ -8153,7 +8268,7 @@
       "maps": [
         {
           "map_code": 920010200,
-          "map_name": "175"
+          "map_name": "히든스트리트: 여신의 탑<산책로>"
         }
       ]
     },
@@ -8203,7 +8318,7 @@
       "maps": [
         {
           "map_code": 920010100,
-          "map_name": "225"
+          "map_name": "히든스트리트: 여신의 탑<중앙탑>"
         }
       ]
     },
@@ -9268,7 +9383,7 @@
       "maps": [
         {
           "map_code": 922010700,
-          "map_name": "85"
+          "map_name": "히든스트리트: 버려진 탑<4단계>"
         }
       ]
     },
@@ -9279,7 +9394,7 @@
       "maps": [
         {
           "map_code": 922010700,
-          "map_name": "95"
+          "map_name": "히든스트리트: 버려진 탑<4단계>"
         }
       ]
     },
@@ -9290,7 +9405,7 @@
       "maps": [
         {
           "map_code": 922010700,
-          "map_name": "120"
+          "map_name": "히든스트리트: 버려진 탑<4단계>"
         }
       ]
     },
@@ -9971,6 +10086,160 @@
       "mob_name": "웨딩캔들",
       "mob_name_en": "Candle Mob(2nd)",
       "maps": []
+    },
+    {
+      "mob_code": 9400538,
+      "mob_name": "길거리 슬라임",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010100,
+          "map_name": "정글 개척지"
+        },
+        {
+          "map_code": 600010200,
+          "map_name": "크라키안 정글 분지"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400539,
+      "mob_name": "도심가 버섯",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010100,
+          "map_name": "정글 개척지"
+        },
+        {
+          "map_code": 600010300,
+          "map_name": "정글 계곡"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400540,
+      "mob_name": "킬라 비",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600020100,
+          "map_name": "신의 방"
+        },
+        {
+          "map_code": 600020200,
+          "map_name": "영혼의 회랑"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400542,
+      "mob_name": "파이어 터스크",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600020100,
+          "map_name": "신의 방"
+        },
+        {
+          "map_code": 600020400,
+          "map_name": "불꽃의 방"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400543,
+      "mob_name": "일렉트로펀트",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010200,
+          "map_name": "크라키안 정글 분지"
+        },
+        {
+          "map_code": 600010400,
+          "map_name": "산비탈"
+        },
+        {
+          "map_code": 600020500,
+          "map_name": "얼음의 방"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400544,
+      "mob_name": "그리폰",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010500,
+          "map_name": "낭떠러지"
+        },
+        {
+          "map_code": 600010600,
+          "map_name": "고원"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400545,
+      "mob_name": "울프 스파이더",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600020300,
+          "map_name": "울프 스파이더의 굴"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400546,
+      "mob_name": "I.AM.ROBOT",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010400,
+          "map_name": "산비탈"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400547,
+      "mob_name": "부머",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010100,
+          "map_name": "정글 개척지"
+        },
+        {
+          "map_code": 600010300,
+          "map_name": "정글 계곡"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400548,
+      "mob_name": "마이티 메이플 이터",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 600010200,
+          "map_name": "크라키안 정글 분지"
+        },
+        {
+          "map_code": 600010300,
+          "map_name": "정글 계곡"
+        },
+        {
+          "map_code": 600010400,
+          "map_name": "산비탈"
+        },
+        {
+          "map_code": 600020100,
+          "map_name": "신의 방"
+        }
+      ]
     },
     {
       "mob_code": 9409000,
