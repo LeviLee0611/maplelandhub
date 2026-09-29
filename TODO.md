@@ -4,6 +4,82 @@
 
 ---
 
+## 🔜 내일 작업 계획 (2026-09-29)
+
+> 2026-09-28 세션 마무리 시점 기록. **아직 커밋 안 된 변경이 있으니 먼저 `git status`로 확인할 것.**
+
+### 0. 먼저 할 것 — 오늘 작업분 커밋
+오늘 끝낸 두 건이 커밋 대기 중이다. 내용은 `DEVLOG.md` 2026-09-28 항목에 정리돼 있다.
+- 플래닛 EXP 1/4 문제 수정 (523종) — `chowayo-measured-exp.json` 신설
+- 화면 노출 영문 이름 전수 제거 — 아이템 22건 한글화 + GMS 전용 55건 드롭 제거 + 몬스터 19종·퀘스트 2건 교정, 회귀 테스트 추가
+
+신규 파일: `scripts/fix-english-names.mjs`, `scripts/sources/{item-korean-names,gms-only-items,monster-korean-names}.json`, `scripts/sources/planet/chowayo-measured-exp.json`, `src/lib/__tests__/noEnglishNames.test.ts`, `scripts/state/content-gap-2026-09-28.json`
+검증은 통과 상태: `npx tsc --noEmit` 0 errors / `npx eslint src/ scripts/` 0 errors / `npx vitest run` 146 passed.
+
+### 1. 메인 과제 — 콘텐츠 갭 [A] 161종 열기
+데이터는 이미 `data/monsters.json`에 있고 `release-filter`로만 막혀 있다. **재조사 불필요** — 목록과 판정 결과가 `scripts/state/content-gap-2026-09-28.json`에 저장돼 있다.
+
+그 파일의 `groupA_unblockCandidates` 161종에는 항목별로 이렇게 표시해뒀다:
+- `hasDropData` — 드롭 데이터 보유 여부 (**152/161종이 보유** → 열면 바로 쓸 수 있음)
+- `nameMatches` — 메랜닷컴과 이름 일치 (148/161)
+- `statMatches` — 레벨·HP 일치 (**73/161뿐** → 나머지 88종은 수치 검증 필요)
+
+권장 순서:
+1. ~~**마스테리아 22종으로 시범**~~ → **2026-09-29 완료.** 노출 497 → 519종. `scripts/open-masteria-content.mjs`(드라이런 기본·멱등)와 근거 파일 `scripts/sources/masteria-content.json` 신설. 경위는 DEVLOG 2026-09-29 참고. 확립된 절차는 아래와 같다 — 2번부터는 이걸 그대로 따르면 된다.
+   - ① 이름·스탯이 메랜닷컴과 일치하는지 (`content-gap` 파일의 `nameMatches`/`statMatches`)
+   - ② 아이콘이 **`gms/100`**(런타임 기본)에서 바로 뜨는지 — 안 뜨면 `MOB_ICON_PREFERRED_VERSION`에 등록
+   - ③ 드롭 데이터 유무 (없어도 화면은 "정보가 없습니다"로 정상 처리됨)
+   - ④ 출현 맵 — `monster-spawns.json`에 없으면 `drops.js`의 `spawnsAt` + 메이플노트 `map_detail` 한글 맵 이름으로 보강
+   - ⑤ `release-filters.json`에 추가 → `build-planet-data.mjs` → tsc/eslint/vitest → 로컬 dev 서버로 실제 렌더링 확인
+2. ~~해외여행(대만 15 / 중국 9 / 태국 6), 루디브리엄 파퀘 3, 마가티아 2~~ → **2026-09-29 완료.** 35종 개방, 노출 519 → **564종**. `scripts/sources/overseas-content.json` 추가, `open-masteria-content.mjs`를 다중 소스 지원으로 일반화.
+   - **빅토리아 7종은 보류** — 스텀피(3220000)는 `release-filters.json` 최초 생성 시점부터 `blockedMobCodes`에 있는데 사유 기록이 없고 메랜닷컴에 동명 3건(3220000/9300185/9500307)이 있다. 분신류 5종(9001000~9001003, 9001008 — 카이린의 분신은 HP가 130,000 vs 70,000으로 2배 차이)과 킹슬라임(9300003, 메랜닷컴 스탯 0/0)도 함께 보류. **여는 김에 스텀피 차단 사유부터 밝힐 것.**
+   - **대만/중국/태국 35종은 출현 맵이 비어 있다** — `monster-spawns.json`에 row는 있으나 `maps`가 빈 배열이고 `drops.js`에도 `spawnsAt`이 없다. 마스테리아 때처럼 외부 소스에서 맵을 확보해야 채울 수 있다.
+   - 같은 작업 중 발견해 고친 것: `map_name`이 레벨 숫자로 들어간 23건 복구, 빈 `maps` 15종 보강 (`scripts/fix-monster-spawns.mjs`). **첫 시도에서 22종에 다른 몬스터의 맵을 넣는 버그가 있었고 외부 리뷰가 잡아냈다** — 파서를 몬스터 객체 경계 안으로 제한해 수정하고 회귀 테스트(`monsterSpawnIntegrity.test.ts`)를 추가했다. 자세한 내용은 DEVLOG 2026-09-29.
+   - [ ] **남은 출현 맵 공백 290종** — 그중 `9500000~9599999` 대역 119종은 `drops.js` `spawnsAt`이 GMS 이벤트 배치로 오염돼 있어 의도적으로 비워뒀다(하프·켄타우로스가 전부 동일한 저레벨 맵 10곳을 가리킴). 신뢰할 수 있는 출처가 생기면 그때 채울 것.
+3. `기타` 97종은 성격이 뒤섞여 있으니(차원의 X 계열, 분신류 등) **마지막에 개별 검토**.
+4. `statMatches: false`인 88종은 우리 수치가 맞는지 먼저 확인하고 열 것.
+
+주의: `release-filters.json`은 `data/` 산출물이지만 `build-planet-data.mjs`가 최초 1회만 복사하고 이후 보존하므로 직접 수정해도 덮어쓰이지 않는다(`--force` 줄 때만 덮어씀). 플래닛 쪽 `data/planet/release-filters.json`은 별도 파일이니 같이 볼 것 — **플래닛에도 이 지역들이 있는지는 미확인**이다(chowayo에 9400546은 404였음).
+
+### 2. 다음 — 갭 [B] 258종
+우리 데이터에 아예 없는 것들. `groupB_needCollection`에 목록이 있다. 무루·티노 계열, 버블티, 마네킹/앰프/CD, 혼테일 머리, 와이번/코니언, 핑크빈 신전 보스(아리엘·현자 솔로몬·현자 렉스·휘긴) 등. 수집은 기존 방식(maplestory.io + `scripts/fetch-missing-monsters.mjs` 패턴)을 따르고, 메랜닷컴은 "메랜에 실존하는지" 판정에만 쓸 것.
+
+### 3. 남은 자잘한 것
+- 영문 몬스터 27종 처리 방향 결정 (아래 "플래닛 데이터 정합성" 절 참고) — 3종은 실존이라 보존, 24종은 제거 가능
+- `I.AM.ROBOT` 인게임 표기 확인 (산비탈) / `Candle Monster`·`1st Anniversary Cake Monster` 확인 (웨딩파크)
+
+---
+
+## 플래닛 데이터 정합성 (2026-09-28 조사)
+
+플래닛 패치노트 9/23까지 전수 확인 + chowayo(플래닛 DB) 대조에서 나온 것들. **EXP는 처리 완료**, 나머지는 남은 액션.
+
+### 처리 완료
+- **플래닛 몬스터 EXP가 실제의 1/4로 표시되던 문제 수정** — `chowayo-measured-exp.json`(526종 실측) 신설, `build-planet-data.mjs`가 `exp`를 덮어쓰도록 변경. 523종 교체됨. 경위는 `data.md` > "chowayo-measured-exp.json" 참고.
+- **화면에 노출되던 영문 이름 전수 제거** — 아이템 22건 한글명 교체 + 한국 서버 미존재 GMS 전용 아이템 55건 드롭 제거 + 몬스터 19종·퀘스트 2건 교정. 노출 영문 0건 달성. `scripts/fix-english-names.mjs`(드라이런 기본·멱등)와 회귀 테스트 `src/lib/__tests__/noEnglishNames.test.ts` 신설. 경위는 `data.md` > "영문 이름 교정" 참고.
+
+### 남은 액션
+- [ ] **HP/레벨 불일치 72종 판단** — 같은 조사에서 EXP 외에 HP 72종·레벨 일부도 chowayo와 어긋남. EXP처럼 명확한 배율 패턴이 아니라 제각각이고(스텀프 45→40, 예티와 코-크텀프 10,000→20,000, 차원의 킹 블록골렘 1,116,000→99,999), 어느 쪽이 맞는지 근거가 부족해 이번엔 **미적용**. 원본 리포트는 조사 세션 scratchpad의 `hp_level_report.json`이었으나 세션 종료 시 사라지므로, 다시 필요하면 chowayo 재스캔할 것.
+- [ ] **⭐⭐ 콘텐츠 갭 381종 — 메랜닷컴(itshim.dev) 대조로 확인 (2026-09-28)**
+  우리 사이트 노출 몬스터는 **497종**인데 메랜닷컴은 **878종**을 수록한다. 둘로 갈린다.
+  - **[A] 바로 열 수 있는 161종** — 우리 `data/monsters.json`에 데이터가 이미 있는데 `release-filter`로만 막혀 있고, 메랜닷컴은 수록 중인 것들. 지역별로 기타 97, 마스테리아 22, 해외여행:대만 15, 해외여행:중국 9, 빅토리아 7, 해외여행:태국 6, 루디브리엄 파퀘 3, 마가티아 2. **필터만 풀면 되는 것이라 투입 대비 효과가 가장 크다.** 다만 드롭·아이콘·스폰맵이 정상인지 종별 확인 필요.
+  - **[B] 신규 수집 258종** — 우리 데이터에 아예 없는 것들. 무루·티노 계열(100120~100134), 버블티 3종, 마네킹·앰프·CD(루디브리엄), 페어리, 네펜데스, 혼테일 머리(8810000·8810001), 와이번/코니언 계열, 핑크빈 신전 보스(아리엘·현자 솔로몬·현자 렉스·휘긴 8820019~8820022) 등.
+  - **주의**: 메랜닷컴 데이터를 그대로 복제해 오는 건 출처·저작권 문제가 있다. **검증·교차대조용으로 쓰고**, 실제 데이터는 우리 파이프라인(maplestory.io 등)으로 채우되 메랜닷컴은 "메랜에 실제 존재하는지" 판정 기준으로 삼는 게 안전하다.
+  - 접근법: 공개 Hasura GraphQL `https://hasura-maple-land.itshim.dev/v1/graphql` (introspection 허용, 인증 불필요). 주요 테이블 `mob_mobs`(878종, id는 문자열로 반환됨에 주의), `item_items`, `map_map_mobs`, `mob_mob_drop_items`, `guide_recommendations`(사냥터 추천). 사이트맵은 item 6235 / npc 1088 / map 1068 / monster 485.
+
+- [ ] **⭐ 마스테리아(뉴 리프 시티 / 크림슨우드) 24종이 통째로 비노출** — 2026-09-28 영문 이름 재조사 중 발견. 메랜은 이 지역을 **실제 서비스 중**인데(공식 공지 "NLC 몰 개방"·"뉴 리프 시티 귀환 주문서", 이벤트 이동경로 "마스테리아:뉴 리프 시티", 메이플노트 `monsternote?foundAt=masteria` 28종 수록, maplab에 산비탈 출현 확인) 우리는 `blockedMobCodeMin=9000000`에 걸려 39종 전부 `release-filter` 비노출이다. 메이플노트와 교차검증해 **24종은 메랜 실존 확실**, 15종(히어론·마르가나 등 크림슨우드 보스류)은 미출시 가능성. 드랍테이블이 사이트 핵심인데 한 지역이 빠져 있는 것이라 **콘텐츠 확장 기회**. 열려면 `data/release-filters.json`의 `allowedMobCodes`에 24종을 넣고 드롭·아이콘·스폰맵이 정상인지 확인할 것. 플래닛에도 마스테리아가 있는지는 별도 확인 필요(chowayo에는 9400546이 404였음).
+- [ ] **영문 몬스터 27종** — 2026-09-28 재조사로 아래와 같이 갈렸다. 회귀 테스트는 비노출분이라 제외한다.
+  - **3종은 메랜에 실존한다**(메이플노트 맵 데이터로 확인) — `9400546 I.AM.ROBOT`(산비탈/Mountain Slopes, 마스테리아, 25마리), `9400506 Candle Monster`·`9400507 1st Anniversary Cake Monster`(둘 다 웨딩파크 680000400, 후자는 36마리). **제거하면 안 되는 몬스터들이다.** 그런데 메이플노트·maplab 등 한국 DB도 이 셋을 영문 그대로 두거나 이름을 아예 표시하지 않는다(같은 목록의 일렉트로펀트·부머는 한글). 즉 번역 누락이 아니라 게임 내 명칭이 영문일 가능성이 높다 — 인게임 확인이 필요하고, 확인되면 영문 그대로가 정답이다. 참고로 같은 웨딩파크를 **플래닛은 `9400513 웨딩캔들`(한글)로 다르게 배치**한다.
+  - **나머지 24종은 GMS 전용 확정.** 출현 맵이 전부 GMS 전용 맵(Purplewood Forest, Purple Plains, Haunted House, Stage 4 - Last Man Standing, NLC 던전)이거나, `spawnsAt`이 더미값 `[2]`라 스폰 자체가 없다(Item Maker/Snowman3/Little Snowman). `Slot Machine`은 쇼와 뒷골목3(801030000) 스폰 데이터가 있지만 메이플노트 해당 맵에는 없다. 한국 DB 5곳(메이플노트·chowayo·maplab·mapledb·maplestory.io 한국 리전), maplestory.io 한국 리전 16개 버전(KMS 11 + KMST 5), 아이콘 스프라이트 해시 대조(한글 몬스터 729종과 0건 일치), 메랜·플래닛 공식 이벤트/공지 전수 스캔, 웹 검색까지 전부 0건. 전원 `region=기타`, maplab 출현맵 0곳. 처리 선택지는 (a) 그대로 둠, (b) 아이템 55건처럼 제거. 목록은 `scripts/sources/monster-korean-names.json`의 `_notInKorea`.
+  - **메랜닷컴(itshim.dev) 확인 결과(2026-09-28)**: 878종 중 27종에서 오직 `9400546`만 수록, 이름은 역시 **`I.AM.ROBOT`**, 출현맵도 `산비탈`로 일치. 메랜 전용 DB인데도 영문을 쓴다는 건 **게임 내 명칭이 실제로 영문**이라는 뜻에 가깝다. 이로써 독립 소스 6곳이 같은 결론.
+  - 왜 어느 사이트에서도 못 찾는지: **한국 DB들이 전부 같은 방식**이다. maplab API의 메타가 `base: GMS/90` + `ko_source: KMS/284`로 이를 직접 보여준다 — GMS 데이터에 KMS 한글명을 매칭하는 구조라, KMS/284에 없는 몬스터는 어느 사이트에서도 영문으로 남는다.
+- [ ] **EXP 적용에서 이름 불일치로 제외된 32종 재검토** — 몬스터 19종 이름을 한글로 고쳤으므로 `chowayo-measured-exp.json`을 재수집하면 상당수가 이름 일치로 바뀌어 EXP까지 반영될 수 있다. `_excluded`에 남아 있는 항목들 중 `차원의 블록골렘` vs `블록골렘`처럼 **진짜 다른 몬스터**인 경우는 계속 제외해야 하니 재수집 후 개별 확인 필요.
+- [ ] **`data/drop-index.json` 재현성 복구** — `npm run build:drop-index` 전체 재빌드가 한글 아이템 669종을 잃고 일부를 영문으로 되돌리는 상태(2026-09-28 확인, `data.md` 상단 경고 참고). 과거 일회성 스크립트 보정분이 빌드 파이프라인에 흡수돼 있지 않은 게 원인. 언젠가 정리해서 "재빌드해도 안전한" 상태로 만들어야 함 — 그전까지는 전체 재빌드 금지.
+- [ ] **chowayo에 없는 109종** — 우리 플래닛 데이터엔 있으나 chowayo에 404. 대부분 `9400538~9400594` 대역(길거리 슬라임, 대식가 구울, 티폰, 빅풋 등 네오시티 계열로 추정). 우리 쪽이 미출시 콘텐츠를 들고 있는 건지 chowayo가 안 다룬 건지 미확인 — `data/planet/release-filters.json`의 "Planet 실제 미출시 경계 수동 검토" TODO와 같은 사안일 수 있음.
+- [ ] **요정학원 엘리넬** — 드롭 데이터가 확인되면 추가. 상세 사유는 `scripts/state/last-patch-check.json` > planet > pendingReview 참고. (2026-09-28 사용자 판단: 드롭 확인될 때까지 대기)
+
+---
+
 ## 2026-09-10 신규 패치 확인
 
 - [ ] **메이플플래닛 "상하이 예원" 신규 지역 반영**

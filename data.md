@@ -63,6 +63,13 @@ npm run fetch:item-detail-by          # 원격 fetch 후 저장
 npm run build:item-detail-by          # HTML → item-detail-by.json
 ```
 
+> ⚠️ **`npm run build:drop-index`(drop-index 전체 재생성)는 함부로 돌리지 말 것.**
+> 2026-09-28에 실행해봤더니 **한글 아이템 669종이 사라지고**, 금쇄봉 → `Aluminum Bat`, 바이올렛 아이젠 → `Violet Snowshoes`처럼
+> 멀쩡하던 한글 이름이 **영문으로 역행**했다. 현재 `data/drop-index.json`은 과거 일회성 스크립트들
+> (`update-balrog-drops` / `add-chaos-horntail` 등)이 얹은 보정분을 포함하고 있어서, 스크립트만으로는 그대로 재현되지 않는 상태다.
+> 드롭 데이터를 손봐야 하면 전체 재생성 대신 **일회성 보정 스크립트**를 쓸 것(아래 "일회성 보스 데이터 보강 스크립트" 참고).
+> 부득이 전체 재빌드를 해야 한다면 먼저 백업하고, 재빌드 전후 items 수와 이름 변화를 반드시 대조할 것.
+
 **플래닛 데이터 자동 재생성**: `build:drop-table-from-dropchance`, `build:drop-index`, `build:item-detail-by`, `fetch:item-detail-by` 4개 스크립트는 `package.json`에서 끝에 `&& node scripts/build-planet-data.mjs`가 체이닝되어 있어 **`npm run build:planet-data`를 따로 실행할 필요 없음** — 메랜 원본(drop-index/item-detail-by)을 재생성하는 어떤 경로로 들어와도 플래닛이 자동으로 같이 갱신됨(2026-07-09, 메랜/플래닛 동기화 누락 재발 방지용으로 추가). 플래닛 데이터만 단독으로 다시 만들고 싶을 때만 `npm run build:planet-data`를 직접 호출.
 
 ---
@@ -86,6 +93,7 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 | `scripts/normalize-skills.mjs` | 스킬 데이터 정규화 |
 | `scripts/parse-drops-js.mjs` | JS 형식 드롭 파싱 |
 | `scripts/build-planet-data.mjs` | 메이플 플래닛 데이터셋 생성 (아래 "메이플 플래닛 데이터 파이프라인" 참고) |
+| `scripts/fix-english-names.mjs` | 영문으로 남은 아이템/몬스터/퀘스트 이름을 한글로 교정 + GMS 전용 아이템 드롭 제거 (아래 "영문 이름 교정" 참고) |
 
 ---
 
@@ -160,6 +168,33 @@ npm run build:item-detail-by          # HTML → item-detail-by.json
 
 발록/카오스 자쿰/카오스 혼테일처럼 특정 몬스터 하나를 스탯/드롭 보강할 때 `scripts/add-chaos-horntail.mjs`, `scripts/update-balrog.mjs`, `scripts/update-balrog-drops.mjs` 같은 **일회성 스크립트**로 `data/monsters.json`/`data/drop-index.json`을 프로그래매틱하게 수정하는 패턴을 씀(직접 편집 금지 규칙 준수). 이미 실행 완료된 스크립트는 재실행하면 중복 반영/역인덱스 꼬임이 날 수 있어(카오스 혼테일 목걸이 중복 드랍 사례 참고, DEVLOG 2026-07-21) **삭제하지 않고 보존하되 재실행 전 스크립트 내용을 먼저 확인**할 것 — 멱등성이 보장된 스크립트가 아님. 실행 후에는 항상 `node scripts/build-planet-data.mjs`로 플래닛 쪽까지 동기화.
 
+### 영문 이름 교정 (`scripts/fix-english-names.mjs`)
+
+`node scripts/fix-english-names.mjs [--apply]` — 드라이런이 기본, `--apply`를 붙여야 실제로 쓴다. **멱등**이라 여러 번 돌려도 안전하다.
+
+한국어 서비스인데 화면에 영문 이름이 뜨던 문제를 고친다. 원인은 이름 결정 순서(`mapledb → drops 메타 → KMS/284 → GMS/200`)에서,
+빅뱅 때 삭제돼 KMS에 대응 항목이 없는 아이템·몬스터가 마지막 GMS 영문까지 폴백하는 것. 실제로 크림슨 발록·파풀라투스·천구·피아누스·에레고스 같은
+인기 보스의 드롭 목록에 `Balrog Claw`, `Papulatus Curl` 같은 게 노출되고 있었다(2026-09-28 발견).
+
+읽는 소스 3개(전부 손수 관리, 자동 재생성 안 됨):
+
+| 파일 | 내용 |
+|---|---|
+| `scripts/sources/item-korean-names.json` | itemId → 한글명 22건. 출처는 메이플노트 클래식 |
+| `scripts/sources/monster-korean-names.json` | mobCode → 한글명 20건. 출처는 메이플노트 클래식(메랜) + chowayo(플래닛) |
+| `scripts/sources/gms-only-items.json` | 한국 서버에 **존재하지 않는** GMS 전용 아이템 55건 — 번역이 아니라 드롭에서 제거 |
+
+고치는 대상은 `data/drop-index.json`, `data/monsters.json`, `data/quests.json`, `src/data/mapledb/questdetail.js` 네 곳.
+실행 후 `node scripts/build-planet-data.mjs`로 플래닛까지 동기화할 것.
+
+**GMS 전용 판정 근거**(3중 확인): 메이플노트 클래식 `item_detail` 404 + chowayo 아이템 페이지에 한글명 없음 + 해당 아이템을 드롭한다고
+우리 데이터에 적힌 몬스터의 실제 드롭 목록(양쪽 DB)에 그 아이템이 없음. 목록 성격도 분명하다 — Roasted Turkey/Cranberry Sauce/Pilgrim Hat(추수감사절),
+Christmas Present box(크리스마스) 등 GMS 이벤트 아이템이다. 즉 번역 누락이 아니라 **애초에 드롭되지 않는 오정보**였다.
+
+`src/lib/__tests__/noEnglishNames.test.ts`가 회귀를 막는다 — 노출되는 몬스터·아이템·퀘스트 이름에 영문이 섞이면 실패한다.
+release-filter로 걸러져 화면에 안 나오는 몬스터 27종(한국 서버에 없는 GMS 이벤트 몹)은 한글명 자체가 없으므로 검사 대상에서 뺐다.
+같은 이유로 `build-drop-index.mjs`에도 위 소스 3개를 물려뒀다 — 언젠가 전체 재빌드를 하게 되면 그때는 자동 반영된다.
+
 ### 몬스터 아이콘 점검 (`scripts/check-mob-icons.mjs`)
 
 `node scripts/check-mob-icons.mjs [--limit N] [--out report.json]` — 출시 필터를 통과한 몬스터의 아이콘을 실제로 받아 **HTTP 상태 + PNG 실제 크기**를 확인한다. maplestory.io는 아이콘이 없는 mobId에도 200 + 1×1 투명 PNG를 돌려줘서 브라우저 `onError`로는 안 잡히기 때문(미믹 8220036 사례). 기본 URL이 실패하면 런타임과 같은 폴백 순서로 시도해 어떤 region/version이 되는지까지 알려준다.
@@ -224,6 +259,7 @@ Planet 쪽에서 손으로 관리하거나 외부에서 받아온 원천 파일�
 | 위치 | 파일 | 성격 |
 |---|---|---|
 | `scripts/sources/planet/` | `divergence-overrides.json` | 손수 관리 설정 파일 (배율/오버라이드/신규 몬스터, 아래 참고) |
+| `scripts/sources/planet/` | `chowayo-measured-exp.json` | 출처: chowayo.com — 플래닛 몬스터 EXP 실측값. 원작 대비 대체로 4배지만 개별 리밸런스가 섞여 있어 배율이 아닌 실측값으로 관리 (아래 참고) |
 | `scripts/sources/planet/` | `monster-attribute-data.js` | 외부 출처(영문) 몬스터 속성(불/얼음/전기/독/성 약점·반감·면역) 데이터 |
 | `scripts/sources/planet/` | `monster-catalog-data.js` | 외부 출처 몬스터 스탯 카탈로그(680종) — 메랜에 없는 몬스터 신규 추가에 사용 |
 | `scripts/sources/planet/` | `map-catalog-data.js` | 출처: maplestory.io — 맵별 몬스터 스폰 정보, 몬스터 `map` 필드 보강에 사용 |
@@ -247,12 +283,28 @@ npm run build:planet-data -- --force   # release-filters.json도 Mapleland 원�
 2. **속성(ele) 보강** — `monster-attribute-data.js`가 있으면 mobCode로 매칭해 몬스터의 `ele` 필드를 채움 (영문 코드 `F/I/L/S/H` + `1/2/3` → 불/얼음/전기/독/성 + 면역/반감/약점으로 디코딩)
 3. **신규 몬스터 추가** — `monster-catalog-data.js`가 있으면, 메랜 원본에 없는 mobCode만 골라 신규 몬스터로 추가 (이미 있는 mobCode는 건드리지 않음 — 스탯 차이가 있어도 검증 없이 덮어쓰지 않기 위함)
 4. **출현 맵(map) 보강** — `map-catalog-data.js`가 있으면 몬스터별 최다 스폰 맵을 `map` 필드에 채움
-5. `divergence-overrides.json`의 `rateMultipliers.dropRate`(기본 4배)를 `drop-index.json`/`item-detail-by.json`의 `prob` 필드에 곱해서 반영 (1.0 초과 시 100%로 clamp)
-6. `monsterOverrides`(mobCode → 필드 오버라이드), `itemOverrides`(itemId → 필드 오버라이드), `newMonsters`(수기 추가 신규 몬스터)를 적용
-7. `cube-data.js`가 있으면 정리해서 `cube-index.json`으로 저장
-8. `data/planet/*.json`에 결과 저장. `release-filters.json`은 최초 1회만 복사 (`--force`로 강제 덮어쓰기 가능)
+5. **EXP 실측값 적용** — `chowayo-measured-exp.json`이 있으면 mobCode로 매칭해 `exp` 필드를 실측값으로 교체 (아래 별도 절 참고)
+6. `divergence-overrides.json`의 `rateMultipliers.dropRate`(기본 4배)를 `drop-index.json`/`item-detail-by.json`의 `prob` 필드에 곱해서 반영 (1.0 초과 시 100%로 clamp)
+7. `monsterOverrides`(mobCode → 필드 오버라이드), `itemOverrides`(itemId → 필드 오버라이드), `newMonsters`(수기 추가 신규 몬스터)를 적용 — **5번보다 뒤에 오는 게 의도된 순서**로, 손수 검증한 `monsterOverrides` 값이 실측값을 이긴다
+8. `cube-data.js`가 있으면 정리해서 `cube-index.json`으로 저장
+9. `data/planet/*.json`에 결과 저장. `release-filters.json`은 최초 1회만 복사 (`--force`로 강제 덮어쓰기 가능)
 
 위 2~4번 단계는 해당 소스 파일이 없으면 조용히 건너뛴다 — 전부 선택적 보강이며 필수 아님.
+
+### `chowayo-measured-exp.json` — 플래닛 EXP 실측값 (손수 관리)
+
+`rateMultipliers.exp`(=4)는 **기록용 상수일 뿐 어디에도 곱해지지 않는다.** 대신 이 파일의 실측값이 `exp` 필드를 직접 덮어쓴다.
+
+배율을 일괄로 곱하지 않는 이유(2026-09-28 전수 조사에서 확인):
+- `monster-catalog-data.js`에서 들어온 일부 몬스터는 **이미 플래닛 4배가 반영된 값**이라, 거기에 또 4를 곱하면 16배가 된다 (조사 시점 기준 259종이 이미 일치 상태였음)
+- 플래닛이 지역별로 개별 리밸런스를 해와서 4배가 아닌 종이 100종 넘게 섞여 있다 (일본·소림사·예원·판타스틱 테마파크 등, 공식 패치노트가 반복적으로 "리워드 조정"을 언급)
+
+수집 방법은 chowayo.com(메이플플래닛 데이터베이스)의 몬스터 상세 페이지 능력치 문장 파싱.
+**안전장치**: chowayo 페이지 `<title>`의 몬스터 이름이 우리 `name`과 일치하는 항목만 수록한다. 같은 mobCode가 서로 다른 몬스터를 가리키는 경우(예: `차원의 블록골렘` vs `블록골렘`, 소환몹 vs 본체)를 배제하기 위함이며, 제외된 항목은 파일 안 `_excluded`에 사유와 함께 남아 있다.
+
+근거 검증: 메랜(메이플노트 클래식)과 원작(maplestory.io GMS/92)의 EXP가 서로 일치함을 확인했고, 우리 플래닛 데이터가 그 원작값을 그대로 쓰고 있어 대부분 실제의 1/4로 표시되던 것이 문제였다. 메랜 쪽 `data/monsters.json`은 원작값이 맞으므로 **건드리지 않는다.**
+
+갱신이 필요하면 scratchpad 스캔 스크립트를 다시 돌려 이 파일을 재생성한 뒤 `npm run build:planet-data`. `_collectedAt`으로 수집 시점을 확인할 것 — 플래닛이 리워드를 계속 조정 중이라 오래된 값은 다시 어긋난다.
 
 ### `divergence-overrides.json` — 손수 관리 설정 파일
 
@@ -260,7 +312,7 @@ npm run build:planet-data -- --force   # release-filters.json도 Mapleland 원�
 
 ```jsonc
 {
-  "rateMultipliers": { "exp": 4, "dropRate": 4, "meso": 2 },
+  "rateMultipliers": { "exp": 4, "dropRate": 4, "meso": 2 },   // exp는 참고용 상수 — 실제 반영은 chowayo-measured-exp.json이 담당
   "dropRateLevelException": { /* 95레벨 미만 + 킬러 레벨차 30↑ 시 보너스 미적용 — config 노브만, 미적용 */ },
   "mesoHalvedMonsterCodes": [],   // 버섯의성/커닝스퀘어/아리안트/마가티아/네오시티 특정 몬스터 메소 절반 예외 — TODO(아래 참고)
   "monsterOverrides": {},          // mobCode -> Monster 필드 일부 오버라이드 (기존 몬스터 수정)

@@ -1,0 +1,3440 @@
+{
+ "_comment": [
+  "2026-09-28 메랜닷컴(itshim.dev) 대조로 확인한 콘텐츠 갭. 내일 작업 재개용 스냅샷 — 재조사 없이 바로 쓸 수 있다.",
+  "우리 사이트 노출 몬스터 497종 vs 메랜닷컴 수록 878종.",
+  "groupA = 우리 data/monsters.json에 이미 있으나 release-filter로 비노출인데 메랜닷컴은 수록 중 → 필터만 풀면 되는 후보.",
+  "groupB = 우리 데이터에 아예 없어 신규 수집이 필요한 몬스터.",
+  "출처 주의: 메랜닷컴 값을 그대로 복제하지 말 것. '메랜에 실제 존재하는지' 판정 기준으로만 쓰고 수치는 우리 파이프라인으로 채운다.",
+  "재현: https://hasura-maple-land.itshim.dev/v1/graphql 에 POST (인증 불필요).",
+  "  query { mob_mobs(limit:500, offset:$o, order_by:{id:asc}) { id name level max_health experience acc evd def m_def elem_attr is_boss } }",
+  "  주의: id가 문자열로 반환되므로 int()로 변환해 비교할 것."
+ ],
+ "_collectedAt": "2026-09-28",
+ "_source": "https://hasura-maple-land.itshim.dev/v1/graphql (메랜닷컴 www.itshim.dev)",
+ "_stats": {
+  "oursVisible": 497,
+  "theirs": 878,
+  "groupA": 161,
+  "groupB": 258
+ },
+ "groupA_unblockCandidates": [
+  {
+   "mobCode": 3220000,
+   "name": "스텀피",
+   "level": 35,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "스텀피",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9000300,
+   "name": "늪지괴물",
+   "level": 35,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "늪지괴물",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9000301,
+   "name": "파란 버섯",
+   "level": 35,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "파란 버섯",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9001000,
+   "name": "주먹펴고 일어서의 분신",
+   "level": 80,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "주먹펴고 일어서의 분신",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9001001,
+   "name": "하인즈의 분신",
+   "level": 80,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "하인즈의 분신",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9001002,
+   "name": "헬레나의 분신",
+   "level": 80,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "헬레나의 분신",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9001003,
+   "name": "다크로드의 분신",
+   "level": 80,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "다크로드의 분신",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9001008,
+   "name": "카이린의 분신",
+   "level": 80,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "카이린의 분신의 분신",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300003,
+   "name": "킹슬라임",
+   "level": 23,
+   "region": "빅토리아 아일랜드",
+   "hasDropData": true,
+   "theirName": "킹슬라임",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300005,
+   "name": "차원의 라츠",
+   "level": 32,
+   "region": "루디브리엄 파퀘",
+   "hasDropData": true,
+   "theirName": "차원의 라츠",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300008,
+   "name": "차원의 쉐도우아이",
+   "level": 43,
+   "region": "루디브리엄 파퀘",
+   "hasDropData": true,
+   "theirName": "차원의 쉐도우아이",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300010,
+   "name": "차원의 롬바드",
+   "level": 36,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "차원의 롬바드",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300012,
+   "name": "알리샤르",
+   "level": 38,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "알리샤르",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300013,
+   "name": "차원의 킹 블록골렘",
+   "level": 200,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "차원의 킹 블록골렘",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300014,
+   "name": "차원의 다크아이",
+   "level": 43,
+   "region": "루디브리엄 파퀘",
+   "hasDropData": true,
+   "theirName": "차원의 다크아이",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300033,
+   "name": "주니어 가고일",
+   "level": 62,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "주니어 가고일",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300039,
+   "name": "파파픽시",
+   "level": 58,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "파파픽시",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300040,
+   "name": "여신 탑의 샐리온",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 샐리온",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300041,
+   "name": "여신 탑의 샐리온",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 샐리온",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300042,
+   "name": "여신 탑의 그류핀",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 그류핀",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300043,
+   "name": "여신 탑의 라이오너",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 라이오너",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300048,
+   "name": "여신 탑의 네펜데스",
+   "level": 53,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 네펜데스",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300049,
+   "name": "여신 탑의 로얄 네펜데스",
+   "level": 53,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 로얄 네펜데스",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300051,
+   "name": "여신 탑의 주니어 샐리온",
+   "level": 53,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 주니어 샐리온",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300052,
+   "name": "여신 탑의 주니어 라이오너",
+   "level": 53,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 주니어 라이오너",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300053,
+   "name": "여신 탑의 주니어 그류핀",
+   "level": 53,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 주니어 그류핀",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300057,
+   "name": "여신 탑의 샐리온",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여신 탑의 샐리온",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300060,
+   "name": "아이언호그",
+   "level": 42,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "아이언 호그",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300065,
+   "name": "동굴 그린 코니언1",
+   "level": 100,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 그린 코니언1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300066,
+   "name": "동굴 그린 코니언2",
+   "level": 100,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 그린 코니언2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300067,
+   "name": "동굴 다크 코니언1",
+   "level": 105,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 다크 코니언1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300068,
+   "name": "동굴 다크 코니언2",
+   "level": 105,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 다크 코니언2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300069,
+   "name": "동굴 레드 와이번1",
+   "level": 97,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 레드 와이번1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300070,
+   "name": "동굴 레드 와이번2",
+   "level": 97,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 레드 와이번2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300071,
+   "name": "동굴 블루 와이번1",
+   "level": 101,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 블루 와이번1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300072,
+   "name": "동굴 블루 와이번2",
+   "level": 101,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 블루 와이번2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300073,
+   "name": "동굴 다크 와이번1",
+   "level": 103,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 다크 와이번1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300074,
+   "name": "동굴 다크 와이번2",
+   "level": 103,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 다크 와이번2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300075,
+   "name": "동굴 스켈레곤1",
+   "level": 110,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 스켈레곤1",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300076,
+   "name": "동굴 스켈레곤2",
+   "level": 110,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 스켈레곤2",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300077,
+   "name": "동굴 T-스켈래곤",
+   "level": 113,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 T-스켈래곤",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300078,
+   "name": "동굴 뉴트주니어",
+   "level": 105,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 뉴트주니어",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300079,
+   "name": "동굴 네스트골렘",
+   "level": 110,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "동굴 네스트골렘",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300086,
+   "name": "속성의 타나토스",
+   "level": 108,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "속성의 타나토스",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300094,
+   "name": "납치범 크림슨 발록",
+   "level": 100,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "납치범 크림슨 발록",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300097,
+   "name": "일그러진 차원의 망둥이",
+   "level": 85,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "일그러진 차원의 망둥이",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300098,
+   "name": "일그러진 차원의 본피쉬",
+   "level": 92,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "일그러진 차원의 본피쉬",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300099,
+   "name": "일그러진 차원의 샤크",
+   "level": 100,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "일그러진 차원의 샤크",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300100,
+   "name": "속성의 타나토스",
+   "level": 108,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "속성의 타나토스",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300102,
+   "name": "호위용 멧돼지",
+   "level": 70,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "호위용 멧돼지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300105,
+   "name": "화난 데비존",
+   "level": 68,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "화난 데비존",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300106,
+   "name": "분노한 데비존",
+   "level": 70,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "분노한 데비존",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300108,
+   "name": "데비존의 단지",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 단지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300109,
+   "name": "데비존의 삼단지",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 삼단지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300110,
+   "name": "데비존의 도라지",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 도라지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300111,
+   "name": "데비존의 늙은 도라지 ",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 늙은 도라지",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300112,
+   "name": "데비존의 100년 된 도라지",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 100년 된 도라지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300113,
+   "name": "데비존의 100년 된 늙은 도라지",
+   "level": 61,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 100년 된 늙은 도라지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300114,
+   "name": "데비존의 사나운 게비알",
+   "level": 63,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 사나운 게비알",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300115,
+   "name": "데비존의 사나운 크루",
+   "level": 63,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 사나운 크루",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300116,
+   "name": "데비존의 사나운 캡틴",
+   "level": 63,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 사나운 캡틴",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300117,
+   "name": "데비존의 심복 크루",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 심복 크루",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300118,
+   "name": "데비존의 심복 캡틴",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 심복 캡틴",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300119,
+   "name": "데비존",
+   "level": 67,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300120,
+   "name": "데비존의 더 사나운 게비알",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 더 사나운 게비알",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300121,
+   "name": "데비존의 더 사나운 크루 ",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 더 사나운 크루",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300122,
+   "name": "데비존의 더 사나운 캡틴",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 더 사나운 캡틴",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300123,
+   "name": "데비존의 게비알",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 게비알",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300124,
+   "name": "데비존의 크루",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 크루",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300125,
+   "name": "데비존의 캡틴",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 캡틴",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300126,
+   "name": "데비존의 사나운 삼단지",
+   "level": 65,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존의 사나운 삼단지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300133,
+   "name": "로보토이",
+   "level": 30,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "로보토이",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300136,
+   "name": "롬바드",
+   "level": 30,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "롬바드",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9300139,
+   "name": "프랑켄 로이드",
+   "level": 81,
+   "region": "마가티아",
+   "hasDropData": true,
+   "theirName": "프랑켄로이드",
+   "nameMatches": false,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9300140,
+   "name": "화난 프랑켄 로이드",
+   "level": 84,
+   "region": "마가티아",
+   "hasDropData": true,
+   "theirName": "화난 프랑켄로이드",
+   "nameMatches": false,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400100,
+   "name": "수하A",
+   "level": 166,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "수하 A",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400101,
+   "name": "수하B",
+   "level": 166,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "수하 B",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400102,
+   "name": "수하C",
+   "level": 167,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "수하 C",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400103,
+   "name": "수하D",
+   "level": 167,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "수하 D",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400110,
+   "name": "간부A",
+   "level": 168,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "간부 A",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400111,
+   "name": "간부B",
+   "level": 168,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "간부 B",
+   "nameMatches": false,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400120,
+   "name": "두목",
+   "level": 168,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "두목",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400121,
+   "name": "여두목",
+   "level": 170,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "여두목",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400122,
+   "name": "두목",
+   "level": 170,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "두목",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400204,
+   "name": "레드 슬라임",
+   "level": 55,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "레드 슬라임",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400513,
+   "name": "웨딩캔들",
+   "level": 10,
+   "region": "기타",
+   "hasDropData": false,
+   "theirName": "웨딩캔들",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9400538,
+   "name": "길거리 슬라임",
+   "level": 19,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "길거리 슬라임",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400539,
+   "name": "도심가 버섯",
+   "level": 21,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "도심가 버섯",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400540,
+   "name": "킬라 비",
+   "level": 25,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "킬라 비",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400542,
+   "name": "파이어 터스크",
+   "level": 36,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "파이어 터스크",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400543,
+   "name": "일렉트로펀트",
+   "level": 41,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "일렉트로펀트",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400544,
+   "name": "그리폰",
+   "level": 50,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "그리폰",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400545,
+   "name": "울프 스파이더",
+   "level": 80,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "울프 스파이더",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400546,
+   "name": "I.AM.ROBOT",
+   "level": 44,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "I.AM.ROBOT",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400547,
+   "name": "부머",
+   "level": 27,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "부머",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400548,
+   "name": "마이티 메이플 이터",
+   "level": 30,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "마이티 메이플 이터",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400549,
+   "name": "머리없는 기수",
+   "level": 101,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "머리없는 기수",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400573,
+   "name": "아기 티폰",
+   "level": 10,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "아기 티폰",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400574,
+   "name": "티폰",
+   "level": 100,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": false,
+   "theirName": "티폰",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400575,
+   "name": "빅풋",
+   "level": 110,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "빅풋",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400576,
+   "name": "윈드레이더",
+   "level": 70,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": false,
+   "theirName": "윈드레이더",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400577,
+   "name": "파이어브랜드",
+   "level": 90,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": false,
+   "theirName": "파이어브랜드",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400579,
+   "name": "나이트섀도우",
+   "level": 100,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "나이트섀도우",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400580,
+   "name": "엘더레이스",
+   "level": 95,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "엘더레이스",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400581,
+   "name": "스톰브레이커",
+   "level": 80,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "스톰브레이커",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400582,
+   "name": "크림슨 가디언",
+   "level": 120,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": true,
+   "theirName": "크림슨 가디언",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400586,
+   "name": "크림슨 트리",
+   "level": 50,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": false,
+   "theirName": "크림슨 트리",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9400588,
+   "name": "팬텀 트리",
+   "level": 50,
+   "region": "마스테리아(뉴리프시티)",
+   "hasDropData": false,
+   "theirName": "팬텀 트리",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410000,
+   "name": "들개",
+   "level": 23,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "들개",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410001,
+   "name": "멋쟁이 들개",
+   "level": 25,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "멋쟁이 들개",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410002,
+   "name": "험악한 들개",
+   "level": 42,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "험악한 들개",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410003,
+   "name": "광대 원숭이",
+   "level": 40,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "광대 원숭이",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410004,
+   "name": "폭주족 원숭이",
+   "level": 47,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "폭주족 원숭이",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410005,
+   "name": "레드 버블티",
+   "level": 38,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "레드 버블티",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410006,
+   "name": "옐로우 버블티",
+   "level": 38,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "옐로우 버블티",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410007,
+   "name": "그린 버블티",
+   "level": 38,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "그린 버블티",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410008,
+   "name": "예티 인형자판기",
+   "level": 50,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "예티 인형자판기",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410009,
+   "name": "예티 인형",
+   "level": 36,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "예티 인형",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410010,
+   "name": "주니어페페 인형자판기",
+   "level": 50,
+   "region": "해외여행: 대만",
+   "hasDropData": false,
+   "theirName": "주니어페페 인형자판기",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410011,
+   "name": "주니어페페 인형",
+   "level": 36,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "주니어페페 인형",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410012,
+   "name": "인형자판기",
+   "level": 60,
+   "region": "해외여행: 대만",
+   "hasDropData": false,
+   "theirName": "인형자판기",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410013,
+   "name": "인형뽑기 기계",
+   "level": 60,
+   "region": "해외여행: 대만",
+   "hasDropData": true,
+   "theirName": "인형뽑기 기계",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9410014,
+   "name": "포장마차",
+   "level": 85,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "포장마차",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9410015,
+   "name": "포장마차(변신 후)",
+   "level": 85,
+   "region": "해외여행: 대만",
+   "hasDropData": false,
+   "theirName": "포장마차",
+   "nameMatches": false,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9420000,
+   "name": "두꺼비",
+   "level": 28,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "두꺼비",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9420001,
+   "name": "개구리",
+   "level": 8,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "개구리",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9420002,
+   "name": "구렁이",
+   "level": 60,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "구렁이",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9420003,
+   "name": "빨간 도마뱀",
+   "level": 40,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "빨간 도마뱀",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9420004,
+   "name": "노란 도마뱀",
+   "level": 25,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "노란 도마뱀",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9420005,
+   "name": "흰 닭",
+   "level": 15,
+   "region": "해외여행: 태국",
+   "hasDropData": true,
+   "theirName": "흰 닭",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500130,
+   "name": "파란 왕도깨비",
+   "level": 70,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "파란 왕도깨비",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500144,
+   "name": "코-크 달팽이",
+   "level": 10,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크 달팽이",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500145,
+   "name": "코-크 씰",
+   "level": 38,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크 씰",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500146,
+   "name": "플레이 씰",
+   "level": 42,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "플레이 씰",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500147,
+   "name": "예티와 코-크텀프",
+   "level": 70,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "예티와 코-크텀프",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500148,
+   "name": "이글루 터틀",
+   "level": 45,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "이글루 터틀",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500149,
+   "name": "코-크 골렘",
+   "level": 50,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크 골렘",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500150,
+   "name": "아이스 골렘",
+   "level": 60,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "아이스 골렘",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500151,
+   "name": "코-크 슬라임",
+   "level": 15,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크 슬라임",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500152,
+   "name": "코-크 버섯",
+   "level": 20,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크 버섯",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500153,
+   "name": "코-크텀프",
+   "level": 25,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크텀프",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500154,
+   "name": "코-크텀프 라이트",
+   "level": 30,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "코-크텀프 라이트",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500167,
+   "name": "황금돼지",
+   "level": 10,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "황금돼지",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9500168,
+   "name": "킹슬라임",
+   "level": 20,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "킹슬라임",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500170,
+   "name": "파파 픽시",
+   "level": 45,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "파파 픽시",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500172,
+   "name": "알리샤르",
+   "level": 50,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "알리샤르",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500173,
+   "name": "그리프",
+   "level": 80,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "그리프",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500174,
+   "name": "마뇽",
+   "level": 80,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "마뇽",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500175,
+   "name": "데비존",
+   "level": 60,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "데비존",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500176,
+   "name": "블루 머쉬맘",
+   "level": 60,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "블루 머쉬맘",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500179,
+   "name": "포장마차(변신후)",
+   "level": 40,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "포장마차(변신후)",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9500400,
+   "name": "박",
+   "level": 1,
+   "region": "기타",
+   "hasDropData": true,
+   "theirName": "박",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600001,
+   "name": "닭",
+   "level": 20,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "닭",
+   "nameMatches": true,
+   "statMatches": false
+  },
+  {
+   "mobCode": 9600002,
+   "name": "오리",
+   "level": 22,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "오리",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600003,
+   "name": "양",
+   "level": 25,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "양",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600004,
+   "name": "염소",
+   "level": 30,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "염소",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600005,
+   "name": "흑염소",
+   "level": 35,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "흑염소",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600006,
+   "name": "소",
+   "level": 33,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "소",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600007,
+   "name": "쟁기소",
+   "level": 38,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "쟁기소",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600008,
+   "name": "검은 양",
+   "level": 37,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "검은 양",
+   "nameMatches": true,
+   "statMatches": true
+  },
+  {
+   "mobCode": 9600009,
+   "name": "대왕지네",
+   "level": 50,
+   "region": "해외여행: 중국",
+   "hasDropData": true,
+   "theirName": "대왕지네",
+   "nameMatches": true,
+   "statMatches": true
+  }
+ ],
+ "groupB_needCollection": [
+  {
+   "mobCode": 100120,
+   "theirName": "티노",
+   "level": 1,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100121,
+   "theirName": "티브",
+   "level": 3,
+   "maxHP": 25,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100122,
+   "theirName": "티무",
+   "level": 5,
+   "maxHP": 50,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100123,
+   "theirName": "티루",
+   "level": 7,
+   "maxHP": 80,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100124,
+   "theirName": "티구르",
+   "level": 9,
+   "maxHP": 110,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100130,
+   "theirName": "무루",
+   "level": 1,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100131,
+   "theirName": "무루파",
+   "level": 3,
+   "maxHP": 25,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100132,
+   "theirName": "무루피아",
+   "level": 5,
+   "maxHP": 50,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100133,
+   "theirName": "무루무루",
+   "level": 7,
+   "maxHP": 80,
+   "isBoss": false
+  },
+  {
+   "mobCode": 100134,
+   "theirName": "무루쿤",
+   "level": 9,
+   "maxHP": 110,
+   "isBoss": false
+  },
+  {
+   "mobCode": 820008,
+   "theirName": "후회의 수호대장",
+   "level": 116,
+   "maxHP": 300000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 1140130,
+   "theirName": "히죽대는 고스텀프",
+   "level": 24,
+   "maxHP": 495,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3000002,
+   "theirName": "페어리",
+   "level": 30,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3000003,
+   "theirName": "페어리",
+   "level": 30,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3000004,
+   "theirName": "페어리",
+   "level": 30,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3230301,
+   "theirName": "주니어 부기",
+   "level": 35,
+   "maxHP": 1700,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3300000,
+   "theirName": "변절자 스포아",
+   "level": 30,
+   "maxHP": 1800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3300001,
+   "theirName": "독버섯",
+   "level": 31,
+   "maxHP": 1980,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3300002,
+   "theirName": "중독된 돼지",
+   "level": 32,
+   "maxHP": 2200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3300003,
+   "theirName": "투구 페페",
+   "level": 33,
+   "maxHP": 2400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3300004,
+   "theirName": "친위대 페페",
+   "level": 34,
+   "maxHP": 2600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400000,
+   "theirName": "체리맛 버블티",
+   "level": 37,
+   "maxHP": 3200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400001,
+   "theirName": "망고맛 버블티",
+   "level": 38,
+   "maxHP": 3400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400002,
+   "theirName": "멜론맛 버블티",
+   "level": 39,
+   "maxHP": 3600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400003,
+   "theirName": "예티인형 뽑기 기계",
+   "level": 40,
+   "maxHP": 3800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400005,
+   "theirName": "주니어페페인형 뽑기 기계",
+   "level": 40,
+   "maxHP": 3800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 3400007,
+   "theirName": "변신 인형뽑기 기계",
+   "level": 41,
+   "maxHP": 4000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4130104,
+   "theirName": "다크 네펜데스",
+   "level": 47,
+   "maxHP": 2700,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4220001,
+   "theirName": "세르프",
+   "level": 45,
+   "maxHP": 2550,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4230122,
+   "theirName": "네펜데스",
+   "level": 42,
+   "maxHP": 2100,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300000,
+   "theirName": "블루 퍼퓸",
+   "level": 42,
+   "maxHP": 1,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300002,
+   "theirName": "옐로우 퍼퓸",
+   "level": 42,
+   "maxHP": 1,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300004,
+   "theirName": "핑크 퍼퓸",
+   "level": 42,
+   "maxHP": 1,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300006,
+   "theirName": "아이 마네킹",
+   "level": 43,
+   "maxHP": 4400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300007,
+   "theirName": "여자 마네킹",
+   "level": 44,
+   "maxHP": 4600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300008,
+   "theirName": "남자 마네킹",
+   "level": 45,
+   "maxHP": 4800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300009,
+   "theirName": "최신곡 CD",
+   "level": 46,
+   "maxHP": 5040,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300010,
+   "theirName": "흘러간 가요 CD",
+   "level": 47,
+   "maxHP": 5280,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300011,
+   "theirName": "싸구려 앰프",
+   "level": 48,
+   "maxHP": 5520,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300012,
+   "theirName": "고급 앰프",
+   "level": 49,
+   "maxHP": 5760,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300014,
+   "theirName": "흘러간 가요 CD",
+   "level": 50,
+   "maxHP": 6000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300015,
+   "theirName": "싸구려 앰프",
+   "level": 50,
+   "maxHP": 6000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 4300016,
+   "theirName": "고급 앰프",
+   "level": 50,
+   "maxHP": 6000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 5100001,
+   "theirName": "주니어 예티",
+   "level": 50,
+   "maxHP": 3700,
+   "isBoss": false
+  },
+  {
+   "mobCode": 5130106,
+   "theirName": "다크 주니어 예티",
+   "level": 56,
+   "maxHP": 4400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 5220001,
+   "theirName": "킹크랑",
+   "level": 55,
+   "maxHP": 4000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 7130602,
+   "theirName": "가시덤불",
+   "level": 76,
+   "maxHP": 8000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8190001,
+   "theirName": "뉴트주니어",
+   "level": 105,
+   "maxHP": 68000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8500000,
+   "theirName": "시간의 구",
+   "level": 100,
+   "maxHP": 16000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810000,
+   "theirName": "혼테일의 왼쪽머리",
+   "level": 160,
+   "maxHP": 330000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810001,
+   "theirName": "혼테일의 오른쪽 머리",
+   "level": 160,
+   "maxHP": 330000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810019,
+   "theirName": "레드 와이번",
+   "level": 97,
+   "maxHP": 53000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810020,
+   "theirName": "블루 와이번",
+   "level": 101,
+   "maxHP": 57000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810021,
+   "theirName": "다크 와이번",
+   "level": 103,
+   "maxHP": 80000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810022,
+   "theirName": "그린 코니언",
+   "level": 100,
+   "maxHP": 56000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8810023,
+   "theirName": "다크 코니언",
+   "level": 105,
+   "maxHP": 67000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8820019,
+   "theirName": "아리엘",
+   "level": 180,
+   "maxHP": 600000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8820020,
+   "theirName": "현자 솔로몬",
+   "level": 180,
+   "maxHP": 300000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8820021,
+   "theirName": "현자 렉스",
+   "level": 180,
+   "maxHP": 300000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8820022,
+   "theirName": "휘긴",
+   "level": 180,
+   "maxHP": 400000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 8820023,
+   "theirName": "무닌",
+   "level": 180,
+   "maxHP": 400000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9001004,
+   "theirName": "카이린의 분신",
+   "level": 80,
+   "maxHP": 130000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9001005,
+   "theirName": "파이렛옥토",
+   "level": 35,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9001006,
+   "theirName": "파이렛옥토",
+   "level": 35,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9001007,
+   "theirName": "수련용 허수아비",
+   "level": 35,
+   "maxHP": 800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9001014,
+   "theirName": "폭주한 마하",
+   "level": 100,
+   "maxHP": 2000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100000,
+   "theirName": "슈퍼 슬라임",
+   "level": 200,
+   "maxHP": 9999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100001,
+   "theirName": "슈퍼 주니어 네키",
+   "level": 200,
+   "maxHP": 9999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100002,
+   "theirName": "슈퍼 스티지",
+   "level": 200,
+   "maxHP": 9999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100003,
+   "theirName": "울트라 주니어 네키",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100004,
+   "theirName": "울트라 주니어 네키",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100005,
+   "theirName": "슈퍼 트릭스터",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100006,
+   "theirName": "슈퍼 그린 트릭스터",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100007,
+   "theirName": "슈퍼 리본돼지",
+   "level": 200,
+   "maxHP": 9999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100008,
+   "theirName": "울트라 코-크 달팽이",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100009,
+   "theirName": "울트라 코-크 달팽이",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100010,
+   "theirName": "슈퍼 검은 양",
+   "level": 200,
+   "maxHP": 99999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9100013,
+   "theirName": "아딘의 분신",
+   "level": 30,
+   "maxHP": 8000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9200015,
+   "theirName": "브라운테니",
+   "level": 30,
+   "maxHP": 950,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9200018,
+   "theirName": "주니어 예티",
+   "level": 50,
+   "maxHP": 3700,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9200020,
+   "theirName": "예티와 페페",
+   "level": 78,
+   "maxHP": 20000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9200021,
+   "theirName": "예티",
+   "level": 65,
+   "maxHP": 11000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300004,
+   "theirName": "미믹",
+   "level": 54,
+   "maxHP": 4100,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300009,
+   "theirName": "차원의 블록골렘",
+   "level": 40,
+   "maxHP": 6500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300015,
+   "theirName": "크로노스",
+   "level": 37,
+   "maxHP": 2750,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300016,
+   "theirName": "플래툰 크로노스",
+   "level": 41,
+   "maxHP": 3050,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300017,
+   "theirName": "마스터 크로노스",
+   "level": 46,
+   "maxHP": 3600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300034,
+   "theirName": "미스트 나이트",
+   "level": 66,
+   "maxHP": 20000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300035,
+   "theirName": "주니어 가고일",
+   "level": 62,
+   "maxHP": 15000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300036,
+   "theirName": "블랙 나이트",
+   "level": 66,
+   "maxHP": 22000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300037,
+   "theirName": "미스트 나이트",
+   "level": 66,
+   "maxHP": 22000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300038,
+   "theirName": "고스트픽시",
+   "level": 59,
+   "maxHP": 9000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300044,
+   "theirName": "여신 탑의 루이넬",
+   "level": 65,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300045,
+   "theirName": "여신 탑의 루나픽시",
+   "level": 54,
+   "maxHP": 6600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300046,
+   "theirName": "여신 탑의 스타픽시",
+   "level": 53,
+   "maxHP": 6300,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300047,
+   "theirName": "여신 탑의 러스터픽시",
+   "level": 56,
+   "maxHP": 7200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300050,
+   "theirName": "플라잉 부기",
+   "level": 60,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300054,
+   "theirName": "여신 탑의 루나픽시(보스 소환용)",
+   "level": 54,
+   "maxHP": 6600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300055,
+   "theirName": "여신 탑의 스타픽시(보스 소환용)",
+   "level": 53,
+   "maxHP": 6300,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300056,
+   "theirName": "여신 탑의 러스터픽시(보스 소환용)",
+   "level": 56,
+   "maxHP": 7200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300062,
+   "theirName": "플라이아이",
+   "level": 8,
+   "maxHP": 80,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300063,
+   "theirName": "스티지",
+   "level": 6,
+   "maxHP": 60,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300064,
+   "theirName": "도깨비불",
+   "level": 11,
+   "maxHP": 155,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300080,
+   "theirName": "크루",
+   "level": 68,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300081,
+   "theirName": "플라이아이",
+   "level": 8,
+   "maxHP": 80,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300082,
+   "theirName": "스티지",
+   "level": 6,
+   "maxHP": 60,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300083,
+   "theirName": "도깨비불",
+   "level": 11,
+   "maxHP": 155,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300084,
+   "theirName": "죽음의 공포",
+   "level": 43,
+   "maxHP": 6500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300085,
+   "theirName": "이계의 주니어 발록",
+   "level": 80,
+   "maxHP": 50000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300087,
+   "theirName": "돌진 타우로스피어",
+   "level": 75,
+   "maxHP": 18000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300088,
+   "theirName": "다크로드의 제자",
+   "level": 80,
+   "maxHP": 120000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300089,
+   "theirName": "피닉스",
+   "level": 120,
+   "maxHP": 1350000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300090,
+   "theirName": "프리저",
+   "level": 120,
+   "maxHP": 1350000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300091,
+   "theirName": "어둠의 머슬스톤",
+   "level": 200,
+   "maxHP": 9999999,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300092,
+   "theirName": "잊혀진 신전의 주니어 발록",
+   "level": 80,
+   "maxHP": 50000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300093,
+   "theirName": "타일러스",
+   "level": 30,
+   "maxHP": 100000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300095,
+   "theirName": "납치범 라이칸스로프",
+   "level": 80,
+   "maxHP": 19000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300096,
+   "theirName": "검은 켄타우로스",
+   "level": 88,
+   "maxHP": 37000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300101,
+   "theirName": "길들일 수 있는 멧돼지",
+   "level": 70,
+   "maxHP": 200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300103,
+   "theirName": "바나드 그레이",
+   "level": 70,
+   "maxHP": 4500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300104,
+   "theirName": "제타 그레이",
+   "level": 70,
+   "maxHP": 4500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300107,
+   "theirName": "엿보는 데비존",
+   "level": 70,
+   "maxHP": 300000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300137,
+   "theirName": "줄리엣",
+   "level": 70,
+   "maxHP": 30000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300138,
+   "theirName": "로미오",
+   "level": 70,
+   "maxHP": 30000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300141,
+   "theirName": "폐쇄된 연구실의 호문",
+   "level": 65,
+   "maxHP": 11000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300142,
+   "theirName": "숨겨진 연구실의 호문쿨루",
+   "level": 73,
+   "maxHP": 15500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300143,
+   "theirName": "강화된 아이언 뮤테",
+   "level": 73,
+   "maxHP": 20000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300144,
+   "theirName": "강화된 미스릴 뮤테",
+   "level": 47,
+   "maxHP": 23000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300145,
+   "theirName": "호문",
+   "level": 74,
+   "maxHP": 33000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300146,
+   "theirName": "사이티",
+   "level": 76,
+   "maxHP": 38000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300147,
+   "theirName": "호문쿨루",
+   "level": 77,
+   "maxHP": 20000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300148,
+   "theirName": "네오 휴로이드",
+   "level": 79,
+   "maxHP": 24000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300149,
+   "theirName": "로이드",
+   "level": 78,
+   "maxHP": 29000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300150,
+   "theirName": "네오 휴로이드",
+   "level": 80,
+   "maxHP": 35000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300151,
+   "theirName": "프랑켄로이드",
+   "level": 81,
+   "maxHP": 660000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300152,
+   "theirName": "화난 프랑켄로이드",
+   "level": 84,
+   "maxHP": 850000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300153,
+   "theirName": "방해물 뮤테",
+   "level": 62,
+   "maxHP": 7500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300154,
+   "theirName": "실험용 네오 휴로이드",
+   "level": 58,
+   "maxHP": 5600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300156,
+   "theirName": "검은 마법사의 수하",
+   "level": 10,
+   "maxHP": 300,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300157,
+   "theirName": "스콜피언",
+   "level": 25,
+   "maxHP": 1200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300158,
+   "theirName": "카이린",
+   "level": 120,
+   "maxHP": 100000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300159,
+   "theirName": "카이린",
+   "level": 120,
+   "maxHP": 100000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300160,
+   "theirName": "청화사",
+   "level": 45,
+   "maxHP": 2550,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300161,
+   "theirName": "홍화사",
+   "level": 45,
+   "maxHP": 2550,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300162,
+   "theirName": "델리",
+   "level": 55,
+   "maxHP": 95000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300163,
+   "theirName": "묘선",
+   "level": 120,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300164,
+   "theirName": "비급",
+   "level": 120,
+   "maxHP": 28000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300165,
+   "theirName": "원공",
+   "level": 120,
+   "maxHP": 21000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300166,
+   "theirName": "폭탄",
+   "level": 35,
+   "maxHP": 10000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300169,
+   "theirName": "차원의 라츠",
+   "level": 32,
+   "maxHP": 3700,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300170,
+   "theirName": "차원의 블랙라츠",
+   "level": 34,
+   "maxHP": 4300,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300171,
+   "theirName": "차원의 블록퍼스",
+   "level": 35,
+   "maxHP": 4900,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300172,
+   "theirName": "중독된 트리로드",
+   "level": 62,
+   "maxHP": 10500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300173,
+   "theirName": "중독된 스톤버그",
+   "level": 65,
+   "maxHP": 12500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300174,
+   "theirName": "포이즌 플라워",
+   "level": 65,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300175,
+   "theirName": "중독된 스프라이트",
+   "level": 55,
+   "maxHP": 8500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300176,
+   "theirName": "멀쩡한 스프라이트",
+   "level": 65,
+   "maxHP": 720000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300177,
+   "theirName": "더 중독된 트리로드",
+   "level": 75,
+   "maxHP": 930000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300178,
+   "theirName": "더 중독된 스톤버그",
+   "level": 85,
+   "maxHP": 1350000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300179,
+   "theirName": "더 중독된 스프라이트",
+   "level": 65,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300180,
+   "theirName": "포이즌 골렘",
+   "level": 30,
+   "maxHP": 10000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300181,
+   "theirName": "강화형 포이즌 골렘",
+   "level": 65,
+   "maxHP": 12500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300182,
+   "theirName": "초강화형 포이즌 골렘",
+   "level": 62,
+   "maxHP": 10500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300183,
+   "theirName": "보스 몬스터 퇴치 체크용 투명 몬스터",
+   "level": 65,
+   "maxHP": 12500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300184,
+   "theirName": "마노",
+   "level": 65,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300185,
+   "theirName": "스텀피",
+   "level": 55,
+   "maxHP": 8500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300186,
+   "theirName": "데우",
+   "level": 55,
+   "maxHP": 8500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300187,
+   "theirName": "킹슬라임",
+   "level": 65,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300188,
+   "theirName": "대왕지네",
+   "level": 65,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300189,
+   "theirName": "파우스트",
+   "level": 65,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300190,
+   "theirName": "킹크랑",
+   "level": 65,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300192,
+   "theirName": "알리샤르",
+   "level": 65,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300193,
+   "theirName": "타이머",
+   "level": 55,
+   "maxHP": 8500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300194,
+   "theirName": "다일",
+   "level": 55,
+   "maxHP": 8500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300274,
+   "theirName": "시니컬한 주황버섯",
+   "level": 11,
+   "maxHP": 150,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300328,
+   "theirName": "튜토리얼 티노",
+   "level": 1,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300409,
+   "theirName": "훈련로봇A",
+   "level": 0,
+   "maxHP": 0,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300411,
+   "theirName": "훈련로봇C",
+   "level": 12,
+   "maxHP": 525,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9300412,
+   "theirName": "훈련로봇 0",
+   "level": 13,
+   "maxHP": 180,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9400408,
+   "theirName": "두꺼비 영주",
+   "level": 180,
+   "maxHP": 620000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9400584,
+   "theirName": "레프러콘",
+   "level": 45,
+   "maxHP": 45,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9400620,
+   "theirName": "Strange Dark Stump",
+   "level": 10,
+   "maxHP": 250,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9400657,
+   "theirName": "Strange Green Mushroom",
+   "level": 15,
+   "maxHP": 250,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9409000,
+   "theirName": "튜토리얼Mob1",
+   "level": 1,
+   "maxHP": 8,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9409001,
+   "theirName": "튜토리얼Mob2",
+   "level": 1,
+   "maxHP": 8,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9410780,
+   "theirName": "小狗仔",
+   "level": 200,
+   "maxHP": 14880000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9410781,
+   "theirName": "帥氣狗仔",
+   "level": 205,
+   "maxHP": 17324600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9410782,
+   "theirName": "凶狠狗仔",
+   "level": 210,
+   "maxHP": 19933200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9410783,
+   "theirName": "小丑猴",
+   "level": 210,
+   "maxHP": 19933200,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500133,
+   "theirName": "예티와 페페",
+   "level": 78,
+   "maxHP": 20000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500143,
+   "theirName": "코-크 돼지",
+   "level": 35,
+   "maxHP": 1400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500155,
+   "theirName": "삼미호",
+   "level": 56,
+   "maxHP": 4500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500158,
+   "theirName": "노란 왕도깨비",
+   "level": 70,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500159,
+   "theirName": "파란 왕도깨비",
+   "level": 70,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500160,
+   "theirName": "초록 왕도깨비",
+   "level": 70,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500177,
+   "theirName": "대왕지네",
+   "level": 50,
+   "maxHP": 20692,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500178,
+   "theirName": "포장마차(변신전)",
+   "level": 40,
+   "maxHP": 1435,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500180,
+   "theirName": "파풀라투스의 시계",
+   "level": 90,
+   "maxHP": 353500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500181,
+   "theirName": "파풀라투스",
+   "level": 90,
+   "maxHP": 211400,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500182,
+   "theirName": "수박파수꾼 호걸",
+   "level": 35,
+   "maxHP": 330000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500183,
+   "theirName": "수박파수꾼 호걸",
+   "level": 35,
+   "maxHP": 330000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500184,
+   "theirName": "라이드워드",
+   "level": 15,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500185,
+   "theirName": "라이드워드Y",
+   "level": 15,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500186,
+   "theirName": "라이드워드B",
+   "level": 15,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500187,
+   "theirName": "망가진 인형",
+   "level": 20,
+   "maxHP": 20,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500188,
+   "theirName": "부서진 인형",
+   "level": 20,
+   "maxHP": 20,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500189,
+   "theirName": "선물상자",
+   "level": 30,
+   "maxHP": 100,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500190,
+   "theirName": "삐에로 인형",
+   "level": 1800,
+   "maxHP": 70,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500191,
+   "theirName": "고스트",
+   "level": 16,
+   "maxHP": 20,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500192,
+   "theirName": "호박기사",
+   "level": 100,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500193,
+   "theirName": "파이어 스티드",
+   "level": 100,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500194,
+   "theirName": "거울 유령",
+   "level": 20,
+   "maxHP": 350,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500195,
+   "theirName": "잭오랜턴",
+   "level": 10,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500196,
+   "theirName": "유령",
+   "level": 15,
+   "maxHP": 15,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500197,
+   "theirName": "유령",
+   "level": 10,
+   "maxHP": 50,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500198,
+   "theirName": "선물상자",
+   "level": 100,
+   "maxHP": 5,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500199,
+   "theirName": "삐에로 인형",
+   "level": 100,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500200,
+   "theirName": "Zoo 발록",
+   "level": 80,
+   "maxHP": 50000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500201,
+   "theirName": "Zoo 예티",
+   "level": 65,
+   "maxHP": 11000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500202,
+   "theirName": "Zoo 화이트팽",
+   "level": 58,
+   "maxHP": 10000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500203,
+   "theirName": "Zoo 돼지",
+   "level": 7,
+   "maxHP": 10000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500204,
+   "theirName": "Zoo 리본돼지",
+   "level": 10,
+   "maxHP": 10000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500300,
+   "theirName": "망가진 인형",
+   "level": 100,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500301,
+   "theirName": "부서진 인형",
+   "level": 100,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500302,
+   "theirName": "호박밭의 잭오랜턴",
+   "level": 5,
+   "maxHP": 50,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500303,
+   "theirName": "거울 유령2",
+   "level": 20,
+   "maxHP": 350,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500304,
+   "theirName": "거울 유령3",
+   "level": 20,
+   "maxHP": 350,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500305,
+   "theirName": "잭오랜턴",
+   "level": 10,
+   "maxHP": 10,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500306,
+   "theirName": "마노",
+   "level": 20,
+   "maxHP": 2000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500307,
+   "theirName": "스텀피",
+   "level": 35,
+   "maxHP": 7000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500308,
+   "theirName": "파우스트",
+   "level": 50,
+   "maxHP": 9800,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500309,
+   "theirName": "킹크랑",
+   "level": 55,
+   "maxHP": 25000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500310,
+   "theirName": "타이머",
+   "level": 59,
+   "maxHP": 21000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500311,
+   "theirName": "다일",
+   "level": 65,
+   "maxHP": 31000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500312,
+   "theirName": "구미호",
+   "level": 70,
+   "maxHP": 89000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500313,
+   "theirName": "태륜",
+   "level": 71,
+   "maxHP": 93000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500314,
+   "theirName": "요괴선사",
+   "level": 77,
+   "maxHP": 108000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500315,
+   "theirName": "엘리쟈",
+   "level": 83,
+   "maxHP": 87000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500316,
+   "theirName": "스노우맨",
+   "level": 90,
+   "maxHP": 120000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500317,
+   "theirName": "꼬마 눈사람",
+   "level": 10,
+   "maxHP": 3000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500318,
+   "theirName": "화난 눈사람",
+   "level": 40,
+   "maxHP": 4500,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500319,
+   "theirName": "거대 눈사람",
+   "level": 70,
+   "maxHP": 6000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500320,
+   "theirName": "길잃은 루돌프",
+   "level": 10,
+   "maxHP": 50,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500321,
+   "theirName": "눈사람",
+   "level": 10,
+   "maxHP": 600,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500322,
+   "theirName": "꼬마 눈사람",
+   "level": 10,
+   "maxHP": 3,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500323,
+   "theirName": "치즈 창고 고양이",
+   "level": 70,
+   "maxHP": 5000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500324,
+   "theirName": "치즈 창고 고양이",
+   "level": 70,
+   "maxHP": 5000000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500325,
+   "theirName": "킹슬라임",
+   "level": 23,
+   "maxHP": 5000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500328,
+   "theirName": "크림슨발록",
+   "level": 35,
+   "maxHP": 13000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500329,
+   "theirName": "파파픽시",
+   "level": 40,
+   "maxHP": 19300,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500330,
+   "theirName": "알리샤르",
+   "level": 50,
+   "maxHP": 32000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500331,
+   "theirName": "파풀라투스",
+   "level": 55,
+   "maxHP": 46000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500332,
+   "theirName": "피아누스",
+   "level": 45,
+   "maxHP": 26000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500333,
+   "theirName": "레비아탄",
+   "level": 50,
+   "maxHP": 30000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500334,
+   "theirName": "데비존",
+   "level": 55,
+   "maxHP": 48000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9500335,
+   "theirName": "프랑켄 로이드",
+   "level": 50,
+   "maxHP": 30000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 9600010,
+   "theirName": "대왕지네",
+   "level": 50,
+   "maxHP": 18000,
+   "isBoss": false
+  },
+  {
+   "mobCode": 741020101,
+   "theirName": "포장마차",
+   "level": 80,
+   "maxHP": 5000,
+   "isBoss": false
+  }
+ ]
+}
