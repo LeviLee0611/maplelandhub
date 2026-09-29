@@ -16,6 +16,11 @@ const DROP_TABLE_SOURCE = path.resolve("data/drops-parsed.json");
 const ITEM_DETAIL_BY_SOURCE = path.resolve("data/item-detail-by.json");
 const MAPLEDB_EQUIP_DATA = path.resolve("src/data/mapledb/equips.js");
 const ITEM_NAME_OVERRIDES_SOURCE = path.resolve("scripts/sources/item-name-overrides.json");
+// itemId -> 한글명. 빅뱅 때 삭제된 pre-BB 아이템은 KMS/284에 없어 GMS/200 영문으로 폴백되는데,
+// 그 영문이 드롭 목록에 그대로 노출되던 문제를 막는다 (2026-09-28).
+const ITEM_KOREAN_NAMES_SOURCE = path.resolve("scripts/sources/item-korean-names.json");
+// 한국 서버에 아예 없는 GMS 전용 아이템 — 이름을 고치는 게 아니라 드롭에서 제외한다.
+const GMS_ONLY_ITEMS_SOURCE = path.resolve("scripts/sources/gms-only-items.json");
 const MOBCODE_CORRECTIONS_SOURCE = path.resolve("scripts/sources/mobcode-corrections.json");
 
 const CONCURRENCY = 4;
@@ -281,6 +286,38 @@ async function loadMapleDbItemNames() {
   }
 }
 
+// itemId -> 한글명. 없으면 빈 Map(선택적 소스라 실패해도 빌드는 진행).
+async function loadItemKoreanNames() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(ITEM_KOREAN_NAMES_SOURCE, "utf8"));
+    const map = new Map();
+    for (const [itemId, name] of Object.entries(parsed?.names ?? {})) {
+      if (typeof name === "string" && name.trim()) map.set(Number(itemId), name.trim());
+    }
+    return map;
+  } catch {
+    return new Map();
+  }
+}
+
+// 한국 서버에 없는 GMS 전용 아이템 id를 EXCLUDED_DROP_ITEM_IDS에 합친다.
+async function loadGmsOnlyItemIds() {
+  try {
+    const parsed = JSON.parse(await fs.readFile(GMS_ONLY_ITEMS_SOURCE, "utf8"));
+    const ids = Array.isArray(parsed?.itemIds) ? parsed.itemIds : [];
+    let added = 0;
+    for (const id of ids) {
+      if (typeof id === "number" && !EXCLUDED_DROP_ITEM_IDS.has(id)) {
+        EXCLUDED_DROP_ITEM_IDS.add(id);
+        added++;
+      }
+    }
+    return added;
+  } catch {
+    return 0;
+  }
+}
+
 async function loadItemNameOverrides() {
   try {
     const raw = await fs.readFile(ITEM_NAME_OVERRIDES_SOURCE, "utf8");
@@ -332,6 +369,11 @@ async function loadMobcodeCorrections() {
 async function main() {
   const mapledbNames = await loadMapleDbItemNames();
   const itemNameOverrides = await loadItemNameOverrides();
+  const itemKoreanNames = await loadItemKoreanNames();
+  const gmsOnlyCount = await loadGmsOnlyItemIds();
+  console.log(
+    `[영문 이름 방지] 한글명 오버라이드 ${itemKoreanNames.size}건, 한국 서버 미존재 GMS 전용 아이템 ${gmsOnlyCount}건 드롭 제외`,
+  );
   const corrections = await loadMobcodeCorrections();
   const mapledbItemIdsByName = new Map();
   for (const [itemId, name] of mapledbNames.entries()) {
@@ -500,10 +542,12 @@ async function main() {
   let kmsFallbackVersionsPromise = null;
   const items = await asyncPool(ITEM_CONCURRENCY, itemIdList, async (itemId) => {
     const meta = itemTable?.[String(itemId)];
+    const koreanName = itemKoreanNames.get(itemId);
     const nameFromMapleDb = mapledbNames.get(itemId);
     const nameFromDropTable = typeof meta?.name === "string" ? meta.name.trim() : "";
-    const result =
-      nameFromMapleDb
+    const result = koreanName
+      ? { id: itemId, name: koreanName }
+      : nameFromMapleDb
         ? { id: itemId, name: nameFromMapleDb }
         : nameFromDropTable
           ? { id: itemId, name: nameFromDropTable }

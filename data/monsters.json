@@ -10766,7 +10766,7 @@
     "exist": true
   },
   {
-    "name": "Extra B",
+    "name": "수하B",
     "level": 166,
     "hp": 21735000,
     "exp": 78473,
@@ -10783,7 +10783,7 @@
     "exist": true
   },
   {
-    "name": "Extra C",
+    "name": "수하C",
     "level": 167,
     "hp": 21870000,
     "exp": 78961,
@@ -10800,7 +10800,7 @@
     "exist": true
   },
   {
-    "name": "Extra A",
+    "name": "수하A",
     "level": 166,
     "hp": 21735000,
     "exp": 78473,
@@ -10817,7 +10817,7 @@
     "exist": true
   },
   {
-    "name": "Extra D",
+    "name": "수하D",
     "level": 167,
     "hp": 21870000,
     "exp": 78961,
@@ -10834,7 +10834,7 @@
     "exist": true
   },
   {
-    "name": "Leader A",
+    "name": "간부A",
     "level": 168,
     "hp": 21982500,
     "exp": 79367,
@@ -10851,7 +10851,7 @@
     "exist": true
   },
   {
-    "name": "Leader B",
+    "name": "간부B",
     "level": 168,
     "hp": 21982500,
     "exp": 79367,
@@ -10868,7 +10868,7 @@
     "exist": true
   },
   {
-    "name": "Bodyguard A",
+    "name": "보디가드A",
     "level": 168,
     "hp": 1879500000,
     "exp": 7137894,
@@ -10885,7 +10885,7 @@
     "exist": true
   },
   {
-    "name": "Bodyguard B",
+    "name": "보디가드B",
     "level": 169,
     "hp": 500000000,
     "exp": 8835567,
@@ -10919,7 +10919,7 @@
     "exist": true
   },
   {
-    "name": "Male Boss A",
+    "name": "두목",
     "level": 168,
     "hp": 225000000,
     "exp": 82206,
@@ -10936,7 +10936,7 @@
     "exist": true
   },
   {
-    "name": "Female Boss",
+    "name": "여두목",
     "level": 170,
     "hp": 225000000,
     "exp": 1447275,
@@ -10953,7 +10953,7 @@
     "exist": true
   },
   {
-    "name": "Male Boss B",
+    "name": "두목",
     "level": 170,
     "hp": 234000000,
     "exp": 86434,
@@ -10970,7 +10970,7 @@
     "exist": true
   },
   {
-    "name": "Red Slime",
+    "name": "레드 슬라임",
     "level": 55,
     "hp": 4000,
     "exp": 156,
@@ -10987,7 +10987,7 @@
     "exist": true
   },
   {
-    "name": "The Boss",
+    "name": "대보스",
     "level": 170,
     "hp": 150000000,
     "exp": 2494740,
@@ -11004,7 +11004,7 @@
     "exist": true
   },
   {
-    "name": "Emperor Toad",
+    "name": "영주 두꺼비",
     "level": 180,
     "hp": 450000000,
     "exp": 7379203,
@@ -11497,7 +11497,7 @@
     "exist": true
   },
   {
-    "name": "Petrifighter",
+    "name": "페트리파이터",
     "level": 165,
     "hp": 370000,
     "exp": 6942,
@@ -12708,7 +12708,7 @@
     "exist": true
   },
   {
-    "name": "White Mama Monkey",
+    "name": "흰털 어미원숭이",
     "level": 34,
     "hp": 1300,
     "exp": 127,
@@ -12725,7 +12725,7 @@
     "exist": true
   },
   {
-    "name": "Red Goblin",
+    "name": "붉은 도깨비",
     "level": 54,
     "hp": 3800,
     "exp": 256,
@@ -12742,7 +12742,7 @@
     "exist": true
   },
   {
-    "name": "Blue Goblin",
+    "name": "푸른 도깨비",
     "level": 43,
     "hp": 2200,
     "exp": 180,
@@ -12759,7 +12759,7 @@
     "exist": true
   },
   {
-    "name": "Strong Stone Goblin",
+    "name": "힘센 돌도깨비",
     "level": 66,
     "hp": 8000,
     "exp": 428,

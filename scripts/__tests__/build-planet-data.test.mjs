@@ -3,6 +3,7 @@ import {
   applyDropRateMultiplierToItemDetailBy,
   applyDropRateMultiplierToRewardMap,
   applyItemOverrides,
+  applyMeasuredExp,
   applyMonsterOverrides,
   appendNewMonsters,
   clampProbability,
@@ -53,6 +54,40 @@ describe("applyDropRateMultiplierToRewardMap / applyDropRateMultiplierToItemDeta
     const itemDetailBy = { itemsByItemId: { "2000": [{ mobId: 1, prob: 0.2 }] }, source: "mapleland" };
     const result = applyDropRateMultiplierToItemDetailBy(itemDetailBy, 4);
     expect(result.itemsByItemId["2000"][0].prob).toBe(0.8);
+  });
+});
+
+describe("applyMeasuredExp — chowayo 실측 EXP 반영", () => {
+  const monsters = [
+    { mobCode: 1, name: "가", hp: 100, exp: 10 },
+    { mobCode: 2, name: "나", hp: 200, exp: 40 },
+    { mobCode: 3, name: "다", hp: 300, exp: 30 },
+  ];
+
+  it("실측값이 있는 몬스터의 exp만 교체하고 다른 필드는 건드리지 않는다", () => {
+    const result = applyMeasuredExp(monsters, { exp: { 1: 40, 2: 160 } });
+    expect(result.monsters[0]).toEqual({ mobCode: 1, name: "가", hp: 100, exp: 40 });
+    expect(result.monsters[1].exp).toBe(160);
+    expect(result.monsters[2]).toBe(monsters[2]);
+    expect(result.applied).toBe(2);
+  });
+
+  it("이미 값이 같으면 교체로 세지 않고 skipped로 센다 (x4 중복 적용 방지)", () => {
+    const result = applyMeasuredExp(monsters, { exp: { 1: 10 } });
+    expect(result.applied).toBe(0);
+    expect(result.skipped).toBe(1);
+    expect(result.monsters[0].exp).toBe(10);
+  });
+
+  it("실측 소스가 없거나 비어 있으면 원본 배열을 그대로 반환", () => {
+    expect(applyMeasuredExp(monsters, null).monsters).toBe(monsters);
+    expect(applyMeasuredExp(monsters, { exp: {} }).monsters).toBe(monsters);
+  });
+
+  it("숫자가 아닌 값은 무시한다", () => {
+    const result = applyMeasuredExp(monsters, { exp: { 1: "40", 2: null } });
+    expect(result.applied).toBe(0);
+    expect(result.monsters[0].exp).toBe(10);
   });
 });
 

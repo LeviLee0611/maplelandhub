@@ -1,0 +1,194 @@
+{
+  "_comment": [
+    "한국 서버(메이플랜드/메이플 플래닛)에 존재하지 않는 GMS 전용 아이템 — build-drop-index.mjs가 드롭 목록에서 제외한다.",
+    "판정 근거 3가지(2026-09-28 조사): (1) 메이플노트 클래식 item_detail 404, (2) chowayo(플래닛 DB) 아이템 페이지에 한글명 없음,",
+    "(3) 해당 아이템을 드롭한다고 우리 데이터에 적힌 몬스터의 실제 드롭 목록(양쪽 DB)에 그 아이템이 없음.",
+    "목록을 보면 성격이 분명하다 — Roasted Turkey/Cranberry Sauce/Pilgrim Hat/Mashed Potato(추수감사절), Christmas Present box(크리스마스),",
+    "Maplehontas/Smore 등 GMS 이벤트 전용 아이템이다. 우리 드롭 원본이 GMS 기반이라 섞여 들어왔다.",
+    "이것들은 번역 대상이 아니라 '애초에 드롭되지 않는 오정보'이므로 이름을 고치는 대신 드롭에서 뺀다.",
+    "되살려야 할 근거가 나오면 이 목록에서 해당 id만 빼고 재빌드할 것."
+  ],
+  "_collectedAt": "2026-09-28",
+  "_stats": {
+    "total": 55,
+    "wasExposed": 10
+  },
+  "itemIds": [
+    1000025,
+    1001035,
+    1032039,
+    1072239,
+    1312017,
+    2002023,
+    2002024,
+    2002025,
+    2020029,
+    2020030,
+    2022117,
+    2022182,
+    2022189,
+    2022242,
+    2022244,
+    2022247,
+    2022251,
+    2022261,
+    2022262,
+    2022263,
+    2022264,
+    4000300,
+    4000301,
+    4000399,
+    4000400,
+    4000417,
+    4000422,
+    4000423,
+    4000424,
+    4000425,
+    4031284,
+    4031306,
+    4031307,
+    4031447,
+    4031523,
+    4031524,
+    4031525,
+    4031590,
+    4031593,
+    4031594,
+    4031596,
+    4031597,
+    4031674,
+    4031675,
+    4031680,
+    4031681,
+    4031764,
+    4031769,
+    4031770,
+    4031812,
+    4031901,
+    4031902,
+    4031904,
+    4031905,
+    4031906
+  ],
+  "_names": {
+    "1000025": "Pilgrim Hat",
+    "1001035": "Maplehontas",
+    "1032039": "Eclipse Earrings",
+    "1072239": "Yellow Snowshoes",
+    "1312017": "Chief Axe",
+    "2002023": "Ginger Ale",
+    "2002024": "Sorcerer Elixir",
+    "2002025": "Barbarian Elixir",
+    "2020029": "Corn",
+    "2020030": "Roasted Turkey",
+    "2022117": "Mystical Maple Leaf",
+    "2022182": "Crystalized Pineapple Chew",
+    "2022189": "Grilled Cheese",
+    "2022242": "Edmund's Special Brew",
+    "2022244": "Smore",
+    "2022247": "Red Gummy Slime",
+    "2022251": "Maple Pop",
+    "2022261": "Stuffing Scoop",
+    "2022262": "Cranberry Sauce",
+    "2022263": "Mashed Potato",
+    "2022264": "Gravy",
+    "4000300": "Letty's Hairball",
+    "4000301": "Toy Drum",
+    "4000399": "Loaded Spring",
+    "4000400": "Lock of Doll's Hair",
+    "4000417": "trans",
+    "4000422": "Christmas Present box (White)",
+    "4000423": "Christmas Present box (Red)",
+    "4000424": "Christmas Present box (Blue)",
+    "4000425": "Christmas Present box (Purple)",
+    "4031284": "Golden Egg",
+    "4031306": "Birthday Present (Red)",
+    "4031307": "Birthday Present (Blue)",
+    "4031447": "Bob's Snail Shell",
+    "4031523": "Cherry Blossom Seed",
+    "4031524": "Silk Feather",
+    "4031525": "Ring Fragment",
+    "4031590": "Birthday Candle",
+    "4031593": "Lip Lock Key",
+    "4031594": "Geist Fang",
+    "4031596": "Wing Hammer",
+    "4031597": "Cupid Code Piece",
+    "4031674": "Elpam Magnet",
+    "4031675": "Temporal Fragment",
+    "4031680": "Hyper Glyph",
+    "4031681": "MesoGear Map Piece",
+    "4031764": "Paranormal Activity Report Page",
+    "4031769": "Tarrymore Earring",
+    "4031770": "Sepha Earring",
+    "4031812": "Paranormal Activity Report Page",
+    "4031901": "Papulatus Curl",
+    "4031902": "Tengu Nose",
+    "4031904": "Ergoth's Jawbone",
+    "4031905": "Pianus Scale",
+    "4031906": "Balrog Claw"
+  },
+  "_wasExposedBy": {
+    "4031524": {
+      "english": "Silk Feather",
+      "monsters": [
+        "주니어 라이오너"
+      ]
+    },
+    "4031525": {
+      "english": "Ring Fragment",
+      "monsters": [
+        "트위터"
+      ]
+    },
+    "4031590": {
+      "english": "Birthday Candle",
+      "monsters": [
+        "다크 스텀프",
+        "브라운테니"
+      ]
+    },
+    "4031674": {
+      "english": "Elpam Magnet",
+      "monsters": [
+        "바나드 그레이"
+      ]
+    },
+    "4031675": {
+      "english": "Temporal Fragment",
+      "monsters": [
+        "틱톡"
+      ]
+    },
+    "4031901": {
+      "english": "Papulatus Curl",
+      "monsters": [
+        "파풀라투스"
+      ]
+    },
+    "4031902": {
+      "english": "Tengu Nose",
+      "monsters": [
+        "천구"
+      ]
+    },
+    "4031904": {
+      "english": "Ergoth's Jawbone",
+      "monsters": [
+        "에레고스"
+      ]
+    },
+    "4031905": {
+      "english": "Pianus Scale",
+      "monsters": [
+        "피아누스(우)",
+        "피아누스(좌)"
+      ]
+    },
+    "4031906": {
+      "english": "Balrog Claw",
+      "monsters": [
+        "크림슨 발록"
+      ]
+    }
+  }
+}

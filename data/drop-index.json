@@ -82756,233 +82756,15 @@
       }
     },
     {
-      "id": 4031906,
-      "name": "Balrog Claw",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 2002025,
-      "name": "Barbarian Elixir",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Potion",
-        "lowItemId": 2000000,
-        "highItemId": 2010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 500
-        },
-        "slot": {
-          "slotMax": 150
-        },
-        "consumeSpec": {
-          "hp": "1500"
-        }
-      }
-    },
-    {
-      "id": 4031590,
-      "name": "Birthday Candle",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031307,
-      "name": "Birthday Present (Blue)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 4031306,
-      "name": "Birthday Present (Red)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
       "id": 1422031,
-      "name": "Blue Seal Cushion",
+      "name": "파란색 물개 쿠션",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
-      "id": 4031447,
-      "name": "Bob's Snail Shell",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": true,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 35,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4929
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4930
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4931
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4932
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4933
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4934
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4935
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4936
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4937
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4938
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4939
-          },
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4031447
-            },
-            "id": 4940
-          }
-        ]
-      }
-    },
-    {
       "id": 4000391,
-      "name": "Boomer Core",
+      "name": "부머의 핵",
       "typeInfo": {
         "overallCategory": "Etc",
         "category": "Other",
@@ -82994,269 +82776,12 @@
         "only": false,
         "shop": {
           "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031523,
-      "name": "Cherry Blossom Seed",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 0,
-          "notSale": true
-        }
-      }
-    },
-    {
-      "id": 1312017,
-      "name": "Chief Axe",
-      "typeInfo": {
-        "overallCategory": "Equip",
-        "category": "One-Handed Weapon",
-        "subCategory": "One-Handed Axe",
-        "lowItemId": 1310000,
-        "highItemId": 1320000
-      },
-      "equipGroup": "Weapon",
-      "meta": {
-        "only": false,
-        "equip": {
-          "reqSTR": 0,
-          "reqDEX": 0,
-          "reqINT": 0,
-          "reqLUK": 0,
-          "reqJob": 0,
-          "reqLevel": 0,
-          "tuc": 7,
-          "incPAD": 30,
-          "attack": 1,
-          "attackSpeed": 4,
-          "islot": "Wp",
-          "vslot": "Wp",
-          "vslots": [
-            "Wp"
-          ],
-          "islots": [
-            "Wp"
-          ]
-        },
-        "cash": {
-          "cash": false
-        },
-        "shop": {
-          "price": 1
-        },
-        "chair": {
-          "reqLevel": 0
-        }
-      }
-    },
-    {
-      "id": 4000424,
-      "name": "Christmas Present box (Blue)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": true,
-        "shop": {
-          "price": 1
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4000424
-            },
-            "id": 5010
-          }
-        ]
-      }
-    },
-    {
-      "id": 4000425,
-      "name": "Christmas Present box (Purple)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": true,
-        "shop": {
-          "price": 1
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4000425
-            },
-            "id": 5009
-          }
-        ]
-      }
-    },
-    {
-      "id": 4000423,
-      "name": "Christmas Present box (Red)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": true,
-        "shop": {
-          "price": 1
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4000423
-            },
-            "id": 5011
-          }
-        ]
-      }
-    },
-    {
-      "id": 4000422,
-      "name": "Christmas Present box (White)",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": true,
-        "shop": {
-          "price": 1
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 1,
-              "id": 4000422
-            },
-            "id": 5012
-          }
-        ]
-      }
-    },
-    {
-      "id": 2020029,
-      "name": "Corn",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Food and Drink",
-        "lowItemId": 2010000,
-        "highItemId": 2022000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "consumeSpec": {
-          "mp": "100"
-        }
-      }
-    },
-    {
-      "id": 2022262,
-      "name": "Cranberry Sauce",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "mad": "30",
-          "time": "180000"
-        }
-      }
-    },
-    {
-      "id": 2022182,
-      "name": "Crystalized Pineapple Chew",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "consumeSpec": {
-          "pad": "20",
-          "time": "400000"
-        }
-      }
-    },
-    {
-      "id": 4031597,
-      "name": "Cupid Code Piece",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 150
         }
       }
     },
     {
       "id": 2060004,
-      "name": "Diamond Arrow for Bow",
+      "name": "활 전용 다이아몬드 화살",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Projectile",
@@ -83281,7 +82806,7 @@
     },
     {
       "id": 2061004,
-      "name": "Diamond Arrow for Crossbow",
+      "name": "석궁 전용 다이아몬드 화살",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Projectile",
@@ -83305,179 +82830,43 @@
       }
     },
     {
-      "id": 1032039,
-      "name": "Eclipse Earrings",
-      "typeInfo": {
-        "overallCategory": "Equip",
-        "category": "Accessory",
-        "subCategory": "Earrings",
-        "lowItemId": 1030000,
-        "highItemId": 1040000
-      },
-      "equipGroup": "Accessory",
-      "meta": {
-        "only": false,
-        "equip": {
-          "reqSTR": 0,
-          "reqDEX": 0,
-          "reqINT": 0,
-          "reqLUK": 0,
-          "reqJob": 0,
-          "reqLevel": 40,
-          "tuc": 5,
-          "incMDD": 20,
-          "islot": "Ae",
-          "vslot": "Ae",
-          "vslots": [
-            "Ae"
-          ],
-          "islots": [
-            "Ae"
-          ]
-        },
-        "cash": {
-          "cash": false
-        },
-        "shop": {
-          "price": 50000
-        },
-        "chair": {
-          "reqLevel": 40
-        }
-      }
-    },
-    {
-      "id": 2022242,
-      "name": "Edmund's Special Brew",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "pad": "14",
-          "mad": "30",
-          "time": "600000",
-          "hpR": "50",
-          "mpR": "50"
-        }
-      }
-    },
-    {
       "id": 1032062,
-      "name": "Element Pierce",
+      "name": "엘레멘트 피어스",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
       "id": 1382045,
-      "name": "Elemental Staff 1",
+      "name": "파이어 스태프",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
       "id": 1382046,
-      "name": "Elemental Staff 2",
+      "name": "포이즌 스태프",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
       "id": 1382047,
-      "name": "Elemental Staff 3",
+      "name": "아이스 스태프",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
       "id": 1382048,
-      "name": "Elemental Staff 4",
+      "name": "라이트닝 스태프",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
-      "id": 4031674,
-      "name": "Elpam Magnet",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 30
-        }
-      }
-    },
-    {
-      "id": 4031904,
-      "name": "Ergoth's Jawbone",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 4031594,
-      "name": "Geist Fang",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
       "id": 2022121,
-      "name": "Gelt Chocolate",
+      "name": "겔트 초콜릿",
       "typeInfo": {
         "overallCategory": "Use",
         "category": "Consumable",
@@ -83509,115 +82898,8 @@
       }
     },
     {
-      "id": 2002023,
-      "name": "Ginger Ale",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Potion",
-        "lowItemId": 2000000,
-        "highItemId": 2010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1100
-        },
-        "consumeSpec": {
-          "hpR": "75",
-          "mpR": "75"
-        }
-      }
-    },
-    {
-      "id": 4031284,
-      "name": "Golden Egg",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 10000
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 2022264,
-      "name": "Gravy",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "mp": "800"
-        }
-      }
-    },
-    {
-      "id": 2022189,
-      "name": "Grilled Cheese",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 250
-        },
-        "consumeSpec": {
-          "hp": "500",
-          "mp": "500",
-          "pdd": "20",
-          "time": "1800000"
-        }
-      }
-    },
-    {
-      "id": 4031680,
-      "name": "Hyper Glyph",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        }
-      }
-    },
-    {
       "id": 4031903,
-      "name": "Jack O'Lantern",
+      "name": "잭-오-랜턴",
       "typeInfo": {
         "overallCategory": "Etc",
         "category": "Other",
@@ -83642,207 +82924,15 @@
       }
     },
     {
-      "id": 4000300,
-      "name": "Letty's Hairball",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
-      "id": 4031593,
-      "name": "Lip Lock Key",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 10
-        }
-      }
-    },
-    {
-      "id": 4000399,
-      "name": "Loaded Spring",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 27
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
-      "id": 4000400,
-      "name": "Lock of Doll's Hair",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 50
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
-      "id": 2022251,
-      "name": "Maple Pop",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "time": "60000",
-          "acc": "100"
-        }
-      }
-    },
-    {
-      "id": 1001035,
-      "name": "Maplehontas",
-      "typeInfo": {
-        "overallCategory": "Equip",
-        "category": "Armor",
-        "subCategory": "Hat",
-        "lowItemId": 1000000,
-        "highItemId": 1010000
-      },
-      "equipGroup": "Cap",
-      "meta": {
-        "only": false,
-        "equip": {
-          "reqSTR": 0,
-          "reqDEX": 0,
-          "reqINT": 0,
-          "reqLUK": 0,
-          "reqJob": 0,
-          "reqLevel": 0,
-          "incPDD": 1,
-          "islot": "Cp",
-          "vslot": "CpH1H5",
-          "gender": 1,
-          "vslots": [
-            "Cp",
-            "H1",
-            "H5"
-          ],
-          "islots": [
-            "Cp"
-          ]
-        },
-        "cash": {
-          "cash": false
-        },
-        "shop": {
-          "price": 1
-        },
-        "chair": {
-          "reqLevel": 0
-        }
-      }
-    },
-    {
       "id": 1122059,
-      "name": "Mark of Naricain",
+      "name": "나리케인의 징표",
       "typeInfo": {
         "overallCategory": "Equip"
       }
     },
     {
-      "id": 2022263,
-      "name": "Mashed Potato",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "hp": "800"
-        }
-      }
-    },
-    {
-      "id": 4031681,
-      "name": "MesoGear Map Piece",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        }
-      }
-    },
-    {
       "id": 2040037,
-      "name": "Miracle Scroll for Auf Haven Circlet 5%"
+      "name": "기적의 주문서(얼굴장식)"
     },
     {
       "id": 4000126,
@@ -83865,368 +82955,36 @@
       }
     },
     {
-      "id": 2022117,
-      "name": "Mystical Maple Leaf",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "consumeSpec": {
-          "pad": "20",
-          "mad": "20",
-          "pdd": "50",
-          "mdd": "50",
-          "acc": "30",
-          "eva": "30",
-          "speed": "10",
-          "jump": "10",
-          "time": "1200000"
-        }
-      }
-    },
-    {
-      "id": 4031901,
-      "name": "Papulatus Curl",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 4031764,
-      "name": "Paranormal Activity Report Page",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031812,
-      "name": "Paranormal Activity Report Page",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031905,
-      "name": "Pianus Scale",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 1000025,
-      "name": "Pilgrim Hat",
-      "typeInfo": {
-        "overallCategory": "Equip",
-        "category": "Armor",
-        "subCategory": "Hat",
-        "lowItemId": 1000000,
-        "highItemId": 1010000
-      },
-      "equipGroup": "Cap",
-      "meta": {
-        "only": false,
-        "equip": {
-          "reqSTR": 0,
-          "reqDEX": 0,
-          "reqINT": 0,
-          "reqLUK": 0,
-          "reqJob": 0,
-          "reqLevel": 0,
-          "incPDD": 1,
-          "islot": "Cp",
-          "vslot": "CpH1H5",
-          "gender": 0,
-          "vslots": [
-            "Cp",
-            "H1",
-            "H5"
-          ],
-          "islots": [
-            "Cp"
-          ]
-        },
-        "cash": {
-          "cash": false
-        },
-        "shop": {
-          "price": 1
-        },
-        "chair": {
-          "reqLevel": 0
-        }
-      }
-    },
-    {
-      "id": 2022247,
-      "name": "Red Gummy Slime",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "hp": "1200",
-          "mp": "1200"
-        }
-      }
-    },
-    {
-      "id": 4031525,
-      "name": "Ring Fragment",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 0,
-          "notSale": true
-        },
-        "relatedQuests": [
-          {
-            "itemRequirement": {
-              "count": 20,
-              "id": 4031525
-            },
-            "id": 8868
-          }
-        ]
-      }
-    },
-    {
-      "id": 2020030,
-      "name": "Roasted Turkey",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Food and Drink",
-        "lowItemId": 2010000,
-        "highItemId": 2022000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "consumeSpec": {
-          "hp": "100"
-        }
-      }
-    },
-    {
       "id": 2040033,
-      "name": "Scroll for Auf Haven Circlet for ATT 60%"
+      "name": "저주받은 힘의 주문서(얼굴장식)"
     },
     {
       "id": 2040035,
-      "name": "Scroll for Auf Haven Circlet for DEX 60%"
+      "name": "저주받은 민첩성의 주문서(얼굴장식)"
     },
     {
       "id": 2040034,
-      "name": "Scroll for Auf Haven Circlet for INT 60%"
+      "name": "저주받은 지력의 주문서(얼굴장식)"
     },
     {
       "id": 2040036,
-      "name": "Scroll for Auf Haven Circlet for LUK 60%"
+      "name": "저주받은 행운의 주문서(얼굴장식)"
     },
     {
       "id": 2040613,
-      "name": "Scroll for Bottomwear for DEX 60%"
+      "name": "민첩성의 주문서(하의)"
     },
     {
       "id": 2040106,
-      "name": "Scroll for Face Accessory for Avoidability 60%"
+      "name": "회피의 주문서(얼굴)"
     },
     {
       "id": 2040919,
-      "name": "Scroll for Shield for Magic Attack 60%"
+      "name": "마력의 주문서(방패)"
     },
     {
       "id": 2040914,
-      "name": "Scroll for Shield for Weapon ATT 60%"
-    },
-    {
-      "id": 4031770,
-      "name": "Sepha Earring",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031524,
-      "name": "Silk Feather",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 0,
-          "notSale": true
-        }
-      }
-    },
-    {
-      "id": 2022244,
-      "name": "Smore",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "time": "600000",
-          "speed": "10",
-          "eva": "10",
-          "acc": "10",
-          "hpR": "25",
-          "mpR": "25",
-          "jump": "10"
-        }
-      }
-    },
-    {
-      "id": 2002024,
-      "name": "Sorcerer Elixir",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Potion",
-        "lowItemId": 2000000,
-        "highItemId": 2010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 500
-        },
-        "slot": {
-          "slotMax": 150
-        },
-        "consumeSpec": {
-          "mp": "1500"
-        }
-      }
+      "name": "공격의 주문서(방패)"
     },
     {
       "id": 4031209,
@@ -84252,193 +83010,6 @@
             "id": 3072
           }
         ]
-      }
-    },
-    {
-      "id": 2022261,
-      "name": "Stuffing Scoop",
-      "typeInfo": {
-        "overallCategory": "Use",
-        "category": "Consumable",
-        "subCategory": "Consumable",
-        "lowItemId": 2022000,
-        "highItemId": 2024000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 100
-        },
-        "consumeSpec": {
-          "hp": "600",
-          "mp": "600"
-        }
-      }
-    },
-    {
-      "id": 4031769,
-      "name": "Tarrymore Earring",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031675,
-      "name": "Temporal Fragment",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 30
-        }
-      }
-    },
-    {
-      "id": 4031902,
-      "name": "Tengu Nose",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "equip": {
-          "tradeBlock": true,
-          "vslots": [],
-          "islots": []
-        },
-        "shop": {
-          "price": 1,
-          "notSale": true
-        },
-        "slot": {
-          "slotMax": 1
-        }
-      }
-    },
-    {
-      "id": 4000301,
-      "name": "Toy Drum",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        },
-        "slot": {
-          "slotMax": 200
-        }
-      }
-    },
-    {
-      "id": 4000417,
-      "name": "trans",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Monster Drop",
-        "lowItemId": 4000000,
-        "highItemId": 4010000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1
-        }
-      }
-    },
-    {
-      "id": 4031596,
-      "name": "Wing Hammer",
-      "typeInfo": {
-        "overallCategory": "Etc",
-        "category": "Other",
-        "subCategory": "Quest Item",
-        "lowItemId": 4030000,
-        "highItemId": 4040000
-      },
-      "meta": {
-        "only": false,
-        "shop": {
-          "price": 1,
-          "notSale": true
-        }
-      }
-    },
-    {
-      "id": 1072239,
-      "name": "Yellow Snowshoes",
-      "typeInfo": {
-        "overallCategory": "Equip",
-        "category": "Armor",
-        "subCategory": "Shoes",
-        "lowItemId": 1070000,
-        "highItemId": 1080000
-      },
-      "equipGroup": "Shoes",
-      "meta": {
-        "only": false,
-        "equip": {
-          "reqSTR": 0,
-          "reqDEX": 0,
-          "reqINT": 0,
-          "reqLUK": 0,
-          "reqJob": 0,
-          "reqLevel": 50,
-          "tuc": 7,
-          "incDEX": 3,
-          "incINT": 3,
-          "incPDD": 30,
-          "incMDD": 10,
-          "islot": "So",
-          "vslot": "So",
-          "vslots": [
-            "So"
-          ],
-          "islots": [
-            "So"
-          ]
-        },
-        "cash": {
-          "cash": false
-        },
-        "shop": {
-          "price": 1
-        },
-        "chair": {
-          "reqLevel": 50
-        }
       }
     }
   ],
@@ -85084,10 +83655,6 @@
       }
     ],
     "1110101": [
-      {
-        "itemId": 4031590,
-        "prob": 0.01
-      },
       {
         "itemId": 1302006,
         "prob": 0.006,
@@ -90350,10 +88917,6 @@
     ],
     "3000005": [
       {
-        "itemId": 4031590,
-        "prob": 0.01
-      },
-      {
         "itemId": 1002013,
         "prob": 0.0038,
         "min": 1,
@@ -92326,10 +90889,6 @@
         "prob": 0.017,
         "min": 1,
         "max": 1
-      },
-      {
-        "itemId": 4031524,
-        "prob": 0.01
       },
       {
         "itemId": 4130003,
@@ -96314,10 +94873,6 @@
     ],
     "3230308": [
       {
-        "itemId": 4031525,
-        "prob": 0.01
-      },
-      {
         "itemId": 4130015,
         "prob": 0.0038,
         "min": 1,
@@ -100132,10 +98687,6 @@
         "max": 1
       },
       {
-        "itemId": 4031675,
-        "prob": 0.05
-      },
-      {
         "itemId": 4130017,
         "prob": 0.0038,
         "min": 1,
@@ -100578,10 +99129,6 @@
       }
     ],
     "4230116": [
-      {
-        "itemId": 4031674,
-        "prob": 0.05
-      },
       {
         "itemId": 4130018,
         "prob": 0.0038,
@@ -126517,10 +125064,6 @@
         "max": 1
       },
       {
-        "itemId": 4031906,
-        "prob": 0.25
-      },
-      {
         "itemId": 4001111,
         "prob": 0.2,
         "min": 1,
@@ -132931,10 +131474,6 @@
         "max": 1
       },
       {
-        "itemId": 4031901,
-        "prob": 0.25
-      },
-      {
         "itemId": -1668412028,
         "prob": 0.006,
         "min": 1,
@@ -133291,10 +131830,6 @@
         "max": 1
       },
       {
-        "itemId": 4031905,
-        "prob": 0.25
-      },
-      {
         "itemId": 1041123,
         "prob": 0.16079999999999997,
         "min": 1,
@@ -133555,10 +132090,6 @@
         "prob": 0.32799999999999996,
         "min": 1,
         "max": 1
-      },
-      {
-        "itemId": 4031905,
-        "prob": 0.25
       },
       {
         "itemId": 1041123,
@@ -136218,10 +134749,6 @@
         "max": 1
       },
       {
-        "itemId": 4031904,
-        "prob": 0.25
-      },
-      {
         "itemId": 2290111,
         "prob": 0.1
       }
@@ -138191,10 +136718,6 @@
         "max": 1
       },
       {
-        "itemId": 4031902,
-        "prob": 0.35
-      },
-      {
         "itemId": 2041032,
         "prob": 0.05,
         "min": 1,
@@ -138950,10 +137473,6 @@
       {
         "itemId": 2020016,
         "prob": 0.35
-      },
-      {
-        "itemId": 1072239,
-        "prob": 0.01
       },
       {
         "itemId": 2040510,
@@ -139816,10 +138335,6 @@
     ],
     "9400509": [
       {
-        "itemId": 4031523,
-        "prob": 0.01
-      },
-      {
         "itemId": 1072115,
         "prob": 0.0001
       },
@@ -139869,10 +138384,6 @@
       }
     ],
     "9400510": [
-      {
-        "itemId": 4031284,
-        "prob": 0.001
-      },
       {
         "itemId": 1040021,
         "prob": 0.0001
@@ -139932,10 +138443,6 @@
         "prob": 0.001
       },
       {
-        "itemId": 4031284,
-        "prob": 0.001
-      },
-      {
         "itemId": 1002039,
         "prob": 0.0003
       },
@@ -139964,77 +138471,7 @@
         "prob": 0.00006
       }
     ],
-    "9400512": [
-      {
-        "itemId": 4031590,
-        "prob": 0.05
-      },
-      {
-        "itemId": 4031307,
-        "prob": 0.001
-      }
-    ],
-    "9400513": [
-      {
-        "itemId": 4031590,
-        "prob": 0.05
-      },
-      {
-        "itemId": 4031306,
-        "prob": 0.001
-      }
-    ],
-    "9400514": [
-      {
-        "itemId": 4031594,
-        "prob": 1
-      },
-      {
-        "itemId": 4031906,
-        "prob": 0.25
-      }
-    ],
-    "9400515": [
-      {
-        "itemId": 4031593,
-        "prob": 0.5
-      }
-    ],
-    "9400516": [
-      {
-        "itemId": 4031593,
-        "prob": 0.5
-      }
-    ],
-    "9400518": [
-      {
-        "itemId": 4031596,
-        "prob": 1
-      }
-    ],
-    "9400524": [
-      {
-        "itemId": 4031597,
-        "prob": 1
-      }
-    ],
-    "9400530": [
-      {
-        "itemId": 4031597,
-        "prob": 1
-      }
-    ],
-    "9400531": [
-      {
-        "itemId": 4031597,
-        "prob": 1
-      }
-    ],
     "9400538": [
-      {
-        "itemId": 2022189,
-        "prob": 0.005
-      },
       {
         "itemId": 1412012,
         "prob": 0.0001
@@ -140244,10 +138681,6 @@
         "prob": 0.00009
       },
       {
-        "itemId": 1032039,
-        "prob": 0.00008
-      },
-      {
         "itemId": 1050039,
         "prob": 0.00008
       },
@@ -140293,10 +138726,6 @@
       }
     ],
     "9400543": [
-      {
-        "itemId": 4031680,
-        "prob": 0.05
-      },
       {
         "itemId": 4130015,
         "prob": 0.0008
@@ -140596,10 +139025,6 @@
     ],
     "9400546": [
       {
-        "itemId": 4031681,
-        "prob": 0.05
-      },
-      {
         "itemId": 1072101,
         "prob": 0.0001
       },
@@ -140778,22 +139203,6 @@
     ],
     "9400549": [
       {
-        "itemId": 2002024,
-        "prob": 0.22
-      },
-      {
-        "itemId": 2002025,
-        "prob": 0.22
-      },
-      {
-        "itemId": 2022182,
-        "prob": 0.01
-      },
-      {
-        "itemId": 2002023,
-        "prob": 0.009
-      },
-      {
         "itemId": 1372009,
         "prob": 0.0004
       },
@@ -140816,10 +139225,6 @@
       {
         "itemId": 2040407,
         "prob": 0.0003
-      },
-      {
-        "itemId": 2022117,
-        "prob": 0.0001
       },
       {
         "itemId": 2020014,
@@ -140890,10 +139295,6 @@
     ],
     "9400551": [
       {
-        "itemId": 4031447,
-        "prob": 0.8
-      },
-      {
         "itemId": 1002067,
         "prob": 0.008
       },
@@ -140911,26 +139312,6 @@
       }
     ],
     "9400556": [
-      {
-        "itemId": 4031764,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031812,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031769,
-        "prob": 0.025
-      },
-      {
-        "itemId": 4031770,
-        "prob": 0.025
-      },
-      {
-        "itemId": 2022244,
-        "prob": 0.002
-      },
       {
         "itemId": 1041008,
         "prob": 0.0001
@@ -140974,16 +139355,8 @@
     ],
     "9400558": [
       {
-        "itemId": 4000399,
-        "prob": 0.2
-      },
-      {
         "itemId": 4003000,
         "prob": 0.005
-      },
-      {
-        "itemId": 2022244,
-        "prob": 0.002
       },
       {
         "itemId": 1002036,
@@ -141039,18 +139412,6 @@
       }
     ],
     "9400560": [
-      {
-        "itemId": 4000400,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031769,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031770,
-        "prob": 0.1
-      },
       {
         "itemId": 1002153,
         "prob": 0.0001
@@ -141242,10 +139603,6 @@
     ],
     "9400563": [
       {
-        "itemId": 2022244,
-        "prob": 0.002
-      },
-      {
         "itemId": 1002143,
         "prob": 0.0001
       },
@@ -141296,26 +139653,6 @@
     ],
     "9400565": [
       {
-        "itemId": 4031764,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031812,
-        "prob": 0.2
-      },
-      {
-        "itemId": 4031769,
-        "prob": 0.025
-      },
-      {
-        "itemId": 4031770,
-        "prob": 0.025
-      },
-      {
-        "itemId": 2022244,
-        "prob": 0.002
-      },
-      {
         "itemId": 1041008,
         "prob": 0.0001
       },
@@ -141358,24 +139695,8 @@
     ],
     "9400567": [
       {
-        "itemId": 2002023,
-        "prob": 0.125
-      },
-      {
-        "itemId": 2022251,
-        "prob": 0.125
-      },
-      {
         "itemId": 2022246,
         "prob": 0.075
-      },
-      {
-        "itemId": 2022247,
-        "prob": 0.075
-      },
-      {
-        "itemId": 2022242,
-        "prob": 0.05
       },
       {
         "itemId": 2022245,
@@ -141383,44 +139704,6 @@
       },
       {
         "itemId": 2022121,
-        "prob": 0.00005
-      }
-    ],
-    "9400568": [
-      {
-        "itemId": 2020029,
-        "prob": 0.1
-      },
-      {
-        "itemId": 2022261,
-        "prob": 0.1
-      },
-      {
-        "itemId": 2022262,
-        "prob": 0.1
-      },
-      {
-        "itemId": 2022263,
-        "prob": 0.1
-      },
-      {
-        "itemId": 2022264,
-        "prob": 0.1
-      },
-      {
-        "itemId": 2020030,
-        "prob": 0.05
-      },
-      {
-        "itemId": 1000025,
-        "prob": 0.0005
-      },
-      {
-        "itemId": 1001035,
-        "prob": 0.0005
-      },
-      {
-        "itemId": 1312017,
         "prob": 0.00005
       }
     ],
@@ -141678,56 +139961,6 @@
       {
         "itemId": 1122059,
         "prob": 0.008
-      }
-    ],
-    "9400707": [
-      {
-        "itemId": 4000417,
-        "prob": 1
-      }
-    ],
-    "9400710": [
-      {
-        "itemId": 4000417,
-        "prob": 1
-      },
-      {
-        "itemId": 4000422,
-        "prob": 1
-      },
-      {
-        "itemId": 4000423,
-        "prob": 1
-      },
-      {
-        "itemId": 4000424,
-        "prob": 1
-      },
-      {
-        "itemId": 4000425,
-        "prob": 1
-      }
-    ],
-    "9400712": [
-      {
-        "itemId": 4000424,
-        "prob": 1
-      },
-      {
-        "itemId": 4000425,
-        "prob": 1
-      }
-    ],
-    "9409000": [
-      {
-        "itemId": 4000300,
-        "prob": 1
-      }
-    ],
-    "9409001": [
-      {
-        "itemId": 4000301,
-        "prob": 1
       }
     ],
     "9410000": [
@@ -144341,12 +142574,6 @@
         "prob": 0.00007
       }
     ],
-    "9500140": [
-      {
-        "itemId": 4031906,
-        "prob": 0.35
-      }
-    ],
     "9500141": [
       {
         "itemId": 1092006,
@@ -145764,18 +143991,6 @@
     ]
   },
   "monstersByItemId": {
-    "1000025": [
-      {
-        "mobId": 9400568,
-        "prob": 0.0005
-      }
-    ],
-    "1001035": [
-      {
-        "mobId": 9400568,
-        "prob": 0.0005
-      }
-    ],
     "1002001": [
       {
         "mobId": 9500144,
@@ -151455,12 +149670,6 @@
       {
         "mobId": 9400204,
         "prob": 0.00003
-      }
-    ],
-    "1032039": [
-      {
-        "mobId": 9400542,
-        "prob": 0.00008
       }
     ],
     "1032062": [
@@ -166960,12 +165169,6 @@
         "prob": 0.05
       }
     ],
-    "1072239": [
-      {
-        "mobId": 9400121,
-        "prob": 0.01
-      }
-    ],
     "1072285": [
       {
         "mobId": 1110100,
@@ -172899,12 +171102,6 @@
       {
         "mobId": 9400548,
         "prob": 0.0001
-      }
-    ],
-    "1312017": [
-      {
-        "mobId": 9400568,
-        "prob": 0.00005
       }
     ],
     "1312030": [
@@ -184601,28 +182798,6 @@
         "prob": 0.4
       }
     ],
-    "2002023": [
-      {
-        "mobId": 9400549,
-        "prob": 0.009
-      },
-      {
-        "mobId": 9400567,
-        "prob": 0.125
-      }
-    ],
-    "2002024": [
-      {
-        "mobId": 9400549,
-        "prob": 0.22
-      }
-    ],
-    "2002025": [
-      {
-        "mobId": 9400549,
-        "prob": 0.22
-      }
-    ],
     "2010003": [
       {
         "mobId": 2130103,
@@ -185449,18 +183624,6 @@
         "prob": 0.01
       }
     ],
-    "2020029": [
-      {
-        "mobId": 9400568,
-        "prob": 0.1
-      }
-    ],
-    "2020030": [
-      {
-        "mobId": 9400568,
-        "prob": 0.05
-      }
-    ],
     "2022001": [
       {
         "mobId": 8220001,
@@ -185670,12 +183833,6 @@
       {
         "mobId": 7130020,
         "prob": 0.002
-      }
-    ],
-    "2022117": [
-      {
-        "mobId": 9400549,
-        "prob": 0.0001
       }
     ],
     "2022121": [
@@ -186010,48 +184167,12 @@
         "prob": 0.01
       }
     ],
-    "2022182": [
-      {
-        "mobId": 9400549,
-        "prob": 0.01
-      }
-    ],
     "2022186": [
       {
         "mobId": 8220001,
         "prob": 0.0108,
         "min": 1,
         "max": 1
-      }
-    ],
-    "2022189": [
-      {
-        "mobId": 9400538,
-        "prob": 0.005
-      }
-    ],
-    "2022242": [
-      {
-        "mobId": 9400567,
-        "prob": 0.05
-      }
-    ],
-    "2022244": [
-      {
-        "mobId": 9400556,
-        "prob": 0.002
-      },
-      {
-        "mobId": 9400558,
-        "prob": 0.002
-      },
-      {
-        "mobId": 9400563,
-        "prob": 0.002
-      },
-      {
-        "mobId": 9400565,
-        "prob": 0.002
       }
     ],
     "2022245": [
@@ -186064,42 +184185,6 @@
       {
         "mobId": 9400567,
         "prob": 0.075
-      }
-    ],
-    "2022247": [
-      {
-        "mobId": 9400567,
-        "prob": 0.075
-      }
-    ],
-    "2022251": [
-      {
-        "mobId": 9400567,
-        "prob": 0.125
-      }
-    ],
-    "2022261": [
-      {
-        "mobId": 9400568,
-        "prob": 0.1
-      }
-    ],
-    "2022262": [
-      {
-        "mobId": 9400568,
-        "prob": 0.1
-      }
-    ],
-    "2022263": [
-      {
-        "mobId": 9400568,
-        "prob": 0.1
-      }
-    ],
-    "2022264": [
-      {
-        "mobId": 9400568,
-        "prob": 0.1
       }
     ],
     "2022354": [
@@ -198081,18 +196166,6 @@
         "prob": 0.04
       }
     ],
-    "4000300": [
-      {
-        "mobId": 9409000,
-        "prob": 1
-      }
-    ],
-    "4000301": [
-      {
-        "mobId": 9409001,
-        "prob": 1
-      }
-    ],
     "4000313": [
       {
         "mobId": 9500167,
@@ -198305,18 +196378,6 @@
         "prob": 0.4
       }
     ],
-    "4000399": [
-      {
-        "mobId": 9400558,
-        "prob": 0.2
-      }
-    ],
-    "4000400": [
-      {
-        "mobId": 9400560,
-        "prob": 0.2
-      }
-    ],
     "4000411": [
       {
         "mobId": 7090000,
@@ -198357,16 +196418,6 @@
         "max": 1
       }
     ],
-    "4000417": [
-      {
-        "mobId": 9400707,
-        "prob": 1
-      },
-      {
-        "mobId": 9400710,
-        "prob": 1
-      }
-    ],
     "4000418": [
       {
         "mobId": 8090000,
@@ -198381,38 +196432,6 @@
         "prob": 0.8,
         "min": 1,
         "max": 1
-      }
-    ],
-    "4000422": [
-      {
-        "mobId": 9400710,
-        "prob": 1
-      }
-    ],
-    "4000423": [
-      {
-        "mobId": 9400710,
-        "prob": 1
-      }
-    ],
-    "4000424": [
-      {
-        "mobId": 9400710,
-        "prob": 1
-      },
-      {
-        "mobId": 9400712,
-        "prob": 1
-      }
-    ],
-    "4000425": [
-      {
-        "mobId": 9400710,
-        "prob": 1
-      },
-      {
-        "mobId": 9400712,
-        "prob": 1
       }
     ],
     "4000436": [
@@ -205536,16 +203555,6 @@
         "prob": 0.01
       }
     ],
-    "4031284": [
-      {
-        "mobId": 9400510,
-        "prob": 0.001
-      },
-      {
-        "mobId": 9400511,
-        "prob": 0.001
-      }
-    ],
     "4031296": [
       {
         "mobId": 9410003,
@@ -205558,18 +203567,6 @@
         "prob": 0.21,
         "min": 1,
         "max": 1
-      }
-    ],
-    "4031306": [
-      {
-        "mobId": 9400513,
-        "prob": 0.001
-      }
-    ],
-    "4031307": [
-      {
-        "mobId": 9400512,
-        "prob": 0.001
       }
     ],
     "4031309": [
@@ -205697,12 +203694,6 @@
       {
         "mobId": 9300119,
         "prob": 0.07
-      }
-    ],
-    "4031447": [
-      {
-        "mobId": 9400551,
-        "prob": 0.8
       }
     ],
     "4031449": [
@@ -206073,108 +204064,12 @@
         "prob": 0.4
       }
     ],
-    "4031523": [
-      {
-        "mobId": 9400509,
-        "prob": 0.01
-      }
-    ],
-    "4031524": [
-      {
-        "mobId": 3210201,
-        "prob": 0.01
-      }
-    ],
-    "4031525": [
-      {
-        "mobId": 3230308,
-        "prob": 0.01
-      }
-    ],
     "4031568": [
       {
         "mobId": 2100108,
         "prob": 0.0794,
         "min": 1,
         "max": 1
-      }
-    ],
-    "4031590": [
-      {
-        "mobId": 1110101,
-        "prob": 0.01
-      },
-      {
-        "mobId": 3000005,
-        "prob": 0.01
-      },
-      {
-        "mobId": 9400512,
-        "prob": 0.05
-      },
-      {
-        "mobId": 9400513,
-        "prob": 0.05
-      }
-    ],
-    "4031593": [
-      {
-        "mobId": 9400515,
-        "prob": 0.5
-      },
-      {
-        "mobId": 9400516,
-        "prob": 0.5
-      }
-    ],
-    "4031594": [
-      {
-        "mobId": 9400514,
-        "prob": 1
-      }
-    ],
-    "4031596": [
-      {
-        "mobId": 9400518,
-        "prob": 1
-      }
-    ],
-    "4031597": [
-      {
-        "mobId": 9400524,
-        "prob": 1
-      },
-      {
-        "mobId": 9400530,
-        "prob": 1
-      },
-      {
-        "mobId": 9400531,
-        "prob": 1
-      }
-    ],
-    "4031674": [
-      {
-        "mobId": 4230116,
-        "prob": 0.05
-      }
-    ],
-    "4031675": [
-      {
-        "mobId": 4230113,
-        "prob": 0.05
-      }
-    ],
-    "4031680": [
-      {
-        "mobId": 9400543,
-        "prob": 0.05
-      }
-    ],
-    "4031681": [
-      {
-        "mobId": 9400546,
-        "prob": 0.05
       }
     ],
     "4031694": [
@@ -206209,44 +204104,6 @@
       {
         "mobId": 6110301,
         "prob": 0.07
-      }
-    ],
-    "4031764": [
-      {
-        "mobId": 9400556,
-        "prob": 0.2
-      },
-      {
-        "mobId": 9400565,
-        "prob": 0.2
-      }
-    ],
-    "4031769": [
-      {
-        "mobId": 9400556,
-        "prob": 0.025
-      },
-      {
-        "mobId": 9400560,
-        "prob": 0.2
-      },
-      {
-        "mobId": 9400565,
-        "prob": 0.025
-      }
-    ],
-    "4031770": [
-      {
-        "mobId": 9400556,
-        "prob": 0.025
-      },
-      {
-        "mobId": 9400560,
-        "prob": 0.1
-      },
-      {
-        "mobId": 9400565,
-        "prob": 0.025
       }
     ],
     "4031773": [
@@ -206299,16 +204156,6 @@
         "prob": 0.6
       }
     ],
-    "4031812": [
-      {
-        "mobId": 9400556,
-        "prob": 0.2
-      },
-      {
-        "mobId": 9400565,
-        "prob": 0.2
-      }
-    ],
     "4031846": [
       {
         "mobId": 130101,
@@ -206353,52 +204200,10 @@
         "prob": 0.2
       }
     ],
-    "4031901": [
-      {
-        "mobId": 8500002,
-        "prob": 0.25
-      }
-    ],
-    "4031902": [
-      {
-        "mobId": 9400014,
-        "prob": 0.35
-      }
-    ],
     "4031903": [
       {
         "mobId": 9400549,
         "prob": 0.1
-      }
-    ],
-    "4031904": [
-      {
-        "mobId": 9300028,
-        "prob": 0.25
-      }
-    ],
-    "4031905": [
-      {
-        "mobId": 8510000,
-        "prob": 0.25
-      },
-      {
-        "mobId": 8520000,
-        "prob": 0.25
-      }
-    ],
-    "4031906": [
-      {
-        "mobId": 8150000,
-        "prob": 0.25
-      },
-      {
-        "mobId": 9400514,
-        "prob": 0.25
-      },
-      {
-        "mobId": 9500140,
-        "prob": 0.35
       }
     ],
     "4031925": [

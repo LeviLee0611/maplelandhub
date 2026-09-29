@@ -11,7 +11,7 @@
     "exp": 4,
     "dropRate": 4,
     "meso": 2,
-    "_expNote": "EXP 4배 (기존 대비 +300%). monsters.json의 exp 필드는 '몬스터 고유 스탯'이라 스크립트가 굽지 않음 — 향후 EXP 계산기(Zone B)가 이 배율을 직접 곱해서 사용해야 함.",
+    "_expNote": "EXP 4배 (기존 대비 +300%). 이 값은 '참고용 상수'이며 스크립트가 어디에도 곱하지 않는다 — 2026-09-28 전수 조사 결과 (1) 카탈로그에서 온 일부 몬스터는 이미 4배가 반영돼 있어 또 곱하면 16배가 되고, (2) 플래닛이 지역별 개별 리밸런스를 해와 4배가 아닌 종이 100종 넘게 섞여 있었다. 그래서 배율 대신 chowayo-measured-exp.json의 실측값으로 monsters.json의 exp를 덮어쓴다. 2026-09-28 이전에는 '향후 계산기가 곱해서 쓸 것'이라는 TODO 상태로 남아 어디에도 반영되지 않았고, 그 결과 플래닛 몬스터 EXP가 실제의 1/4로 표시되고 있었다.",
     "_dropRateNote": "아이템 드롭률 4배 (+300%). data/planet/drop-index.json, data/planet/item-detail-by.json의 prob 필드에 build-planet-data.mjs가 직접 곱해서 반영함 (1.0 초과 시 100%로 clamp).",
     "_mesoNote": "메소 획득 2배 (+100%). 몬스터별 기본 메소 드랍량 필드가 현재 어떤 data/*.json에도 존재하지 않아 굽지 못함 — 메소 계산 로직이 생기면 이 배율을 곱해서 사용."
   },
@@ -29,9 +29,9 @@
   ],
   "monsterOverrides": {
     "130101": {
-      "_source": "chowayo.com 검색 결과 — 빨간 달팽이 Lv4·HP40·EXP8 (메랜 원본 데이터는 Lv8·HP40·EXP4, HP는 일치하나 레벨/EXP가 서로 뒤바뀐 것처럼 다름)",
-      "level": 4,
-      "exp": 8
+      "_source": "chowayo.com 검색 결과 — 빨간 달팽이 Lv4·HP40 (메랜 원본 데이터는 Lv8·HP40·EXP4, HP는 일치하나 레벨이 다름)",
+      "_expNote": "2026-09-28 재확인: 여기 적혀 있던 exp 8은 원작값이었고 chowayo 실측은 32(=8x4)다. exp는 chowayo-measured-exp.json이 담당하도록 제거했다 — 이 파일의 값은 실측값을 덮어쓰므로 남겨두면 안 된다.",
+      "level": 4
     },
     "4230103": {
       "_source": "scripts/sources/planet/monster-catalog-data.js (KMS pre-BigBang 데이터마이닝) — 기존 data/monsters.json 값(Lv56/HP8600/EXP197)과 레벨이 달라 2026-07-08 세션에서 재검토, catalog 값으로 교체. 예티(6300001/6300002)·킹슬라임(9300003)은 namu.wiki 빅뱅 이전 문서와 대조해 catalog 값이 정확함을 개별 확인(예티 Lv65·HP11000, 킹슬라임 Lv40 일치). 나머지 항목은 동일 소스 신뢰도에 기반한 일괄 적용 — 개별 재검증 전까지 잠정치.",

@@ -5,7 +5,10 @@
 // data/planet/divergence-overrides.json에 기록된 배율/오버라이드만 얹어 data/planet/*.json을 생성한다.
 //
 // 알려진 Planet vs Mapleland 차이 (자세한 내용은 divergence-overrides.json 주석 참고):
-//   - EXP 획득 4배 (+300%)   — 현재 monsters.json에 굽지 않음 (몬스터 고유 스탯 필드라 판단, 계산기 쪽에서 배율 적용)
+//   - EXP 획득 4배 (+300%)   — chowayo-measured-exp.json의 '실측값'으로 monsters.json의 exp를 덮어쓴다.
+//     배율을 일괄로 곱하지 않는 이유: 카탈로그에서 들어온 일부 몬스터는 이미 Planet 4배가 반영된 값이라
+//     거기에 또 4를 곱하면 16배가 되고, 지역별 개별 리밸런스(4배가 아닌 종)도 섞여 있기 때문.
+//     (2026-09-28 조사: 우리 플래닛 데이터가 원작 EXP를 그대로 쓰고 있어 대부분 실제의 1/4로 표시되던 문제)
 //   - 드롭률 4배 (+300%)     — drop-index.json / item-detail-by.json의 prob 필드에 직접 반영
 //   - 메소 획득 2배 (+100%)  — 몬스터별 기본 메소 필드가 데이터에 없어 배율 config만 기록
 //     (버섯의 성/커닝스퀘어/아리안트/마가티아/네오시티 특정 몬스터는 메소 절반 예외 — mesoHalvedMonsterCodes)
@@ -34,6 +37,7 @@ const CATALOG_DATA_PATH = path.join(PLANET_SOURCES_DIR, "monster-catalog-data.js
 const MAP_CATALOG_DATA_PATH = path.join(PLANET_SOURCES_DIR, "map-catalog-data.js");
 const CUBE_DATA_PATH = path.join(PLANET_SOURCES_DIR, "cube-data.js");
 const MOBCODE_CORRECTIONS_PATH = path.resolve("scripts/sources/mobcode-corrections.json");
+const MEASURED_EXP_PATH = path.join(PLANET_SOURCES_DIR, "chowayo-measured-exp.json");
 const OUTPUT_CUBE_INDEX = path.join(PLANET_DIR, "cube-index.json");
 const OUTPUT_MONSTERS = path.join(PLANET_DIR, "monsters.json");
 const OUTPUT_DROP_INDEX = path.join(PLANET_DIR, "drop-index.json");
@@ -262,6 +266,26 @@ export function applyDropRateMultiplierToItemDetailBy(itemDetailBy, multiplier) 
   return { ...itemDetailBy, itemsByItemId };
 }
 
+// chowayo(메이플플래닛 데이터베이스)에서 수집한 EXP 실측값을 적용한다.
+// 이름이 일치하는 항목만 소스 파일에 담겨 있으므로 여기서는 mobCode로 단순 매칭한다.
+// monsterOverrides보다 먼저 호출할 것 — 손수 검증한 monsterOverrides가 실측값을 덮어쓸 수 있어야 한다.
+export function applyMeasuredExp(monsters, measuredExp) {
+  const table = measuredExp?.exp;
+  if (!table || Object.keys(table).length === 0) return { monsters, applied: 0, skipped: 0 };
+  let applied = 0;
+  let skipped = 0;
+  const result = monsters.map((monster) => {
+    const next = table[String(monster.mobCode)];
+    if (typeof next !== "number" || next === monster.exp) {
+      if (typeof next === "number") skipped++;
+      return monster;
+    }
+    applied++;
+    return { ...monster, exp: next };
+  });
+  return { monsters: result, applied, skipped };
+}
+
 export function applyMonsterOverrides(monsters, monsterOverrides) {
   if (!monsterOverrides || Object.keys(monsterOverrides).length === 0) return monsters;
   return monsters.map((monster) => {
@@ -350,7 +374,19 @@ async function main() {
     identityRemap,
   );
   const monstersWithMaps = await applyMapCatalogData(monstersWithCatalog, MAP_CATALOG_DATA_PATH, identityRemap);
-  const planetMonsters = appendNewMonsters(applyMonsterOverrides(monstersWithMaps, monsterOverrides), newMonsters);
+
+  // EXP 실측값 적용 (monsterOverrides보다 먼저 — 손수 검증한 값이 실측값을 이기도록)
+  const measuredExp = (await pathExists(MEASURED_EXP_PATH)) ? await readJson(MEASURED_EXP_PATH) : null;
+  const measured = applyMeasuredExp(monstersWithMaps, measuredExp);
+  if (measuredExp) {
+    const excluded = Object.keys(measuredExp._excluded ?? {}).length;
+    console.log(
+      `[measured-exp] ${measuredExp._source ?? "?"} (수집 ${measuredExp._collectedAt ?? "?"}) — ` +
+        `${measured.applied}종 EXP 교체, ${measured.skipped}종 이미 일치, ${excluded}종 이름 불일치로 제외`,
+    );
+  }
+
+  const planetMonsters = appendNewMonsters(applyMonsterOverrides(measured.monsters, monsterOverrides), newMonsters);
 
   // 2) drop-index.json: dropRate 배율을 dropsByMonsterId/monstersByItemId의 prob에 반영 + itemOverrides
   const planetDropIndex = {

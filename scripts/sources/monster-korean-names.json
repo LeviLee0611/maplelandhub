@@ -1,0 +1,131 @@
+{
+  "_comment": [
+    "몬스터 한글 이름 오버라이드 (mobCode -> 한글명). scripts/fix-english-names.mjs가 data/monsters.json과 퀘스트 데이터에 적용한다.",
+    "왜 필요한가: 드롭/몬스터 원본이 GMS 기반이라 KMS에 대응 항목이 없는 몬스터는 영문 이름이 그대로 남아 있었다.",
+    "출처: 메이플노트 클래식(메랜) / chowayo.com(플래닛) 상세 페이지 <title>. 두 곳 표기가 다르면 메랜을 채택했다(_serverNameDiff 참고).",
+    "주의: 두 사이트 모두 '없는 항목'에도 200과 사이트 기본 타이틀을 돌려주므로, 기본 타이틀을 걸러낸 뒤 수록했다.",
+    "여기 없는 영문 몬스터는 한국 서버에 존재하지 않는 GMS 전용 이벤트 몬스터이며(_notInKorea 참고), 전부 release-filter로 비노출이라 화면에 나오지 않는다."
+  ],
+  "_source": {
+    "mapleland": "https://xn--o80b01o9mlw3kdzc.com/monster_detail/{mobCode}",
+    "planet": "https://chowayo.com/monsters/{mobCode}"
+  },
+  "_collectedAt": "2026-09-28",
+  "names": {
+    "9400101": "수하B",
+    "9400102": "수하C",
+    "9400100": "수하A",
+    "9400103": "수하D",
+    "9400110": "간부A",
+    "9400111": "간부B",
+    "9400112": "보디가드A",
+    "9400113": "보디가드B",
+    "9400120": "두목",
+    "9400121": "여두목",
+    "9400122": "두목",
+    "9400204": "레드 슬라임",
+    "9400300": "대보스",
+    "9400409": "영주 두꺼비",
+    "9420517": "페트리파이터",
+    "9500386": "흰털 어미원숭이",
+    "9500388": "붉은 도깨비",
+    "9500387": "푸른 도깨비",
+    "9500389": "힘센 돌도깨비",
+    "9100013": "아딘의 분신"
+  },
+  "_english": {
+    "9400101": "Extra B",
+    "9400102": "Extra C",
+    "9400100": "Extra A",
+    "9400103": "Extra D",
+    "9400110": "Leader A",
+    "9400111": "Leader B",
+    "9400112": "Bodyguard A",
+    "9400113": "Bodyguard B",
+    "9400120": "Male Boss A",
+    "9400121": "Female Boss",
+    "9400122": "Male Boss B",
+    "9400204": "Red Slime",
+    "9400300": "The Boss",
+    "9400409": "Emperor Toad",
+    "9420517": "Petrifighter",
+    "9500386": "White Mama Monkey",
+    "9500388": "Red Goblin",
+    "9500387": "Blue Goblin",
+    "9500389": "Strong Stone Goblin",
+    "9100013": "Adin"
+  },
+  "_serverNameDiff": {
+    "9400204": {
+      "english": "Red Slime",
+      "mapleland": "레드 슬라임",
+      "planet": "플레임 슬라임",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9400300": {
+      "english": "The Boss",
+      "mapleland": "대보스",
+      "planet": "대두목",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9400409": {
+      "english": "Emperor Toad",
+      "mapleland": "영주 두꺼비",
+      "planet": "대두꺼비 가엘",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9500386": {
+      "english": "White Mama Monkey",
+      "mapleland": "흰털 어미원숭이",
+      "planet": "흰털 어미 원숭이",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9500388": {
+      "english": "Red Goblin",
+      "mapleland": "붉은 도깨비",
+      "planet": "빨간 도깨비",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9500387": {
+      "english": "Blue Goblin",
+      "mapleland": "푸른 도깨비",
+      "planet": "파란 도깨비",
+      "note": "표기 차이. 메랜 채택."
+    },
+    "9500389": {
+      "english": "Strong Stone Goblin",
+      "mapleland": "힘센 돌도깨비",
+      "planet": "힘센 돌 도깨비",
+      "note": "표기 차이. 메랜 채택."
+    }
+  },
+  "_notInKorea": {
+    "9400546": "I.AM.ROBOT",
+    "9400114": "Slot Machine",
+    "9400506": "Candle Monster",
+    "9400507": "1st Anniversary Cake Monster",
+    "9400509": "Sakura Cellion",
+    "9400510": "Green Eggy Popp",
+    "9400511": "Yellow Eggy Popp",
+    "9400512": "Cake Mob (2nd) ",
+    "9400514": "Geist Balrog Phase 3",
+    "9400515": "Indigo Eye",
+    "9400516": "Crystal Boar",
+    "9400524": "Curse Eye GL",
+    "9400518": "Magik Fierry B",
+    "9400530": "Zombie Lupin GL",
+    "9400531": "Toy Trojan GL",
+    "9400541": "Killa Bee",
+    "9400550": "Boomer",
+    "9400551": "Bob",
+    "9400567": "Loki Box Tr",
+    "9400565": "Glutton Ghoul",
+    "9400568": "Turkey Commando",
+    "9400570": "Anniversary Cake",
+    "9400572": "Geist Balrog",
+    "9400571": "Headless Horseman",
+    "9400707": "Item Maker",
+    "9400710": "Snowman3",
+    "9400712": "Little Snowman"
+  }
+}
