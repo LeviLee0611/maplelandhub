@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
-import { resolveMonsterDrops, type DropIndexLookup } from "../drop-table-lookup";
+import { resolveItemMonsters, resolveMonsterDrops, type DropIndexLookup } from "../drop-table-lookup";
 
 const emptyIndex: DropIndexLookup = { dropsByMonsterId: {}, monstersByItemId: {} };
 
@@ -114,5 +114,53 @@ describe("resolveMonsterDrops — 외부 조회 실패와 '드랍 없음' 구분
     expect(result.drops).toEqual([{ itemId: 4000493 }]);
     expect(result.lookupFailed).toBe(false);
     expect(result.partial).toBe(true);
+  });
+});
+
+describe("resolveItemMonsters — 역인덱스 형식 방어", () => {
+  const itemDetailBy = { itemsByItemId: {} };
+
+  /**
+   * 일부 역인덱스 항목이 `{ mobId }` 객체가 아니라 **숫자 하나**로 들어있었다.
+   * 발록·카오스 혼테일 드롭을 넣은 일회성 스크립트가 형식을 지키지 않은 탓으로,
+   * 그대로 두면 화면에서 `entry.mobId`가 undefined 가 되고 `Number.isFinite` 필터에 걸려
+   * 62개 아이템의 "이 아이템을 드롭하는 몬스터"가 통째로 비어 있었다(2026-09-30).
+   */
+  it("mobId 숫자만 든 항목을 {mobId} 객체로 정규화한다", () => {
+    const index = {
+      dropsByMonsterId: {},
+      monstersByItemId: { "1072375": [8830000, { mobId: 8150000, prob: 0.01 }] },
+    } as unknown as DropIndexLookup;
+    const result = resolveItemMonsters(index, itemDetailBy, 1072375);
+    expect(result).toEqual([{ mobId: 8830000 }, { mobId: 8150000, prob: 0.01 }]);
+    expect(result.every((e) => Number.isFinite(e.mobId) && e.mobId > 0)).toBe(true);
+  });
+
+  it("0 이하이거나 숫자가 아닌 쓰레기 항목은 버린다", () => {
+    const index = {
+      dropsByMonsterId: {},
+      monstersByItemId: { "1": [0, -5, null, "x", { mobId: 100100 }] },
+    } as unknown as DropIndexLookup;
+    expect(resolveItemMonsters(index, itemDetailBy, 1)).toEqual([{ mobId: 100100 }]);
+  });
+
+  it("itemDetailBy 우선 경로에도 같은 정규화가 적용된다", () => {
+    const index = { dropsByMonsterId: {}, monstersByItemId: {} } as unknown as DropIndexLookup;
+    // 타입에 맞지 않는 실제 데이터 모양을 일부러 넣는 테스트라 캐스트한다
+    const detail = { itemsByItemId: { "1": [8830000] } } as unknown as Parameters<typeof resolveItemMonsters>[1];
+    expect(resolveItemMonsters(index, detail, 1)).toEqual([{ mobId: 8830000 }]);
+  });
+
+  it("실데이터의 역인덱스에는 비-객체 항목이 남아 있으면 안 된다", async () => {
+    const dropIndex = (await import("@data/drop-index.json")).default as unknown as {
+      monstersByItemId: Record<string, unknown[]>;
+    };
+    const offenders: string[] = [];
+    for (const [itemId, entries] of Object.entries(dropIndex.monstersByItemId)) {
+      for (const e of entries ?? []) {
+        if (!e || typeof e !== "object") offenders.push(`${itemId}: ${JSON.stringify(e)}`);
+      }
+    }
+    expect(offenders.slice(0, 10)).toEqual([]);
   });
 });

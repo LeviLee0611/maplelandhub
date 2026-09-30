@@ -598,8 +598,11 @@ export function DropTable({
     if (typeof prob !== "number" || prob < 0) {
       return { percent: "정보 없음", fraction: null as { num: number; den: number } | null };
     }
+    // prob 이 0 이면 "0.00%"로 보여주던 걸 "정보 없음"으로 바꿨다(2026-09-30).
+    // 게임에 확률 0%인 드롭은 없다 — 원본에 값이 없어 0으로 들어온 것이므로,
+    // 0%라고 단정해 "안 떨어진다"고 오해시키는 것보다 모른다고 하는 게 정직하다.
     if (prob === 0) {
-      return { percent: "0.00%", fraction: null as { num: number; den: number } | null };
+      return { percent: "정보 없음", fraction: null as { num: number; den: number } | null };
     }
     const percent = prob * 100;
     const decimals =

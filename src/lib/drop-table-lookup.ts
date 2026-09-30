@@ -91,11 +91,37 @@ export async function resolveMonsterDrops(dropIndex: DropIndexLookup, mobCode: n
   };
 }
 
+/**
+ * 드롭 역인덱스 항목을 `{ mobId, ... }` 형태로 맞춘다.
+ *
+ * 일부 항목이 객체가 아니라 **mobId 숫자 하나**로 들어있다 — 발록·카오스 혼테일 드롭을 넣은
+ * 일회성 스크립트(`update-balrog-drops.mjs` 등)가 형식을 지키지 않은 탓이다. 이 상태로 내보내면
+ * 호출부가 `entry.mobId`에서 undefined 를 받고, `Number.isFinite` 필터에 걸려 **해당 몬스터가
+ * 목록에서 통째로 사라진다**. 실제로 62개 아이템(발록 장비 전종, 카오스 혼테일의 목걸이 등)의
+ * "이 아이템을 드롭하는 몬스터"가 비어 있었다(2026-09-30 발견).
+ *
+ * 데이터는 따로 정정했지만, 같은 형식으로 데이터를 넣는 일회성 스크립트가 앞으로도 쓰일 수 있어
+ * 소비 지점에서도 방어한다.
+ */
+function normalizeMonsterEntries(entries: unknown): MonsterDropEntry[] {
+  if (!Array.isArray(entries)) return [];
+  const out: MonsterDropEntry[] = [];
+  for (const entry of entries) {
+    if (typeof entry === "number") {
+      if (Number.isFinite(entry) && entry > 0) out.push({ mobId: entry });
+      continue;
+    }
+    if (entry && typeof entry === "object") out.push(entry as MonsterDropEntry);
+  }
+  return out;
+}
+
 export function resolveItemMonsters(
   dropIndex: DropIndexLookup,
   itemDetailBy: ItemDetailByLookup,
   itemId: number,
 ): MonsterDropEntry[] {
-  const preferredEntries = itemDetailBy.itemsByItemId?.[String(itemId)] ?? [];
-  return preferredEntries.length > 0 ? preferredEntries : (dropIndex.monstersByItemId[String(itemId)] ?? []);
+  const preferredEntries = normalizeMonsterEntries(itemDetailBy.itemsByItemId?.[String(itemId)]);
+  if (preferredEntries.length > 0) return preferredEntries;
+  return normalizeMonsterEntries(dropIndex.monstersByItemId[String(itemId)]);
 }
