@@ -28,7 +28,9 @@ const APPLY = process.argv.includes("--apply");
 
 const DEFAULT_SOURCES = [
   "scripts/sources/masteria-content.json", // 마스테리아 22종 (2026-09-29 적용)
-  "scripts/sources/overseas-content.json", // 해외여행(대만/중국/태국) + 파퀘 + 마가티아 35종
+  "scripts/sources/overseas-content.json", // 해외여행(대만/중국/태국) + 파퀘 + 마가티아 35종 (2026-09-29 적용)
+  "scripts/sources/groupa-remainder-content.json", // groupA 잔여 중 메이플노트 수록+레벨일치 49종 (2026-09-30)
+  "scripts/sources/itshim-spawn-maps.json", // 메랜닷컴 map_map_mobs 로 채운 출현 맵 65종 (2026-09-30, 개방 대상은 없음)
 ];
 
 const sourceArgs = process.argv.slice(2).filter((a) => a.endsWith(".json"));
@@ -90,6 +92,22 @@ async function main() {
   }
   filters.allowedMobCodes = [...allowed].sort((a, b) => a - b);
 
+  // blockedMobCodes 에 명시적으로 막혀 있는 것도 풀어야 실제로 노출된다.
+  // (스텀피 3220000 — 파일 최초 생성 때부터 막혀 있었는데 커밋에 사유가 없었고,
+  //  GMS/92·메이플노트·메랜닷컴 셋 다 우리 데이터와 일치해 근거 없는 차단으로 판단했다.)
+  const blockedBefore = (filters.blockedMobCodes ?? []).length;
+  const unblockSet = new Set(src.unblockMobCodes);
+  const stillBlocked = (filters.blockedMobCodes ?? []).filter((code) => {
+    if (!unblockSet.has(code)) return true;
+    const m = byCode.get(code);
+    console.log(`   - blockedMobCodes 에서 해제: ${code} ${m?.name ?? "?"}`);
+    return false;
+  });
+  filters.blockedMobCodes = stillBlocked;
+  if (blockedBefore !== stillBlocked.length) {
+    console.log(`[release-filters] blockedMobCodes ${blockedBefore} -> ${stillBlocked.length}`);
+  }
+
   console.log(`\n[release-filters] allowedMobCodes ${beforeCount} -> ${filters.allowedMobCodes.length} (신규 ${added.length}종)`);
   for (const code of added) {
     const m = byCode.get(code);
@@ -107,9 +125,18 @@ async function main() {
     const code = Number(codeStr);
     const m = byCode.get(code);
     if (!m) continue;
-    if (rowByCode.has(code)) {
-      spawnSkipped++;
-      continue; // 이미 있으면 건드리지 않는다
+    // row 자체는 있는데 maps 가 빈 경우가 많다(784행 중 다수). 예전엔 row 존재만 보고 건너뛰어서
+    // 스텀피의 출현 맵 3곳이 소스에 있는데도 반영되지 않았다 — 비어 있으면 채운다.
+    const existing = rowByCode.get(code);
+    if (existing) {
+      if ((existing.maps ?? []).length > 0) {
+        spawnSkipped++;
+        continue;
+      }
+      existing.maps = maps.map((x) => ({ map_code: x.map_code, map_name: x.map_name }));
+      spawnAdded++;
+      console.log(`   + 스폰(기존 row 보강) ${code} ${m.name} -> ${maps.map((x) => x.map_name).join(", ")}`);
+      continue;
     }
     rows.push({
       mob_code: code,

@@ -31,6 +31,27 @@ const APPLY = process.argv.includes("--apply");
 // 불가능하므로, 틀린 출현지를 보여주느니 비워두는 쪽을 택했다.
 const EXCLUDED_FILL_RANGES = [[9500000, 9599999]];
 
+/**
+ * map_name 이 맵 이름이 아니라 **다른 칸 값**이 들어간 경우를 판정한다.
+ * mapledb HTML 파싱이 레벨 칸이나 속성 칸을 집어온 흔적으로, 두 종류가 확인됐다.
+ *   - 레벨 숫자: "85", "210"
+ *   - 속성 문자열: "불 반감, 얼음 약점", "성 약점"
+ *
+ * **여기 해당하는 것만 고친다.** 한때 "maps.js 이름과 다르면 전부 맞춘다"로 일반화했더니
+ * 1,409건이 바뀌었는데, 그 대부분은 오염이 아니라 표기 차이였다
+ * ("작은숲속 1" → "메이플로드: 작은숲속 1", "(H)해안가사냥터" → "히든스트리트: 해안가사냥터").
+ * 표기 통일은 그 자체로 논의할 주제지 이 스크립트가 끼워서 할 일이 아니라 되돌렸다.
+ */
+const ELEMENT_WORD = /(불|얼음|전기|독|성|암흑|물리)\s*(반감|약점|면역)/;
+
+function isBrokenMapName(name) {
+  const t = String(name ?? "").trim();
+  if (!t) return false;
+  if (/^\d+$/.test(t)) return true; // 레벨 숫자
+  if (ELEMENT_WORD.test(t)) return true; // 속성 문자열
+  return false;
+}
+
 function isExcludedFromFill(mobCode) {
   return EXCLUDED_FILL_RANGES.some(([lo, hi]) => mobCode >= lo && mobCode <= hi);
 }
@@ -99,23 +120,29 @@ async function main() {
   console.log(`모드: ${APPLY ? "APPLY (파일 수정)" : "DRY-RUN (미리보기)"}`);
   console.log(`맵 사전 ${mapNames.size}개 / spawn row ${doc.rows.length}건`);
 
-  // ---------- ① 숫자로 깨진 map_name 복구 ----------
+  // ---------- ① 깨진 map_name 정정 ----------
+  // 처음엔 "숫자로 보이는 이름"만 고쳤는데, 그러고도 **속성 문자열**이 들어간 33건이 남아 있었다
+  // (여신 탑의 주니어 샐리온 → "불 반감, 얼음 약점", 바이킹 → "불 반감, 전기 약점").
+  // 레벨이든 속성이든 mapledb HTML 에서 엉뚱한 칸을 집어온 것이 원인이라, 특정 패턴을 쫓지 말고
+  // **map_code 로 maps.js 를 조회해 이름을 맞추는** 방식으로 일반화했다. 이러면 어떤 종류의
+  // 오염이든 한 번에 잡힌다. maps.js 에 없는 맵(마스테리아 등 메이플노트에서 채운 것)은 그대로 둔다.
   let renamed = 0;
-  const unrecoverable = [];
+  let unrecoverable = 0;
   for (const row of doc.rows) {
     for (const m of row.maps ?? []) {
-      if (!/^\d+$/.test(String(m.map_name ?? "").trim())) continue;
+      const cur = String(m.map_name ?? "").trim();
+      if (!isBrokenMapName(cur)) continue; // 멀쩡한 이름은 건드리지 않는다
       const real = mapNames.get(m.map_code);
       if (!real) {
-        unrecoverable.push([row.mob_code, m.map_code]);
+        unrecoverable++;
         continue;
       }
-      console.log(`   [이름복구] ${row.mob_code} ${nameByCode.get(row.mob_code) ?? "?"}: "${m.map_name}" -> "${real}"`);
+      console.log(`   [이름정정] ${row.mob_code} ${nameByCode.get(row.mob_code) ?? "?"}: "${cur}" -> "${real}"`);
       m.map_name = real;
       renamed++;
     }
   }
-  console.log(`\n[① map_name 복구] ${renamed}건${unrecoverable.length ? ` / 복구 불가 ${unrecoverable.length}건 ${JSON.stringify(unrecoverable)}` : ""}`);
+  console.log(`\n[① 깨진 map_name 정정] ${renamed}건${unrecoverable ? ` / maps.js 에 없어 복구 못함 ${unrecoverable}건` : ""}`);
 
   // ---------- ② 빈 maps 를 drops.js spawnsAt 으로 보강 ----------
   let filled = 0;

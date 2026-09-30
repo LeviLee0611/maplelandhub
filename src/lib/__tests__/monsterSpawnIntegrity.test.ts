@@ -27,7 +27,15 @@ const dropsSource = fs.readFileSync(DROPS_JS, "utf8");
  * 이 화이트리스트에 없으면서 원본에 `spawnsAt`이 없는데 맵이 채워져 있다면,
  * 그건 다른 몬스터의 맵을 잘못 물고 온 것이다 — 바로 그 오염을 잡으려는 것이다.
  */
-const MANUAL_SPAWN_SOURCES = ["scripts/sources/masteria-content.json", "scripts/sources/overseas-content.json"];
+const MANUAL_SPAWN_SOURCES = [
+  "scripts/sources/masteria-content.json",
+  "scripts/sources/overseas-content.json",
+  "scripts/sources/groupa-remainder-content.json",
+  // 메랜닷컴 map_map_mobs 에서 채운 것 — drops.js 보다 정확한 경우가 있다.
+  // 예: 머리없는 기수를 drops.js 는 682000001(GMS 할로윈 배치)로, 메랜닷컴은 610010xxx(마스테리아)로 준다.
+  // 이 몬스터의 소속은 마스테리아가 맞으므로 원본 대조 검사에서 뺀다.
+  "scripts/sources/itshim-spawn-maps.json",
+];
 const manuallyFilled = new Set<number>();
 for (const rel of MANUAL_SPAWN_SOURCES) {
   const p = path.resolve(process.cwd(), rel);
@@ -89,12 +97,21 @@ describe("출현 맵 데이터 정합성", () => {
     expect(offenders).toEqual([]);
   });
 
-  it("map_name 이 맵 이름 대신 숫자(레벨)로 들어가 있으면 안 된다", () => {
+  /**
+   * map_name 에 맵 이름이 아니라 다른 칸 값이 들어간 경우.
+   * 숫자(레벨)만 검사했더니 **속성 문자열**이 들어간 33건을 놓쳤다 —
+   * 여신 탑의 주니어 샐리온이 "불 반감, 얼음 약점", 바이킹이 "불 반감, 전기 약점"으로 떴다.
+   * 두 패턴을 함께 본다.
+   */
+  it("map_name 이 맵 이름 대신 숫자(레벨)나 속성 문자열로 들어가 있으면 안 된다", () => {
+    const LEVEL_ONLY = /^\d+$/;
+    const ELEMENT_WORD = /(불|얼음|전기|독|성|암흑|물리)\s*(반감|약점|면역)/;
     const offenders: string[] = [];
     for (const row of rows) {
       for (const m of row.maps ?? []) {
-        if (/^\d+$/.test(String(m.map_name ?? "").trim())) {
-          offenders.push(`${row.mob_code} ${nameByCode.get(row.mob_code) ?? "?"}: map ${m.map_code} = "${m.map_name}"`);
+        const name = String(m.map_name ?? "").trim();
+        if (LEVEL_ONLY.test(name) || ELEMENT_WORD.test(name)) {
+          offenders.push(`${row.mob_code} ${nameByCode.get(row.mob_code) ?? "?"}: map ${m.map_code} = "${name}"`);
         }
       }
     }

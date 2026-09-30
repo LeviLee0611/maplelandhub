@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-03-02T22:30:34.911Z",
   "source": "mapledb.kr search.php?t=mob; Maple Note Edelstein snapshot",
-  "count": 784,
-  "withMaps": 472,
-  "withoutMaps": 312,
+  "count": 815,
+  "withMaps": 538,
+  "withoutMaps": 277,
   "errorCount": 0,
   "rows": [
     {
@@ -2075,7 +2075,12 @@
       "mob_code": 2220000,
       "mob_name": "마노",
       "mob_name_en": "Mano",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 104000400,
+          "map_name": "해안가풀숲3"
+        }
+      ]
     },
     {
       "mob_code": 2220100,
@@ -2505,7 +2510,7 @@
       "maps": [
         {
           "map_code": 200080500,
-          "map_name": "성 반감, 전기 반감, 얼음 약점"
+          "map_name": "오르비스탑: 오르비스탑<17층>"
         }
       ]
     },
@@ -3175,13 +3180,31 @@
       "mob_code": 3220000,
       "mob_name": "스텀피",
       "mob_name_en": "Stumpy",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 101030404,
+          "map_name": "빅토리아로드: 동쪽바위산5"
+        },
+        {
+          "map_code": 101030405,
+          "map_name": "빅토리아로드: 동쪽바위산6"
+        },
+        {
+          "map_code": 101030406,
+          "map_name": "빅토리아로드: 동쪽바위산7"
+        }
+      ]
     },
     {
       "mob_code": 3220001,
       "mob_name": "데우",
       "mob_name_en": "Deo",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 260010201,
+          "map_name": "로얄 카투스 사막"
+        }
+      ]
     },
     {
       "mob_code": 3230100,
@@ -3253,7 +3276,7 @@
       "maps": [
         {
           "map_code": 103000103,
-          "map_name": "성 약점, 불 약점"
+          "map_name": "커닝시티지하철: 1호선<2구역>"
         }
       ]
     },
@@ -3854,7 +3877,7 @@
       "maps": [
         {
           "map_code": 103000104,
-          "map_name": "성 약점"
+          "map_name": "커닝시티지하철: 1호선<3구역>"
         }
       ]
     },
@@ -4073,7 +4096,7 @@
       "maps": [
         {
           "map_code": 220020100,
-          "map_name": "얼음 반감, 불 반감"
+          "map_name": "루디브리엄성: 장난감공장<1공정>2구역"
         }
       ]
     },
@@ -4586,10 +4609,30 @@
       "maps": []
     },
     {
+      "mob_code": 4300013,
+      "mob_name": "락 스피릿",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 103040430,
+          "map_name": "7층 8층 D구역"
+        },
+        {
+          "map_code": 103040460,
+          "map_name": "VIP 존 C구역"
+        }
+      ]
+    },
+    {
       "mob_code": 5090000,
       "mob_name": "셰이드",
       "mob_name_en": "Shade",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 103000105,
+          "map_name": "1호선<4구역>"
+        }
+      ]
     },
     {
       "mob_code": 5090001,
@@ -5330,7 +5373,7 @@
       "maps": [
         {
           "map_code": 200080900,
-          "map_name": "얼음 반감, 불 약점"
+          "map_name": "오르비스탑: 오르비스탑<13층>"
         }
       ]
     },
@@ -5341,7 +5384,7 @@
       "maps": [
         {
           "map_code": 200081000,
-          "map_name": "불 반감, 얼음 약점"
+          "map_name": "오르비스탑: 오르비스탑<12층>"
         }
       ]
     },
@@ -5405,7 +5448,7 @@
       "maps": [
         {
           "map_code": 200081700,
-          "map_name": "성 약점"
+          "map_name": "오르비스탑: 오르비스탑<5층>"
         }
       ]
     },
@@ -5451,13 +5494,23 @@
       "mob_code": 6090002,
       "mob_name": "대나무 무사",
       "mob_name_en": "Bamboo Warrior",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 800020130,
+          "map_name": "월하죽림3"
+        }
+      ]
     },
     {
       "mob_code": 6090003,
       "mob_name": "선비귀신",
       "mob_name_en": "Scholar Ghost",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 222010300,
+          "map_name": "여우 고개"
+        }
+      ]
     },
     {
       "mob_code": 6090004,
@@ -5799,7 +5852,7 @@
       "maps": [
         {
           "map_code": 220070000,
-          "map_name": "전기 반감, 얼음 반감, 성 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<1>"
         }
       ]
     },
@@ -5816,7 +5869,7 @@
       "maps": [
         {
           "map_code": 220070000,
-          "map_name": "전기 반감, 얼음 면역, 성 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<1>"
         }
       ]
     },
@@ -5960,7 +6013,7 @@
       "maps": [
         {
           "map_code": 220060100,
-          "map_name": "얼음 약점, 불 반감"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<2>"
         }
       ]
     },
@@ -6032,7 +6085,7 @@
       "maps": [
         {
           "map_code": 220060100,
-          "map_name": "얼음 약점, 불 반감"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<2>"
         }
       ]
     },
@@ -6167,7 +6220,7 @@
       "maps": [
         {
           "map_code": 220070200,
-          "map_name": "성 약점, 불 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<3>"
         }
       ]
     },
@@ -6421,7 +6474,7 @@
       "maps": [
         {
           "map_code": 220060200,
-          "map_name": "얼음 반감, 불 약점"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<3>"
         }
       ]
     },
@@ -6507,7 +6560,12 @@
       "mob_code": 7220002,
       "mob_name": "요괴선사",
       "mob_name_en": "King Sage Cat",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 250010504,
+          "map_name": "요괴의 숲2"
+        }
+      ]
     },
     {
       "mob_code": 8090000,
@@ -6810,7 +6868,7 @@
       "maps": [
         {
           "map_code": 220070100,
-          "map_name": "성 약점, 불 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<2>"
         }
       ]
     },
@@ -6821,7 +6879,7 @@
       "maps": [
         {
           "map_code": 220070100,
-          "map_name": "성 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<2>"
         }
       ]
     },
@@ -6945,7 +7003,7 @@
       "maps": [
         {
           "map_code": 220060300,
-          "map_name": "불 반감, 전기 약점"
+          "map_name": "시계탑최하층: 뒤틀린 시간의 길<4>"
         }
       ]
     },
@@ -6982,7 +7040,7 @@
       "maps": [
         {
           "map_code": 220070300,
-          "map_name": "성 약점, 얼음 반감, 불 약점"
+          "map_name": "시계탑최하층: 잊혀진 시간의 길<4>"
         }
       ]
     },
@@ -7309,10 +7367,234 @@
       ]
     },
     {
+      "mob_code": 8200000,
+      "mob_name": "시간의 눈",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010100,
+          "map_name": "추억의 길1"
+        },
+        {
+          "map_code": 270010200,
+          "map_name": "추억의 길2"
+        },
+        {
+          "map_code": 270010300,
+          "map_name": "추억의 길3"
+        },
+        {
+          "map_code": 270010400,
+          "map_name": "추억의 길4"
+        },
+        {
+          "map_code": 270010500,
+          "map_name": "추억의 길5"
+        },
+        {
+          "map_code": 270020100,
+          "map_name": "후회의 길1"
+        },
+        {
+          "map_code": 270020200,
+          "map_name": "후회의 길2"
+        },
+        {
+          "map_code": 270020300,
+          "map_name": "후회의 길3"
+        },
+        {
+          "map_code": 270030100,
+          "map_name": "망각의 길1"
+        },
+        {
+          "map_code": 270030200,
+          "map_name": "망각의 길2"
+        },
+        {
+          "map_code": 270030300,
+          "map_name": "망각의 길3"
+        },
+        {
+          "map_code": 270030400,
+          "map_name": "망각의 길4"
+        },
+        {
+          "map_code": 270020400,
+          "map_name": "후회의 길4"
+        },
+        {
+          "map_code": 270020500,
+          "map_name": "후회의 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200001,
+      "mob_name": "추억의 사제",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010100,
+          "map_name": "추억의 길1"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200002,
+      "mob_name": "추억의 신관",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010200,
+          "map_name": "추억의 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200003,
+      "mob_name": "추억의 수호대장",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010300,
+          "map_name": "추억의 길3"
+        },
+        {
+          "map_code": 270010400,
+          "map_name": "추억의 길4"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200004,
+      "mob_name": "추억의 수호대장",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010400,
+          "map_name": "추억의 길4"
+        },
+        {
+          "map_code": 270010500,
+          "map_name": "추억의 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200005,
+      "mob_name": "후회의 사제",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270020100,
+          "map_name": "후회의 길1"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200006,
+      "mob_name": "후회의 신관",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270020200,
+          "map_name": "후회의 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200007,
+      "mob_name": "후회의 수호병",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270020300,
+          "map_name": "후회의 길3"
+        },
+        {
+          "map_code": 270020400,
+          "map_name": "후회의 길4"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200008,
+      "mob_name": "후회의 수호대장",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270020400,
+          "map_name": "후회의 길4"
+        },
+        {
+          "map_code": 270020500,
+          "map_name": "후회의 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200009,
+      "mob_name": "망각의 사제",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270030100,
+          "map_name": "망각의 길1"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200010,
+      "mob_name": "망각의 신관",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270030200,
+          "map_name": "망각의 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200011,
+      "mob_name": "망각의 수호병",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270030300,
+          "map_name": "망각의 길3"
+        },
+        {
+          "map_code": 270030400,
+          "map_name": "망각의 길4"
+        }
+      ]
+    },
+    {
+      "mob_code": 8200012,
+      "mob_name": "망각의 수호대장",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270030400,
+          "map_name": "망각의 길4"
+        },
+        {
+          "map_code": 270030500,
+          "map_name": "망각의 길5"
+        }
+      ]
+    },
+    {
       "mob_code": 8220000,
       "mob_name": "엘리쟈",
       "mob_name_en": "Elliza",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 200010300,
+          "map_name": "하늘계단2"
+        }
+      ]
     },
     {
       "mob_code": 8220001,
@@ -7329,13 +7611,51 @@
       "mob_code": 8220002,
       "mob_name": "키메라",
       "mob_name_en": "Kimera",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 261030000,
+          "map_name": "연구소 지하 비밀 통로"
+        }
+      ]
     },
     {
       "mob_code": 8220003,
       "mob_name": "레비아탄",
       "mob_name_en": "Leviathan",
       "maps": []
+    },
+    {
+      "mob_code": 8220004,
+      "mob_name": "도도",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270010500,
+          "map_name": "추억의 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 8220005,
+      "mob_name": "릴리노흐",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270020500,
+          "map_name": "후회의 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 8220006,
+      "mob_name": "라이카",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270030500,
+          "map_name": "망각의 길5"
+        }
+      ]
     },
     {
       "mob_code": 8500000,
@@ -7500,6 +7820,17 @@
       "mob_name": "다크 코니언",
       "mob_name_en": "Dark Cornian",
       "maps": []
+    },
+    {
+      "mob_code": 8820001,
+      "mob_name": "핑크빈",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 270050100,
+          "map_name": "신들의 황혼"
+        }
+      ]
     },
     {
       "mob_code": 9000001,
@@ -8213,7 +8544,7 @@
       "maps": [
         {
           "map_code": 920010300,
-          "map_name": "불 반감, 얼음 약점"
+          "map_name": "히든스트리트: 여신의 탑<창고>"
         }
       ]
     },
@@ -8224,7 +8555,7 @@
       "maps": [
         {
           "map_code": 920010601,
-          "map_name": "불 반감, 얼음 약점"
+          "map_name": "히든스트리트: 여신의 탑<객실 301호>"
         }
       ]
     },
@@ -8235,7 +8566,7 @@
       "maps": [
         {
           "map_code": 920010602,
-          "map_name": "얼음 반감, 불 약점"
+          "map_name": "히든스트리트: 여신의 탑<객실 302호>"
         }
       ]
     },
@@ -8246,7 +8577,7 @@
       "maps": [
         {
           "map_code": 920010603,
-          "map_name": "전기 반감, 얼음 약점"
+          "map_name": "히든스트리트: 여신의 탑<객실 303호>"
         }
       ]
     },
@@ -8257,7 +8588,7 @@
       "maps": [
         {
           "map_code": 920010910,
-          "map_name": "독 면역, 성 약점"
+          "map_name": "히든스트리트: 여신의 탑<감옥1>"
         }
       ]
     },
@@ -8279,7 +8610,7 @@
       "maps": [
         {
           "map_code": 920010200,
-          "map_name": "성 반감"
+          "map_name": "히든스트리트: 여신의 탑<산책로>"
         }
       ]
     },
@@ -8290,7 +8621,7 @@
       "maps": [
         {
           "map_code": 920010200,
-          "map_name": "얼음 반감, 불 반감, 전기 반감, 성 반감"
+          "map_name": "히든스트리트: 여신의 탑<산책로>"
         }
       ]
     },
@@ -8301,7 +8632,7 @@
       "maps": [
         {
           "map_code": 920010800,
-          "map_name": "불 약점"
+          "map_name": "히든스트리트: 여신의 탑<정원>"
         }
       ]
     },
@@ -8329,7 +8660,7 @@
       "maps": [
         {
           "map_code": 920011000,
-          "map_name": "불 반감, 얼음 약점"
+          "map_name": "히든스트리트: 여신의 탑<암흑의 방>"
         }
       ]
     },
@@ -8340,7 +8671,7 @@
       "maps": [
         {
           "map_code": 920011000,
-          "map_name": "전기 반감, 얼음 약점"
+          "map_name": "히든스트리트: 여신의 탑<암흑의 방>"
         }
       ]
     },
@@ -8351,7 +8682,7 @@
       "maps": [
         {
           "map_code": 920011000,
-          "map_name": "얼음 반감, 불 약점"
+          "map_name": "히든스트리트: 여신의 탑<암흑의 방>"
         }
       ]
     },
@@ -9055,7 +9386,7 @@
       "maps": [
         {
           "map_code": 980000101,
-          "map_name": "전기 반감"
+          "map_name": "몬스터 카니발: 카니발 필드1 <전장>"
         }
       ]
     },
@@ -9084,7 +9415,7 @@
       "maps": [
         {
           "map_code": 980000301,
-          "map_name": "전기 반감"
+          "map_name": "몬스터 카니발: 카니발 필드3 <전장>"
         }
       ]
     },
@@ -9101,7 +9432,7 @@
       "maps": [
         {
           "map_code": 980000301,
-          "map_name": "얼음 반감, 불 반감, 전기 반감"
+          "map_name": "몬스터 카니발: 카니발 필드3 <전장>"
         }
       ]
     },
@@ -9112,7 +9443,7 @@
       "maps": [
         {
           "map_code": 980000101,
-          "map_name": "전기 반감"
+          "map_name": "몬스터 카니발: 카니발 필드1 <전장>"
         }
       ]
     },
@@ -9129,7 +9460,7 @@
       "maps": [
         {
           "map_code": 980000501,
-          "map_name": "전기 반감"
+          "map_name": "몬스터 카니발: 카니발 필드5 <전장>"
         }
       ]
     },
@@ -9540,6 +9871,17 @@
       "mob_name": "다일",
       "mob_name_en": "Poison Flower 5",
       "maps": []
+    },
+    {
+      "mob_code": 9300383,
+      "mob_name": "튜토리얼 무루",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 140090300,
+          "map_name": "스노우 아일랜드: 차가운 숲3"
+        }
+      ]
     },
     {
       "mob_code": 9400000,
@@ -10242,6 +10584,390 @@
       ]
     },
     {
+      "mob_code": 9400549,
+      "mob_name": "머리없는 기수",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010011,
+          "map_name": "퍼져나가는 악"
+        },
+        {
+          "map_code": 610010013,
+          "map_name": "되살아난 악"
+        },
+        {
+          "map_code": 610010010,
+          "map_name": "감춰진 악"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        },
+        {
+          "map_code": 610010200,
+          "map_name": "갈림길1"
+        },
+        {
+          "map_code": 610010201,
+          "map_name": "갈림길2"
+        },
+        {
+          "map_code": 610010202,
+          "map_name": "갈림길3"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400573,
+      "mob_name": "아기 티폰",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610020004,
+          "map_name": "위험의 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400574,
+      "mob_name": "티폰",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610020004,
+          "map_name": "위험의 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400575,
+      "mob_name": "빅풋",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010012,
+          "map_name": "깨어나는 악"
+        },
+        {
+          "map_code": 610010013,
+          "map_name": "되살아난 악"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        },
+        {
+          "map_code": 610010100,
+          "map_name": "뒤틀린 길1"
+        },
+        {
+          "map_code": 610010101,
+          "map_name": "뒤틀린 길2"
+        },
+        {
+          "map_code": 610010102,
+          "map_name": "뒤틀린 길3"
+        },
+        {
+          "map_code": 610010103,
+          "map_name": "뒤틀린 길4"
+        },
+        {
+          "map_code": 610010104,
+          "map_name": "뒤틀린 길5"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400576,
+      "mob_name": "윈드레이더",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010003,
+          "map_name": "유령의 길"
+        },
+        {
+          "map_code": 610020011,
+          "map_name": "고통의 동굴"
+        },
+        {
+          "map_code": 610020013,
+          "map_name": "명예의 동굴"
+        },
+        {
+          "map_code": 610020014,
+          "map_name": "불굴의 동굴"
+        },
+        {
+          "map_code": 610020002,
+          "map_name": "산비탈 초입"
+        },
+        {
+          "map_code": 610020012,
+          "map_name": "수치의 동굴"
+        },
+        {
+          "map_code": 610020015,
+          "map_name": "용기의 동굴"
+        },
+        {
+          "map_code": 610030011,
+          "map_name": "폭풍의 회랑"
+        },
+        {
+          "map_code": 610020005,
+          "map_name": "산비탈 후반부"
+        },
+        {
+          "map_code": 610010200,
+          "map_name": "갈림길1"
+        },
+        {
+          "map_code": 610010201,
+          "map_name": "갈림길2"
+        },
+        {
+          "map_code": 610010202,
+          "map_name": "갈림길3"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400577,
+      "mob_name": "파이어브랜드",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610030012,
+          "map_name": "지옥불의 방"
+        },
+        {
+          "map_code": 610020010,
+          "map_name": "공포의 동굴"
+        },
+        {
+          "map_code": 610020014,
+          "map_name": "불굴의 동굴"
+        },
+        {
+          "map_code": 610020012,
+          "map_name": "수치의 동굴"
+        },
+        {
+          "map_code": 610020005,
+          "map_name": "산비탈 후반부"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        },
+        {
+          "map_code": 610020003,
+          "map_name": "힘의 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400579,
+      "mob_name": "나이트섀도우",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010003,
+          "map_name": "유령의 길"
+        },
+        {
+          "map_code": 610020013,
+          "map_name": "명예의 동굴"
+        },
+        {
+          "map_code": 610020014,
+          "map_name": "불굴의 동굴"
+        },
+        {
+          "map_code": 610020015,
+          "map_name": "용기의 동굴"
+        },
+        {
+          "map_code": 610020005,
+          "map_name": "산비탈 후반부"
+        },
+        {
+          "map_code": 610020003,
+          "map_name": "힘의 길"
+        },
+        {
+          "map_code": 610030013,
+          "map_name": "밤의 분노"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400580,
+      "mob_name": "엘더레이스",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010012,
+          "map_name": "깨어나는 악"
+        },
+        {
+          "map_code": 610010013,
+          "map_name": "되살아난 악"
+        },
+        {
+          "map_code": 610010001,
+          "map_name": "저주받은 언덕"
+        },
+        {
+          "map_code": 610010003,
+          "map_name": "유령의 길"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        },
+        {
+          "map_code": 610020003,
+          "map_name": "힘의 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400581,
+      "mob_name": "스톰브레이커",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610030014,
+          "map_name": "스톰홀"
+        },
+        {
+          "map_code": 610020011,
+          "map_name": "고통의 동굴"
+        },
+        {
+          "map_code": 610020010,
+          "map_name": "공포의 동굴"
+        },
+        {
+          "map_code": 610020002,
+          "map_name": "산비탈 초입"
+        },
+        {
+          "map_code": 610020015,
+          "map_name": "용기의 동굴"
+        },
+        {
+          "map_code": 610020005,
+          "map_name": "산비탈 후반부"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400582,
+      "mob_name": "크림슨 가디언",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610020006,
+          "map_name": "크림슨우드 성채"
+        },
+        {
+          "map_code": 610030015,
+          "map_name": "감시의 방"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400586,
+      "mob_name": "크림슨 트리",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610020003,
+          "map_name": "힘의 길"
+        }
+      ]
+    },
+    {
+      "mob_code": 9400588,
+      "mob_name": "팬텀 트리",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 610010002,
+          "map_name": "늪지대"
+        },
+        {
+          "map_code": 610010011,
+          "map_name": "퍼져나가는 악"
+        },
+        {
+          "map_code": 610010013,
+          "map_name": "되살아난 악"
+        },
+        {
+          "map_code": 610010001,
+          "map_name": "저주받은 언덕"
+        },
+        {
+          "map_code": 610010003,
+          "map_name": "유령의 길"
+        },
+        {
+          "map_code": 610020002,
+          "map_name": "산비탈 초입"
+        },
+        {
+          "map_code": 610010005,
+          "map_name": "잊힌 길"
+        },
+        {
+          "map_code": 610010000,
+          "map_name": "굽은 나무"
+        },
+        {
+          "map_code": 610010100,
+          "map_name": "뒤틀린 길1"
+        },
+        {
+          "map_code": 610010200,
+          "map_name": "갈림길1"
+        },
+        {
+          "map_code": 610010101,
+          "map_name": "뒤틀린 길2"
+        },
+        {
+          "map_code": 610010201,
+          "map_name": "갈림길2"
+        },
+        {
+          "map_code": 610010102,
+          "map_name": "뒤틀린 길3"
+        },
+        {
+          "map_code": 610010202,
+          "map_name": "갈림길3"
+        },
+        {
+          "map_code": 610010103,
+          "map_name": "뒤틀린 길4"
+        },
+        {
+          "map_code": 610010104,
+          "map_name": "뒤틀린 길5"
+        }
+      ]
+    },
+    {
       "mob_code": 9409000,
       "mob_name": "튜토리얼Mob1",
       "mob_name_en": "Tutorial Leatty",
@@ -10257,55 +10983,192 @@
       "mob_code": 9410000,
       "mob_name": "들개",
       "mob_name_en": "Stray Dog",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 740010000,
+          "map_name": "대만: 서문정 거리1"
+        },
+        {
+          "map_code": 740010100,
+          "map_name": "대만: 서문정 거리2"
+        },
+        {
+          "map_code": 740010200,
+          "map_name": "대만: 서문정 거리3"
+        }
+      ]
     },
     {
       "mob_code": 9410001,
       "mob_name": "멋쟁이 들개",
       "mob_name_en": "Stylish Stray Dog",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 740010100,
+          "map_name": "대만: 서문정 거리2"
+        },
+        {
+          "map_code": 740010200,
+          "map_name": "대만: 서문정 거리3"
+        },
+        {
+          "map_code": 740010201,
+          "map_name": "대만: 서문정 뒷골목"
+        },
+        {
+          "map_code": 740010202,
+          "map_name": "대만: 야시장 골목1"
+        },
+        {
+          "map_code": 740010000,
+          "map_name": "대만: 서문정 거리1"
+        }
+      ]
     },
     {
       "mob_code": 9410002,
       "mob_name": "험악한 들개",
       "mob_name_en": "Angry Stray Dog",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 740010200,
+          "map_name": "대만: 서문정 거리3"
+        },
+        {
+          "map_code": 740010201,
+          "map_name": "대만: 서문정 뒷골목"
+        },
+        {
+          "map_code": 740010202,
+          "map_name": "대만: 야시장 골목1"
+        },
+        {
+          "map_code": 740010203,
+          "map_name": "대만: 야시장 골목2"
+        }
+      ]
     },
     {
       "mob_code": 9410003,
       "mob_name": "광대 원숭이",
       "mob_name_en": "Clown Monkey",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 740010300,
+          "map_name": "대만: 서문정 거리4"
+        },
+        {
+          "map_code": 740010400,
+          "map_name": "대만: 서문정 거리5"
+        },
+        {
+          "map_code": 740010202,
+          "map_name": "대만: 야시장 골목1"
+        },
+        {
+          "map_code": 740010203,
+          "map_name": "대만: 야시장 골목2"
+        }
+      ]
     },
     {
       "mob_code": 9410004,
       "mob_name": "폭주족 원숭이",
       "mob_name_en": "Biker Monkey",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 740010300,
+          "map_name": "대만: 서문정 거리4"
+        },
+        {
+          "map_code": 740010400,
+          "map_name": "대만: 서문정 거리5"
+        }
+      ]
     },
     {
       "mob_code": 9410005,
       "mob_name": "레드 버블티",
       "mob_name_en": "Red Bubble Tea",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741010000,
+          "map_name": "대만: 야시장 거리1"
+        },
+        {
+          "map_code": 741010100,
+          "map_name": "대만: 야시장 거리2"
+        },
+        {
+          "map_code": 741010200,
+          "map_name": "대만: 야시장 거리3"
+        }
+      ]
     },
     {
       "mob_code": 9410006,
       "mob_name": "옐로우 버블티",
       "mob_name_en": "Yellow Bubble Tea",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741010000,
+          "map_name": "대만: 야시장 거리1"
+        },
+        {
+          "map_code": 741010100,
+          "map_name": "대만: 야시장 거리2"
+        },
+        {
+          "map_code": 741020000,
+          "map_name": "대만: 야시장 사잇길1"
+        },
+        {
+          "map_code": 741010300,
+          "map_name": "대만: 야시장 거리4"
+        }
+      ]
     },
     {
       "mob_code": 9410007,
       "mob_name": "그린 버블티",
       "mob_name_en": "Green Bubble Tea",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741010000,
+          "map_name": "대만: 야시장 거리1"
+        },
+        {
+          "map_code": 741010100,
+          "map_name": "대만: 야시장 거리2"
+        },
+        {
+          "map_code": 741010200,
+          "map_name": "대만: 야시장 거리3"
+        },
+        {
+          "map_code": 741020100,
+          "map_name": "대만: 야시장 사잇길2"
+        }
+      ]
     },
     {
       "mob_code": 9410008,
       "mob_name": "예티 인형자판기",
       "mob_name_en": "Yeti UFO Catcher",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741020000,
+          "map_name": "대만: 야시장 사잇길1"
+        },
+        {
+          "map_code": 741010100,
+          "map_name": "대만: 야시장 거리2"
+        },
+        {
+          "map_code": 741010200,
+          "map_name": "대만: 야시장 거리3"
+        }
+      ]
     },
     {
       "mob_code": 9410009,
@@ -10317,7 +11180,20 @@
       "mob_code": 9410010,
       "mob_name": "주니어페페 인형자판기",
       "mob_name_en": "Jr. Pepe UFO Catcher",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741010200,
+          "map_name": "대만: 야시장 거리3"
+        },
+        {
+          "map_code": 741020100,
+          "map_name": "대만: 야시장 사잇길2"
+        },
+        {
+          "map_code": 741010300,
+          "map_name": "대만: 야시장 거리4"
+        }
+      ]
     },
     {
       "mob_code": 9410011,
@@ -10329,7 +11205,24 @@
       "mob_code": 9410012,
       "mob_name": "인형자판기",
       "mob_name_en": "UFO Catcher",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 741010200,
+          "map_name": "대만: 야시장 거리3"
+        },
+        {
+          "map_code": 741020000,
+          "map_name": "대만: 야시장 사잇길1"
+        },
+        {
+          "map_code": 741020100,
+          "map_name": "대만: 야시장 사잇길2"
+        },
+        {
+          "map_code": 741010300,
+          "map_name": "대만: 야시장 거리4"
+        }
+      ]
     },
     {
       "mob_code": 9410013,
@@ -10353,37 +11246,123 @@
       "mob_code": 9420000,
       "mob_name": "두꺼비",
       "mob_name_en": "Toad",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020100,
+          "map_name": "태국: 외딴 집"
+        },
+        {
+          "map_code": 500010100,
+          "map_name": "태국: 두꺼비 연못"
+        },
+        {
+          "map_code": 500010000,
+          "map_name": "태국: 개구리 연못"
+        },
+        {
+          "map_code": 500020000,
+          "map_name": "태국: 화려한 늪"
+        }
+      ]
     },
     {
       "mob_code": 9420001,
       "mob_name": "개구리",
       "mob_name_en": "Frog",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020000,
+          "map_name": "태국: 화려한 늪"
+        },
+        {
+          "map_code": 500010000,
+          "map_name": "태국: 개구리 연못"
+        }
+      ]
     },
     {
       "mob_code": 9420002,
       "mob_name": "구렁이",
       "mob_name_en": "Python",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020400,
+          "map_name": "태국: 깊은 정글"
+        }
+      ]
     },
     {
       "mob_code": 9420003,
       "mob_name": "빨간 도마뱀",
       "mob_name_en": "Red Lizard",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020200,
+          "map_name": "태국: 작은 정글"
+        },
+        {
+          "map_code": 500020300,
+          "map_name": "태국: 붉은 정글"
+        },
+        {
+          "map_code": 500020100,
+          "map_name": "태국: 외딴 집"
+        }
+      ]
     },
     {
       "mob_code": 9420004,
       "mob_name": "노란 도마뱀",
       "mob_name_en": "Yellow Lizard",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020100,
+          "map_name": "태국: 외딴 집"
+        },
+        {
+          "map_code": 500020101,
+          "map_name": "태국: 동구 밖"
+        },
+        {
+          "map_code": 500020200,
+          "map_name": "태국: 작은 정글"
+        },
+        {
+          "map_code": 500020000,
+          "map_name": "태국: 화려한 늪"
+        },
+        {
+          "map_code": 500020300,
+          "map_name": "태국: 붉은 정글"
+        }
+      ]
     },
     {
       "mob_code": 9420005,
       "mob_name": "흰 닭",
       "mob_name_en": "White Rooster",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 500020100,
+          "map_name": "태국: 외딴 집"
+        },
+        {
+          "map_code": 500010000,
+          "map_name": "태국: 개구리 연못"
+        },
+        {
+          "map_code": 500020000,
+          "map_name": "태국: 화려한 늪"
+        },
+        {
+          "map_code": 500010100,
+          "map_name": "태국: 두꺼비 연못"
+        },
+        {
+          "map_code": 500020200,
+          "map_name": "태국: 작은 정글"
+        }
+      ]
     },
     {
       "mob_code": 9500107,
@@ -11158,55 +12137,216 @@
       "mob_code": 9600001,
       "mob_name": "닭",
       "mob_name_en": "Rooster",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010000,
+          "map_name": "중국: 상해 교외"
+        },
+        {
+          "map_code": 701010100,
+          "map_name": "중국: 상해 북부평원"
+        },
+        {
+          "map_code": 701010200,
+          "map_name": "중국: 상해 북부동산"
+        },
+        {
+          "map_code": 500020000,
+          "map_name": "태국: 화려한 늪"
+        },
+        {
+          "map_code": 500010000,
+          "map_name": "태국: 개구리 연못"
+        },
+        {
+          "map_code": 500010100,
+          "map_name": "태국: 두꺼비 연못"
+        }
+      ]
     },
     {
       "mob_code": 9600002,
       "mob_name": "오리",
       "mob_name_en": "Duck",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010000,
+          "map_name": "중국: 상해 교외"
+        },
+        {
+          "map_code": 701010200,
+          "map_name": "중국: 상해 북부동산"
+        },
+        {
+          "map_code": 701010300,
+          "map_name": "중국: 서주갈림길"
+        },
+        {
+          "map_code": 701010100,
+          "map_name": "중국: 상해 북부평원"
+        },
+        {
+          "map_code": 701010310,
+          "map_name": "중국: 중원 산악지대1"
+        }
+      ]
     },
     {
       "mob_code": 9600003,
       "mob_name": "양",
       "mob_name_en": "Sheep",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010000,
+          "map_name": "중국: 상해 교외"
+        },
+        {
+          "map_code": 701010200,
+          "map_name": "중국: 상해 북부동산"
+        },
+        {
+          "map_code": 701010300,
+          "map_name": "중국: 서주갈림길"
+        },
+        {
+          "map_code": 701010400,
+          "map_name": "중국: 서주평원1"
+        },
+        {
+          "map_code": 701010100,
+          "map_name": "중국: 상해 북부평원"
+        },
+        {
+          "map_code": 701010310,
+          "map_name": "중국: 중원 산악지대1"
+        },
+        {
+          "map_code": 701010320,
+          "map_name": "중국: 중원 산악지대2"
+        }
+      ]
     },
     {
       "mob_code": 9600004,
       "mob_name": "염소",
       "mob_name_en": "Goat",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010200,
+          "map_name": "중국: 상해 북부동산"
+        },
+        {
+          "map_code": 701010300,
+          "map_name": "중국: 서주갈림길"
+        },
+        {
+          "map_code": 701010500,
+          "map_name": "중국: 서주평원2"
+        },
+        {
+          "map_code": 701010600,
+          "map_name": "중국: 서주평원3"
+        },
+        {
+          "map_code": 701010310,
+          "map_name": "중국: 중원 산악지대1"
+        },
+        {
+          "map_code": 701010320,
+          "map_name": "중국: 중원 산악지대2"
+        }
+      ]
     },
     {
       "mob_code": 9600005,
       "mob_name": "흑염소",
       "mob_name_en": "Black Goat",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010500,
+          "map_name": "중국: 서주평원2"
+        },
+        {
+          "map_code": 701010310,
+          "map_name": "중국: 중원 산악지대1"
+        },
+        {
+          "map_code": 701010320,
+          "map_name": "중국: 중원 산악지대2"
+        }
+      ]
     },
     {
       "mob_code": 9600006,
       "mob_name": "소",
       "mob_name_en": "Cow",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010300,
+          "map_name": "중국: 서주갈림길"
+        },
+        {
+          "map_code": 701010400,
+          "map_name": "중국: 서주평원1"
+        },
+        {
+          "map_code": 701010500,
+          "map_name": "중국: 서주평원2"
+        },
+        {
+          "map_code": 701010600,
+          "map_name": "중국: 서주평원3"
+        }
+      ]
     },
     {
       "mob_code": 9600007,
       "mob_name": "쟁기소",
       "mob_name_en": "Plow Ox",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010400,
+          "map_name": "중국: 서주평원1"
+        },
+        {
+          "map_code": 701010500,
+          "map_name": "중국: 서주평원2"
+        },
+        {
+          "map_code": 701010600,
+          "map_name": "중국: 서주평원3"
+        }
+      ]
     },
     {
       "mob_code": 9600008,
       "mob_name": "검은 양",
       "mob_name_en": "Black Sheep",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010321,
+          "map_name": "중국: 검은양의 영토"
+        },
+        {
+          "map_code": 701010322,
+          "map_name": "중국: 통로"
+        }
+      ]
     },
     {
       "mob_code": 9600009,
       "mob_name": "대왕지네",
       "mob_name_en": "Giant Centipede",
-      "maps": []
+      "maps": [
+        {
+          "map_code": 701010400,
+          "map_name": "중국: 서주평원1"
+        },
+        {
+          "map_code": 701010323,
+          "map_name": "중국: 위험한 언덕"
+        }
+      ]
     },
     {
       "mob_code": 9600010,
