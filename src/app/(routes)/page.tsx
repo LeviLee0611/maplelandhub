@@ -278,6 +278,9 @@ export default function HomePage() {
           <Link href="/mapleland-vs-planet" className="hover:text-slate-200">
             메랜 vs 플래닛 차이
           </Link>
+          <Link href="/terms" className="hover:text-slate-200">
+            이용약관
+          </Link>
           <Link href="/privacy" className="hover:text-slate-200">
             개인정보처리방침
           </Link>
