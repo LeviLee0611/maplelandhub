@@ -35,10 +35,15 @@ export async function buildMonsterMetadata(params: MonsterPageProps["params"], s
     `회피 ${formatNumber(monster.eva)}.` +
     (dropNames ? ` 드랍 아이템: ${dropNames} 등 ${drops.length}종.` : "");
 
+  // 드롭도 출현 맵도 없는 몬스터(보스 부위 등)는 본문이 스탯표뿐이라 검색엔진에서 뺀다.
+  // 사이트에서는 그대로 보이고 계산기도 쓸 수 있다 — isThinMonsterPage 주석 참고.
+  const thin = detail.drops.length === 0 && detail.maps.length === 0;
+
   return {
     title: `${monster.name} (Lv.${monster.level}) 드랍·스탯 정보 | 메랜Hub`,
     description,
     alternates: { canonical: `${basePath(server)}/monster/${monster.mobCode}` },
+    ...(thin ? { robots: { index: false, follow: true } } : {}),
     openGraph: {
       title: `${monster.name} (Lv.${monster.level}) 드랍·스탯 정보`,
       description,

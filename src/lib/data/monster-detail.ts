@@ -92,6 +92,26 @@ export function getReleasedMonsterCodes(server: MonsterServer = "mapleland"): nu
   return [...new Set(indexes[server].monsters.map((m) => m.mobCode))];
 }
 
+/**
+ * 검색엔진에 색인시키지 않을 "내용이 없는" 상세 페이지인지.
+ *
+ * 드롭도 출현 맵도 없는 몬스터가 51종 있다 — 자쿰팔 1~8, 카오스 혼테일의 머리·손·날개,
+ * 발록(왼손/오른손), 핑크빈 신전 보스 같은 **보스의 부위**가 대부분이다. 데이터가 빠진 게 아니라
+ * 부위는 원래 드롭이 없고 본체가 갖는 게 정상이라, 채울 수 있는 값이 애초에 없다.
+ *
+ * 이런 페이지는 스탯표만 남아 본문이 400자 수준인데, 사이트 전체에서 51개가 색인되면
+ * "얇은 페이지를 양산한 사이트"로 보이기 쉽다(2026-10-01 애드센스 심사 대응).
+ * 그래서 **검색엔진에만 숨기고 사이트에서는 그대로 보여준다** — HP·방어력이 있어
+ * 한방컷·피격뎀 계산기에서는 쓰임새가 있기 때문이다.
+ *
+ * 나중에 드롭이나 출현 맵이 확보되면 이 함수가 자동으로 false 가 되어 색인 대상으로 돌아온다.
+ */
+export function isThinMonsterPage(mobCode: number, server: MonsterServer = "mapleland"): boolean {
+  const detail = getMonsterDetail(mobCode, server);
+  if (!detail) return true;
+  return detail.drops.length === 0 && detail.maps.length === 0;
+}
+
 export function getMonsterDetail(mobCode: number, server: MonsterServer = "mapleland"): MonsterDetail | null {
   const { monsters, itemNameById, dropsByMonsterId } = indexes[server];
   const monster = monsters.find((m) => m.mobCode === mobCode);

@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { getReleasedMonsterCodes } from "@/lib/data/monster-detail";
+import { getReleasedMonsterCodes, isThinMonsterPage } from "@/lib/data/monster-detail";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const rawBaseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://maplelandhub.com";
@@ -127,9 +127,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     // 플래닛 몬스터 상세는 뺐다 — 메랜+플래닛 1,056개를 프리렌더하면 Next 16이 페이지당 파일
     // 12개를 만들어 라우트가 13,500개가 되고, @cloudflare/next-on-pages가 라우팅 매니페스트를
     // 만들다 "Invalid string length"로 빌드에 실패한다(2026-09-24 실측). 메랜만 유지한다.
-    ...getReleasedMonsterCodes("mapleland").map((mobCode) => ({
-      url: `${baseUrl}/monster/${mobCode}`,
-      lastModified: new Date(),
-    })),
+    // 드롭도 출현 맵도 없는 몬스터(보스 부위 등 51종)는 뺀다 — 페이지에 noindex 를 주는 것과
+    // 짝을 맞춰야 한다. sitemap 으로 색인을 요청해놓고 페이지에서 거부하면 신호가 엇갈린다.
+    ...getReleasedMonsterCodes("mapleland")
+      .filter((mobCode) => !isThinMonsterPage(mobCode, "mapleland"))
+      .map((mobCode) => ({
+        url: `${baseUrl}/monster/${mobCode}`,
+        lastModified: new Date(),
+      })),
   ];
 }
