@@ -175,6 +175,66 @@ export default function HomePage() {
         )}
       </div>
 
+      {/*
+        사이트가 무엇이고 데이터를 어떻게 다루는지 설명하는 본문.
+        도구 사이트는 화면 대부분이 입력창과 표라 방문자도 검색엔진도 "여기가 뭘 하는 곳인지"를
+        알기 어렵다. 실제로 하는 일(다중 소스 교차검증, 패치 추적, 서버별 분리)을 적어둔다.
+      */}
+      <section className="w-full max-w-6xl text-left">
+        <div className="glass-panel rounded-3xl px-7 py-7">
+          <h2 className="text-lg font-semibold text-slate-100 md:text-xl">메랜Hub는 어떤 사이트인가요?</h2>
+          <p className="mt-3 text-sm leading-relaxed text-slate-200/90 md:text-base">
+            메랜Hub는 <strong className="text-slate-100">메이플랜드</strong>와{" "}
+            <strong className="text-slate-100">메이플 플래닛</strong> 두 서버의 몬스터·아이템·퀘스트 데이터를 모아
+            계산기와 검색 도구로 제공하는 팬메이드 사이트입니다. 사냥터를 고르거나 장비를 맞출 때 매번 여러 사이트를
+            오가며 수치를 찾아야 했던 과정을, 한 화면에서 끝낼 수 있도록 만들었습니다.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-200/90 md:text-base">
+            두 서버는 같은 원작을 기반으로 하지만 각자 밸런스 패치를 해오면서 스킬 수치, 획득 경험치, 드랍률이
+            조금씩 달라졌습니다. 그래서 서버를 선택하면 그 서버 기준의 값만 보여주고, 차이가 확인된 부분은{" "}
+            <Link href="/mapleland-vs-planet" className="font-semibold text-sky-200 hover:text-white">
+              메랜 vs 플래닛 차이
+            </Link>{" "}
+            페이지에 따로 정리해 두었습니다.
+          </p>
+
+          <h3 className="mt-6 text-base font-semibold text-slate-100">제공하는 도구</h3>
+          <ul className="mt-3 flex flex-col gap-2 text-sm leading-relaxed text-slate-200/90 md:text-base">
+            <li>
+              <strong className="text-slate-100">N방컷 계산기</strong> — 내 공격력과 스킬로 특정 몬스터를 몇 대에
+              잡는지 계산합니다. 몬스터 방어력과 스킬 데미지%를 반영하므로, 사냥터를 옮기기 전에 한 방에 잡히는지
+              미리 확인할 수 있습니다.
+            </li>
+            <li>
+              <strong className="text-slate-100">피격 데미지 계산기</strong> — 몬스터에게 맞았을 때 받는 피해를
+              추정합니다. 물리 방어력과 마법 저항을 적용해 계산하므로 장비를 바꿀 때 생존력 변화를 가늠할 수 있습니다.
+            </li>
+            <li>
+              <strong className="text-slate-100">드랍 테이블</strong> — 몬스터로 아이템을 찾거나, 반대로 아이템으로
+              그걸 떨구는 몬스터를 역으로 찾는 양방향 검색을 지원합니다.
+            </li>
+            <li>
+              <strong className="text-slate-100">퀘스트</strong> — NPC별 퀘스트의 수행 조건과 보상을 정리했고,
+              진행 상황을 체크해 둘 수 있습니다.
+            </li>
+          </ul>
+
+          <h3 className="mt-6 text-base font-semibold text-slate-100">데이터는 이렇게 모읍니다</h3>
+          <p className="mt-3 text-sm leading-relaxed text-slate-200/90 md:text-base">
+            몬스터 스탯과 아이템 정보는 공개 게임 데이터(maplestory.io)를 기준으로 삼고, 여기에 각 서버의{" "}
+            <strong className="text-slate-100">공식 패치노트</strong>를 추적해 변경 사항을 반영합니다. 한 곳의 값만
+            믿지 않고 여러 커뮤니티 데이터베이스와 대조해 어긋나는 항목을 찾아내며, 서로 다를 때는 어느 쪽이 맞는지
+            확인될 때까지 섣불리 고치지 않습니다.
+          </p>
+          <p className="mt-3 text-sm leading-relaxed text-slate-200/90 md:text-base">
+            다만 <strong className="text-slate-100">드랍 확률은 게임 내부 수치가 공개되지 않아</strong> 외부에서
+            수집한 값을 정리한 것입니다. 실제와 다를 수 있고, 확인되지 않은 항목은 임의로 채우지 않고{" "}
+            <em className="not-italic text-slate-100">&ldquo;정보 없음&rdquo;</em>으로 표시합니다. 잘못된 값을
+            발견하시면 문의로 알려주시면 확인 후 반영합니다.
+          </p>
+        </div>
+      </section>
+
       <section className="flex w-full max-w-6xl flex-col gap-4">
         <div className="glass-panel w-full rounded-3xl px-7 py-6 text-sm text-slate-200/90 md:text-base">
           <p>
