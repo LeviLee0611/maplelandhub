@@ -38,6 +38,7 @@ const MAP_CATALOG_DATA_PATH = path.join(PLANET_SOURCES_DIR, "map-catalog-data.js
 const CUBE_DATA_PATH = path.join(PLANET_SOURCES_DIR, "cube-data.js");
 const MOBCODE_CORRECTIONS_PATH = path.resolve("scripts/sources/mobcode-corrections.json");
 const MEASURED_EXP_PATH = path.join(PLANET_SOURCES_DIR, "chowayo-measured-exp.json");
+const DROP_ADDITIONS_PATH = path.join(PLANET_SOURCES_DIR, "planet-helper-drop-additions.json");
 const OUTPUT_CUBE_INDEX = path.join(PLANET_DIR, "cube-index.json");
 const OUTPUT_MONSTERS = path.join(PLANET_DIR, "monsters.json");
 const OUTPUT_DROP_INDEX = path.join(PLANET_DIR, "drop-index.json");
@@ -266,6 +267,61 @@ export function applyDropRateMultiplierToItemDetailBy(itemDetailBy, multiplier) 
   return { ...itemDetailBy, itemsByItemId };
 }
 
+// planet-helper.com 에서 수집한 플래닛 전용 드롭을 얹는다 (scripts/extract-planet-helper-additions.mjs 가 만든 근거 파일).
+// 메랜 베이스에 없는 (몬스터, 아이템) 쌍만 들어 있고 prob 는 이미 플래닛 최종값이므로
+// dropRate 배율을 곱한 **뒤**에 호출해야 한다 — 순서를 바꾸면 추가분만 4배가 더 붙는다.
+// 세 인덱스(dropsByMonsterId / monstersByItemId / itemsByItemId)를 함께 갱신한다. 아이템→몬스터 조회는
+// itemsByItemId 가 있으면 그쪽을 우선 쓰므로(drop-table-lookup.ts) 거기에 안 넣으면 화면에 안 나온다.
+// 이미 있는 쌍은 건너뛴다 — 멱등.
+export function applyDropAdditions(dropIndex, itemDetailBy, additions) {
+  const table = additions?.dropsByMonsterId;
+  if (!table || Object.keys(table).length === 0) return { dropIndex, itemDetailBy, pairs: 0, items: 0 };
+
+  const dropsByMonsterId = { ...dropIndex.dropsByMonsterId };
+  const monstersByItemId = { ...dropIndex.monstersByItemId };
+  const itemsByItemId = { ...(itemDetailBy?.itemsByItemId ?? {}) };
+  const knownItems = new Set((dropIndex.items ?? []).map((it) => it.id));
+  const items = [...(dropIndex.items ?? [])];
+  let pairs = 0;
+  let addedItems = 0;
+
+  for (const [itemId, entry] of Object.entries(additions.items ?? {})) {
+    const id = Number(itemId);
+    if (knownItems.has(id) || !entry?.name) continue;
+    const item = Object.fromEntries(Object.entries(entry).filter(([key]) => !key.startsWith("_")));
+    items.push({ ...item, id });
+    knownItems.add(id);
+    addedItems++;
+  }
+
+  for (const [mobCodeKey, group] of Object.entries(table)) {
+    const mobId = Number(mobCodeKey);
+    const existing = dropsByMonsterId[mobCodeKey] ?? [];
+    const have = new Set(existing.map((d) => d.itemId));
+    const next = [...existing];
+    for (const d of group?.drops ?? []) {
+      if (!d || typeof d.itemId !== "number" || typeof d.prob !== "number" || have.has(d.itemId)) continue;
+      const prob = clampProbability(d.prob);
+      next.push({ itemId: d.itemId, prob });
+      have.add(d.itemId);
+      pairs++;
+      const key = String(d.itemId);
+      for (const index of [monstersByItemId, itemsByItemId]) {
+        const list = index[key] ?? [];
+        if (!list.some((m) => m && m.mobId === mobId)) index[key] = [...list, { mobId, prob }];
+      }
+    }
+    dropsByMonsterId[mobCodeKey] = next;
+  }
+
+  return {
+    dropIndex: { ...dropIndex, items, dropsByMonsterId, monstersByItemId },
+    itemDetailBy: { ...itemDetailBy, itemsByItemId },
+    pairs,
+    items: addedItems,
+  };
+}
+
 // chowayo(메이플플래닛 데이터베이스)에서 수집한 EXP 실측값을 적용한다.
 // 이름이 일치하는 항목만 소스 파일에 담겨 있으므로 여기서는 mobCode로 단순 매칭한다.
 // monsterOverrides보다 먼저 호출할 것 — 손수 검증한 monsterOverrides가 실측값을 덮어쓸 수 있어야 한다.
@@ -399,24 +455,32 @@ async function main() {
   };
 
   // 3) item-detail-by.json: 동일한 dropRate 배율을 itemsByItemId의 prob에 반영 (drop-index와 일관성 유지)
-  const planetItemDetailBy = {
+  const scaledItemDetailBy = {
     ...applyDropRateMultiplierToItemDetailBy(itemDetailBy, dropRateMultiplier),
     generatedAt: new Date().toISOString(),
     source: `${itemDetailBy.source ?? "mapleland"}+planet-divergence`,
   };
 
+  // 4) 플래닛 전용 드롭 추가 (배율 적용 후 — 추가분 prob 는 이미 최종값)
+  const dropAdditions = (await pathExists(DROP_ADDITIONS_PATH)) ? await readJson(DROP_ADDITIONS_PATH) : null;
+  const added = applyDropAdditions(planetDropIndex, scaledItemDetailBy, dropAdditions);
+  if (dropAdditions) {
+    console.log(`[drop-additions] planet-helper — 드롭 ${added.pairs}건 추가, 신규 아이템 ${added.items}종`);
+  }
+  const planetItemDetailBy = added.itemDetailBy;
+
   const cubeIndex = await buildCubeIndex(CUBE_DATA_PATH);
 
   const [, dropIndexWritten, itemDetailByWritten, cubeIndexWritten] = await Promise.all([
     writeJson(OUTPUT_MONSTERS, planetMonsters),
-    writeJsonIfChanged(OUTPUT_DROP_INDEX, planetDropIndex),
+    writeJsonIfChanged(OUTPUT_DROP_INDEX, added.dropIndex),
     writeJsonIfChanged(OUTPUT_ITEM_DETAIL_BY, planetItemDetailBy),
     ...(cubeIndex ? [writeJsonIfChanged(OUTPUT_CUBE_INDEX, cubeIndex)] : []),
   ]);
 
   console.log(`Wrote ${OUTPUT_MONSTERS} (${planetMonsters.length} monsters, +${newMonsters.length} new entries requested)`);
   if (dropIndexWritten) {
-    console.log(`Wrote ${OUTPUT_DROP_INDEX} (${planetDropIndex.items.length} items, dropRate x${dropRateMultiplier})`);
+    console.log(`Wrote ${OUTPUT_DROP_INDEX} (${added.dropIndex.items.length} items, dropRate x${dropRateMultiplier})`);
   }
   if (itemDetailByWritten) {
     console.log(`Wrote ${OUTPUT_ITEM_DETAIL_BY}`);

@@ -259,6 +259,7 @@ Planet 쪽에서 손으로 관리하거나 외부에서 받아온 원천 파일�
 | 위치 | 파일 | 성격 |
 |---|---|---|
 | `scripts/sources/planet/` | `divergence-overrides.json` | 손수 관리 설정 파일 (배율/오버라이드/신규 몬스터, 아래 참고) |
+| `scripts/sources/planet/` | `planet-helper-drop-additions.json` | 출처: planet-helper.com — 메랜 베이스에 없는 플래닛 전용 드롭 1,757건 + 신규 아이템 151종. `scripts/extract-planet-helper-additions.mjs`가 `scripts/state/planet-helper-monsters-2026-10-05.json` 스냅샷에서 생성 (아래 참고) |
 | `scripts/sources/planet/` | `chowayo-measured-exp.json` | 출처: chowayo.com — 플래닛 몬스터 EXP 실측값. 원작 대비 대체로 4배지만 개별 리밸런스가 섞여 있어 배율이 아닌 실측값으로 관리 (아래 참고) |
 | `scripts/sources/planet/` | `monster-attribute-data.js` | 외부 출처(영문) 몬스터 속성(불/얼음/전기/독/성 약점·반감·면역) 데이터 |
 | `scripts/sources/planet/` | `monster-catalog-data.js` | 외부 출처 몬스터 스탯 카탈로그(680종) — 메랜에 없는 몬스터 신규 추가에 사용 |
@@ -286,10 +287,21 @@ npm run build:planet-data -- --force   # release-filters.json도 Mapleland 원�
 5. **EXP 실측값 적용** — `chowayo-measured-exp.json`이 있으면 mobCode로 매칭해 `exp` 필드를 실측값으로 교체 (아래 별도 절 참고)
 6. `divergence-overrides.json`의 `rateMultipliers.dropRate`(기본 4배)를 `drop-index.json`/`item-detail-by.json`의 `prob` 필드에 곱해서 반영 (1.0 초과 시 100%로 clamp)
 7. `monsterOverrides`(mobCode → 필드 오버라이드), `itemOverrides`(itemId → 필드 오버라이드), `newMonsters`(수기 추가 신규 몬스터)를 적용 — **5번보다 뒤에 오는 게 의도된 순서**로, 손수 검증한 `monsterOverrides` 값이 실측값을 이긴다
-8. `cube-data.js`가 있으면 정리해서 `cube-index.json`으로 저장
-9. `data/planet/*.json`에 결과 저장. `release-filters.json`은 최초 1회만 복사 (`--force`로 강제 덮어쓰기 가능)
+8. **플래닛 전용 드롭 추가** — `planet-helper-drop-additions.json`이 있으면 `dropsByMonsterId`/`monstersByItemId`/`itemsByItemId` 세 인덱스에 쌍을 추가하고 신규 아이템을 `items`에 붙임. **6번 배율 적용 뒤에 오는 게 의도된 순서** — 추가분의 `prob`는 이미 플래닛 최종값이라 배율을 또 곱하면 안 된다. 이미 있는 쌍은 건너뜀(멱등)
+9. `cube-data.js`가 있으면 정리해서 `cube-index.json`으로 저장
+10. `data/planet/*.json`에 결과 저장. `release-filters.json`은 최초 1회만 복사 (`--force`로 강제 덮어쓰기 가능)
 
 위 2~4번 단계는 해당 소스 파일이 없으면 조용히 건너뛴다 — 전부 선택적 보강이며 필수 아님.
+
+### `planet-helper-drop-additions.json` — 플래닛 전용 드롭 (스크립트 생성, 손수 수정 가능)
+
+우리 드롭은 메랜 스크래핑 기반이라 플래닛 전용 드롭(지우개·깃털, 플래닛 리밸런스로 추가된 전리품 등)이 비어 있었고, 노출 몬스터 55종은 드롭이 아예 0개였다. 2026-10-05에 planet-helper.com 몬스터 755종을 긁어(`scripts/state/planet-helper-monsters-2026-10-05.json`, 파서 동봉) 우리 플래닛 537종과 대조한 결과 EXP 88%·드롭 확률 70%가 정확히 일치해 같은 출처(빅뱅 전 KMS)로 판단, 없는 쌍만 가져왔다.
+
+- 생성: `node scripts/extract-planet-helper-additions.mjs --write` (드라이런은 `--write` 없이). 재생성하면 손수 고친 내용이 사라지니 diff 확인.
+- 포함 규칙: 노출 몬스터 + 우리 데이터에 없는 쌍 + planet-helper "후보(비공식)" 미표시 + 몬스터 카드(4030012) 제외. 후보 380건은 일부러 뺐다.
+- `prob`는 사이트 표시값(%)/100 그대로 — 플래닛 배율이 이미 반영된 최종값. 빌드가 배율 **뒤**에 얹는 이유다.
+- planet-helper 페이지는 robots.txt가 허용하지만 `/api/`는 막혀 있다 — 다시 긁을 땐 페이지만, 요청 간격 0.6초.
+- 대조에서 함께 발견한 쇼와마을 11종 스탯(우리 값이 빅뱅 후 GMS 수치였음)은 `divergence-overrides.json`의 `monsterOverrides`로 넣었다.
 
 ### `chowayo-measured-exp.json` — 플래닛 EXP 실측값 (손수 관리)
 

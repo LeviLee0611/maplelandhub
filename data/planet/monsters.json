@@ -11215,139 +11215,155 @@
   },
   {
     "name": "수하B",
-    "level": 166,
-    "hp": 21735000,
-    "exp": 78473,
+    "level": 125,
+    "hp": 105000,
+    "exp": 23200,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 18,
+    "needAcc": 143,
+    "def": 140,
+    "mDef": 110,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400101,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 620,
+    "matk": 660
   },
   {
     "name": "수하C",
-    "level": 167,
-    "hp": 21870000,
-    "exp": 78961,
+    "level": 130,
+    "hp": 120000,
+    "exp": 25600,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 20,
+    "needAcc": 148,
+    "def": 680,
+    "mDef": 1200,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400102,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 660,
+    "matk": 730
   },
   {
     "name": "수하A",
-    "level": 166,
-    "hp": 21735000,
-    "exp": 78473,
+    "level": 120,
+    "hp": 90000,
+    "exp": 20000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 22,
+    "needAcc": 140,
+    "def": 830,
+    "mDef": 720,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400100,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 600,
+    "matk": 630
   },
   {
     "name": "수하D",
-    "level": 167,
-    "hp": 21870000,
-    "exp": 78961,
+    "level": 140,
+    "hp": 15100,
+    "exp": 1860,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 18,
+    "needAcc": 170,
+    "def": 830,
+    "mDef": 720,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400103,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 600,
+    "matk": 630
   },
   {
     "name": "간부A",
-    "level": 168,
-    "hp": 21982500,
-    "exp": 79367,
+    "level": 145,
+    "hp": 10000,
+    "exp": 1240,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 26,
+    "needAcc": 165,
+    "def": 210,
+    "mDef": 175,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400110,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 190,
+    "matk": 660
   },
   {
     "name": "간부B",
-    "level": 168,
-    "hp": 21982500,
-    "exp": 79367,
+    "level": 150,
+    "hp": 9000,
+    "exp": 1280,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 35,
-    "mDef": 35,
+    "eva": 24,
+    "needAcc": 150,
+    "def": 680,
+    "mDef": 1200,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400111,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 660,
+    "matk": 730
   },
   {
     "name": "보디가드A",
-    "level": 168,
-    "hp": 1879500000,
-    "exp": 7137894,
+    "level": 152,
+    "hp": 400000000,
+    "exp": 13800000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 45,
-    "mDef": 25,
+    "eva": 40,
+    "needAcc": 300,
+    "def": 3600,
+    "mDef": 1300,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400112,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 1450,
+    "matk": 0
   },
   {
     "name": "보디가드B",
-    "level": 169,
+    "level": 155,
     "hp": 500000000,
-    "exp": 8835567,
+    "exp": 10500000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 25,
-    "mDef": 25,
+    "eva": 50,
+    "needAcc": 310,
+    "def": 3100,
+    "mDef": 2000,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400113,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 1300,
+    "matk": 1200
   },
   {
     "name": "Slot Machine",
@@ -11385,37 +11401,41 @@
   },
   {
     "name": "여두목",
-    "level": 170,
-    "hp": 225000000,
-    "exp": 1447275,
+    "level": 130,
+    "hp": 75000000,
+    "exp": 15600000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 25,
-    "mDef": 25,
+    "eva": 43,
+    "needAcc": 280,
+    "def": 3000,
+    "mDef": 1250,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400121,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 1200,
+    "matk": 830
   },
   {
     "name": "두목",
-    "level": 170,
-    "hp": 234000000,
-    "exp": 86434,
+    "level": 95,
+    "hp": 85000,
+    "exp": 22000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 25,
-    "mDef": 25,
+    "eva": 35,
+    "needAcc": 175,
+    "def": 720,
+    "mDef": 680,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400122,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 750,
+    "matk": 600
   },
   {
     "name": "레드 슬라임",
@@ -11436,20 +11456,22 @@
   },
   {
     "name": "대보스",
-    "level": 170,
+    "level": 175,
     "hp": 150000000,
-    "exp": 2494740,
+    "exp": 17500000,
     "acc": 0,
-    "eva": 0,
-    "needAcc": 0,
-    "def": 45,
-    "mDef": 45,
+    "eva": 120,
+    "needAcc": 300,
+    "def": 5000,
+    "mDef": 4300,
     "ele": [
       "무속성"
     ],
     "mobCode": 9400300,
     "region": "기타",
-    "exist": true
+    "exist": true,
+    "watk": 1600,
+    "matk": 1350
   },
   {
     "name": "영주 두꺼비",

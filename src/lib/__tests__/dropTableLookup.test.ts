@@ -162,5 +162,5 @@ describe("resolveItemMonsters — 역인덱스 형식 방어", () => {
       }
     }
     expect(offenders.slice(0, 10)).toEqual([]);
-  });
+  }, 20_000); // 3MB JSON import — 전체 스위트 병렬 실행 시 기본 5초를 넘긴 적 있음(2026-10-06)
 });
