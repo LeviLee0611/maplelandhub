@@ -9,6 +9,9 @@ type SkillPanelProps = {
   skillLevelMax: number;
   onSkillLevelMax: () => void;
   skillOptions: string[];
+  /** 공개된 수치가 마스터 레벨뿐인 스킬은 레벨 조절을 막는다 (내리면 결과가 비어버림). */
+  levelLocked?: boolean;
+  levelLockedNotice?: string;
   children?: React.ReactNode;
 };
 
@@ -20,6 +23,8 @@ export function SkillPanel({
   skillLevelMax,
   onSkillLevelMax,
   skillOptions,
+  levelLocked = false,
+  levelLockedNotice,
   children,
 }: SkillPanelProps) {
   return (
@@ -54,13 +59,15 @@ export function SkillPanel({
               min={0}
               max={skillLevelMax}
               step={1}
+              disabled={levelLocked}
               compact
               className="w-full"
               inputClassName="retro-number h-[30px] w-full rounded-[6px] border border-[var(--retro-border)] bg-[var(--retro-cell)] px-2 py-1.5 text-xs text-[color:var(--retro-text)] focus:border-[var(--retro-border-strong)] focus:outline-none"
             />
             <button
               type="button"
-              className={`h-[30px] w-8 border transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+              disabled={levelLocked}
+              className={`h-[30px] w-8 border transition duration-150 enabled:hover:-translate-y-0.5 active:translate-y-0 disabled:cursor-not-allowed disabled:opacity-60 ${
                 skillLevel === skillLevelMax
                   ? "border-cyan-300/80 bg-cyan-300/20 text-cyan-100 shadow-[0_4px_10px_rgba(34,211,238,0.18)]"
                   : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[10px] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
@@ -76,6 +83,9 @@ export function SkillPanel({
               M
             </button>
           </div>
+          {levelLocked && levelLockedNotice ? (
+            <p className="text-[10px] leading-relaxed text-amber-200/80">{levelLockedNotice}</p>
+          ) : null}
         </div>
         {children}
       </div>

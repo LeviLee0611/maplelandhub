@@ -37,11 +37,23 @@
     ]
   },
   "planet": {
-    "lastTitle": "2026.09.23 패치노트",
-    "lastDate": "2026-09-23",
-    "lastUrl": "https://mapleplanet.co.kr/news/updates/726",
+    "lastTitle": "2026.10.03 패치노트",
+    "lastDate": "2026-10-03",
+    "lastUrl": "https://mapleplanet.co.kr/news/updates/738",
     "note": "mapleplanet.co.kr는 WebFetch가 403으로 막히지만, 2026-09-28 세션에서 우회 방법을 찾음: urllib에 브라우저 User-Agent + Accept-Language + Accept-Encoding(gzip) 헤더를 붙이면 200으로 열린다. 게시판 경로는 /news/updates (목록, 페이지네이션 ?page=N)이고 개별 글은 /news/updates/{id} — 화면에 보이는 /board/update는 목록으로 리다이렉트되며 글 링크는 /news/updates/{id} 형태다(2026-09-23 = 726). 나무위키/리브레위키/thewiki/Fandom은 봇 차단(403)이라 쓸 수 없고, 공식 사이트가 가장 확실한 1차 출처다.",
     "pendingReview": [
+      {
+        "topic": "에반(10/01 출시) 스킬 레벨 1~29 곡선",
+        "sourceDate": "2026-10-01",
+        "reason": "패치노트(/news/updates/733)와 DC 원작 표 모두 마스터 레벨 수치만 제시하고, maplab은 에반 미반영·maplestory.io는 스킬 수치 미제공. 공격 14종 + 보조 3종(매직 마스터리 숙련도 90%, 매직 엠플리피케이션 135%, 크리티컬 매직 30%/150%) 모두 마스터만 넣고 계산기가 레벨을 고정하도록 처리함(2026-10-05). 하위 레벨 자료가 나오면 data/raw/skills.raw.ts에 채우고 고정 로직을 풀면 된다 — 판정이 \"damageMapping 레벨 키가 마스터 하나뿐\"이라 데이터만 채우면 자동 해제된다.",
+        "todoRef": "TODO.md > 신규 콘텐츠/패치 확인 필요"
+      },
+      {
+        "topic": "에반 미반영 스킬 — 매직 실드, 오닉스의 축복, 드래곤 퓨리, 엘리멘탈 리셋",
+        "sourceDate": "2026-10-01",
+        "reason": "매직 실드(데미지 30% 흡수, 20초/쿨40초)와 오닉스의 축복(방어력 +100, 마공 +50)은 계산기에 대응 입력이 없고(피격 계산기는 흡수 실드 모델이 없음, 방어력은 사용자가 직접 입력), 드래곤 퓨리(MP 50~80% 구간에서 데미지 110%)는 조건부 발동이라 보류. 엘리멘탈 리셋(공격 속성 무속성화)은 몬스터 속성 저항 계산과 엮여 별도 작업 필요.",
+        "todoRef": "TODO.md > 신규 콘텐츠/패치 확인 필요"
+      },
       {
         "topic": "\"석탄 가루\" 드롭처 변경(폐광→엘나스) — 데이터셋에 아이템 자체가 없어 반영 대상 없음",
         "sourceDate": "2026-07-24",

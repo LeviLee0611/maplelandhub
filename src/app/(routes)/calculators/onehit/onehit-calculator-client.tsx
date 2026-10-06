@@ -26,7 +26,14 @@ import mapleHero from "@data/skills/mapleHero.json";
 import meditation from "@data/skills/meditation.json";
 import rage from "@data/skills/rage.json";
 
-const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스", "아란", "배틀메이지"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "해적", "시그너스", "아란", "배틀메이지", "에반"] as const;
+
+// 한쪽 서버에만 출시된 직업. 미출시 서버에서는 직업 선택지 자체를 숨긴다.
+// 배틀메이지: 2026-09-07 메랜 패치로만 출시 / 에반: 2026-10-01 플래닛 패치로만 출시.
+const SERVER_ONLY_JOB_GROUPS: Partial<Record<(typeof jobGroups)[number], "mapleland" | "planet">> = {
+  배틀메이지: "mapleland",
+  에반: "planet",
+};
 const SPEARMAN_SKILLS = [
   "파워 스트라이크",
   "슬래시 블래스트",
@@ -62,8 +69,17 @@ function readLegacyString(snapshot: Record<string, unknown>, keys: string[]) {
   return null;
 }
 
+// 이름 정규식으로 속성이 안 잡히는 스킬. 에반(플래닛 패치노트 /news/updates/733):
+// 블레이즈는 설명에 "불 속성 공격"이 명시돼 있고, 브레스는 "화염을 모아" 공격하는 차징기로
+// 아이스 브레스(냉기)와 짝인 불 속성이다(원작 파이어 브레스) — 브레스 쪽은 설명문 기반 판단.
+const SKILL_ELEMENT_OVERRIDES: Record<string, AttackElement> = {
+  "블레이즈": "불",
+  "브레스": "불",
+};
+
 function inferAttackElement(skillName: string): AttackElement {
   const normalized = String(skillName ?? "").trim();
+  if (SKILL_ELEMENT_OVERRIDES[normalized]) return SKILL_ELEMENT_OVERRIDES[normalized];
   if (/(힐|홀리|샤이닝|엔젤|헤븐|제네시스)/.test(normalized)) return "성";
   if (/(포이즌|독)/.test(normalized)) return "독";
   if (/(썬더|라이트닝|전기)/.test(normalized)) return "전기";
@@ -143,9 +159,14 @@ const jobOptionsByGroup = {
   시그너스: ["소울마스터", "플레임위자드", "윈드브레이커", "나이트워커", "스트라이커"],
   아란: ["아란"],
   배틀메이지: ["배틀메이지"],
+  에반: ["에반"],
 } as const;
 
 const QUICK_SLOT_COUNT = 6;
+
+// 에반 매직 마스터리 마스터(레벨 30) 기준 "마법 공격 숙련도 90% 상승".
+// 출처: 플래닛 공식 패치노트 https://mapleplanet.co.kr/news/updates/733
+const EVAN_MAGIC_MASTERY_RATE = 0.9;
 
 // confirmed: 공식 패치노트로 상한을 직접 확인한 값. false면 커뮤니티 정보 기반 잠정치.
 // UI 라벨("잠정치" 표기)이 이 플래그를 따라가므로, 확인된 값과 미확인 값이 섞여 보이지 않는다.
@@ -186,6 +207,11 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const profileStorageKey = server === "planet" ? `${PROFILE_STORAGE_KEY}:planet` : PROFILE_STORAGE_KEY;
   const [nickname, setNickname] = useState("");
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>(jobGroups[0]);
+
+  const availableJobGroups = useMemo(
+    () => jobGroups.filter((group) => !SERVER_ONLY_JOB_GROUPS[group] || SERVER_ONLY_JOB_GROUPS[group] === server),
+    [server],
+  );
   const [job, setJob] = useState<string>(jobOptionsByGroup[jobGroup][0]);
   // Supabase 기본 프리셋은 로그인 확인 후 비동기로 불러와 반영되는데, 그 응답이 오기 전에
   // 사용자가 직업군/직업을 직접 바꾸면 응답 도착 시 방금 한 선택을 덮어써버리는 레이스가 있었음
@@ -224,6 +250,11 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const [rageBonus, setRageBonus] = useState(0);
   const [comboAttackLevel, setComboAttackLevel] = useState(0);
   const [amplificationLevel, setAmplificationLevel] = useState(0);
+  // 에반 전용 패시브. 공개된 수치가 마스터 레벨뿐이라 레벨이 아니라 켜고/끄기로 다룬다
+  // (false = 미습득, true = 패치노트의 마스터 레벨 값). 출처: 플래닛 패치노트 /news/updates/733
+  const [evanMagicMastery, setEvanMagicMastery] = useState(false);
+  const [evanAmplification, setEvanAmplification] = useState(false);
+  const [evanCriticalMagic, setEvanCriticalMagic] = useState(false);
   const [ifritBonus, setIfritBonus] = useState(0);
   const [bahamutBonus, setBahamutBonus] = useState(0);
   const [focusBonus, setFocusBonus] = useState(0);
@@ -350,6 +381,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       rageBonus,
       comboAttackLevel,
       amplificationLevel,
+      evanMagicMastery,
+      evanAmplification,
+      evanCriticalMagic,
       ifritBonus,
       bahamutBonus,
       focusBonus,
@@ -396,6 +430,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       rageBonus,
       comboAttackLevel,
       amplificationLevel,
+      evanMagicMastery,
+      evanAmplification,
+      evanCriticalMagic,
       ifritBonus,
       bahamutBonus,
       focusBonus,
@@ -416,7 +453,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const applyQuickSnapshot = useCallback((snapshot: typeof quickSnapshot) => {
     if (!snapshot) return;
     if (typeof snapshot.nickname === "string") setNickname(snapshot.nickname);
-    if (snapshot.jobGroup && jobGroups.includes(snapshot.jobGroup)) {
+    if (snapshot.jobGroup && availableJobGroups.includes(snapshot.jobGroup)) {
       setJobGroup(snapshot.jobGroup);
       setTimeout(() => {
         if (typeof snapshot.job === "string") {
@@ -486,6 +523,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (typeof snapshot.rageBonus === "number") setRageBonus(snapshot.rageBonus);
     if (typeof snapshot.comboAttackLevel === "number") setComboAttackLevel(snapshot.comboAttackLevel);
     if (typeof snapshot.amplificationLevel === "number") setAmplificationLevel(snapshot.amplificationLevel);
+    if (typeof snapshot.evanMagicMastery === "boolean") setEvanMagicMastery(snapshot.evanMagicMastery);
+    if (typeof snapshot.evanAmplification === "boolean") setEvanAmplification(snapshot.evanAmplification);
+    if (typeof snapshot.evanCriticalMagic === "boolean") setEvanCriticalMagic(snapshot.evanCriticalMagic);
     if (typeof snapshot.ifritBonus === "number") setIfritBonus(snapshot.ifritBonus);
     if (typeof snapshot.bahamutBonus === "number") setBahamutBonus(snapshot.bahamutBonus);
     if (typeof snapshot.focusBonus === "number") setFocusBonus(snapshot.focusBonus);
@@ -507,7 +547,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
     if (typeof snapshot.monsterName === "string") setMonsterName(snapshot.monsterName);
     setMonsterMobCode(typeof snapshot.monsterMobCode === "number" ? snapshot.monsterMobCode : null);
-  }, [server]);
+  }, [server, availableJobGroups]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -517,8 +557,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     try {
       const saved = JSON.parse(raw);
       if (saved.nickname) setNickname(saved.nickname);
-      if (saved.jobGroup) setJobGroup(saved.jobGroup);
-      if (saved.job) {
+      // 이 서버에 없는 직업(메랜의 에반, 플래닛의 배틀메이지)이 저장돼 있으면 직업은 복원하지 않는다.
+      const savedGroupAvailable = !saved.jobGroup || availableJobGroups.includes(saved.jobGroup);
+      if (saved.jobGroup && savedGroupAvailable) setJobGroup(saved.jobGroup);
+      if (saved.job && savedGroupAvailable) {
         // 아란이 예전엔 "전사" 그룹 하위 직업이었던 저장된 프로필 복원 시
         // jobGroup="전사"·job="아란" 조합이 남아있을 수 있어 자동 보정.
         if (saved.job === "아란") setJobGroup("아란");
@@ -574,7 +616,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     } catch {
       // Ignore invalid local profile data
     }
-  }, [mobParam, profileStorageKey]);
+  }, [mobParam, profileStorageKey, availableJobGroups]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -796,6 +838,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
       "스트라이커": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "아란": { primary: "str", secondary: "dex", multiplier: 4.0, mastery: 0.6 },
       "배틀메이지": { primary: "int", secondary: "luk", multiplier: 1.0, mastery: 0.6 },
+      "에반": { primary: "int", secondary: "luk", multiplier: 1.0, mastery: 0.6 },
     } as const;
     // 해적 직업은 예전엔 "인파이터/버커니어/바이퍼"처럼 3단계를 묶은 값으로 저장됐음 —
     // 저장된 프리셋 복원 시 개별 직업명 중 하나로 대응(레거시 호환용).
@@ -813,7 +856,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   }, [jobGroup]);
 
   useEffect(() => {
-    if ((jobGroup === "마법사" || job === "플레임위자드" || job === "배틀메이지") && passiveMasteryBonus !== 0) {
+    if ((jobGroup === "마법사" || job === "플레임위자드" || job === "배틀메이지" || job === "에반") && passiveMasteryBonus !== 0) {
       setPassiveMasteryBonus(0);
     }
   }, [jobGroup, job, passiveMasteryBonus]);
@@ -852,6 +895,9 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
   const isSpearmanJob = job === "스피어맨/드래곤나이트/다크나이트";
   const isSoulMasterJob = job === "소울마스터";
   const isFlameWizardJob = job === "플레임위자드";
+  const isEvanJob = job === "에반";
+  // 에반은 플래닛 전용이라 메랜 계산기에서는 패시브(패치노트 수치)도 적용하지 않는다.
+  const evanPassivesActive = isEvanJob && server === "planet";
   const isWindBreakerJob = job === "윈드브레이커";
   const isNightWalkerJob = job === "나이트워커";
   const isStrikerJob = job === "스트라이커";
@@ -969,6 +1015,10 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     // 패치노트엔 언급이 없어 플래닛 출시 여부 불명. 확인 전까지 플래닛에서는 미지원.
     if (job === "배틀메이지" && server === "planet") return ["기본 공격"];
 
+    // 에반은 2026-10-01 플래닛(planet) 패치로만 출시됨 — 메랜 패치노트엔 언급이 없다.
+    // 배틀메이지와 서버가 반대인 케이스. 확인 전까지 메랜에서는 미지원.
+    if (job === "에반" && server === "mapleland") return ["기본 공격"];
+
     const mapping = mainSkillMapping as Record<string, string[]>;
     if (mapping[skillKey]) return mapping[skillKey];
 
@@ -997,6 +1047,22 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     if (set30.has(skillName)) return 30;
     return 30;
   }, [skillName]);
+
+  // 패치노트에 마스터 레벨 수치만 공개된 스킬(2026-10-05 기준 에반 14종)은 damageMapping에
+  // 레벨 키가 하나뿐이다. 레벨을 내리면 lookup이 비어 결과가 통째로 사라지므로 마스터로 고정한다.
+  // 판정을 직업명이 아니라 "레벨 키가 마스터 하나뿐"으로 두면, 나중에 1~29 곡선을 채워 넣는
+  // 순간 잠금이 자동으로 풀린다.
+  const skillLevelLocked = useMemo(() => {
+    const bySkill = damageMapping as Record<string, Record<string, unknown>>;
+    const levels = bySkill[skillName] ? Object.keys(bySkill[skillName]) : [];
+    return levels.length === 1 && levels[0] === String(skillLevelMax);
+  }, [skillName, skillLevelMax]);
+
+  useEffect(() => {
+    if (skillLevelLocked && skillLevel !== skillLevelMax) {
+      setSkillLevel(skillLevelMax);
+    }
+  }, [skillLevelLocked, skillLevel, skillLevelMax]);
 
   const skillBase = useMemo(() => {
     const bySkill = damageMapping as Record<string, Record<string, number | { damage?: number; count?: number; mastery?: number; rate?: number; critDMG?: number; critRate?: number }>>;
@@ -1063,8 +1129,22 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const criticalPassiveEffect = useMemo(() => {
     const byCrit = criticalThrowMapping as Record<string, Record<string, { damage?: number; rate?: number }>>;
-    const skill = (isNightLordJob || isNightWalkerJob) ? "크리티컬 스로우" : isArcherJob ? "크리티컬 샷" : null;
-    const level = (isNightLordJob || isNightWalkerJob) ? criticalThrowLevel : isArcherJob ? criticalShotLevel : 0;
+    // 에반의 크리티컬 매직(6차)도 구조가 같아 같은 테이블에 넣었다. 다만 공개 수치가 마스터
+    // 레벨 15뿐이라 레벨 입력 대신 켜고/끄기로 받는다.
+    const skill = evanPassivesActive
+      ? "크리티컬 매직"
+      : (isNightLordJob || isNightWalkerJob)
+        ? "크리티컬 스로우"
+        : isArcherJob
+          ? "크리티컬 샷"
+          : null;
+    const level = evanPassivesActive
+      ? (evanCriticalMagic ? 15 : 0)
+      : (isNightLordJob || isNightWalkerJob)
+        ? criticalThrowLevel
+        : isArcherJob
+          ? criticalShotLevel
+          : 0;
     if (!skill) return { multiplier: 1, rate: 0, damage: 0 };
 
     const levelKey = String(Math.min(Math.max(level, 0), 30));
@@ -1075,7 +1155,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     const rate = rateRaw <= 1 ? rateRaw : rateRaw / 100;
     const damage = (entry.damage ?? 100) / 100;
     return { multiplier: 1 + rate * (damage - 1), rate, damage };
-  }, [isArcherJob, isNightLordJob, isNightWalkerJob, criticalShotLevel, criticalThrowLevel]);
+  }, [isArcherJob, isNightLordJob, isNightWalkerJob, evanPassivesActive, evanCriticalMagic, criticalShotLevel, criticalThrowLevel]);
 
   const criticalRate = useMemo(() => {
     return Math.min(1, criticalPassiveEffect.rate + sharpEyesEffect.rate);
@@ -1140,12 +1220,19 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
 
   const amplificationEffect = useMemo(() => {
     const bySkillActive = damageMappingActive as Record<string, Record<string, number | { damage?: number; maxCount?: number }>>;
+    // 에반의 매직 엠플리피케이션(7차)은 아크메이지 엠플리피케이션과 곡선이 달라 별도 키다.
+    // 마스터 레벨 15 = 135%. 하위 레벨 미공개라 켜고/끄기로만 받는다.
+    if (evanPassivesActive) {
+      const entry = bySkillActive["매직 엠플리피케이션"]?.[evanAmplification ? "15" : "0"];
+      const damage = typeof entry === "number" ? entry : entry?.damage;
+      return { multiplier: damage ? damage / 100 : 1 };
+    }
     if (!isArchMageJob) return { multiplier: 1 };
     const levelKey = String(Math.min(Math.max(amplificationLevel, 0), 30));
     const entry = bySkillActive["엠플리피케이션"]?.[levelKey];
     const damage = typeof entry === "number" ? entry : entry?.damage;
     return { multiplier: damage ? damage / 100 : 1 };
-  }, [isArchMageJob, amplificationLevel]);
+  }, [isArchMageJob, evanPassivesActive, evanAmplification, amplificationLevel]);
 
   const damageMultiplier = skillBase ? skillBase.damage / 100 : 1.0;
   const hitsPerAttack = skillBase?.count ?? 1;
@@ -1329,9 +1416,15 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
     }
   }, [jobProfile.primary, jobProfile.multiplier, weaponType]);
 
-  const passiveMasteryRate = (jobGroup === "마법사" || isFlameWizardJob || job === "배틀메이지") ? 0 : passiveMasteryBonus / 100;
+  const passiveMasteryRate =
+    jobGroup === "마법사" || isFlameWizardJob || job === "배틀메이지" || isEvanJob
+      ? 0
+      : passiveMasteryBonus / 100;
+  // 에반 매직 마스터리(9차, 마스터 레벨 30)는 "마법 공격 숙련도 90% 상승"이라 스킬 자체 숙련도
+  // 60%를 밀어낸다. 마법사 계열엔 숙련도 스킬이 없어 지금까진 스킬 숙련도가 곧 최종값이었는데,
+  // 에반만 예외다. 둘 중 높은 쪽을 쓴다(합산이 아니라 대체).
   const effectiveMastery = jobProfile.primary === "int"
-    ? Math.min(1, mastery)
+    ? Math.min(1, evanPassivesActive && evanMagicMastery ? Math.max(mastery, EVAN_MAGIC_MASTERY_RATE) : mastery)
     : Math.min(1, (passiveMasteryBonus > 0 ? mastery : 0.1) + passiveMasteryRate);
 
   const baseDamageRange = useMemo(() => {
@@ -1630,7 +1723,7 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                             setJobGroup(event.target.value as (typeof jobGroups)[number]);
                           }}
                         >
-                          {jobGroups.map((item) => (
+                          {availableJobGroups.map((item) => (
                             <option key={item} value={item}>
                               {item}
                             </option>
@@ -1856,6 +1949,8 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
             skillLevelMax={skillLevelMax}
             onSkillLevelMax={() => setSkillLevel(skillLevelMax)}
             skillOptions={skillOptions}
+            levelLocked={skillLevelLocked}
+            levelLockedNotice="공개된 수치가 마스터 레벨뿐이라 레벨 고정"
           >
             {skillName === "힐" ? (
               <div className="space-y-1 text-xs">
@@ -2264,6 +2359,37 @@ export function OneHitCalculatorClient({ monsters, server }: OneHitCalculatorCli
                       </div>
 
                     </>
+                  ) : null}
+
+                  {evanPassivesActive ? (
+                    <div className="col-span-2 space-y-1">
+                      <span className="retro-chip">에반 패시브 (마스터)</span>
+                      <div className="flex flex-wrap items-center gap-1.5">
+                        {([
+                          ["매직 마스터리", evanMagicMastery, setEvanMagicMastery, "숙련도 90%"],
+                          ["매직 엠플리피케이션", evanAmplification, setEvanAmplification, "데미지 135%"],
+                          ["크리티컬 매직", evanCriticalMagic, setEvanCriticalMagic, "확률 30% / 데미지 150%"],
+                        ] as const).map(([label, value, setter, hint]) => (
+                          <button
+                            key={label}
+                            type="button"
+                            title={`마스터 레벨 기준 ${hint}`}
+                            aria-pressed={value}
+                            className={`h-[30px] rounded-[3px] border px-2 text-[11px] transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+                              value
+                                ? "border-[var(--brand-accent)] bg-[var(--brand-accent-soft)] text-[color:var(--brand-accent-text)] shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                                : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
+                            }`}
+                            onClick={() => setter((prev) => !prev)}
+                          >
+                            {label}
+                          </button>
+                        ))}
+                      </div>
+                      <p className="text-[10px] leading-relaxed text-[color:var(--retro-text-muted)]">
+                        플래닛 패치노트에 마스터 레벨 수치만 공개돼 하위 레벨은 지원하지 않습니다.
+                      </p>
+                    </div>
                   ) : null}
 
                   {isArchMageJob ? (

@@ -11,7 +11,14 @@ import type { JobClass } from "@/types/takenDamage";
 import { trackEvent } from "@/lib/analytics";
 import { resolveSelectedMonster } from "@/lib/monster-resolver";
 
-const jobGroups = ["전사", "마법사", "궁수", "도적", "아란", "배틀메이지"] as const;
+const jobGroups = ["전사", "마법사", "궁수", "도적", "아란", "배틀메이지", "에반"] as const;
+
+// 한쪽 서버에만 출시된 직업. 미출시 서버에서는 직업 선택지 자체를 숨긴다.
+// 배틀메이지: 2026-09-07 메랜 패치로만 출시 / 에반: 2026-10-01 플래닛 패치로만 출시.
+const SERVER_ONLY_JOB_GROUPS: Partial<Record<(typeof jobGroups)[number], "mapleland" | "planet">> = {
+  배틀메이지: "mapleland",
+  에반: "planet",
+};
 const jobOptionsByGroup = {
   전사: ["파이터/크루세이더/히어로", "페이지/나이트/팔라딘", "스피어맨/드래곤나이트/다크나이트"],
   마법사: ["위자드/메이지/아크메이지(불/독)", "위자드/메이지/아크메이지(썬/콜)", "클레릭/프리스트/비숍"],
@@ -19,6 +26,7 @@ const jobOptionsByGroup = {
   도적: ["어쌔신/허밋/나이트로드", "시프/시프마스터/섀도어"],
   아란: ["아란"],
   배틀메이지: ["배틀메이지"],
+  에반: ["에반"],
 } as const;
 
 const MAGIC_GUARD_TABLE = [0, 11, 14, 17, 20, 23, 30, 33, 36, 39, 42, 49, 52, 55, 58, 61, 68, 71, 74, 77, 80];
@@ -34,6 +42,12 @@ const ACHILLES_TABLE = [
   0, 5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70, 75, 80, 85, 90, 95, 100, 105, 110, 115, 120, 125, 130, 135, 140, 145, 150,
 ];
 const MAGIC_ELEMENTS = ["무", "불", "독", "얼음", "전기", "성"] as const;
+
+// 에반(2026-10-01 플래닛 출시)의 피격 감소 스킬. 플래닛 공식 패치노트에 마스터 레벨 수치만
+// 공개돼 있어(https://mapleplanet.co.kr/news/updates/733) 레벨 입력 대신 켜고/끄기로 받는다.
+// 매직 가드는 마법사(마스터 80%)와 값이 달라 MAGIC_GUARD_TABLE 을 쓸 수 없다.
+const EVAN_MAGIC_GUARD_RATE = 70; // 매직 가드 4차, 마스터 레벨 20 — 데미지의 70%를 MP로 대신
+const EVAN_MAGIC_RESISTANCE_RATE = 20; // 매직 레지스턴스 8차, 마스터 레벨 10 — 마법 공격 내성 20%
 
 function pickTableValue(table: number[], level: number) {
   const idx = Math.min(table.length - 1, Math.max(0, Math.round(level)));
@@ -76,6 +90,11 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const [level, setLevel] = useState(120);
   const [maxHp, setMaxHp] = useState(6000);
   const [jobGroup, setJobGroup] = useState<(typeof jobGroups)[number]>("전사");
+
+  const availableJobGroups = useMemo(
+    () => jobGroups.filter((group) => !SERVER_ONLY_JOB_GROUPS[group] || SERVER_ONLY_JOB_GROUPS[group] === server),
+    [server],
+  );
   const [job, setJob] = useState<string>(jobOptionsByGroup.전사[0]);
   const [stats, setStats] = useState({ str: 500, dex: 120, int: 20, luk: 50, wdef: 450, mdef: 280 });
   const [magicElement, setMagicElement] = useState<(typeof MAGIC_ELEMENTS)[number]>("무");
@@ -102,6 +121,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const [resistanceLevel, setResistanceLevel] = useState(0);
 
   const [mesoGuardLevel, setMesoGuardLevel] = useState(0);
+  const [evanMagicGuard, setEvanMagicGuard] = useState(false);
+  const [evanMagicResistance, setEvanMagicResistance] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const hasStartedRef = useRef(false);
@@ -136,6 +157,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
       invincibleLevel,
       resistanceLevel,
       mesoGuardLevel,
+      evanMagicGuard,
+      evanMagicResistance,
     }),
     [
       level,
@@ -151,6 +174,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
       invincibleLevel,
       resistanceLevel,
       mesoGuardLevel,
+      evanMagicGuard,
+      evanMagicResistance,
     ],
   );
 
@@ -158,7 +183,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
     if (!snapshot) return;
     if (typeof snapshot.level === "number") setLevel(snapshot.level);
     if (typeof snapshot.maxHp === "number") setMaxHp(snapshot.maxHp);
-    if (snapshot.jobGroup && jobGroups.includes(snapshot.jobGroup)) {
+    if (snapshot.jobGroup && availableJobGroups.includes(snapshot.jobGroup)) {
       setJobGroup(snapshot.jobGroup);
       setTimeout(() => {
         if (typeof snapshot.job === "string") {
@@ -180,6 +205,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
     if (typeof snapshot.invincibleLevel === "number") setInvincibleLevel(snapshot.invincibleLevel);
     if (typeof snapshot.resistanceLevel === "number") setResistanceLevel(snapshot.resistanceLevel);
     if (typeof snapshot.mesoGuardLevel === "number") setMesoGuardLevel(snapshot.mesoGuardLevel);
+    if (typeof snapshot.evanMagicGuard === "boolean") setEvanMagicGuard(snapshot.evanMagicGuard);
+    if (typeof snapshot.evanMagicResistance === "boolean") setEvanMagicResistance(snapshot.evanMagicResistance);
   }
 
   const selectedMonster = useMemo(
@@ -190,7 +217,12 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const monsterWatk = Math.max(0, selectedMonster?.watk ?? 0);
   const monsterMatk = Math.max(0, selectedMonster?.matk ?? 0);
 
-  const magicGuard = pickTableValue(MAGIC_GUARD_TABLE, magicGuardLevel);
+  // 에반도 매직 가드를 쓰지만 마스터 수치가 70%로 마법사(80%)와 달라 테이블을 공유할 수 없다.
+  const isEvanGroup = jobGroup === "에반";
+  const usesMagicGuard = jobGroup === "마법사" || isEvanGroup;
+  const magicGuard = isEvanGroup
+    ? (evanMagicGuard ? EVAN_MAGIC_GUARD_RATE : 0)
+    : pickTableValue(MAGIC_GUARD_TABLE, magicGuardLevel);
   const invincible = jobGroup === "마법사" ? pickTableValue(INVINCIBLE_TABLE, invincibleLevel) : 0;
   const thiefMesoGuard = pickTableValue(MESO_GUARD_TABLE, mesoGuardLevel);
   const isBishop = job.includes("비숍");
@@ -213,6 +245,8 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   const magicalMultiplierPercent = (1 - achillesReduce / 100) * 100;
 
   const resistancePercent = useMemo(() => {
+    // 에반의 매직 레지스턴스는 속성 무관 마법 내성이라 엘리멘트 레지스턴스와 분기를 나눈다.
+    if (isEvanGroup) return evanMagicResistance ? EVAN_MAGIC_RESISTANCE_RATE : 0;
     if (jobGroup !== "마법사" || resistanceLevel <= 0) return 0;
     if (magicElement === "무") return 0;
     if (isBishop) return pickTableValue(RESIST_BISHOP_TABLE, resistanceLevel);
@@ -223,12 +257,12 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
       return pickTableValue(RESIST_FIRE_TABLE, resistanceLevel);
     }
     return 0;
-  }, [jobGroup, resistanceLevel, magicElement, isBishop, isSunCol, isFirePoison]);
+  }, [jobGroup, isEvanGroup, evanMagicResistance, resistanceLevel, magicElement, isBishop, isSunCol, isFirePoison]);
 
   const jobClass: JobClass =
     jobGroup === "전사" || jobGroup === "아란"
       ? "warrior"
-      : jobGroup === "마법사" || jobGroup === "배틀메이지"
+      : jobGroup === "마법사" || jobGroup === "배틀메이지" || jobGroup === "에반"
         ? "magician"
         : jobGroup === "궁수"
           ? "archer"
@@ -319,32 +353,32 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   );
 
   const magePhysicalHp = useMemo(() => {
-    if (jobGroup !== "마법사") return { min: physicalRange.min, max: physicalRange.max };
+    if (!usesMagicGuard) return { min: physicalRange.min, max: physicalRange.max };
     const hpMin = Math.max(1, Math.floor(physicalRange.min * (1 - magicGuard / 100)));
     const hpMax = Math.max(1, Math.floor(physicalRange.max * (1 - magicGuard / 100)));
     return { min: hpMin, max: hpMax };
-  }, [jobGroup, physicalRange.min, physicalRange.max, magicGuard]);
+  }, [usesMagicGuard, physicalRange.min, physicalRange.max, magicGuard]);
 
   const mageMagicalHp = useMemo(() => {
     if (magicalRange.max <= 0) return { min: 0, max: 0 };
-    if (jobGroup !== "마법사") return { min: magicalRange.min, max: magicalRange.max };
+    if (!usesMagicGuard) return { min: magicalRange.min, max: magicalRange.max };
     const hpMin = Math.max(1, Math.floor(magicalRange.min * (1 - magicGuard / 100)));
     const hpMax = Math.max(1, Math.floor(magicalRange.max * (1 - magicGuard / 100)));
     return { min: hpMin, max: hpMax };
-  }, [jobGroup, magicalRange.min, magicalRange.max, magicGuard]);
+  }, [usesMagicGuard, magicalRange.min, magicalRange.max, magicGuard]);
 
   const physicalOneShotChance = useMemo(() => {
-    const hpMin = jobGroup === "마법사" ? magePhysicalHp.min : physicalRange.min;
-    const hpMax = jobGroup === "마법사" ? magePhysicalHp.max : physicalRange.max;
+    const hpMin = usesMagicGuard ? magePhysicalHp.min : physicalRange.min;
+    const hpMax = usesMagicGuard ? magePhysicalHp.max : physicalRange.max;
     return oneShotLabel(hpMin, hpMax, maxHp);
-  }, [jobGroup, magePhysicalHp.min, magePhysicalHp.max, physicalRange.min, physicalRange.max, maxHp]);
+  }, [usesMagicGuard, magePhysicalHp.min, magePhysicalHp.max, physicalRange.min, physicalRange.max, maxHp]);
 
   const magicalOneShotChance = useMemo(() => {
     if (monsterMatk <= 0) return null;
-    const hpMin = jobGroup === "마법사" ? mageMagicalHp.min : magicalRange.min;
-    const hpMax = jobGroup === "마법사" ? mageMagicalHp.max : magicalRange.max;
+    const hpMin = usesMagicGuard ? mageMagicalHp.min : magicalRange.min;
+    const hpMax = usesMagicGuard ? mageMagicalHp.max : magicalRange.max;
     return oneShotLabel(hpMin, hpMax, maxHp);
-  }, [monsterMatk, jobGroup, mageMagicalHp.min, mageMagicalHp.max, magicalRange.min, magicalRange.max, maxHp]);
+  }, [monsterMatk, usesMagicGuard, mageMagicalHp.min, mageMagicalHp.max, magicalRange.min, magicalRange.max, maxHp]);
 
   // 자동완성 목록에 없는 이름을 직접 타이핑하면 첫 번째 몬스터로 조용히 대체되어 계산됨 — 사용자에게 알림
   const monsterNotFound = monsterName.trim().length > 0 && !typedMonsters.some((monster) => monster.name === monsterName);
@@ -383,11 +417,11 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
   }, [physicalRange.min, physicalRange.max, magicalRange.min, magicalRange.max]);
 
   const handleCopyResult = () => {
-    const physicalText = jobGroup === "마법사"
+    const physicalText = usesMagicGuard
       ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP)`
       : formatRange(physicalRange.min, physicalRange.max);
     const magicalText = monsterMatk > 0
-      ? (jobGroup === "마법사" ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)` : formatRange(magicalRange.min, magicalRange.max))
+      ? (usesMagicGuard ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)` : formatRange(magicalRange.min, magicalRange.max))
       : "마법공격 안함";
     const text = `[${selectedMonster?.name ?? "몬스터"} 피격 데미지]\n물리: ${physicalText}\n마법: ${magicalText}`;
     void navigator.clipboard.writeText(text).then(() => {
@@ -413,14 +447,14 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
             <div>
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">물리 피격</div>
               <div className="font-semibold">
-                {jobGroup === "마법사" ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} HP` : formatRange(physicalRange.min, physicalRange.max)}
+                {usesMagicGuard ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} HP` : formatRange(physicalRange.min, physicalRange.max)}
               </div>
             </div>
             <div>
               <div className="text-[10px] text-[color:var(--retro-text-muted)]">마법 피격</div>
               <div className="font-semibold">
                 {monsterMatk > 0
-                  ? jobGroup === "마법사"
+                  ? usesMagicGuard
                     ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} HP`
                     : formatRange(magicalRange.min, magicalRange.max)
                   : "안함"}
@@ -463,7 +497,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                         trackInputChange("jobGroup");
                       }}
                     >
-                      {jobGroups.map((item) => (
+                      {availableJobGroups.map((item) => (
                         <option key={item} value={item}>
                           {item}
                         </option>
@@ -609,6 +643,38 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                   </div>
                 ) : null}
 
+                {isEvanGroup ? (
+                  <div className="space-y-1.5">
+                    <div className="flex flex-wrap items-center gap-1.5">
+                      {([
+                        ["매직 가드", evanMagicGuard, setEvanMagicGuard, `데미지 ${EVAN_MAGIC_GUARD_RATE}%를 MP로`],
+                        ["매직 레지스턴스", evanMagicResistance, setEvanMagicResistance, `마법 공격 내성 ${EVAN_MAGIC_RESISTANCE_RATE}%`],
+                      ] as const).map(([label, value, setter, hint]) => (
+                        <button
+                          key={label}
+                          type="button"
+                          title={`마스터 레벨 기준 ${hint}`}
+                          aria-pressed={value}
+                          className={`h-[34px] rounded-[6px] border px-3 text-xs transition duration-150 hover:-translate-y-0.5 active:translate-y-0 ${
+                            value
+                              ? "border-[var(--brand-accent)] bg-[var(--brand-accent-soft)] text-[color:var(--brand-accent-text)] shadow-[0_4px_10px_rgba(0,0,0,0.18)]"
+                              : "border-[var(--retro-border)] bg-[var(--retro-bg)] text-[color:var(--retro-text-muted)] hover:border-[var(--retro-border-strong)] hover:text-[color:var(--retro-text)]"
+                          }`}
+                          onClick={() => {
+                            setter((prev) => !prev);
+                            trackInputChange(label === "매직 가드" ? "evanMagicGuard" : "evanMagicResistance");
+                          }}
+                        >
+                          {label}
+                        </button>
+                      ))}
+                    </div>
+                    <p className="text-[11px] text-[color:var(--retro-text-muted)]">
+                      플래닛 패치노트에 마스터 레벨 수치만 공개돼 하위 레벨은 지원하지 않습니다.
+                    </p>
+                  </div>
+                ) : null}
+
                 {jobGroup === "궁수" ? <p className="text-[11px] text-[color:var(--retro-text-muted)]">궁수는 피격 감소 스킬이 없습니다.</p> : null}
 
                 {jobGroup === "도적" ? (
@@ -665,7 +731,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                 <div className="rounded-[10px] border-2 border-[var(--brand-accent-2-border)] bg-[var(--retro-cell)] px-3 py-3">
                   <div className="text-[10px] text-[color:var(--retro-text-muted)]">물리 공격 피격</div>
                   <div className="text-xl font-bold text-[color:var(--brand-accent-2-text)]">
-                    {jobGroup === "마법사"
+                    {usesMagicGuard
                       ? `${formatRange(magePhysicalHp.min, magePhysicalHp.max)} (HP)`
                       : formatRange(physicalRange.min, physicalRange.max)}
                   </div>
@@ -678,7 +744,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                   <div className="text-[10px] text-[color:var(--retro-text-muted)]">마법 공격 피격</div>
                   <div className="text-xl font-bold text-[color:var(--brand-accent-2-text)]">
                     {monsterMatk > 0
-                      ? (jobGroup === "마법사"
+                      ? (usesMagicGuard
                         ? `${formatRange(mageMagicalHp.min, mageMagicalHp.max)} (HP)`
                         : formatRange(magicalRange.min, magicalRange.max))
                       : "마법공격 안함"}
@@ -694,7 +760,7 @@ export function TakenDamageCalculator({ monsters, server = "mapleland" }: TakenD
                     <p>몬스터 물공/마공: {monsterWatk} / {monsterMatk}</p>
                     <p>기준 PDD: {getStandardPDD(jobClass, level)}</p>
                     <p>랜덤 범위: 물리 0.8~0.85 / 마법 0.75~0.8</p>
-                    {jobGroup === "마법사" && magicGuard > 0 ? (
+                    {usesMagicGuard && magicGuard > 0 ? (
                       <p>매직 가드 분배: HP {(100 - magicGuard).toFixed(1)}% / MP {magicGuard.toFixed(1)}%</p>
                     ) : null}
                     {jobGroup === "도적" && thiefMesoGuard > 0 ? (
