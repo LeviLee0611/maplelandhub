@@ -79,10 +79,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       lastModified: new Date(),
     },
     {
-      url: `${baseUrl}/login`,
-      lastModified: new Date(),
-    },
-    {
       url: `${baseUrl}/planet`,
       lastModified: new Date(),
     },
@@ -118,14 +114,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
       url: `${baseUrl}/exp-tracker`,
       lastModified: new Date(),
     },
-    {
-      url: `${baseUrl}/farming-manager`,
-      lastModified: new Date(),
-    },
-    {
-      url: `${baseUrl}/feedback`,
-      lastModified: new Date(),
-    },
+    // 2026-10-07 GSC 색인 보고서 보고 뺀 것:
+    // - /feedback — canonical 이 /contact 를 가리키므로 사이트맵에 넣으면 신호가 엇갈린다
+    //   ("적절한 표준 태그가 포함된 대체 페이지"로 잡힘). cube-builder 와 같은 이유.
+    // - /login, /farming-manager — 로그인 버튼뿐·"준비 중" 안내뿐인 페이지. 색인 요청할 내용이 없다.
     // 몬스터 상세 페이지. 출시 필터를 통과한 몬스터만 정적 생성되므로 같은 소스를 쓴다
     // (`generateStaticParams`와 어긋나면 sitemap이 404를 가리키게 된다).
     // 플래닛 몬스터 상세는 뺐다 — 메랜+플래닛 1,056개를 프리렌더하면 Next 16이 페이지당 파일
