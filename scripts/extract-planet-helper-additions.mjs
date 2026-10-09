@@ -26,7 +26,10 @@ import path from "path";
 const WRITE = process.argv.includes("--write");
 const SNAPSHOT = path.resolve("scripts/state/planet-helper-monsters-2026-10-05.json");
 const PLANET_MONSTERS = path.resolve("data/planet/monsters.json");
-const PLANET_DROP_INDEX = path.resolve("data/planet/drop-index.json");
+// 비교 기준은 플래닛 산출물이 아니라 **메랜 베이스**다. 플래닛 drop-index 는 이 스크립트의 산출물을 이미
+// 얹은 결과라, 그걸 기준으로 비교하면 "전부 있음"이 되어 근거 파일이 비어버린다(2026-10-09 실제로 발생).
+// 플래닛 베이스의 (몬스터, 아이템) 쌍은 메랜 베이스와 같고 prob 만 ×4 이므로 존재 여부는 메랜 쪽으로 본다.
+const BASE_DROP_INDEX = path.resolve("data/drop-index.json");
 const PLANET_RELEASE_FILTERS = path.resolve("data/planet/release-filters.json");
 const OUTPUT = path.resolve("scripts/sources/planet/planet-helper-drop-additions.json");
 
@@ -61,7 +64,7 @@ async function main() {
   const [snapshot, monsters, dropIndex, filters] = await Promise.all([
     readJson(SNAPSHOT),
     readJson(PLANET_MONSTERS),
-    readJson(PLANET_DROP_INDEX),
+    readJson(BASE_DROP_INDEX),
     readJson(PLANET_RELEASE_FILTERS),
   ]);
   const ours = new Map(monsters.map((m) => [m.mobCode, m]));

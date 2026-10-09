@@ -1,9 +1,9 @@
 {
   "generatedAt": "2026-03-02T22:30:34.911Z",
   "source": "mapledb.kr search.php?t=mob; Maple Note Edelstein snapshot",
-  "count": 815,
-  "withMaps": 538,
-  "withoutMaps": 277,
+  "count": 836,
+  "withMaps": 553,
+  "withoutMaps": 283,
   "errorCount": 0,
   "rows": [
     {
@@ -2462,6 +2462,21 @@
         {
           "map_code": 101030103,
           "map_name": "유적 발굴지3"
+        }
+      ]
+    },
+    {
+      "mob_code": 2230131,
+      "mob_name": "짜증내는 좀비버섯",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 105050100,
+          "map_name": "개미굴2"
+        },
+        {
+          "map_code": 105050200,
+          "map_name": "개미굴3"
         }
       ]
     },
@@ -11363,6 +11378,212 @@
           "map_name": "태국: 작은 정글"
         }
       ]
+    },
+    {
+      "mob_code": 9420527,
+      "mob_name": "클로로트랩",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000100,
+          "map_name": "진흙 둑 외곽"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420528,
+      "mob_name": "이모 슬라임",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000100,
+          "map_name": "진흙 둑 외곽"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420529,
+      "mob_name": "다크 피션",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000200,
+          "map_name": "진흙 둑1"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420530,
+      "mob_name": "올리 올리",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000200,
+          "map_name": "진흙 둑1"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420531,
+      "mob_name": "겁쟁이 스칼리온",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551000200,
+          "map_name": "히비스커스 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420532,
+      "mob_name": "라타튤라",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551000200,
+          "map_name": "히비스커스 길2"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420533,
+      "mob_name": "로데오",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000300,
+          "map_name": "진흙 둑2"
+        },
+        {
+          "map_code": 551000100,
+          "map_name": "히비스커스 길1"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420534,
+      "mob_name": "챠머",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 550000400,
+          "map_name": "진흙 둑3"
+        },
+        {
+          "map_code": 551000100,
+          "map_name": "히비스커스 길1"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420535,
+      "mob_name": "제스터 스칼리온",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551010000,
+          "map_name": "판타지 테마파크1"
+        },
+        {
+          "map_code": 551030001,
+          "map_name": "바이바이 스테이션의 가장 긴 줄"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420536,
+      "mob_name": "프로스콜라",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551010000,
+          "map_name": "판타지 테마파크1"
+        },
+        {
+          "map_code": 551030001,
+          "map_name": "바이바이 스테이션의 가장 긴 줄"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420537,
+      "mob_name": "야바 두",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551020000,
+          "map_name": "판타지 테마파크2"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420538,
+      "mob_name": "부퍼 스칼리온",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551020000,
+          "map_name": "판타지 테마파크2"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420539,
+      "mob_name": "바이크롤라",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551030000,
+          "map_name": "판타지 테마파크3"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420540,
+      "mob_name": "갤러페라",
+      "mob_name_en": "",
+      "maps": [
+        {
+          "map_code": 551030100,
+          "map_name": "스푸키 월드 입구"
+        }
+      ]
+    },
+    {
+      "mob_code": 9420542,
+      "mob_name": "타르가",
+      "mob_name_en": "",
+      "maps": []
+    },
+    {
+      "mob_code": 9420543,
+      "mob_name": "화난 타르가",
+      "mob_name_en": "",
+      "maps": []
+    },
+    {
+      "mob_code": 9420544,
+      "mob_name": "분노한 타르가",
+      "mob_name_en": "",
+      "maps": []
+    },
+    {
+      "mob_code": 9420547,
+      "mob_name": "스칼리온",
+      "mob_name_en": "",
+      "maps": []
+    },
+    {
+      "mob_code": 9420548,
+      "mob_name": "화난 스칼리온",
+      "mob_name_en": "",
+      "maps": []
+    },
+    {
+      "mob_code": 9420549,
+      "mob_name": "분노한 스칼리온",
+      "mob_name_en": "",
+      "maps": []
     },
     {
       "mob_code": 9500107,

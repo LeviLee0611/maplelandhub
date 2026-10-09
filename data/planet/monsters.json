@@ -14600,6 +14600,435 @@
     "exist": true
   },
   {
+    "name": "짜증내는 좀비버섯",
+    "level": 24,
+    "hp": 500,
+    "exp": 168,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 29,
+    "def": 20,
+    "mDef": 30,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 2230131,
+    "region": "빅토리아 아일랜드",
+    "watk": 95,
+    "matk": 0,
+    "exist": true,
+    "map": "파란버섯의 숲2"
+  },
+  {
+    "name": "클로로트랩",
+    "level": 45,
+    "hp": 2600,
+    "exp": 132,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 66,
+    "def": 160,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420527,
+    "region": "말레이시아",
+    "watk": 140,
+    "matk": 0,
+    "exist": true,
+    "map": "진흙 둑 외곽"
+  },
+  {
+    "name": "이모 슬라임",
+    "level": 47,
+    "hp": 2850,
+    "exp": 135,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 88,
+    "def": 140,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420528,
+    "region": "말레이시아",
+    "watk": 150,
+    "matk": 140,
+    "exist": true,
+    "map": "진흙 둑 외곽"
+  },
+  {
+    "name": "다크 피션",
+    "level": 52,
+    "hp": 3700,
+    "exp": 172,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 73,
+    "def": 120,
+    "mDef": 255,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420529,
+    "region": "말레이시아",
+    "watk": 155,
+    "matk": 170,
+    "exist": true,
+    "map": "진흙 둑1"
+  },
+  {
+    "name": "올리 올리",
+    "level": 56,
+    "hp": 4600,
+    "exp": 185,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 81,
+    "def": 170,
+    "mDef": 180,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420530,
+    "region": "말레이시아",
+    "watk": 155,
+    "matk": 0,
+    "exist": true,
+    "map": "진흙 둑1"
+  },
+  {
+    "name": "겁쟁이 스칼리온",
+    "level": 59,
+    "hp": 5800,
+    "exp": 220,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 92,
+    "def": 180,
+    "mDef": 200,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420531,
+    "region": "말레이시아",
+    "watk": 210,
+    "matk": 200,
+    "exist": true,
+    "map": "히비스커스 길2"
+  },
+  {
+    "name": "라타튤라",
+    "level": 59,
+    "hp": 6200,
+    "exp": 210,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 73,
+    "def": 220,
+    "mDef": 190,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420532,
+    "region": "말레이시아",
+    "watk": 210,
+    "matk": 220,
+    "exist": true,
+    "map": "히비스커스 길2"
+  },
+  {
+    "name": "로데오",
+    "level": 61,
+    "hp": 6000,
+    "exp": 235,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 103,
+    "def": 220,
+    "mDef": 230,
+    "ele": [
+      "불 반감",
+      "얼음 약점"
+    ],
+    "mobCode": 9420533,
+    "region": "말레이시아",
+    "watk": 220,
+    "matk": 50,
+    "exist": true,
+    "map": "진흙 둑2"
+  },
+  {
+    "name": "챠머",
+    "level": 65,
+    "hp": 9800,
+    "exp": 255,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 88,
+    "def": 180,
+    "mDef": 240,
+    "ele": [
+      "얼음 약점"
+    ],
+    "mobCode": 9420534,
+    "region": "말레이시아",
+    "watk": 180,
+    "matk": 230,
+    "exist": true,
+    "map": "진흙 둑3"
+  },
+  {
+    "name": "제스터 스칼리온",
+    "level": 68,
+    "hp": 12000,
+    "exp": 270,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 99,
+    "def": 200,
+    "mDef": 220,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420535,
+    "region": "말레이시아",
+    "watk": 230,
+    "matk": 210,
+    "exist": true,
+    "map": "판타지 테마파크1"
+  },
+  {
+    "name": "프로스콜라",
+    "level": 72,
+    "hp": 15200,
+    "exp": 300,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 92,
+    "def": 320,
+    "mDef": 260,
+    "ele": [
+      "독 반감"
+    ],
+    "mobCode": 9420536,
+    "region": "말레이시아",
+    "watk": 270,
+    "matk": 320,
+    "exist": true,
+    "map": "판타지 테마파크1"
+  },
+  {
+    "name": "야바 두",
+    "level": 75,
+    "hp": 15800,
+    "exp": 352,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 92,
+    "def": 250,
+    "mDef": 250,
+    "ele": [
+      "무속성"
+    ],
+    "mobCode": 9420537,
+    "region": "말레이시아",
+    "watk": 270,
+    "matk": 320,
+    "exist": true,
+    "map": "판타지 테마파크2"
+  },
+  {
+    "name": "부퍼 스칼리온",
+    "level": 82,
+    "hp": 28000,
+    "exp": 1250,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 106,
+    "def": 680,
+    "mDef": 480,
+    "ele": [
+      "불 약점",
+      "독 약점"
+    ],
+    "mobCode": 9420538,
+    "region": "말레이시아",
+    "watk": 360,
+    "matk": 400,
+    "exist": true,
+    "map": "판타지 테마파크2"
+  },
+  {
+    "name": "바이크롤라",
+    "level": 87,
+    "hp": 36000,
+    "exp": 2000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 95,
+    "def": 820,
+    "mDef": 465,
+    "ele": [
+      "불 약점",
+      "전기 약점"
+    ],
+    "mobCode": 9420539,
+    "region": "말레이시아",
+    "watk": 388,
+    "matk": 430,
+    "exist": true,
+    "map": "판타지 테마파크3"
+  },
+  {
+    "name": "갤러페라",
+    "level": 94,
+    "hp": 43000,
+    "exp": 2500,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 136,
+    "def": 820,
+    "mDef": 540,
+    "ele": [
+      "성 약점"
+    ],
+    "mobCode": 9420540,
+    "region": "말레이시아",
+    "watk": 430,
+    "matk": 460,
+    "exist": true,
+    "map": "스푸키 월드 입구"
+  },
+  {
+    "name": "타르가",
+    "level": 80,
+    "hp": 60000000,
+    "exp": 268000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 15,
+    "def": 114,
+    "mDef": 204,
+    "ele": [
+      "불 반감",
+      "얼음 약점",
+      "독 면역"
+    ],
+    "mobCode": 9420542,
+    "region": "보스",
+    "watk": 196,
+    "matk": 112,
+    "exist": true
+  },
+  {
+    "name": "화난 타르가",
+    "level": 100,
+    "hp": 90000000,
+    "exp": 403000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 22,
+    "def": 171,
+    "mDef": 306,
+    "ele": [
+      "불 반감",
+      "얼음 약점",
+      "독 면역"
+    ],
+    "mobCode": 9420543,
+    "region": "보스",
+    "watk": 294,
+    "matk": 168,
+    "exist": true
+  },
+  {
+    "name": "분노한 타르가",
+    "level": 140,
+    "hp": 150000000,
+    "exp": 1000000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 73,
+    "def": 570,
+    "mDef": 1020,
+    "ele": [
+      "불 반감",
+      "얼음 약점",
+      "독 면역"
+    ],
+    "mobCode": 9420544,
+    "region": "보스",
+    "watk": 980,
+    "matk": 560,
+    "exist": true
+  },
+  {
+    "name": "스칼리온",
+    "level": 80,
+    "hp": 60000000,
+    "exp": 268000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 15,
+    "def": 114,
+    "mDef": 204,
+    "ele": [
+      "얼음 반감",
+      "전기 반감",
+      "불 약점"
+    ],
+    "mobCode": 9420547,
+    "region": "보스",
+    "watk": 196,
+    "matk": 112,
+    "exist": true
+  },
+  {
+    "name": "화난 스칼리온",
+    "level": 100,
+    "hp": 90000000,
+    "exp": 403000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 22,
+    "def": 171,
+    "mDef": 306,
+    "ele": [
+      "얼음 반감",
+      "전기 반감",
+      "불 약점"
+    ],
+    "mobCode": 9420548,
+    "region": "보스",
+    "watk": 294,
+    "matk": 168,
+    "exist": true
+  },
+  {
+    "name": "분노한 스칼리온",
+    "level": 140,
+    "hp": 150000000,
+    "exp": 1000000,
+    "acc": 0,
+    "eva": 0,
+    "needAcc": 73,
+    "def": 570,
+    "mDef": 1020,
+    "ele": [
+      "얼음 반감",
+      "전기 반감",
+      "불 약점"
+    ],
+    "mobCode": 9420549,
+    "region": "보스",
+    "watk": 980,
+    "matk": 560,
+    "exist": true
+  },
+  {
     "name": "티노",
     "mobCode": 100120,
     "ele": [
@@ -14948,24 +15377,6 @@
     "matk": 0,
     "def": 10,
     "mDef": 60
-  },
-  {
-    "name": "짜증내는 좀비버섯",
-    "mobCode": 2230131,
-    "ele": [
-      "무속성"
-    ],
-    "needAcc": 0,
-    "hp": 500,
-    "exp": 168,
-    "level": 24,
-    "acc": 50,
-    "eva": 8,
-    "watk": 95,
-    "matk": 0,
-    "def": 20,
-    "mDef": 30,
-    "map": "파란버섯의 숲2"
   },
   {
     "name": "인형사",
