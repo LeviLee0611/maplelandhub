@@ -56,8 +56,7 @@ const guideLinks = [
   { label: "메랜 vs 플래닛 차이", href: "/mapleland-vs-planet", icon: "spark" },
   { label: "문의하기", href: "/contact", icon: "chat" },
   { label: "개인정보처리방침", href: "/privacy", icon: "lock" },
-  { label: "업데이트 내역", href: "/changelog", icon: "spark" },
-  { label: "확률의 비밀 (TM)", href: "/probability", icon: "star" },
+  { label: "확률의 비밀", href: "/probability", icon: "star" },
 ];
 
 function SidebarIcon({ name, size = 4 }: { name: string; size?: number }) {
