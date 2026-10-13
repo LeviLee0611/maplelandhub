@@ -1,5 +1,7 @@
 import type { MetadataRoute } from "next";
 import { getReleasedMonsterCodes, isThinMonsterPage } from "@/lib/data/monster-detail";
+import { maplelandItemIndex } from "@/lib/data/item-detail.mapleland";
+import { planetItemIndex } from "@/lib/data/item-detail.planet";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const rawBaseUrl = process.env.NEXT_PUBLIC_APP_URL ?? "https://maplelandhub.com";
@@ -121,5 +123,15 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/monster/${mobCode}`,
         lastModified: new Date(),
       })),
+    // 아이템 상세(2026-10-13). edge 동적 라우트라 프리렌더 라우트 상한과 무관해 플래닛도 넣는다.
+    // 드랍 몬스터도 스펙도 없는 아이템은 noindex 와 짝을 맞춰 뺀다(isThinItemPage).
+    ...maplelandItemIndex.getIndexableItemIds().map((itemId) => ({
+      url: `${baseUrl}/item/${itemId}`,
+      lastModified: new Date(),
+    })),
+    ...planetItemIndex.getIndexableItemIds().map((itemId) => ({
+      url: `${baseUrl}/planet/item/${itemId}`,
+      lastModified: new Date(),
+    })),
   ];
 }

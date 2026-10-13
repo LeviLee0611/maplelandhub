@@ -173,7 +173,10 @@ export default async function MonsterDetailView({ params, server }: MonsterPageP
               <tbody>
                 {drops.map((drop) => (
                   <tr key={drop.itemId} className="border-b border-[var(--retro-border)]">
-                    <td className="py-1.5">{drop.name}</td>
+                    <td className="py-1.5">
+                      {/* 아이템 상세는 두 서버 모두 edge 동적 라우트로 있다(2026-10-13) — 내부 링크로 색인 흐름을 잇는다 */}
+                      <Link href={`${base}/item/${drop.itemId}`} className="hover:underline">{drop.name}</Link>
+                    </td>
                     <td className="py-1.5 text-[color:var(--retro-text-muted)]">{drop.category ?? "-"}</td>
                     <td className="py-1.5">{probLabel(drop.prob)}</td>
                   </tr>
