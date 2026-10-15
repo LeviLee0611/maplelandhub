@@ -29,7 +29,23 @@
 몬스터 페이지가 없다. 10/6에 플래닛 스탯을 넣었지만 노출은 안 된다 — 플래닛에 쇼와마을이 있는지 확인되면
 allowedMobCodes 에 넣을 것(TODO).
 
-검증: tsc 0 / eslint 0 / vitest 181 passed(planetMonsterPages 4건 추가) / next build 성공(ƒ /planet/monster/[mobCode]).
+**첫 배포(`4ab027d`)는 실패했다 — 두 번째 한도.** Cloudflare 로그:
+`Generated Pages Functions bundle size (28,931,191) is over the limit of 25.0 MiB`. next-on-pages 는 edge 라우트마다
+워커 함수를 따로 만들고 **각 함수가 import 한 JSON 을 통째로 복사해 싣는다.** 플래닛 아이템(4.0MB)·플래닛 몬스터(4.0MB)
+함수가 같은 플래닛 JSON 을 각각 들었고, API 4개도 drop-index 를 2.3~2.7MB 씩 따로 들어 합 24.5MB(압축 전) → 28.9MiB.
+아이템 페이지 배포(10/13)는 24.2MiB 로 **간신히** 통과했던 것이다.
+
+처방은 **같은 데이터를 쓰는 라우트를 함수 하나로 합치기** — 공개 URL 은 그대로:
+- `/planet/item/[id]` + `/planet/monster/[id]` → `/planet/[kind]/[id]` 하나(플래닛 JSON 1회). 정적 라우트
+  (`/planet/calculators/onehit` 등)가 먼저 매칭되므로 안전하고, 모르는 kind 는 404.
+- API 4개 → `/api/drop-table/[kind]/[server]` 하나. 클라이언트 fetch 경로는 안 바뀐다.
+예상 합계 ~16MB. **앞으로 큰 JSON 을 쓰는 edge 라우트는 늘리지 말고 합쳐야 한다** — TODO "배포 한계"에 추가.
+
+부수 수정: 라우트를 `[kind]/[id]` 로 바꾸자 `@next/next/no-html-link-for-pages` 가 CubeBuilder 의
+`<a href="/planet/cube-simulator">` 를 잡기 시작해 `<Link>` 로 바꿨다.
+
+검증: tsc 0 / eslint 0 / vitest 181 passed(planetMonsterPages 4건 추가) / next build 성공(ƒ /planet/[kind]/[id],
+ƒ /api/drop-table/[kind]/[server]) / 빌드 서버에서 플래닛 정적 라우트 4개·동적 2개·404 3종·API 4종 확인.
 
 ---
 

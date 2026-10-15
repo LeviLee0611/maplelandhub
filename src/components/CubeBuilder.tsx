@@ -1,5 +1,7 @@
 "use client";
 
+import Link from "next/link";
+
 import { useEffect, useMemo, useState } from "react";
 import { Panel } from "@/components/Panel";
 import { NumberField } from "@/components/NumberField";
@@ -154,12 +156,12 @@ export function CubeBuilder({ cubeData }: CubeBuilderProps) {
             효과 이미 포함된 값). 각 슬롯의 가치를 계산할 때 그 슬롯이 기여한 만큼을 자동으로 빼고 비교하니 별도로 뺄 필요는
             없습니다.
           </p>
-          <a
+          <Link
             href="/planet/cube-simulator"
             className="inline-flex items-center gap-1 text-xs font-semibold text-[color:var(--brand-accent-text)] hover:underline"
           >
             직접 큐브를 굴려보려면 → 큐브 시뮬레이터
-          </a>
+          </Link>
         </header>
 
         <div className="mt-4">
