@@ -966,17 +966,14 @@ export function DropTable({
                 <div className="flex flex-col gap-2">
                   {/* 몬스터 상세 페이지로 보내는 내부 링크. 계산기 링크와 달리 쿼리스트링이 아닌
                       고유 경로라 검색엔진이 개별 페이지로 색인한다(2026-09-23 신설).
-                      메랜에만 건다 — 플래닛 상세 라우트는 프리렌더 라우트 수가 Cloudflare Pages
-                      빌드 한계를 넘겨 제거했다(2026-09-24). 되살리면 이 조건도 같이 풀 것. */}
-                  {server === "mapleland" ? (
-                    <a
-                      href={`/monster/${selectedMonster.mobCode}`}
-                      onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "monster" })}
-                      className="inline-flex items-center justify-center rounded-[10px] border border-[var(--retro-border-strong)] bg-[var(--retro-cell)] px-3 py-2 text-xs font-semibold text-[color:var(--retro-text)] hover:border-[var(--brand-accent)]"
-                    >
-                      {selectedMonster.name} 상세 정보
-                    </a>
-                  ) : null}
+                      플래닛 상세 라우트는 9/24에 빌드 한계로 뺐다가 2026-10-15 edge 동적 라우트로 복구했다. */}
+                  <a
+                    href={`${calculatorBasePath}/monster/${selectedMonster.mobCode}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "monster" })}
+                    className="inline-flex items-center justify-center rounded-[10px] border border-[var(--retro-border-strong)] bg-[var(--retro-cell)] px-3 py-2 text-xs font-semibold text-[color:var(--retro-text)] hover:border-[var(--brand-accent)]"
+                  >
+                    {selectedMonster.name} 상세 정보
+                  </a>
                   <a
                     href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(selectedMonster.name)}&mobCode=${selectedMonster.mobCode}`}
                     onClick={() => trackEvent("related_tool_click", { tool: "onehit", context: "monster" })}
@@ -999,17 +996,13 @@ export function DropTable({
               <div className="flex flex-col gap-2">
                 <p className="text-xs text-[color:var(--retro-text-muted)]">
                   가장 확률 높은 드랍처:{" "}
-                  {server === "mapleland" ? (
-                    <a
-                      href={`/monster/${monstersForItem[0].monster.mobCode}`}
-                      onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "item" })}
-                      className="font-semibold underline decoration-dotted hover:text-[color:var(--retro-text)]"
-                    >
-                      {monstersForItem[0].monster.name}
-                    </a>
-                  ) : (
-                    <span className="font-semibold">{monstersForItem[0].monster.name}</span>
-                  )}
+                  <a
+                    href={`${calculatorBasePath}/monster/${monstersForItem[0].monster.mobCode}`}
+                    onClick={() => trackEvent("related_tool_click", { tool: "monster_detail", context: "item" })}
+                    className="font-semibold underline decoration-dotted hover:text-[color:var(--retro-text)]"
+                  >
+                    {monstersForItem[0].monster.name}
+                  </a>
                 </p>
                 <a
                   href={`${calculatorBasePath}/calculators/onehit?mob=${encodeURIComponent(monstersForItem[0].monster.name)}&mobCode=${monstersForItem[0].monster.mobCode}`}

@@ -4,6 +4,35 @@
 
 ---
 
+## 2026-10-15
+
+### 플래닛 몬스터 상세 페이지 복구 — edge 동적 라우트, 데이터 모듈 서버별 분리
+
+9/24에 Cloudflare 라우트 상한으로 뺐던 `/planet/monster/[mobCode]` 를 되살렸다. 그때 TODO 에 "OpenNext 이전이
+선행돼야 한다"고 적었는데 틀린 전제였다 — 그 상한은 **프리렌더 파일 수**(페이지당 12개)의 문제라 `runtime = "edge"`
+동적 라우트에는 적용되지 않는다. 이틀 전 아이템 페이지 5,463개가 같은 방식으로 통과하면서 확인됐다.
+
+**monster-detail.ts 를 쪼갰다.** 조립 로직은 `monster-detail-core.ts`(JSON import 없음)로, 기존
+`monster-detail.ts` 는 두 서버를 다 읽는 묶음 모듈로 남겨 sitemap·정적 메랜 페이지·테스트가 그대로 쓰고,
+`monster-detail.planet.ts` 가 플래닛 JSON 만 읽어 edge 라우트에 쓴다. `MonsterDetailView` 는 데이터를
+직접 읽지 않고 조립된 detail 을 prop 으로 받도록 바꿨다 — 뷰가 데이터 모듈을 import 하면 플래닛 edge
+번들에 메랜 분까지 실린다. 메랜 페이지는 정적 생성 그대로(동작 변화 없음).
+
+**링크를 양방향으로 풀었다.** DropTable 의 "플래닛은 몬스터 링크 없음" 분기 2곳, ItemDetailView 의
+"플래닛은 드랍 테이블로" 우회를 전부 상세 페이지 링크로 바꿨다. sitemap 에 플래닛 몬스터(얇은 페이지 제외)
+추가(503개) → sitemap 6,054 → 6,557 URL.
+
+**빌드가 한 번 "next/font/google queries have exactly one entry" ×372 로 죽었다.** vitest 와 `next build` 를
+한 명령에서 동시에 돌린 탓이었고, 빌드만 다시 돌리니 통과했다. 병렬로 돌리지 말 것.
+
+테스트에서 하나 배운 것: 쇼와마을(9400xxx)은 플래닛 release-filter 에서 9000000 이상이라 막혀 있어 플래닛
+몬스터 페이지가 없다. 10/6에 플래닛 스탯을 넣었지만 노출은 안 된다 — 플래닛에 쇼와마을이 있는지 확인되면
+allowedMobCodes 에 넣을 것(TODO).
+
+검증: tsc 0 / eslint 0 / vitest 181 passed(planetMonsterPages 4건 추가) / next build 성공(ƒ /planet/monster/[mobCode]).
+
+---
+
 ## 2026-10-13
 
 ### 아이템 상세 페이지 — 메랜·플래닛 각 2,700~2,900개, edge 동적 라우트

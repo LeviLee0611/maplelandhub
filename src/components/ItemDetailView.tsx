@@ -30,10 +30,9 @@ function probLabel(prob?: number) {
   return percent >= 1 ? `${percent.toFixed(2)}%` : `${percent.toFixed(4)}%`;
 }
 
-// 몬스터 링크: 메랜은 몬스터 상세 페이지가 있고, 플래닛은 아직 없어(TODO "배포 한계" 참고) 드랍 테이블로 보낸다.
-function monsterHref(server: ItemServer, mobCode: number, name: string) {
-  if (server === "mapleland") return `/monster/${mobCode}`;
-  return `/planet/drop-table?mob=${encodeURIComponent(name)}&mobCode=${mobCode}`;
+// 몬스터 상세 페이지는 두 서버 모두 있다(플래닛은 2026-10-15 edge 동적 라우트로 복구).
+function monsterHref(server: ItemServer, mobCode: number) {
+  return `${basePath(server)}/monster/${mobCode}`;
 }
 
 const EQUIP_INC_LABELS: Array<[keyof ItemEquipMeta, string]> = [
@@ -221,7 +220,7 @@ export default function ItemDetailView({ detail, server }: { detail: ItemDetail;
                 {sources.map((s) => (
                   <tr key={s.mobCode} className="border-b border-[var(--retro-border)]">
                     <td className="py-1.5">
-                      <Link href={monsterHref(server, s.mobCode, s.name)} className="hover:underline">{s.name}</Link>
+                      <Link href={monsterHref(server, s.mobCode)} className="hover:underline">{s.name}</Link>
                     </td>
                     <td className="py-1.5">{s.level}</td>
                     <td className="py-1.5">{formatNumber(s.hp)}</td>

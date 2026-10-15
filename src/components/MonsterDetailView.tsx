@@ -1,8 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { notFound } from "next/navigation";
 import { formatNumber } from "@/lib/utils";
-import { getMonsterDetail, getReleasedMonsterCodes, type MonsterServer } from "@/lib/data/monster-detail";
+import type { MonsterDetail, MonsterServer } from "@/lib/data/monster-detail-core";
 
 /**
  * 몬스터 상세 페이지 — 검색 유입용 정적 페이지.
@@ -11,19 +10,17 @@ import { getMonsterDetail, getReleasedMonsterCodes, type MonsterServer } from "@
  * `?mob=이름&mobCode=...` 쿼리스트링이라 검색엔진 눈에는 전부 같은 URL 하나였다.
  * 이 라우트는 몬스터마다 고유 경로를 주어 색인 대상을 1개에서 수백 개로 늘린다.
  *
- * 서버 컴포넌트로만 동작한다(클라이언트 지시어 금지). 데이터는 빌드 시점에 조립돼
- * HTML 텍스트로 나가고, 원본 JSON은 클라이언트로 전송되지 않는다.
+ * 서버 컴포넌트로만 동작한다(클라이언트 지시어 금지). 원본 JSON은 클라이언트로 전송되지 않는다.
+ *
+ * 이 컴포넌트는 **데이터를 직접 읽지 않는다**(2026-10-15). 조립된 MonsterDetail 을 페이지가 넘긴다 —
+ * 메랜 페이지는 정적 생성이라 묶음 모듈(monster-detail.ts)을, 플래닛 페이지는 edge 동적 라우트라
+ * 플래닛 전용 모듈(monster-detail.planet.ts)을 쓴다. 여기서 데이터 모듈을 import 하면 플래닛 edge
+ * 번들에 메랜 데이터까지 실린다.
  */
 
 export type MonsterPageProps = { params: Promise<{ mobCode: string }> };
 
-export function buildMonsterStaticParams(server: MonsterServer) {
-  return getReleasedMonsterCodes(server).map((mobCode) => ({ mobCode: String(mobCode) }));
-}
-
-export async function buildMonsterMetadata(params: MonsterPageProps["params"], server: MonsterServer): Promise<Metadata> {
-  const { mobCode } = await params;
-  const detail = getMonsterDetail(Number(mobCode), server);
+export function buildMonsterMetadata(detail: MonsterDetail | null, server: MonsterServer): Metadata {
   if (!detail) return { title: "몬스터 정보를 찾을 수 없습니다 | 메랜Hub" };
 
   const label = server === "planet" ? "메이플 플래닛" : "메이플랜드";
@@ -79,11 +76,7 @@ function requiredAccuracyAtSameLevel(eva: number) {
   return Math.max(0, Math.ceil((55 * eva) / 15));
 }
 
-export default async function MonsterDetailView({ params, server }: MonsterPageProps & { server: MonsterServer }) {
-  const { mobCode } = await params;
-  const detail = getMonsterDetail(Number(mobCode), server);
-  if (!detail) notFound();
-
+export default function MonsterDetailView({ detail, server }: { detail: MonsterDetail; server: MonsterServer }) {
   const { monster, drops, maps, related } = detail;
   const needAcc = requiredAccuracyAtSameLevel(monster.eva ?? 0);
   const elements = monster.ele?.filter((entry) => entry && entry !== "무속성") ?? [];

@@ -123,6 +123,14 @@ export default function sitemap(): MetadataRoute.Sitemap {
         url: `${baseUrl}/monster/${mobCode}`,
         lastModified: new Date(),
       })),
+    // 플래닛 몬스터 상세(2026-10-15 복구). edge 동적 라우트라 프리렌더 라우트 상한과 무관하다 — 위 주석의
+    // "메랜만 유지" 사유는 정적 생성일 때 얘기다. 얇은 페이지 제외 규칙은 메랜과 같다.
+    ...getReleasedMonsterCodes("planet")
+      .filter((mobCode) => !isThinMonsterPage(mobCode, "planet"))
+      .map((mobCode) => ({
+        url: `${baseUrl}/planet/monster/${mobCode}`,
+        lastModified: new Date(),
+      })),
     // 아이템 상세(2026-10-13). edge 동적 라우트라 프리렌더 라우트 상한과 무관해 플래닛도 넣는다.
     // 드랍 몬스터도 스펙도 없는 아이템은 noindex 와 짝을 맞춰 뺀다(isThinItemPage).
     ...maplelandItemIndex.getIndexableItemIds().map((itemId) => ({
